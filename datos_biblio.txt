@@ -13,3 +13,5 @@
 7. Grupos de usuarios: esta tabla debe contener información sobre los diferentes grupos de usuarios, como su código, nombre y descripción.
 
 8. Hola
+
+9.Adios
