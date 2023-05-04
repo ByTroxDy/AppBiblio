@@ -28,10 +28,14 @@ CREATE TABLE bibliotecas (
 -- Crear la tabla de documentos
 CREATE TABLE documentos (
     id_documento INT NOT NULL AUTO_INCREMENT,
+    isbn INT UNIQUE,
     tipo_documento VARCHAR(20) NOT NULL,
     nombre_documento VARCHAR(200) NOT NULL,
     descripcion VARCHAR(500) NOT NULL,
     autor VARCHAR(200) NOT NULL,
+    editorial_productora VARCHAR(200) NOT NULL,
+    npaginas_duracion INT NOT NULL,
+    formato VARCHAR(10),
     fecha_publicacion DATE NOT NULL,
     id_biblioteca INT NOT NULL,
     PRIMARY KEY (id_documento),
