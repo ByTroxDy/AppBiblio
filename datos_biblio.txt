@@ -1,0 +1,13 @@
+1. Usuarios: esta tabla debe contener información sobre los diferentes tipos de usuarios que se han mencionado en el texto, como administradores, gestores-documentales y socios. Se deben almacenar los datos personales de cada usuario, como su nombre, apellidos, correo electrónico, etc. Además, se debe asignar a cada usuario un grupo de usuarios y un número de padrón municipal.
+
+2. Bibliotecas: esta tabla debe contener información sobre las diferentes bibliotecas municipales existentes en las comarcas de Baix y Alt Maestrat. Se deben almacenar los datos de contacto de cada biblioteca, como su dirección, número de teléfono, correo electrónico, etc.
+
+3. Documentos: esta tabla debe contener información sobre los diferentes tipos de documentos disponibles en las bibliotecas, como libros, revistas, CDs de música, películas y documentales. Para cada documento, se deben almacenar datos como su título, autor(es), editorial/productora, número de páginas/duración, formato, etc. Además, se debe almacenar la categoría a la que pertenece cada documento, como libro-histórico, literatura, música-pop, documentales-viajes, etc.
+
+4. Categorías: esta tabla debe contener información sobre las diferentes categorías de documentos, como su código, nombre y descripción.
+
+5. Préstamos: esta tabla debe contener información sobre los préstamos realizados por los socios, como el socio que ha realizado el préstamo, el documento prestado, la fecha de inicio y fin del préstamo, etc. Además, se deben almacenar las penalizaciones aplicadas a los socios que han devuelto los documentos con retraso.
+
+6. Reservas: esta tabla debe contener información sobre las reservas realizadas por los socios, como el socio que ha realizado la reserva, el documento reservado, la fecha y hora de la reserva, etc.
+
+7. Grupos de usuarios: esta tabla debe contener información sobre los diferentes grupos de usuarios, como su código, nombre y descripción.
