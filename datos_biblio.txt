@@ -11,3 +11,5 @@
 6. Reservas: esta tabla debe contener información sobre las reservas realizadas por los socios, como el socio que ha realizado la reserva, el documento reservado, la fecha y hora de la reserva, etc.
 
 7. Grupos de usuarios: esta tabla debe contener información sobre los diferentes grupos de usuarios, como su código, nombre y descripción.
+
+8. Hola
