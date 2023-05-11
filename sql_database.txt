@@ -27,7 +27,6 @@ CREATE TABLE bibliotecas (
 -- Crear la tabla de documentos
 CREATE TABLE documentos (
     id_documento INT NOT NULL AUTO_INCREMENT,
-    isbn INT UNIQUE,
     tipo_documento VARCHAR(20) NOT NULL,
     nombre_documento VARCHAR(200) NOT NULL,
     descripcion VARCHAR(500) NOT NULL,
@@ -38,7 +37,15 @@ CREATE TABLE documentos (
     fecha_publicacion DATE NOT NULL,
     id_biblioteca INT NOT NULL,
     PRIMARY KEY (id_documento),
-    FOREIGN KEY (id_biblioteca) REFERENCES bibliotecas(id_biblioteca)
+    FOREIGN KEY (id_documento) REFERENCES bibliotecas(id_documento)
+);
+
+-- Crear tabla de replicas
+CREATE TABLE repilicas (
+    id_documento INT NOT NULL AUTO_INCREMENT,
+    numero_repilcas VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id_documento),
+    FOREIGN KEY (id_biblioteca) REFERENCES documentos(id_biblioteca)
 );
 
 -- Crear la tabla de categorías
