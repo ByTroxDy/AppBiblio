@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,8 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
-public class windowApp extends JFrame {
+public class windowUser extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textUsuario;
@@ -25,7 +25,7 @@ public class windowApp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					windowApp frame = new windowApp();
+					windowUser frame = new windowUser();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,23 +37,30 @@ public class windowApp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public windowApp() {
+	public windowUser() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(157, 18, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		this.setTitle("Registrarse");
+		
 		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setBounds(111, 65, 46, 14);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblPasswd = new JLabel("Contraseña");
+		lblPasswd.setForeground(Color.WHITE);
 		lblPasswd.setBounds(111, 90, 68, 14);
 		contentPane.add(lblPasswd);
 		
 		JLabel lblPadron = new JLabel("Padrón Municipal");
+		lblPadron.setForeground(Color.WHITE);
+		lblPadron.setBackground(Color.WHITE);
 		lblPadron.setBounds(111, 115, 106, 14);
 		contentPane.add(lblPadron);
 		
