@@ -15,7 +15,6 @@ public class windowApp extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textUsuario;
-	private JTextField textField_1;
 	private JTextField textPadron;
 	private JPasswordField password;
 
