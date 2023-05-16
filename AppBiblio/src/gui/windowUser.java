@@ -10,6 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.Color;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 
 public class windowUser extends JFrame {
 
@@ -39,7 +41,7 @@ public class windowUser extends JFrame {
 	 */
 	public windowUser() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 459, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(157, 18, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
