@@ -9,8 +9,8 @@ CREATE TABLE grupos (
 CREATE TABLE usuarios (
     id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre_usuario VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,id_grupo
+    `password` VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     rol VARCHAR(20) NOT NULL,
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (rol) REFERENCES grupos(nombre_grupo)
@@ -37,7 +37,7 @@ CREATE TABLE documentos (
     fecha_publicacion DATE NOT NULL,
     id_biblioteca INT NOT NULL,
     PRIMARY KEY (id_documento),
-    FOREIGN KEY (id_documento) REFERENCES bibliotecas(id_documento)
+    FOREIGN KEY (id_biblioteca) REFERENCES bibliotecas(id_biblioteca)
 );
 
 -- Crear tabla de replicas
@@ -45,7 +45,7 @@ CREATE TABLE repilicas (
     id_documento INT NOT NULL AUTO_INCREMENT,
     numero_repilcas VARCHAR(200) NOT NULL,
     PRIMARY KEY (id_documento),
-    FOREIGN KEY (id_biblioteca) REFERENCES documentos(id_biblioteca)
+    FOREIGN KEY (id_documento) REFERENCES documentos(id_biblioteca)
 );
 
 -- Crear la tabla de categorías
