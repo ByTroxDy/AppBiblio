@@ -1,6 +1,8 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +15,13 @@ public class MenuSocio extends JFrame {
 	JButton btnCerrarSesion;
 	
 	public MenuSocio() {
-		setTitle("Biblioteca App - Menu Socio");
+		setTitle("Menu Socio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(6, 2, 10, 10));
+		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		JLabel tituloLabel = new JLabel("Bienvenido a la Biblioteca App");
 		tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -44,7 +48,6 @@ public class MenuSocio extends JFrame {
 			public void actionPerformed(ActionEvent ex) {
 				VentanaEditarPerfil editarPerfil = new VentanaEditarPerfil();
 				editarPerfil.setVisible(true);
-				
 				dispose();
 			}
 		});
@@ -54,7 +57,6 @@ public class MenuSocio extends JFrame {
 			public void actionPerformed(ActionEvent ex) {
 				VentanaBuscarDocumento buscarDoc = new VentanaBuscarDocumento();
 				buscarDoc.setVisible(true);
-				
 				dispose();
 			}
 		});
@@ -63,7 +65,6 @@ public class MenuSocio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
 				// Lógica para reservar un documento y mostrar el resultado
-				// ...
 				JOptionPane.showMessageDialog(MenuSocio.this, "Funcionalidad en desarrollo", "En construcción",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -75,8 +76,7 @@ public class MenuSocio extends JFrame {
 				String nombreUsuario = "admin";
 				VentanaReservarDocumento ventana = new VentanaReservarDocumento(nombreUsuario);
 				ventana.setVisible(true);
-				
-				dispose();	
+				dispose();
 			}
 		});
 
@@ -84,7 +84,6 @@ public class MenuSocio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
 				dispose();
-				
 				BibliotecaApp registro = new BibliotecaApp();
 				registro.setVisible(true);
 			}

@@ -1,9 +1,13 @@
 package gui;
 
+import app.Usuario;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaEditarPerfil extends JFrame {
     private JTextField txtNombre;
@@ -13,11 +17,14 @@ public class VentanaEditarPerfil extends JFrame {
     private JButton btnGuardar;
 
     public VentanaEditarPerfil() {
+    	
         setTitle("Editar perfil");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(4, 2, 10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JLabel lblNombre = new JLabel("Nombre de usuario:");
         txtNombre = new JTextField(20);
@@ -55,8 +62,10 @@ public class VentanaEditarPerfil extends JFrame {
                 String nombre = txtNombre.getText();
                 String password = new String(txtPassword.getPassword());
                 String email = txtEmail.getText();
-                // Aquí puedes agregar la lógica para guardar los cambios en la base de datos
-                JOptionPane.showMessageDialog(null, "Cambios guardados exitosamente");
+
+                Usuario usuario = new Usuario(nombre, password, email);
+
+                JOptionPane.showMessageDialog(null, "Usuario registrado:\n" + usuario.toString());
             }
         });
         

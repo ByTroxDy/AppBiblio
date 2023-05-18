@@ -5,18 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionDB {
-    private static final String URL = "jdbc:mysql//localhost:3306/id20457447_biblioteca";
-    private static final String USERNAME = "id20457447_admin";
-    private static final String PASSWORD = "Password123#@!";
+    private static final String URL = "jdbc:mariadb://localhost:3306/id20457447_biblioteca";
+    private static final String USER = "id20457447_admin";
+    private static final String PASSWORD = "MyPass!123";
+    private static Connection conn;
 
     public static Connection getConnection() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        if (conn == null) {
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
         }
-        return null;
+        return conn;
+    }
+
+    public static void closeConnection() throws SQLException {
+        if (conn != null) {
+            conn.close();
+            conn = null;
+        }
     }
 }
-

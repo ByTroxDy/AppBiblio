@@ -4,6 +4,7 @@ import app.Documento;
 import app.ConexionDB;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class VentanaBuscarDocumento extends JDialog {
-	private JTextField txtTitulo;
-	private JTextField txtTipoDocumento;
+	private JTextField txtTituloDocumento;
+	private JComboBox<String> cmbTipoDocumento;
 	private JButton btnVolver;
 	private JButton btnBuscar;
 
@@ -27,27 +28,29 @@ public class VentanaBuscarDocumento extends JDialog {
 	public VentanaBuscarDocumento() {
 		setTitle("Buscar Documento");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setResizable(false);
 		
 		JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2, 10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		JLabel lblTitulo = new JLabel("Título");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTitulo = new JTextField(20);
-		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTituloDocumento = new JTextField(20);
+		txtTituloDocumento.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo de Documento");
 		lblTipoDocumento.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTipoDocumento = new JTextField(20);
-		txtTipoDocumento.setHorizontalAlignment(SwingConstants.CENTER);
+		String[] tiposDocumento = { "Pelicula", "Musica", "Libro", "Documentales" };
+		cmbTipoDocumento = new JComboBox<>(tiposDocumento);
 		
 		btnVolver = new JButton("Volver");
 		btnBuscar = new JButton("Buscar");
 		
         panel.add(lblTitulo);
-        panel.add(txtTitulo);
+        panel.add(txtTituloDocumento);
         panel.add(lblTipoDocumento);
-        panel.add(txtTipoDocumento);
+        panel.add(cmbTipoDocumento);
         panel.add(btnVolver);
         panel.add(btnBuscar);
 		
@@ -57,14 +60,14 @@ public class VentanaBuscarDocumento extends JDialog {
             public void actionPerformed(ActionEvent ex) {
             	MenuSocio menu = new MenuSocio();
 				menu.setVisible(true);
-            	setVisible(false);
+				dispose();
             }
         });
 
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				titulo = txtTitulo.getText();
-				tipoDocumento = txtTipoDocumento.getText();
+				titulo = txtTituloDocumento.getText();
+				tipoDocumento = (String) cmbTipoDocumento.getSelectedItem();
 				
 				consultarDocumentos(titulo, tipoDocumento);
 				dispose();
@@ -161,5 +164,15 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		return documentos;
 	}
+	
+	public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+        	@Override
+            public void run() {
+        		VentanaBuscarDocumento ventana = new VentanaBuscarDocumento();
+                ventana.setVisible(true);
+            }
+        });
+    }
 	
 }
