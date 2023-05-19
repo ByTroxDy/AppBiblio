@@ -1,7 +1,7 @@
 -- Crear la tabla de grupos
 CREATE TABLE grupos (
     nombre_grupo VARCHAR(20) NOT NULL,
-    descripcion VARCHAR(500) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
     PRIMARY KEY (nombre_grupo)
 );
 
@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
     id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre_usuario VARCHAR(50) NOT NULL,
     `password` VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
     rol VARCHAR(20) NOT NULL,
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (rol) REFERENCES grupos(nombre_grupo)
@@ -19,19 +19,20 @@ CREATE TABLE usuarios (
 -- Crear la tabla de bibliotecas
 CREATE TABLE bibliotecas (
     id_biblioteca INT NOT NULL AUTO_INCREMENT,
-    nombre_biblioteca VARCHAR(100) NOT NULL,
-    direccion VARCHAR(200) NOT NULL,
+    nombre_biblioteca VARCHAR(50) NOT NULL,
+    direccion VARCHAR(100),
     PRIMARY KEY (id_biblioteca)
 );
 
 -- Crear la tabla de documentos
 CREATE TABLE documentos (
     id_documento INT NOT NULL AUTO_INCREMENT,
+    isbn INT NOT NULL,
     tipo_documento VARCHAR(20) NOT NULL,
-    nombre_documento VARCHAR(200) NOT NULL,
-    descripcion VARCHAR(500) NOT NULL,
-    autor VARCHAR(200) NOT NULL,
-    editorial_productora VARCHAR(200) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200),
+    autor VARCHAR(50) NOT NULL,
+    editorial_productora VARCHAR(50),
     npaginas_duracion INT NOT NULL,
     formato VARCHAR(10),
     fecha_publicacion DATE NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE documentos (
 -- Crear tabla de replicas
 CREATE TABLE repilicas (
     id_documento INT NOT NULL AUTO_INCREMENT,
-    numero_repilcas VARCHAR(200) NOT NULL,
+    numero_repilcas INT NOT NULL,
     PRIMARY KEY (id_documento),
     FOREIGN KEY (id_documento) REFERENCES documentos(id_biblioteca)
 );
@@ -51,8 +52,8 @@ CREATE TABLE repilicas (
 -- Crear la tabla de categorías
 CREATE TABLE categorias (
     id_categoria INT NOT NULL AUTO_INCREMENT,
-    nombre_categoria VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(500) NOT NULL,
+    nombre_categoria VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200),
     PRIMARY KEY (id_categoria)
 );
 
@@ -72,7 +73,7 @@ CREATE TABLE prestamos (
     id_documento INT NOT NULL,
     fecha_prestamo DATE NOT NULL,
     fecha_devolucion DATE NOT NULL,
-    dias_retardo INT NOT NULL,
+    dias_retardo INT,
     PRIMARY KEY (id_prestamo),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
     FOREIGN KEY (id_documento) REFERENCES documentos(id_documento)
@@ -93,7 +94,7 @@ CREATE TABLE reservas (
 -- Crear la tabla de autores
 CREATE TABLE autores (
     id_autor INT NOT NULL AUTO_INCREMENT,
-    nombre_autor VARCHAR(200) NOT NULL,
+    nombre_autor VARCHAR(50) NOT NULL,
     PRIMARY KEY (id_autor)
 );
 
