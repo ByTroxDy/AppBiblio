@@ -8,11 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuSocio extends JFrame {
-	JButton btnEditarPerfil;
-	JButton btnConsultarDocumentos;
-	JButton btnReservarDocumento;
-	JButton btnPedirPrestamo;
-	JButton btnCerrarSesion;
+	private static final long serialVersionUID = 1L;
+	private JButton btnEditarPerfil;
+	private JButton btnConsultarDocumentos;
+	private JButton btnConsultarReservas;
+	private JButton btnCerrarSesion;
 	
 	public MenuSocio() {
 		setTitle("Menu Socio");
@@ -20,24 +20,22 @@ public class MenuSocio extends JFrame {
         setResizable(false);
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridLayout(6, 2, 10, 10));
+		mainPanel.setLayout(new GridLayout(5, 2, 10, 10));
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JLabel tituloLabel = new JLabel("Bienvenido a la Biblioteca App");
-		tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
-		tituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblTitulo = new JLabel("Bienvenido a la Biblioteca App");
+		lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
 		btnEditarPerfil = new JButton("Editar Perfil");
 		btnConsultarDocumentos = new JButton("Consultar Documentos");
-		btnPedirPrestamo = new JButton("Pedir Prestamo");
-		btnReservarDocumento = new JButton("Reservar Documento");
+		btnConsultarReservas = new JButton("Consultar Mis Reservas");
 		btnCerrarSesion = new JButton("Cerrar Sesión");
 
-		mainPanel.add(tituloLabel);
+		mainPanel.add(lblTitulo);
 		mainPanel.add(btnEditarPerfil);
 		mainPanel.add(btnConsultarDocumentos);
-		mainPanel.add(btnPedirPrestamo);
-		mainPanel.add(btnReservarDocumento);
+		mainPanel.add(btnConsultarReservas);
 		mainPanel.add(btnCerrarSesion);
 
 		getContentPane().add(mainPanel);
@@ -61,7 +59,7 @@ public class MenuSocio extends JFrame {
 			}
 		});
 		
-		btnPedirPrestamo.addActionListener(new ActionListener() {
+		btnConsultarReservas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
 				// Lógica para reservar un documento y mostrar el resultado
@@ -70,22 +68,12 @@ public class MenuSocio extends JFrame {
 			}
 		});
 
-		btnReservarDocumento.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ex) {
-				String nombreUsuario = "admin";
-				VentanaReservarDocumento ventana = new VentanaReservarDocumento(nombreUsuario);
-				ventana.setVisible(true);
-				dispose();
-			}
-		});
-
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
 				dispose();
-				BibliotecaApp registro = new BibliotecaApp();
-				registro.setVisible(true);
+				VentanaInicioSesion app = new VentanaInicioSesion();
+				app.setVisible(true);
 			}
 		});
 

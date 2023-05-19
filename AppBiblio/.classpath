@@ -7,8 +7,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Miguel/Downloads/mysql-connector-j-8.0.33.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Miguel/Downloads/mariadb-java-client-3.1.4.jar"/>
-	<classpathentry kind="lib" path="/home/migrio01/Baixades/mariadb-java-client-3.1.4.jar"/>
-	<classpathentry kind="lib" path="/home/migrio01/Baixades/mysql-connector-j-8.0.33.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

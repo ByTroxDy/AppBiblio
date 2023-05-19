@@ -3,24 +3,24 @@ package app;
 import java.time.LocalDate;
 
 public class Reserva {
-	private String usuario;
+	private int idDocumento;
 	private String tituloDocumento;
 	private String tipoDocumento;
 	private LocalDate fechaReserva;
 
-	public Reserva(String usuario, String tituloDocumento, String tipoDocumento, LocalDate fechaReserva) {
-		this.usuario = usuario;
+	public Reserva(int idDocumento, String tituloDocumento, String tipoDocumento, LocalDate fechaReserva) {
+		this.idDocumento = idDocumento;
 		this.tituloDocumento = tituloDocumento;
 		this.tipoDocumento = tipoDocumento;
 		this.fechaReserva = fechaReserva;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public int getIdDocumento() {
+		return idDocumento;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setIdDocumento(int idDocumento) {
+		this.idDocumento = idDocumento;
 	}
 
 	public String getTituloDocumento() {

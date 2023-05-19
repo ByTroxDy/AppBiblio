@@ -27,7 +27,12 @@ public class Documento {
 		this.fechaPublicacion = fechaPublicacion;
 	}
 	
-
+	public Documento(int id2, String nombre2, String autor2, Date fechaPublicacion2) {
+		this.id = id2;
+		this.nombre = nombre2;
+		this.autor = autor2;
+		this.fechaPublicacion = fechaPublicacion2;
+	}
 
 
 	public int getId() {

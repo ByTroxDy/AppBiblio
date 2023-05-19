@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionDB {
-    private static final String URL = "jdbc:mariadb://localhost:3306/id20457447_biblioteca";
-    private static final String USER = "id20457447_admin";
+    private static final String URL = "jdbc:mysql://sql7.freemysqlhosting.net/sql7619315";
+    private static final String USER = "sql7619315";
     private static final String PASSWORD = "MyPass!123";
     private static Connection conn;
 
