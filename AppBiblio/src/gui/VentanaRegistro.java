@@ -78,6 +78,10 @@ public class VentanaRegistro extends JFrame {
                 usuarios.add(nuevoUsuario);
                 
                 guardarRegistro(nombre, password);
+                
+				// Limpiar los campos de texto después de intentar iniciar sesión
+				txtUsuario.setText("");
+				txtPassword.setText("");
             }
         });
 
@@ -89,7 +93,7 @@ public class VentanaRegistro extends JFrame {
 	    try (Connection conn = ConexionDB.getConnection()) {
 	    	
 	    	// Verificar si el nombre de usuario ya existe
-	        String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ?";
+	        String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
 	        PreparedStatement statementVerificacion = conn.prepareStatement(queryVerificacion);
 	        statementVerificacion.setString(1, usuario);
 	        ResultSet resultSet = statementVerificacion.executeQuery();
@@ -102,7 +106,7 @@ public class VentanaRegistro extends JFrame {
 	        } else {
 		        statementVerificacion.close();
 		        
-		        String query = "INSERT INTO usuarios (nombre_usuario, password, rol) VALUES (?, ?, ?)";
+		        String query = "INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)";
 		        PreparedStatement statement = conn.prepareStatement(query);
 		        statement.setString(1, usuario);
 		        statement.setString(2, password);

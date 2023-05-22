@@ -71,7 +71,7 @@ public class VentanaCambiarNombreUsuario extends JFrame {
                     return;
                 }
 
-                // Verificar si el nuevo nombre de usuario ya está en uso
+                // Verificar si el nuevo usuario ya está en uso
                 if (nombreUsuarioEnUso(nuevoUsuario)) {
                     JOptionPane.showMessageDialog(VentanaCambiarNombreUsuario.this,
                             "El nuevo nombre de usuario ya está en uso. Por favor, elija otro.", "Error",
@@ -79,7 +79,7 @@ public class VentanaCambiarNombreUsuario extends JFrame {
                     return;
                 }
 
-                // Actualizar el nombre de usuario en la base de datos
+                // Actualizar el usuario en la base de datos
                 actualizarNombreUsuario(usuarioActual, nuevoUsuario);
 
                 JOptionPane.showMessageDialog(VentanaCambiarNombreUsuario.this,
@@ -97,9 +97,9 @@ public class VentanaCambiarNombreUsuario extends JFrame {
     public boolean validarCuenta(String usuarioActual, String contrasena) {
     	try (Connection conn = ConexionDB.getConnection()) {
 
-            String sql = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ? AND password = ?";
+            String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND password = ?";
             
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, usuarioActual);
             statement.setString(2, contrasena);
 
@@ -126,10 +126,10 @@ public class VentanaCambiarNombreUsuario extends JFrame {
     private boolean nombreUsuarioEnUso(String nuevoUsuario) {
     	try (Connection conn = ConexionDB.getConnection()) {
 
-            // Crear la consulta SQL para verificar el nuevo nombre de usuario
-            String sql = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ?";
+            // Crear la consulta SQL para verificar el nuevo usuario
+            String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
             
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, nuevoUsuario);
 
             // Ejecutar la consulta y obtener el resultado
@@ -155,10 +155,10 @@ public class VentanaCambiarNombreUsuario extends JFrame {
     private void actualizarNombreUsuario(String usuarioActual, String nuevoUsuario) {
     	try (Connection conn = ConexionDB.getConnection()) {
 
-            // Crear la consulta SQL para actualizar el nombre de usuario
-            String sql = "UPDATE usuarios SET nombre_usuario = ? WHERE nombre_usuario = ?";
+            // Crear la consulta SQL para actualizar el usuario
+            String query = "UPDATE usuarios SET usuario = ? WHERE usuario = ?";
             
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, nuevoUsuario);
             statement.setString(2, usuarioActual);
 

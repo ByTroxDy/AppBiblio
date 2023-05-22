@@ -1,18 +1,18 @@
 package app;
 
 public class Usuario {
-	private String nombre;
+	private String usuario;
 	private String password;
 	private String email;
 
-	public Usuario(String nombre, String password, String email) {
-		this.nombre = nombre;
+	public Usuario(String usuario, String password, String email) {
+		this.usuario = usuario;
 		this.password = password;
 		this.email = email;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getUsuario() {
+		return usuario;
 	}
 
 	public String getPassword() {
@@ -25,7 +25,6 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario{" + "nombre='" + nombre + '\'' + ", password='" + password + '\'' + ", email='" + email + '\''
-				+ '}';
+		return "Usuario: " + usuario + "\n" + "Password: " + password + "\n" + "Email: " + email + "\n";
 	}
 }

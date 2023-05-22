@@ -21,6 +21,12 @@ public class VentanaInicioSesion extends JFrame {
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JButton btnRegistro;
+    
+    private static String usuario;
+
+    public static String getNombreUsuario() {
+        return usuario;
+    }
 
 	public VentanaInicioSesion() {
 		super("Biblioteca App - Iniciar sesión");
@@ -95,7 +101,7 @@ public class VentanaInicioSesion extends JFrame {
 	public void iniciarSesion(String usuario, String password) {
 	    try (Connection conn = ConexionDB.getConnection()) {
 
-	        String query = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ? AND password = ?";
+	        String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND password = ?";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
 	        statement.setString(1, usuario);
@@ -104,6 +110,7 @@ public class VentanaInicioSesion extends JFrame {
 	        resultSet.next();
 	        int count = resultSet.getInt(1);
 	        if (count > 0) {
+	        	VentanaInicioSesion.usuario = usuario;
 	            MenuSocio menu = new MenuSocio();
 	            menu.setVisible(true);
 	            dispose();

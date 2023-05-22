@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class VentanaBuscarDocumento extends JDialog {
@@ -25,6 +26,7 @@ public class VentanaBuscarDocumento extends JDialog {
 
 	private String titulo;
 	private String tipoDocumento;
+	private boolean disponible;
 
 	public VentanaBuscarDocumento() {
 		setTitle("Buscar Documento");
@@ -109,17 +111,34 @@ public class VentanaBuscarDocumento extends JDialog {
 			JFrame ventanaResultados = new JFrame("Resultados de la consulta");
 
 			// Crear un modelo de tabla para los documentos
-			DefaultTableModel modeloTabla = new DefaultTableModel();
-			modeloTabla.addColumn("ID");
+			DefaultTableModel modeloTabla = new DefaultTableModel() {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+	            public boolean isCellEditable(int row, int column) {
+	                return false; // Desactivar la edición de todas las celdas
+	            }
+	        };
+			
+			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Titulo");
-			modeloTabla.addColumn("Autor");
+			modeloTabla.addColumn("Tipo");
+			modeloTabla.addColumn("Estado");
 
 			// Llenar el modelo de tabla con los datos de los documentos
 			for (Documento documento : documentos) {
-				Object[] fila = new Object[3];
-				fila[0] = documento.getId();
-				fila[1] = documento.getNombre();
-				fila[2] = documento.getAutor();
+				Object[] fila = new Object[4];
+				fila[0] = documento.getISBN();
+				fila[1] = documento.getTitulo();
+				fila[2] = documento.getTipo();
+				fila[3] = documento.getReplicas();
+				
+				if (documento.getReplicas() == 0) {
+	                fila[3] = "No disponible";
+	                disponible = false;
+	            } else {
+	            	fila[3] = "Disponible";
+	            }
 
 				modeloTabla.addRow(fila);
 			}
@@ -128,14 +147,14 @@ public class VentanaBuscarDocumento extends JDialog {
 			JScrollPane scrollPane = new JScrollPane(tablaDocumentos);
 
 			JButton btnVolverBuscar = new JButton("Volver a Buscar");
-			JButton btnPedirPrestamo = new JButton("Pedir Préstamo");
+			JButton btnPedir = new JButton("Pedir");
 			JButton btnReservar = new JButton("Reservar Documento");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
 			panelBotones.setLayout(new FlowLayout());
 			panelBotones.add(btnVolverBuscar);
-			panelBotones.add(btnPedirPrestamo);
+			panelBotones.add(btnPedir);
 			panelBotones.add(btnReservar);
 
 			// Configurar el panel principal
@@ -157,42 +176,37 @@ public class VentanaBuscarDocumento extends JDialog {
 					ventanaBuscarDocumento.setVisible(true);
 				}
 			});
-
-			btnPedirPrestamo.addActionListener(new ActionListener() {
+			
+			btnPedir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
-//					int filaSeleccionada = tablaDocumentos.getSelectedRow();
-//					if (filaSeleccionada == -1) {
-//						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
-//								"Error", JOptionPane.ERROR_MESSAGE);
-//					} else {
-//						int idDocumento = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-//						// Lógica para pedir préstamo del documento con el ID seleccionado
-//						pedirPrestamoDocumento(idDocumento);
-//						ventanaResultados.dispose();
-//					}
-					
-					// Lógica para reservar un documento y mostrar el resultado
-					JOptionPane.showMessageDialog(VentanaBuscarDocumento.this, "Funcionalidad en desarrollo", "En construcción",
-							JOptionPane.INFORMATION_MESSAGE);
+					int filaSeleccionada = tablaDocumentos.getSelectedRow();
+					if (filaSeleccionada == -1) {
+						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					} else if (!disponible) {
+							JOptionPane.showMessageDialog(ventanaResultados, "Este documento no esta disponible",
+									"Aviso", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
+						// Lógica para pedir préstamo del documento con el ISBN seleccionado
+						reservarDocumento(isbn);
+						ventanaResultados.dispose();
+					}
 				}
 			});
 
 			btnReservar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
-//					int filaSeleccionada = tablaDocumentos.getSelectedRow();
-//					if (filaSeleccionada == -1) {
-//						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
-//								"Error", JOptionPane.ERROR_MESSAGE);
-//					} else {
-//						int idDocumento = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-//						// Lógica para reservar el documento con el ID seleccionado
-//						reservarDocumento(idDocumento);
-//						ventanaResultados.dispose();
-//					}
-					
-					// Lógica para reservar un documento y mostrar el resultado
-					JOptionPane.showMessageDialog(VentanaBuscarDocumento.this, "Funcionalidad en desarrollo", "En construcción",
-							JOptionPane.INFORMATION_MESSAGE);
+					int filaSeleccionada = tablaDocumentos.getSelectedRow();
+					if (filaSeleccionada == -1) {
+						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
+						// Lógica para pedir préstamo del documento con el ISBN seleccionado
+						reservarDocumento(isbn);
+						ventanaResultados.dispose();
+					}
 				}
 			});
 		}
@@ -203,7 +217,7 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		try (Connection conn = ConexionDB.getConnection()) {
 
-			String query = "SELECT * FROM documentos WHERE nombre_documento LIKE ?";
+			String query = "SELECT * FROM documentos WHERE titulo LIKE ?";
 
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setString(1, "%" + titulo + "%");
@@ -211,12 +225,12 @@ public class VentanaBuscarDocumento extends JDialog {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int id = resultSet.getInt("id_documento");
-				String nombre = resultSet.getString("nombre_documento");
-				String autor = resultSet.getString("autor");
-				Date fechaPublicacion = resultSet.getDate("fecha_publicacion");
+				int isbn = resultSet.getInt("isbn");
+				String nombre = resultSet.getString("titulo");
+				String type = resultSet.getString("tipo");
+				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(id, nombre, autor, fechaPublicacion);
+				Documento documento = new Documento(isbn, nombre, type, replicas);
 				documentos.add(documento);
 			}
 
@@ -241,7 +255,7 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		try (Connection conn = ConexionDB.getConnection()) {
 
-			String query = "SELECT * FROM documentos WHERE tipo_documento = ?";
+			String query = "SELECT * FROM documentos WHERE tipo = ?";
 
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setString(1, tipo);
@@ -249,12 +263,12 @@ public class VentanaBuscarDocumento extends JDialog {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int id = resultSet.getInt("id_documento");
-				String nombre = resultSet.getString("nombre_documento");
-				String autor = resultSet.getString("autor");
-				Date fechaPublicacion = resultSet.getDate("fecha_publicacion");
+				int isbn = resultSet.getInt("isbn");
+				String nombre = resultSet.getString("titulo");
+				String type = resultSet.getString("tipo");
+				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(id, nombre, autor, fechaPublicacion);
+				Documento documento = new Documento(isbn, nombre, type, replicas);
 				documentos.add(documento);
 			}
 
@@ -279,7 +293,7 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		try (Connection conn = ConexionDB.getConnection()) {
 
-			String query = "SELECT * FROM documentos WHERE nombre_documento LIKE ? AND tipo_documento = ?";
+			String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND tipo = ?";
 
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setString(1, "%" + titulo + "%");
@@ -288,12 +302,12 @@ public class VentanaBuscarDocumento extends JDialog {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int id = resultSet.getInt("id_documento");
-				String nombre = resultSet.getString("nombre_documento");
-				String autor = resultSet.getString("autor");
-				Date fechaPublicacion = resultSet.getDate("fecha_publicacion");
+				int isbn = resultSet.getInt("isbn");
+				String nombre = resultSet.getString("titulo");
+				String type = resultSet.getString("tipo");
+				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(id, nombre, autor, fechaPublicacion);
+				Documento documento = new Documento(isbn, nombre, type, replicas);
 				documentos.add(documento);
 			}
 
@@ -325,12 +339,12 @@ public class VentanaBuscarDocumento extends JDialog {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int id = resultSet.getInt("id_documento");
-				String nombre = resultSet.getString("nombre_documento");
-				String autor = resultSet.getString("autor");
-				Date fechaPublicacion = resultSet.getDate("fecha_publicacion");
+				int isbn = resultSet.getInt("isbn");
+				String nombre = resultSet.getString("titulo");
+				String type = resultSet.getString("tipo");
+				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(id, nombre, autor, fechaPublicacion);
+				Documento documento = new Documento(isbn, nombre, type, replicas);
 				documentos.add(documento);
 			}
 
@@ -350,20 +364,116 @@ public class VentanaBuscarDocumento extends JDialog {
 		return documentos;
 	}
 
-	public void pedirPrestamoDocumento(int idDocumento) {
-		// Lógica para pedir préstamo del documento con el ID proporcionado
-		// Aquí puedes agregar tu código para guardar la información del préstamo en la
-		// base de datos
-		JOptionPane.showMessageDialog(null, "Préstamo solicitado para el documento con ID: " + idDocumento, "Préstamo",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
+	public void reservarDocumento(int isbn) {
+		
+		String usuario = VentanaInicioSesion.getNombreUsuario();
+		
+	    // Verificar límite de préstamos del usuario
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String countQuery = "SELECT COUNT(*) FROM prestamos WHERE usuario = ?";
+	        
+	        PreparedStatement countStatement = conn.prepareStatement(countQuery);
+	        countStatement.setString(1, usuario);
+	        ResultSet countResult = countStatement.executeQuery();
+	        countResult.next();
+	        int cantidadPrestamos = countResult.getInt(1);
+	        countResult.close();
+	        countStatement.close();
 
-	public void reservarDocumento(int idDocumento) {
-		// Lógica para reservar el documento con el ID proporcionado
-		// Aquí puedes agregar tu código para guardar la información de la reserva en la
-		// base de datos
-		JOptionPane.showMessageDialog(null, "Reserva realizada para el documento con ID: " + idDocumento, "Reserva",
-				JOptionPane.INFORMATION_MESSAGE);
+	        if (cantidadPrestamos >= 5) {
+	            System.out.println("Has alcanzado el límite de préstamos permitidos.");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Verificar si el usuario ya tiene prestado el documento seleccionado
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String checkQuery = "SELECT COUNT(*) FROM prestamos WHERE usuario = ? AND isbn = ?";
+	        
+	        PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
+	        checkStatement.setString(1, usuario);
+	        checkStatement.setInt(2, isbn);
+	        ResultSet checkResult = checkStatement.executeQuery();
+	        checkResult.next();
+	        int cantidadPrestamosDocumento = checkResult.getInt(1);
+	        checkResult.close();
+	        checkStatement.close();
+
+	        if (cantidadPrestamosDocumento > 0) {
+	            System.out.println("Ya has pedido prestado este documento.");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Calcular fecha de devolución (15 días desde la fecha actual)
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.add(Calendar.DATE, 15);
+	    Date fechaDevolucion = calendar.getTime();
+
+	    // Insertar nuevo préstamo en la tabla 'prestamos'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String query = "INSERT INTO prestamos (usuario, isbn, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setString(1, usuario);
+	        statement.setInt(2, isbn);
+	        statement.setDate(3, new java.sql.Date(new Date().getTime())); // Fecha actual
+	        statement.setDate(4, new java.sql.Date(fechaDevolucion.getTime())); // Fecha de devolución calculada
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Actualizar la tabla 'replicas'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String updateQuery = "UPDATE documentos SET replicas = replicas - 1 WHERE isbn = ?";
+	        
+	        PreparedStatement updateStatement = conn.prepareStatement(updateQuery);
+	        updateStatement.setInt(1, isbn);
+	        updateStatement.executeUpdate();
+	        updateStatement.close();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    System.out.println("Préstamo realizado con éxito.");
 	}
 
 	public static void main(String[] args) {
@@ -375,4 +485,3 @@ public class VentanaBuscarDocumento extends JDialog {
 		});
 	}
 }
-

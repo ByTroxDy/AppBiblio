@@ -87,9 +87,9 @@ public class VentanaCambiarEmail extends JFrame {
 
         try (Connection conn = ConexionDB.getConnection()) {
 
-            String sql = "UPDATE usuarios SET email = ? WHERE nombre_usuario = ?";
+            String query = "UPDATE usuarios SET email = ? WHERE usuario = ?";
             
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, email);
             statement.setString(2, usuario);
 

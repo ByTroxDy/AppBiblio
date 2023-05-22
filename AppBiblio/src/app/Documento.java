@@ -3,44 +3,44 @@ package app;
 import java.util.Date;
 
 public class Documento {
-	private int id;
+	private int isbn;
 	private String tipo;
-	private String nombre;
+	private String titulo;
 	private String descripcion;
-	private String autor;
 	private String editorialProductora;
 	private int numPaginasDuracion;
 	private String formato;
 	private Date fechaPublicacion;
+	private int replicas;
 
-	public Documento(int id, String tipo, String nombre, String descripcion, String autor, String editorialProductora,
-			int numPaginasDuracion, String formato, Date fechaPublicacion) {
+	public Documento(int isbn, String tipo, String titulo, String descripcion, String editorialProductora,
+			int numPaginasDuracion, String formato, Date fechaPublicacion, int replicas) {
 		super();
-		this.id = id;
+		this.isbn = isbn;
 		this.tipo = tipo;
-		this.nombre = nombre;
+		this.titulo = titulo;
 		this.descripcion = descripcion;
-		this.autor = autor;
 		this.editorialProductora = editorialProductora;
 		this.numPaginasDuracion = numPaginasDuracion;
 		this.formato = formato;
 		this.fechaPublicacion = fechaPublicacion;
+		this.replicas = replicas;
 	}
 	
-	public Documento(int id2, String nombre2, String autor2, Date fechaPublicacion2) {
-		this.id = id2;
-		this.nombre = nombre2;
-		this.autor = autor2;
-		this.fechaPublicacion = fechaPublicacion2;
+	public Documento(int isbn2, String titulo2, String tipo2, int replicas2) {
+		this.isbn = isbn2;
+		this.titulo = titulo2;
+		this.tipo = tipo2;
+		this.replicas = replicas2;
 	}
 
 
-	public int getId() {
-		return id;
+	public int getISBN() {
+		return isbn;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setISBN(int isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getTipo() {
@@ -51,12 +51,12 @@ public class Documento {
 		this.tipo = tipo;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getTitulo() {
+		return titulo;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescripcion() {
@@ -65,14 +65,6 @@ public class Documento {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
 	}
 
 	public String getEditorialProductora() {
@@ -106,12 +98,20 @@ public class Documento {
 	public void setFechaPublicacion(Date fechaPublicacion) {
 		this.fechaPublicacion = fechaPublicacion;
 	}
+	
+	public int getReplicas() {
+		return replicas;
+	}
+	
+	public void setReplicas(int replicas) {
+		this.replicas = replicas;
+	}
 
 	@Override
 	public String toString() {
-		return "ID: " + id + "\n" + "Tipo: " + tipo + "\n" + "Nombre: " + nombre + "\n" + "Descripcion: " + descripcion
-				+ "\n" + "Autor: " + autor + "\n" + "Editorial/Productora: " + editorialProductora + "\n"
+		return "ISBN: " + isbn + "\n" + "Tipo: " + tipo + "\n" + "Titulo: " + titulo + "\n" + "Descripcion: " + descripcion
+				+ "\n" + "Editorial/Productora: " + editorialProductora + "\n"
 				+ "Num. Paginas/Duracion: " + numPaginasDuracion + "\n" + "Formato: " + formato + "\n"
-				+ "Fecha de publicacion: " + fechaPublicacion + "\n";
+				+ "Fecha de publicacion: " + fechaPublicacion + "\n" + "Replicas: " + replicas + "\n";
 	}
 }

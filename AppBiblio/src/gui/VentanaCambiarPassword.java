@@ -87,9 +87,9 @@ public class VentanaCambiarPassword extends JFrame {
 
         try (Connection conn = ConexionDB.getConnection()) {
 
-            String sql = "UPDATE usuarios SET password = ? WHERE nombre_usuario = ?";
+            String query = "UPDATE usuarios SET password = ? WHERE usuario = ?";
             
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, nuevaContrasena);
             statement.setString(2, usuario);
 
