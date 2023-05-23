@@ -2,14 +2,11 @@ package gui;
 
 import javax.swing.*;
 
-import app.ConexionDB;
+import db.UsuarioDB;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class VentanaCambiarEmail extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -64,50 +61,15 @@ public class VentanaCambiarEmail extends JFrame {
                 String usuario = txtUsuario.getText();
                 String contrasena = new String(txtContrasena.getPassword());
                 String email = txtEmail.getText();
-
-                cambiarEmail(usuario, contrasena, email);
+                
+                UsuarioDB usuDB = new UsuarioDB();
+                usuDB.cambiarEmail(usuario, contrasena, email);
             }
         });
 
         pack();
         setLocationRelativeTo(null);
     }
-
-    private void cambiarEmail(String usuario, String contrasena, String email) {
-    	
-    	VentanaCambiarNombreUsuario ventana = new VentanaCambiarNombreUsuario();
-    	
-        // Validar la cuenta para verificar si el usuario y la contraseña coinciden
-        boolean cuentaValida = ventana.validarCuenta(usuario, contrasena);
-
-        if (!cuentaValida) {
-            JOptionPane.showMessageDialog(this, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try (Connection conn = ConexionDB.getConnection()) {
-
-            String query = "UPDATE usuarios SET email = ? WHERE usuario = ?";
-            
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, email);
-            statement.setString(2, usuario);
-
-            // Ejecutar la consulta
-            statement.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Email actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-    }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

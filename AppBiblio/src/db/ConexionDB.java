@@ -1,12 +1,11 @@
-package app;
+package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class ConexionDB {
-    private static final String URL = "jdbc:mysql://10.2.18.166:3306/app_biblioteca";
+    private static final String URL = "jdbc:mysql://db4free.net/app_biblioteca";
     private static final String USER = "biblio_admin";
     private static final String PASSWORD = "MyPass!123";
     private static Connection conn;

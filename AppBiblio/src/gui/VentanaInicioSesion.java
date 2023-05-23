@@ -1,6 +1,6 @@
 package gui;
 
-import app.ConexionDB;
+import db.UsuarioDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,10 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class VentanaInicioSesion extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -22,9 +18,9 @@ public class VentanaInicioSesion extends JFrame {
     private JButton btnLogin;
     private JButton btnRegistro;
     
-    private static String usuario;
+    public String usuario;
 
-    public static String getNombreUsuario() {
+    public String getNombreUsuario() {
         return usuario;
     }
 
@@ -78,7 +74,8 @@ public class VentanaInicioSesion extends JFrame {
 				String usuario = txtUsuario.getText();
 				String password = new String(txtPassword.getPassword());
 				
-				iniciarSesion(usuario, password);
+				UsuarioDB usuDB = new UsuarioDB();
+				usuDB.iniciarSesion(usuario, password);
 
 				// Limpiar los campos de texto después de intentar iniciar sesión
 				txtUsuario.setText("");
@@ -96,41 +93,6 @@ public class VentanaInicioSesion extends JFrame {
 
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-	}
-
-	public void iniciarSesion(String usuario, String password) {
-	    try (Connection conn = ConexionDB.getConnection()) {
-
-	        String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND password = ?";
-	        
-	        PreparedStatement statement = conn.prepareStatement(query);
-	        statement.setString(1, usuario);
-	        statement.setString(2, password);
-	        ResultSet resultSet = statement.executeQuery();
-	        resultSet.next();
-	        int count = resultSet.getInt(1);
-	        if (count > 0) {
-	        	VentanaInicioSesion.usuario = usuario;
-	            MenuSocio menu = new MenuSocio();
-	            menu.setVisible(true);
-	            dispose();
-	        } else {
-	            // El usuario y la contraseña no coinciden, mostrar mensaje de error
-	            JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Usuario o contraseña incorrectos", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
-	        }
-
-	        statement.close();
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(VentanaInicioSesion.this, "Error al iniciar sesión", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
-	    } finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
 	}
 
 	public void mostrarVentanaPrincipal() {

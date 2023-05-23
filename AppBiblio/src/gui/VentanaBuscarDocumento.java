@@ -1,7 +1,7 @@
 package gui;
 
 import app.Documento;
-import app.ConexionDB;
+import db.DocumentoDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,23 +9,17 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class VentanaBuscarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtTituloDocumento;
-	private JComboBox<String> cmbTipoDocumento;
+	private JTextField txtTitulo;
+	private JTextField txtAutor;
 	private JButton btnVolver;
 	private JButton btnBuscar;
 
 	private String titulo;
-	private String tipoDocumento;
+	private String autor;
 	private boolean disponible;
 
 	public VentanaBuscarDocumento() {
@@ -39,21 +33,26 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		JLabel lblTitulo = new JLabel("Título");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTituloDocumento = new JTextField(20);
-		txtTituloDocumento.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTitulo = new JTextField(20);
+		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblAutor = new JLabel("Autor");
+		lblAutor.setHorizontalAlignment(SwingConstants.CENTER);
+		txtAutor = new JTextField(20);
+		txtAutor.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel lblTipoDocumento = new JLabel("Tipo de Documento");
-		lblTipoDocumento.setHorizontalAlignment(SwingConstants.CENTER);
-		String[] tiposDocumento = { "Todos", "Pelicula", "Musica", "Libro", "Documentales" };
-		cmbTipoDocumento = new JComboBox<>(tiposDocumento);
+//		JLabel lblTipoDocumento = new JLabel("Tipo de Documento");
+//		lblTipoDocumento.setHorizontalAlignment(SwingConstants.CENTER);
+//		String[] tiposDocumento = { "Todos", "Pelicula", "Musica", "Libro", "Documentales" };
+//		cmbTipoDocumento = new JComboBox<>(tiposDocumento);
 
 		btnVolver = new JButton("Volver");
 		btnBuscar = new JButton("Buscar");
 
 		panel.add(lblTitulo);
-		panel.add(txtTituloDocumento);
-		panel.add(lblTipoDocumento);
-		panel.add(cmbTipoDocumento);
+		panel.add(txtTitulo);
+		panel.add(lblAutor);
+		panel.add(txtAutor);
 		panel.add(btnVolver);
 		panel.add(btnBuscar);
 
@@ -69,10 +68,10 @@ public class VentanaBuscarDocumento extends JDialog {
 
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				titulo = txtTituloDocumento.getText();
-				tipoDocumento = (String) cmbTipoDocumento.getSelectedItem();
+				titulo = txtTitulo.getText();
+				autor = txtAutor.getText();
 
-				consultarDocumentos(titulo, tipoDocumento);
+				consultarDocumentos(titulo, autor);
 				dispose();
 			}
 		});
@@ -85,21 +84,22 @@ public class VentanaBuscarDocumento extends JDialog {
 		return titulo;
 	}
 
-	public String getTipoDocumento() {
-		return tipoDocumento;
+	public String getAutor() {
+		return autor;
 	}
 
-	public void consultarDocumentos(String titulo, String tipo) {
+	public void consultarDocumentos(String titulo, String autor) {
 		ArrayList<Documento> documentos;
+		DocumentoDB docDB = new DocumentoDB();
 
-		if (!titulo.isEmpty() && tipo.equals("Todos")) {
-			documentos = consultarDocumentosPorNombre(titulo);
-		} else if (titulo.isEmpty() && !tipo.equals("Todos")) {
-			documentos = consultarDocumentosPorTipo(tipo);
-		} else if (!titulo.isEmpty() && !tipo.equals("Todos")) {
-			documentos = consultarDocumentosPorNombreYTipo(titulo, tipo);
+		if (!titulo.isEmpty() && autor.isEmpty()) {
+			documentos = docDB.consultarDocumentosPorNombre(titulo);
+		} else if (titulo.isEmpty() && !autor.isEmpty()) {
+			documentos = docDB.consultarDocumentosPorAutor(autor);
+		} else if (!titulo.isEmpty() && !autor.isEmpty()) {
+			documentos = docDB.consultarDocumentosPorNombreYAutor(titulo, autor);
 		} else {
-			documentos = consultarTodosDocumentos();
+			documentos = docDB.consultarTodosDocumentos();
 		}
 
 		if (documentos.isEmpty()) {
@@ -122,7 +122,7 @@ public class VentanaBuscarDocumento extends JDialog {
 			
 			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Titulo");
-			modeloTabla.addColumn("Tipo");
+			modeloTabla.addColumn("Autor");
 			modeloTabla.addColumn("Estado");
 
 			// Llenar el modelo de tabla con los datos de los documentos
@@ -130,15 +130,15 @@ public class VentanaBuscarDocumento extends JDialog {
 				Object[] fila = new Object[4];
 				fila[0] = documento.getISBN();
 				fila[1] = documento.getTitulo();
-//				fila[2] = documento.getTipo();
-//				fila[3] = documento.getReplicas();
-//				
-//				if (documento.getReplicas() == 0) {
-//	                fila[3] = "No disponible";
-//	                disponible = false;
-//	            } else {
-//	            	fila[3] = "Disponible";
-//	            }
+				fila[2] = documento.getAutor();
+				fila[3] = documento.getReplicas();
+				
+				if (documento.getReplicas() == 0) {
+	                fila[3] = "No disponible";
+	                disponible = false;
+	            } else {
+	            	fila[3] = "Libre";
+	            }
 
 				modeloTabla.addRow(fila);
 			}
@@ -189,7 +189,7 @@ public class VentanaBuscarDocumento extends JDialog {
 					} else {
 						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 						// Lógica para pedir préstamo del documento con el ISBN seleccionado
-						reservarDocumento(isbn);
+						docDB.reservarDocumento(isbn);
 						ventanaResultados.dispose();
 					}
 				}
@@ -204,7 +204,7 @@ public class VentanaBuscarDocumento extends JDialog {
 					} else {
 						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 						// Lógica para pedir préstamo del documento con el ISBN seleccionado
-						reservarDocumento(isbn);
+						docDB.reservarDocumento(isbn);
 						ventanaResultados.dispose();
 					}
 				}
@@ -212,269 +212,157 @@ public class VentanaBuscarDocumento extends JDialog {
 		}
 	}
 
-	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
-		ArrayList<Documento> documentos = new ArrayList<>();
-
-		try (Connection conn = ConexionDB.getConnection()) {
-
-			String query = "SELECT * FROM documentos WHERE titulo LIKE ?";
-
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, "%" + titulo + "%");
-			ResultSet resultSet = statement.executeQuery();
-
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String type = resultSet.getString("tipo");
-				int replicas = resultSet.getInt("replicas");
-
+//	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//
+//		try (Connection conn = ConexionDB.getConnection()) {
+//
+//			String query = "SELECT * FROM documentos WHERE titulo LIKE ?";
+//
+//			PreparedStatement statement = conn.prepareStatement(query);
+//			statement.setString(1, "%" + titulo + "%");
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				int isbn = resultSet.getInt("isbn");
+//				String nombre = resultSet.getString("titulo");
+//				String type = resultSet.getString("tipo");
+//				int replicas = resultSet.getInt("replicas");
+//
 //				Documento documento = new Documento(isbn, nombre, type, replicas);
 //				documentos.add(documento);
-			}
-
-			resultSet.close();
-			statement.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-
-		return documentos;
-	}
-
-	public ArrayList<Documento> consultarDocumentosPorTipo(String tipo) {
-		ArrayList<Documento> documentos = new ArrayList<>();
-
-		try (Connection conn = ConexionDB.getConnection()) {
-
-			String query = "SELECT * FROM documentos WHERE tipo = ?";
-
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, tipo);
-			ResultSet resultSet = statement.executeQuery();
-
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String type = resultSet.getString("tipo");
-				int replicas = resultSet.getInt("replicas");
-
+//			}
+//
+//			resultSet.close();
+//			statement.close();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//        	try {
+//				ConexionDB.closeConnection();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//        }
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarDocumentosPorTipo(String tipo) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//
+//		try (Connection conn = ConexionDB.getConnection()) {
+//
+//			String query = "SELECT * FROM documentos WHERE tipo = ?";
+//
+//			PreparedStatement statement = conn.prepareStatement(query);
+//			statement.setString(1, tipo);
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				int isbn = resultSet.getInt("isbn");
+//				String nombre = resultSet.getString("titulo");
+//				String type = resultSet.getString("tipo");
+//				int replicas = resultSet.getInt("replicas");
+//
 //				Documento documento = new Documento(isbn, nombre, type, replicas);
 //				documentos.add(documento);
-			}
-
-			resultSet.close();
-			statement.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-
-		return documentos;
-	}
-
-	public ArrayList<Documento> consultarDocumentosPorNombreYTipo(String titulo, String tipo) {
-		ArrayList<Documento> documentos = new ArrayList<>();
-
-		try (Connection conn = ConexionDB.getConnection()) {
-
-			String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND tipo = ?";
-
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, "%" + titulo + "%");
-			statement.setString(2, tipo);
-			ResultSet resultSet = statement.executeQuery();
-
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String type = resultSet.getString("tipo");
-				int replicas = resultSet.getInt("replicas");
-
+//			}
+//
+//			resultSet.close();
+//			statement.close();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//        	try {
+//				ConexionDB.closeConnection();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//        }
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarDocumentosPorNombreYTipo(String titulo, String tipo) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//
+//		try (Connection conn = ConexionDB.getConnection()) {
+//
+//			String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND tipo = ?";
+//
+//			PreparedStatement statement = conn.prepareStatement(query);
+//			statement.setString(1, "%" + titulo + "%");
+//			statement.setString(2, tipo);
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				int isbn = resultSet.getInt("isbn");
+//				String nombre = resultSet.getString("titulo");
+//				String type = resultSet.getString("tipo");
+//				int replicas = resultSet.getInt("replicas");
+//
 //				Documento documento = new Documento(isbn, nombre, type, replicas);
 //				documentos.add(documento);
-			}
-
-			resultSet.close();
-			statement.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-
-		return documentos;
-	}
-
-	public ArrayList<Documento> consultarTodosDocumentos() {
-		ArrayList<Documento> documentos = new ArrayList<>();
-
-		try (Connection conn = ConexionDB.getConnection()) {
-
-			String query = "SELECT * FROM documentos";
-
-			PreparedStatement statement = conn.prepareStatement(query);
-			ResultSet resultSet = statement.executeQuery();
-
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String type = resultSet.getString("tipo");
-				int replicas = resultSet.getInt("replicas");
-
+//			}
+//
+//			resultSet.close();
+//			statement.close();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//        	try {
+//				ConexionDB.closeConnection();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//        }
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarTodosDocumentos() {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//
+//		try (Connection conn = ConexionDB.getConnection()) {
+//
+//			String query = "SELECT * FROM documentos";
+//
+//			PreparedStatement statement = conn.prepareStatement(query);
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				int isbn = resultSet.getInt("isbn");
+//				String nombre = resultSet.getString("titulo");
+//				String type = resultSet.getString("tipo");
+//				int replicas = resultSet.getInt("replicas");
+//
 //				Documento documento = new Documento(isbn, nombre, type, replicas);
 //				documentos.add(documento);
-			}
-
-			resultSet.close();
-			statement.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
-
-		return documentos;
-	}
-
-	public void reservarDocumento(int isbn) {
-		
-		String usuario = VentanaInicioSesion.getNombreUsuario();
-		
-	    // Verificar límite de préstamos del usuario
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
-	        String countQuery = "SELECT COUNT(*) FROM prestamos WHERE usuario = ?";
-	        
-	        PreparedStatement countStatement = conn.prepareStatement(countQuery);
-	        countStatement.setString(1, usuario);
-	        ResultSet countResult = countStatement.executeQuery();
-	        countResult.next();
-	        int cantidadPrestamos = countResult.getInt(1);
-	        countResult.close();
-	        countStatement.close();
-
-	        if (cantidadPrestamos >= 5) {
-	            System.out.println("Has alcanzado el límite de préstamos permitidos.");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    // Verificar si el usuario ya tiene prestado el documento seleccionado
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
-	        String checkQuery = "SELECT COUNT(*) FROM prestamos WHERE usuario = ? AND isbn = ?";
-	        
-	        PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
-	        checkStatement.setString(1, usuario);
-	        checkStatement.setInt(2, isbn);
-	        ResultSet checkResult = checkStatement.executeQuery();
-	        checkResult.next();
-	        int cantidadPrestamosDocumento = checkResult.getInt(1);
-	        checkResult.close();
-	        checkStatement.close();
-
-	        if (cantidadPrestamosDocumento > 0) {
-	            System.out.println("Ya has pedido prestado este documento.");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    // Calcular fecha de devolución (15 días desde la fecha actual)
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.add(Calendar.DATE, 15);
-	    Date fechaDevolucion = calendar.getTime();
-
-	    // Insertar nuevo préstamo en la tabla 'prestamos'
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
-	        String query = "INSERT INTO prestamos (usuario, isbn, fecha_prestamo, fecha_devolucion) VALUES (?, ?, ?, ?)";
-	        
-	        PreparedStatement statement = conn.prepareStatement(query);
-	        statement.setString(1, usuario);
-	        statement.setInt(2, isbn);
-	        statement.setDate(3, new java.sql.Date(new Date().getTime())); // Fecha actual
-	        statement.setDate(4, new java.sql.Date(fechaDevolucion.getTime())); // Fecha de devolución calculada
-	        statement.executeUpdate();
-	        statement.close();
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    // Actualizar la tabla 'replicas'
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
-	        String updateQuery = "UPDATE documentos SET replicas = replicas - 1 WHERE isbn = ?";
-	        
-	        PreparedStatement updateStatement = conn.prepareStatement(updateQuery);
-	        updateStatement.setInt(1, isbn);
-	        updateStatement.executeUpdate();
-	        updateStatement.close();
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    System.out.println("Préstamo realizado con éxito.");
-	}
+//			}
+//
+//			resultSet.close();
+//			statement.close();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//        	try {
+//				ConexionDB.closeConnection();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//        }
+//
+//		return documentos;
+//	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

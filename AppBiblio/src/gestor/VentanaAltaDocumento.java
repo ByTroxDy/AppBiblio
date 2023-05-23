@@ -1,31 +1,20 @@
 package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import app.ConexionDB;
 import app.Documento;
 import db.DocumentoDB;
 
 public class VentanaAltaDocumento extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -156,7 +145,7 @@ public class VentanaAltaDocumento extends JFrame {
 				isbn = Integer.parseInt(textField_1.getText());
 				autor = textField_2.getText();
 					
-				Documento documento = new Documento(isbn,titulo,autor);
+				Documento documento = new Documento(isbn, titulo, autor);
 				DocumentoDB docDB = new DocumentoDB();
 				docDB.insertarDocumento(documento);
 				

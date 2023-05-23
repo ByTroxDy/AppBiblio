@@ -1,7 +1,7 @@
 package gui;
 
-import app.ConexionDB;
 import app.Usuario;
+import db.UsuarioDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,10 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VentanaRegistro extends JFrame {
@@ -77,7 +73,8 @@ public class VentanaRegistro extends JFrame {
                 Usuario nuevoUsuario = new Usuario(nombre, password, null);
                 usuarios.add(nuevoUsuario);
                 
-                guardarRegistro(nombre, password);
+                UsuarioDB usuDB = new UsuarioDB();
+                usuDB.guardarRegistro(nombre, password);
                 
 				// Limpiar los campos de texto después de intentar iniciar sesión
 				txtUsuario.setText("");
@@ -87,50 +84,6 @@ public class VentanaRegistro extends JFrame {
 
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-	}
-
-	public void guardarRegistro(String usuario, String password) {
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
-	    	// Verificar si el nombre de usuario ya existe
-	        String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
-	        PreparedStatement statementVerificacion = conn.prepareStatement(queryVerificacion);
-	        statementVerificacion.setString(1, usuario);
-	        ResultSet resultSet = statementVerificacion.executeQuery();
-	        resultSet.next();
-	        int count = resultSet.getInt(1);
-	        if (count > 0) {
-	            // El nombre de usuario ya existe, mostrar mensaje de error
-	            JOptionPane.showMessageDialog(VentanaRegistro.this, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
-	            statementVerificacion.close();
-	        } else {
-		        statementVerificacion.close();
-		        
-		        String query = "INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)";
-		        PreparedStatement statement = conn.prepareStatement(query);
-		        statement.setString(1, usuario);
-		        statement.setString(2, password);
-		        statement.setString(3, "socio");
-		        statement.executeUpdate();
-	
-		        statement.close();
-	
-		        JOptionPane.showMessageDialog(VentanaRegistro.this, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
-		        
-		        VentanaInicioSesion app = new VentanaInicioSesion();
-	            app.setVisible(true);
-	            dispose();
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(VentanaRegistro.this, "Error al registrar usuario", "Registro", JOptionPane.ERROR_MESSAGE);
-	    } finally {
-        	try {
-				ConexionDB.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-        }
 	}
 
 	public static void main(String[] args) {
