@@ -1,0 +1,21 @@
+prestamos (id, isbn, usuario, fecha prestamo, fecha devolucion)
+
+reservas (id, isbn, usuario, dias pendientes, fecha reserva)
+
+documentos (isbn, titulo, autor)
+libros (isbn, editorial, numero de paginas, tematica)
+pelicula (isbn, director, duracion, actores principales, premios conseguidos, formato)
+documentales (isbn, productora, premios concedidos, documentales relacionados, duracion, formato)
+musica (isbn, lugar, fecha, duracion, formato)
+
+autores (id, nombre)
+
+bibliotecas (cp, nombre)
+
+catregorias (id, nombre, descripcion)
+
+grupos (id, nombre, descripcion)
+
+usuarios (id, usuario, password, numero de padron, baneado)
+
+comentarios (id, isbn, usuario, opinion)
