@@ -130,15 +130,15 @@ public class VentanaBuscarDocumento extends JDialog {
 				Object[] fila = new Object[4];
 				fila[0] = documento.getISBN();
 				fila[1] = documento.getTitulo();
-				fila[2] = documento.getTipo();
-				fila[3] = documento.getReplicas();
-				
-				if (documento.getReplicas() == 0) {
-	                fila[3] = "No disponible";
-	                disponible = false;
-	            } else {
-	            	fila[3] = "Disponible";
-	            }
+//				fila[2] = documento.getTipo();
+//				fila[3] = documento.getReplicas();
+//				
+//				if (documento.getReplicas() == 0) {
+//	                fila[3] = "No disponible";
+//	                disponible = false;
+//	            } else {
+//	            	fila[3] = "Disponible";
+//	            }
 
 				modeloTabla.addRow(fila);
 			}
@@ -230,8 +230,8 @@ public class VentanaBuscarDocumento extends JDialog {
 				String type = resultSet.getString("tipo");
 				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, type, replicas);
-				documentos.add(documento);
+//				Documento documento = new Documento(isbn, nombre, type, replicas);
+//				documentos.add(documento);
 			}
 
 			resultSet.close();
@@ -268,8 +268,8 @@ public class VentanaBuscarDocumento extends JDialog {
 				String type = resultSet.getString("tipo");
 				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, type, replicas);
-				documentos.add(documento);
+//				Documento documento = new Documento(isbn, nombre, type, replicas);
+//				documentos.add(documento);
 			}
 
 			resultSet.close();
@@ -307,8 +307,8 @@ public class VentanaBuscarDocumento extends JDialog {
 				String type = resultSet.getString("tipo");
 				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, type, replicas);
-				documentos.add(documento);
+//				Documento documento = new Documento(isbn, nombre, type, replicas);
+//				documentos.add(documento);
 			}
 
 			resultSet.close();
@@ -344,8 +344,8 @@ public class VentanaBuscarDocumento extends JDialog {
 				String type = resultSet.getString("tipo");
 				int replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, type, replicas);
-				documentos.add(documento);
+//				Documento documento = new Documento(isbn, nombre, type, replicas);
+//				documentos.add(documento);
 			}
 
 			resultSet.close();

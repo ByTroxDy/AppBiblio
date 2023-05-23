@@ -6,10 +6,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,19 +19,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.JEditorPane;
+
+import app.ConexionDB;
+import app.Documento;
+import db.DocumentoDB;
 
 public class VentanaAltaDocumento extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_2;
-	private JTextField textField_1;
 	private JTextField textField;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private int isbn;
+	private String titulo;
+	private String autor;
+
+	
 
 	/**
 	 * Launch the application.
@@ -88,82 +91,38 @@ public class VentanaAltaDocumento extends JFrame {
 				
 		//Labels y textField para la introducción de datos
 		JLabel lblTitulo = new JLabel("Titulo");
-		lblTitulo.setBounds(12, 27, 60, 17);
+		lblTitulo.setBounds(131, 36, 60, 17);
 		panel_1.add(lblTitulo);
 		
 		JLabel lblIsbn = new JLabel("isbn");
-		lblIsbn.setBounds(12, 56, 60, 17);
+		lblIsbn.setBounds(53, 36, 60, 17);
 		panel_1.add(lblIsbn);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_2.setColumns(10);
-		textField_2.setBounds(53, 86, 69, 21);
-		panel_1.add(textField_2);
 		
 		JLabel lblAutor = new JLabel("autor");
-		lblAutor.setBounds(12, 86, 60, 17);
+		lblAutor.setBounds(240, 36, 60, 17);
 		panel_1.add(lblAutor);
 		
-		JLabel lblEditorialproductora = new JLabel("editorial/productora");
-		lblEditorialproductora.setBounds(138, 62, 138, 17);
-		panel_1.add(lblEditorialproductora);
-		
-		JLabel lblIsbn_3 = new JLabel("Paginas/Duración");
-		lblIsbn_3.setBounds(152, 29, 111, 17);
-		panel_1.add(lblIsbn_3);
-		
-		JLabel lblDescripcin = new JLabel("Descripción");
-		lblDescripcin.setBounds(191, 90, 85, 17);
-		panel_1.add(lblDescripcin);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_1.setColumns(10);
-		textField_1.setBounds(53, 54, 69, 21);
-		panel_1.add(textField_1);
-		
+		//TITULO
 		textField = new JTextField();
 		textField.setFont(new Font("Dialog", Font.PLAIN, 10));
 		textField.setColumns(10);
-		textField.setBounds(53, 25, 69, 21);
+		textField.setBounds(122, 65, 69, 21);
 		panel_1.add(textField);
 		
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_4.setColumns(10);
-		textField_4.setBounds(263, 27, 69, 21);
-		panel_1.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_5.setColumns(10);
-		textField_5.setBounds(263, 58, 69, 21);
-		panel_1.add(textField_5);
-		
-		textField_6 = new JTextField();
-		textField_6.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_6.setColumns(10);
-		textField_6.setBounds(263, 88, 69, 21);
-		panel_1.add(textField_6);
-		
-		JLabel lblFormato_1 = new JLabel("Tipo");
-		lblFormato_1.setBounds(12, 125, 85, 17);
-		panel_1.add(lblFormato_1);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Película", "Música", "Libro", "Documental"}));
-		comboBox.setBounds(41, 125, 93, 17);
-		panel_1.add(comboBox);
-		
-		JLabel lblFormato_1_1 = new JLabel("Formato");
-		lblFormato_1_1.setBounds(191, 125, 85, 17);
-		panel_1.add(lblFormato_1_1);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"MP3", "MP4", "Digital", "Físico"}));
-		comboBox_1.setBounds(245, 125, 87, 17);
-		panel_1.add(comboBox_1);
+		//isbn
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_1.setColumns(10);
+		textField_1.setBounds(31, 65, 69, 21);
+		panel_1.add(textField_1);
+
+		//AUTOR
+		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_2.setColumns(10);
+		textField_2.setBounds(220, 65, 69, 21);
+		panel_1.add(textField_2);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
@@ -190,6 +149,19 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setBorderPainted(false);
 		btnAceptar.setBackground(UIManager.getColor("Button.darkShadow"));
 		btnAceptar.setBounds(261, 167, 87, 28);
-		panel_1.add(btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			//función para crear objeto Documento y llamada a función inserar
+			public void actionPerformed(ActionEvent e) {  
+				titulo = textField.getText();
+				isbn = Integer.parseInt(textField_1.getText());
+				autor = textField_2.getText();
+					
+				Documento documento = new Documento(isbn,titulo,autor);
+				DocumentoDB docDB = new DocumentoDB();
+				docDB.insertarDocumento(documento);
+				
+			}
+		});		panel_1.add(btnAceptar);
+		
 	}
 }
