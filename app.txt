@@ -1,0 +1,32 @@
+usuarios admin gestionas: altas, bajas, modificaciones, asignacion de usuarios a un grupo, notificaciones, + gestor
+
+usuarios gestor administrar y gestionar todas las funetes documentales (biblioteca municipal): alta, baja, modificacion, consulta, copias de seguridad, restauracion
+
+usuarios socios: ediar perfil, consultar documentos, reservar prestamos documentos, anadir comentarios sobre los documentos, consultar resveras
+
+fuentes documentales (biblioteca municipal) diferentes tipos: libros, revistas de papel, libros y revistas en formato digital, CD de musica, peliculas y documentales
+
+usuario socio: maximo de libros a reservar (5), maximo de dias naturales a tener (15), por dias de retardo penalizacion de 5 dias (por cada documento) baneado hasta el fin de la penalizacion
+
+Consultar a Jesus: Ademas de los usuarios Administradores, cualquier otro usuario potencial podra registrarse en esta aplicacion previa introduccion de sus datos personales asi como el numero de padron municipal
+
+socio: documento en estado prestado, peticion de reserva pasaria a almacenarse, mostrar en la consulta de reservas el estado de su reserva mostrando (dias pendientes, isbn, fecha de reserva)
+
+usuario gestor: alta nuevos documentos (ISBN, titulo, autor), si es un libro (editorial, numero de paginas, tematica (ciencias, historia, literatura, etc)), si es de tipo pelicula, documental o musica (duracion en minutos, formato si es digital), cada pelicula (director, duracion, actores prinicpales, premios conseguidos), documentales (productora, premios concedidos, documentales relacionados), musica grupo o unico cantante sobre los conciertos (lugar y fecha)
+
+documentos M -- N autores
+Consultar a Jesus: biblioteca 1 -- M documentos o biblioteca M -- N documentos
+
+Consultar a Jesus: categorias M -- N documentos o categoria 1 -- M documentos
+categorias: codigo categorias, nombre, descripcion
+
+grupo 1 -- M usuarios
+grupos: codigo grupo, nombre, descripcion
+
+consultar documentos (todas las bibliotecas municipales), criterios de consulta en manos del programador: titulo, tipo de documento (libro, CD, etc), biblioteca, categoria, fecha de publicacion, etc
+
+usuario registrado o no registrado tendra acceso a la busqueda de documentos (estado: libre o reservado): si esta libre se efectua la reserva (solo los registrados, los baneados no cuentan), si esta reservado se guardan los datos del documento en la tabla reservados
+
+transcurrido el periodo de prestamo de un documento y realizado la devolucion del mismo, el usuario tendra activada la opcion de dar su opinion (dar un comentario), sera publicada y accesible por cualquier otro usuario (registrado o no)
+
+pantalla inicial sera la de iniciar sesion, al conectarte dependiendo del grupo tendras tu menu
