@@ -45,6 +45,8 @@ public class VentanaGestor extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		
+		// ------------------------------ PRIMERO PANEL ------------------------------ //
 		//Creación de panel Titulo
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.window);
