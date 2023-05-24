@@ -15,10 +15,9 @@ public class VentanaInicioSesion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JButton btnLogin;
-    private JButton btnRegistro;
+    private JButton btnRegistro, btnLogin;
     
-    public String usuario;
+    public String usuario, password;
 
     public String getNombreUsuario() {
         return usuario;
@@ -71,8 +70,8 @@ public class VentanaInicioSesion extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				String usuario = txtUsuario.getText();
-				String password = new String(txtPassword.getPassword());
+				usuario = txtUsuario.getText();
+				password = new String(txtPassword.getPassword());
 				
 				UsuarioDB usuDB = new UsuarioDB();
 				boolean exito = usuDB.iniciarSesion(usuario, password);
