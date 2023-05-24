@@ -10,14 +10,16 @@ import javax.swing.JOptionPane;
 import gui.VentanaCambiarPassword;
 import gui.VentanaInicioSesion;
 import gui.VentanaRegistro;
-import gui.MenuSocio;
 import gui.VentanaCambiarEmail;
 
 public class UsuarioDB {
 	
-	public void guardarRegistro(String usuario, String password) {
-		VentanaRegistro ventana = new VentanaRegistro();
-		
+	VentanaRegistro ventanaR = new VentanaRegistro();
+	VentanaInicioSesion ventanaIS = new VentanaInicioSesion();
+	VentanaCambiarPassword ventanaCP = new VentanaCambiarPassword();
+	VentanaCambiarEmail ventanaCE = new VentanaCambiarEmail();
+	
+	public boolean guardarRegistro(String usuario, String password) {
 	    try (Connection conn = ConexionDB.getConnection()) {
 	    	
 	    	// Verificar si el nombre de usuario ya existe
@@ -29,8 +31,9 @@ public class UsuarioDB {
 	        int count = resultSet.getInt(1);
 	        if (count > 0) {
 	            // El nombre de usuario ya existe, mostrar mensaje de error
-	            JOptionPane.showMessageDialog(ventana, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(ventanaR, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
 	            statementVerificacion.close();
+	            return false;
 	        } else {
 		        statementVerificacion.close();
 		        
@@ -43,15 +46,12 @@ public class UsuarioDB {
 	
 		        statement.close();
 	
-		        JOptionPane.showMessageDialog(ventana, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
-		        
-		        VentanaInicioSesion app = new VentanaInicioSesion();
-	            app.setVisible(true);
-	            ventana.dispose();
+		        JOptionPane.showMessageDialog(ventanaR, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
+		        return true;
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(ventana, "Error al registrar usuario", "Registro", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(ventanaR, "Error al registrar usuario", "Registro", JOptionPane.ERROR_MESSAGE);
 	    } finally {
         	try {
 				ConexionDB.closeConnection();
@@ -59,11 +59,10 @@ public class UsuarioDB {
 				e.printStackTrace();
 			}
         }
+		return false;
 	}
 	
-	public void iniciarSesion(String usuario, String password) {
-		VentanaInicioSesion ventana = new VentanaInicioSesion();
-		
+	public boolean iniciarSesion(String usuario, String password) {
 	    try (Connection conn = ConexionDB.getConnection()) {
 
 	        String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND password = ?";
@@ -74,21 +73,20 @@ public class UsuarioDB {
 	        ResultSet resultSet = statement.executeQuery();
 	        resultSet.next();
 	        int count = resultSet.getInt(1);
+	        statement.close();
+	        
 	        if (count > 0) {
-	        	ventana.usuario = usuario;
-	            MenuSocio menu = new MenuSocio();
-	            menu.setVisible(true);
-	            ventana.dispose();
+	        	ventanaIS.usuario = usuario;
+	        	return true;
 	        } else {
 	            // El usuario y la contraseña no coinciden, mostrar mensaje de error
-	            JOptionPane.showMessageDialog(ventana, "Usuario o contraseña incorrectos", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(ventanaIS, "Usuario o contraseña incorrectos", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
+	            return false;
 	        }
-
-	        statement.close();
 	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(ventana, "Error al iniciar sesión", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(ventanaIS, "Error al iniciar sesión", "Inicio de Sesión", JOptionPane.ERROR_MESSAGE);
 	    } finally {
         	try {
 				ConexionDB.closeConnection();
@@ -96,6 +94,7 @@ public class UsuarioDB {
 				e.printStackTrace();
 			}
         }
+	    return false;
 	}
 	
     public boolean validarCuenta(String usuarioActual, String contrasena) {
@@ -181,14 +180,11 @@ public class UsuarioDB {
     }
     
     public void cambiarContrasena(String usuario, String contrasenaActual, String nuevaContrasena) {
-    	
-    	VentanaCambiarPassword ventana = new VentanaCambiarPassword();
-    	
         // Validar la cuenta para verificar si el usuario y la contraseña coinciden
         boolean cuentaValida = validarCuenta(usuario, contrasenaActual);
 
         if (!cuentaValida) {
-            JOptionPane.showMessageDialog(ventana, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ventanaCP, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -203,7 +199,7 @@ public class UsuarioDB {
             // Ejecutar la consulta
             statement.executeUpdate();
 
-            JOptionPane.showMessageDialog(ventana, "Contraseña actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(ventanaCP, "Contraseña actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -216,14 +212,11 @@ public class UsuarioDB {
     }
 	
 	public void cambiarEmail(String usuario, String contrasena, String email) {
-    	
-    	VentanaCambiarEmail ventana = new VentanaCambiarEmail();
-    	
         // Validar la cuenta para verificar si el usuario y la contraseña coinciden
         boolean cuentaValida = validarCuenta(usuario, contrasena);
 
         if (!cuentaValida) {
-            JOptionPane.showMessageDialog(ventana, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ventanaCE, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -238,7 +231,7 @@ public class UsuarioDB {
             // Ejecutar la consulta
             statement.executeUpdate();
 
-            JOptionPane.showMessageDialog(ventana, "Email actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(ventanaCE, "Email actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

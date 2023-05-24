@@ -2,9 +2,9 @@ prestamos (id, isbn, usuario, fecha prestamo, fecha devolucion)
 
 reservas (id, isbn, usuario, dias pendientes, fecha reserva)
 
-documentos (isbn, titulo, autor)
+documentos (isbn, titulo, autor, replicas)
 libros (isbn, editorial, numero de paginas, tematica)
-pelicula (isbn, director, duracion, actores principales, premios conseguidos, formato)
+pelicula (isbn, director, actores principales, premios conseguidos, duracion, formato)
 documentales (isbn, productora, premios concedidos, documentales relacionados, duracion, formato)
 musica (isbn, lugar, fecha, duracion, formato)
 

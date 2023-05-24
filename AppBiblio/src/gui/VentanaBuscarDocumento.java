@@ -13,13 +13,10 @@ import java.util.ArrayList;
 
 public class VentanaBuscarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtTitulo;
-	private JTextField txtAutor;
-	private JButton btnVolver;
-	private JButton btnBuscar;
+	private JTextField txtTitulo, txtAutor;
+	private JButton btnVolver, btnBuscar;
 
-	private String titulo;
-	private String autor;
+	private String titulo, autor;
 	private boolean disponible;
 
 	public VentanaBuscarDocumento() {
@@ -40,11 +37,6 @@ public class VentanaBuscarDocumento extends JDialog {
 		lblAutor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtAutor = new JTextField(20);
 		txtAutor.setHorizontalAlignment(SwingConstants.CENTER);
-
-//		JLabel lblTipoDocumento = new JLabel("Tipo de Documento");
-//		lblTipoDocumento.setHorizontalAlignment(SwingConstants.CENTER);
-//		String[] tiposDocumento = { "Todos", "Pelicula", "Musica", "Libro", "Documentales" };
-//		cmbTipoDocumento = new JComboBox<>(tiposDocumento);
 
 		btnVolver = new JButton("Volver");
 		btnBuscar = new JButton("Buscar");

@@ -1,10 +1,10 @@
 package app;
 
 public class Documento {
-	private int isbn;
-	private String titulo;
-	private String autor;
-	private int replicas;
+	protected int isbn;
+	protected String titulo;
+	protected String autor;
+	protected int replicas;
 
 	public Documento(int isbn, String titulo, String autor, int replicas) {
 		super();
