@@ -1,6 +1,7 @@
 package db;
 
-import app.Documento;
+import app.*;
+
 import gui.VentanaInicioSesion;
 
 import java.sql.Connection;
@@ -283,12 +284,13 @@ public class DocumentoDB {
 		// Insertar nuevo documento en la tabla 'documentos'
 	    try (Connection conn = ConexionDB.getConnection()) {
 	    	
-	        String query = "INSERT INTO documentos (isbn, titulo , autor) VALUES (?, ?, ?)";
+	        String query = "INSERT INTO documentos (isbn, titulo , autor, biblioteca) VALUES (?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
 	        statement.setInt(1, documento.getISBN());
 	        statement.setString(2, documento.getTitulo());
 	        statement.setString(3, documento.getAutor());
+	        statement.setString(4, "Benicarlo");
 	        statement.executeUpdate();
 	        statement.close();
 	        
@@ -303,28 +305,29 @@ public class DocumentoDB {
 	        }
 	    }
 	}
-//	public void insertarPelicula(Documento documento) {
-//		// Insertar nueva pelicula en la tabla 'peliculas'
-//	    try (Connection conn = ConexionDB.getConnection()) {
-//	    	
-//	        String query = "INSERT INTO documentos (isbn, titulo , autor) VALUES (?, ?, ?)";
-//	        
-//	        PreparedStatement statement = conn.prepareStatement(query);
-//	        statement.setInt(1, Pelicula.getISBN());
-//	        statement.setString(2, documento.getTitulo());
-//	        statement.setString(3, documento.getAutor());
-//	        statement.executeUpdate();
-//	        statement.close();
-//	        
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	        return;
-//	    } finally {
-//	        try {
-//	            ConexionDB.closeConnection();
-//	        } catch (SQLException e) {
-//	            e.printStackTrace();
-//	        }
-//	    }
-//	}
+	public void insertarLibro(Libro libro) {
+		// Insertar nueva pelicula en la tabla 'peliculas'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setInt(1, libro.getISBN());
+	        statement.setString(2, libro.getEditorial());
+	        statement.setInt(3, libro.getNumeroPaginas());
+	        statement.setString(4, libro.getTematica());
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 }

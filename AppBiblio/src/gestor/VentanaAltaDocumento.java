@@ -23,7 +23,18 @@ public class VentanaAltaDocumento extends JFrame {
 	private String titulo;
 	private String autor;
 
+
+	public int getISBN() {
+		return isbn;
+	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public String getAutor() {
+		return autor;
+	}
 
 	/**
 	 * Launch the application.
@@ -55,19 +66,23 @@ public class VentanaAltaDocumento extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		//Creación de panel Titulo
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
-		contentPane.add(panel);
+		//------------------------- PANELES ------------------------- //
+		//DOCUMENTO
+		JPanel s = new JPanel();
+		s.setBackground(SystemColor.window);
+		s.setForeground(new Color(0, 0, 0));
+		s.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
+		s.setBounds(53, 14, 359, 44);
+		contentPane.add(s);
+		
+		
+		//------------------------- CAMPOS DOCUMENTO ------------------------- //
 		
 		//Titulo del panel creado
 		JLabel lblAlta = new JLabel("ALTA DOCUMENTO");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
-		panel.add(lblAlta);
+		s.add(lblAlta);
 		
 		//Creación de panel de contenido
 		JPanel panel_1 = new JPanel();
@@ -77,40 +92,47 @@ public class VentanaAltaDocumento extends JFrame {
 		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(53, 70, 360, 208);
 		contentPane.add(panel_1);
-				
+		
+		//Titulo Introduce los datos
+		JLabel lblIntroduceLosDatos = new JLabel("Introduce los datos");
+		lblIntroduceLosDatos.setForeground(Color.BLACK);
+		lblIntroduceLosDatos.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblIntroduceLosDatos.setBounds(88, 26, 189, 28);
+		panel_1.add(lblIntroduceLosDatos);
+		
 		//Labels y textField para la introducción de datos
 		JLabel lblTitulo = new JLabel("Titulo");
-		lblTitulo.setBounds(131, 36, 60, 17);
+		lblTitulo.setBounds(46, 95, 60, 17);
 		panel_1.add(lblTitulo);
 		
-		JLabel lblIsbn = new JLabel("isbn");
-		lblIsbn.setBounds(53, 36, 60, 17);
+		JLabel lblIsbn = new JLabel("ISBN");
+		lblIsbn.setBounds(46, 66, 60, 17);
 		panel_1.add(lblIsbn);
 		
 		
-		JLabel lblAutor = new JLabel("autor");
-		lblAutor.setBounds(240, 36, 60, 17);
+		JLabel lblAutor = new JLabel("Autor");
+		lblAutor.setBounds(195, 66, 60, 17);
 		panel_1.add(lblAutor);
 		
 		//TITULO
 		textField = new JTextField();
 		textField.setFont(new Font("Dialog", Font.PLAIN, 10));
 		textField.setColumns(10);
-		textField.setBounds(122, 65, 69, 21);
+		textField.setBounds(99, 98, 69, 21);
 		panel_1.add(textField);
 		
 		//isbn
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Dialog", Font.PLAIN, 10));
 		textField_1.setColumns(10);
-		textField_1.setBounds(31, 65, 69, 21);
+		textField_1.setBounds(99, 65, 69, 21);
 		panel_1.add(textField_1);
 
 		//AUTOR
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Dialog", Font.PLAIN, 10));
 		textField_2.setColumns(10);
-		textField_2.setBounds(220, 65, 69, 21);
+		textField_2.setBounds(245, 65, 69, 21);
 		panel_1.add(textField_2);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -131,6 +153,18 @@ public class VentanaAltaDocumento extends JFrame {
 		btnVolver.setBounds(12, 167, 79, 28);
 		panel_1.add(btnVolver);
 		
+
+		JComboBox tipo = new JComboBox();
+		tipo.setModel(new DefaultComboBoxModel(new String[] {"Libro", "Pelicula", "Música", "Documental"}));
+		tipo.setBounds(245, 94, 74, 26);
+		panel_1.add(tipo);
+		
+		JLabel lblTipo = new JLabel("tipo");
+		lblTipo.setBounds(195, 99, 60, 17);
+		panel_1.add(lblTipo);
+		
+		
+		//------------------------- SELECCIÓN TIPO ------------------------- //
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setForeground(Color.BLACK);
 		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -139,18 +173,29 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setBackground(UIManager.getColor("Button.darkShadow"));
 		btnAceptar.setBounds(261, 167, 87, 28);
 		btnAceptar.addActionListener(new ActionListener() {
-			//función para crear objeto Documento y llamada a función inserar
-			public void actionPerformed(ActionEvent e) {  
-				titulo = textField.getText();
-				isbn = Integer.parseInt(textField_1.getText());
-				autor = textField_2.getText();
-					
-				Documento documento = new Documento(isbn, titulo, autor);
-				DocumentoDB docDB = new DocumentoDB();
-				docDB.insertarDocumento(documento);
+		//función para crear objeto Documento y llamada a función inserar
+		public void actionPerformed(ActionEvent e) {  
+			titulo = textField.getText();
+			isbn = Integer.parseInt(textField_1.getText());
+			autor = textField_2.getText();
 				
-			}
-		});		panel_1.add(btnAceptar);
-		
+			Documento documento = new Documento(isbn, titulo, autor);
+			DocumentoDB docDB = new DocumentoDB();
+			docDB.insertarDocumento(documento);
+			
+			String seleccion = tipo.getSelectedItem().toString();
+				if (seleccion == "Libro") {
+					ventanaAltaLibro frame = new ventanaAltaLibro();
+					frame.setVisible(true);
+					dispose();
+				} else if(seleccion == "Pelicula") {
+					ventanaAltaLibro frame = new ventanaAltaLibro();
+					frame.setVisible(true);
+					dispose();
+				}
+			}	
+		});			
+		panel_1.add(btnAceptar);
+
 	}
 }

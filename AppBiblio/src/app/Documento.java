@@ -21,6 +21,13 @@ public class Documento {
 		this.autor = autor2;
 	}
 
+	public Documento(int isbn3) {
+		super();
+		this.isbn = isbn3;
+
+	}
+
+	
 	public int getISBN() {
 		return isbn;
 	}

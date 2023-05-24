@@ -13,6 +13,14 @@ public class Libro extends Documento {
 		this.tematica = tematica;
 	}
 
+	public Libro(int isbn, String editorial, int numeroPaginas, String tematica) {
+		super(isbn);
+		this.editorial = editorial;
+		this.numeroPaginas = numeroPaginas;
+		this.tematica = tematica;
+	}
+
+	
 	public String getEditorial() {
 		return editorial;
 	}
