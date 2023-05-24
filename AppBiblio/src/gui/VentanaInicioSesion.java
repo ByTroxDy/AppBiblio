@@ -75,7 +75,13 @@ public class VentanaInicioSesion extends JFrame {
 				String password = new String(txtPassword.getPassword());
 				
 				UsuarioDB usuDB = new UsuarioDB();
-				usuDB.iniciarSesion(usuario, password);
+				boolean exito = usuDB.iniciarSesion(usuario, password);
+				
+                if (exito) {
+                	MenuSocio menu = new MenuSocio();
+    	            menu.setVisible(true);
+    	            dispose();
+                }
 
 				// Limpiar los campos de texto después de intentar iniciar sesión
 				txtUsuario.setText("");
@@ -87,20 +93,12 @@ public class VentanaInicioSesion extends JFrame {
             public void actionPerformed(ActionEvent ex) {
             	VentanaRegistro registro = new VentanaRegistro();
             	registro.setVisible(true);
-				dispose();
+            	dispose();
             }
         });
 
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
-	}
-
-	public void mostrarVentanaPrincipal() {
-		
-		MenuSocio menu = new MenuSocio();
-		menu.setVisible(true);
-		dispose();
-		
 	}
 
 	public static void main(String[] args) {

@@ -70,11 +70,17 @@ public class VentanaRegistro extends JFrame {
                 String nombre = txtUsuario.getText();
                 String password = new String(txtPassword.getPassword());
 
-                Usuario nuevoUsuario = new Usuario(nombre, password, null);
+                Usuario nuevoUsuario = new Usuario(nombre, password, null, false);
                 usuarios.add(nuevoUsuario);
                 
                 UsuarioDB usuDB = new UsuarioDB();
-                usuDB.guardarRegistro(nombre, password);
+                boolean exito = usuDB.guardarRegistro(nombre, password);
+                
+                if (exito) {
+    		        VentanaInicioSesion app = new VentanaInicioSesion();
+    	            app.setVisible(true);
+    	            dispose();
+                }
                 
 				// Limpiar los campos de texto después de intentar iniciar sesión
 				txtUsuario.setText("");
@@ -85,7 +91,7 @@ public class VentanaRegistro extends JFrame {
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
-
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

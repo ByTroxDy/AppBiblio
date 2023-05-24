@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DocumentoDB {
+	int isbn, replicas;
+	String nombre, autor;
 	
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
@@ -26,10 +28,10 @@ public class DocumentoDB {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String autor = resultSet.getString("autor");
-				int replicas = resultSet.getInt("replicas");
+				isbn = resultSet.getInt("isbn");
+				nombre = resultSet.getString("titulo");
+				autor = resultSet.getString("autor");
+				replicas = resultSet.getInt("replicas");
 
 				Documento documento = new Documento(isbn, nombre, autor, replicas);
 				documentos.add(documento);
@@ -51,7 +53,7 @@ public class DocumentoDB {
 		return documentos;
 	}
 
-	public ArrayList<Documento> consultarDocumentosPorAutor(String autor) {
+	public ArrayList<Documento> consultarDocumentosPorAutor(String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
 
 		try (Connection conn = ConexionDB.getConnection()) {
@@ -59,17 +61,17 @@ public class DocumentoDB {
 			String query = "SELECT * FROM documentos WHERE autor LIKE ?";
 
 			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, "%" + autor + "%");
+			statement.setString(1, "%" + autor2 + "%");
 			ResultSet resultSet = statement.executeQuery();
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String autor2 = resultSet.getString("autor");
-				int replicas = resultSet.getInt("replicas");
+				isbn = resultSet.getInt("isbn");
+				nombre = resultSet.getString("titulo");
+				autor = resultSet.getString("autor");
+				replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, autor2, replicas);
+				Documento documento = new Documento(isbn, nombre, autor, replicas);
 				documentos.add(documento);
 			}
 
@@ -89,7 +91,7 @@ public class DocumentoDB {
 		return documentos;
 	}
 
-	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor) {
+	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
 
 		try (Connection conn = ConexionDB.getConnection()) {
@@ -98,17 +100,17 @@ public class DocumentoDB {
 
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setString(1, "%" + titulo + "%");
-			statement.setString(2, "%" + autor + "%");
+			statement.setString(2, "%" + autor2 + "%");
 			ResultSet resultSet = statement.executeQuery();
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String autor2 = resultSet.getString("autor");
-				int replicas = resultSet.getInt("replicas");
+				isbn = resultSet.getInt("isbn");
+				nombre = resultSet.getString("titulo");
+				autor = resultSet.getString("autor");
+				replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, autor2, replicas);
+				Documento documento = new Documento(isbn, nombre, autor, replicas);
 				documentos.add(documento);
 			}
 
@@ -140,12 +142,12 @@ public class DocumentoDB {
 
 			// Recorrer los resultados y crear objetos Documento
 			while (resultSet.next()) {
-				int isbn = resultSet.getInt("isbn");
-				String nombre = resultSet.getString("titulo");
-				String autor2 = resultSet.getString("autor");
-				int replicas = resultSet.getInt("replicas");
+				isbn = resultSet.getInt("isbn");
+				nombre = resultSet.getString("titulo");
+				autor = resultSet.getString("autor");
+				replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, autor2, replicas);
+				Documento documento = new Documento(isbn, nombre, autor, replicas);
 				documentos.add(documento);
 			}
 
