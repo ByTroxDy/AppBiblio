@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +19,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import app.Documento;
 import app.Libro;
+import db.DocumentoDB;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -26,13 +29,14 @@ import javax.swing.DefaultComboBoxModel;
 
 public class ventanaAltaLibro extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	private int isbn;
 	private String editorial;
 	private int numpaginas;
 	private String tematica;
+	private Documento documento;
 	
 	/**
 	 * Launch the application.
@@ -49,11 +53,15 @@ public class ventanaAltaLibro extends JFrame {
 			}
 		});
 	}
+	
+	public void setDocument(Documento myDoc) {
+		this.documento = myDoc;
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ventanaAltaLibro() {
+	public ventanaAltaLibro() {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
@@ -145,14 +153,21 @@ public class ventanaAltaLibro extends JFrame {
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaAltaDocumento altaDocumento = new VentanaAltaDocumento();
-				isbn = altaDocumento.getISBN();
 				editorial = textField.getText().toString();
 				numpaginas = Integer.parseInt(textField_1.getText());
 				tematica = comboBox.getSelectedItem().toString();
 				
-				Libro libro = new Libro(isbn, editorial, numpaginas, tematica);
+				Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
 				
+				// Primer Document
+				DocumentoDB docDB = new DocumentoDB();
+				
+				try {
+					docDB.insertDocumentLlibre(documento, libro);
+				} catch (SQLException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
 				
 			}
 		});

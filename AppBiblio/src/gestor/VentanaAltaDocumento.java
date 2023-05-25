@@ -174,6 +174,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setBounds(261, 167, 87, 28);
 		btnAceptar.addActionListener(new ActionListener() {
 		//función para crear objeto Documento y llamada a función inserar
+<<<<<<< Updated upstream
 		public void actionPerformed(ActionEvent e) {  
 			titulo = textField.getText();
 			isbn = Integer.parseInt(textField_1.getText());
@@ -184,8 +185,18 @@ public class VentanaAltaDocumento extends JFrame {
 			docDB.insertarDocumento(documento);
 			
 			String seleccion = tipo.getSelectedItem().toString();
+=======
+			public void actionPerformed(ActionEvent e) {  
+				titulo = textField.getText();
+				isbn = Integer.parseInt(textField_1.getText());
+				autor = textField_2.getText();
+					
+				String seleccion = tipo.getSelectedItem().toString();
+>>>>>>> Stashed changes
 				if (seleccion == "Libro") {
 					ventanaAltaLibro frame = new ventanaAltaLibro();
+					// El meu document
+					frame.setDocument(new Documento(isbn, titulo, autor));
 					frame.setVisible(true);
 					dispose();
 				} else if(seleccion == "Pelicula") {
@@ -193,7 +204,8 @@ public class VentanaAltaDocumento extends JFrame {
 					frame.setVisible(true);
 					dispose();
 				}
-			}	
+	
+			}//actionPerformed
 		});			
 		panel_1.add(btnAceptar);
 

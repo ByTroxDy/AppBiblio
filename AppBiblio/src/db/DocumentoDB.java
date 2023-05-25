@@ -13,8 +13,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DocumentoDB {
-	int isbn, replicas;
-	String nombre, autor;
+	private int isbn, replicas;
+	private String nombre, autor;
+	//private Connection conn;
+	
+
 	
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
@@ -279,10 +282,32 @@ public class DocumentoDB {
 
 	    System.out.println("Préstamo realizado con éxito.");
 	}
+	
+	public void insertDocumentLlibre(Documento documento, Libro libro) throws SQLException  {
+		Connection conn = ConexionDB.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			insertarDocumento(documento, conn);
+			insertarLibro(libro, conn);
+			
+			conn.commit();
+		}catch (SQLException e) {
+			conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}//insertDocumentLlibre
 
-	public void insertarDocumento(Documento documento) {
+	/* PRIVATE FUNCTIONS */
+	private void insertarDocumento(Documento documento, Connection conn) throws SQLException {
 		// Insertar nuevo documento en la tabla 'documentos'
-	    try (Connection conn = ConexionDB.getConnection()) {
+	    try  {
 	    	
 	        String query = "INSERT INTO documentos (isbn, titulo , autor, biblioteca) VALUES (?, ?, ?, ?)";
 	        
@@ -295,19 +320,14 @@ public class DocumentoDB {
 	        statement.close();
 	        
 	    } catch (SQLException e) {
+	    	conn.rollback();
 	        e.printStackTrace();
 	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
 	    }
 	}
-	public void insertarLibro(Libro libro) {
+	private void insertarLibro(Libro libro, Connection conn) throws SQLException {
 		// Insertar nueva pelicula en la tabla 'peliculas'
-	    try (Connection conn = ConexionDB.getConnection()) {
+	    try  {
 	    	
 	        String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
 	        
@@ -316,6 +336,32 @@ public class DocumentoDB {
 	        statement.setString(2, libro.getEditorial());
 	        statement.setInt(3, libro.getNumeroPaginas());
 	        statement.setString(4, libro.getTematica());
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	    	conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    }
+	}
+<<<<<<< Updated upstream
+=======
+	
+	public void insertarPelicula(Pelicula pelicula) {
+		// Insertar nueva pelicula en la tabla 'peliculas'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String query = "INSERT INTO peliculas (isbn, director, actores , premios, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setInt(1, pelicula.getISBN());
+	        statement.setString(2, pelicula.getDirector());
+	        statement.setString(3, pelicula.getActoresPrincipales());
+	        statement.setString(4, pelicula.getPremiosConseguidos());
+	        statement.setInt(5, pelicula.getDuracion());
+	        statement.setString(6, pelicula.getFormato());
+
 	        statement.executeUpdate();
 	        statement.close();
 	        
@@ -330,4 +376,5 @@ public class DocumentoDB {
 	        }
 	    }
 	}
+>>>>>>> Stashed changes
 }
