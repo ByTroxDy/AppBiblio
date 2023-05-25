@@ -1,41 +1,43 @@
 package gestor;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import app.Documento;
+import app.Pelicula;
 import db.DocumentoDB;
 
-public class VentanaAltaDocumento extends JFrame {
+public class VentanaAltaPelicula extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textField_actores;
+	private JTextField textField_Director;
+	private JTextField textField_duracion;
+	private JTextField textField_premios;
 	private int isbn;
-	private String titulo;
-	private String autor;
-
-
-	public int getISBN() {
-		return isbn;
-	}
+	private String director;
+	private String actores;
+	private String premios;
+	private int dutracion;
+	private String formato;
 	
-	public String getTitulo() {
-		return titulo;
-	}
-	
-	public String getAutor() {
-		return autor;
-	}
-
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +45,7 @@ public class VentanaAltaDocumento extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAltaDocumento frame = new VentanaAltaDocumento();
+					VentanaAltaPelicula frame = new VentanaAltaPelicula();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +57,7 @@ public class VentanaAltaDocumento extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaAltaDocumento() {
+	public VentanaAltaPelicula() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
@@ -79,7 +81,7 @@ public class VentanaAltaDocumento extends JFrame {
 		//------------------------- CAMPOS DOCUMENTO ------------------------- //
 		
 		//Titulo del panel creado
-		JLabel lblAlta = new JLabel("ALTA DOCUMENTO");
+		JLabel lblAlta = new JLabel("ALTA PELÍCULA");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
 		s.add(lblAlta);
@@ -101,40 +103,64 @@ public class VentanaAltaDocumento extends JFrame {
 		panel_1.add(lblIntroduceLosDatos);
 		
 		//Labels y textField para la introducción de datos
-		JLabel lblTitulo = new JLabel("Titulo");
-		lblTitulo.setBounds(46, 95, 60, 17);
-		panel_1.add(lblTitulo);
-		
-		JLabel lblIsbn = new JLabel("ISBN");
-		lblIsbn.setBounds(46, 66, 60, 17);
+		JLabel lblIsbn = new JLabel("Director");
+		lblIsbn.setBounds(38, 75, 60, 17);
 		panel_1.add(lblIsbn);
 		
+		//Director
+		textField_Director = new JTextField();
+		textField_Director.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_Director.setColumns(10);
+		textField_Director.setBounds(98, 73, 69, 21);
+		panel_1.add(textField_Director);
 		
-		JLabel lblAutor = new JLabel("Autor");
-		lblAutor.setBounds(195, 66, 60, 17);
+
+		JLabel lblAutor = new JLabel("Actores");
+		lblAutor.setBounds(38, 115, 87, 17);
 		panel_1.add(lblAutor);
 		
-		//TITULO
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField.setColumns(10);
-		textField.setBounds(99, 98, 69, 21);
-		panel_1.add(textField);
+		//Nombre de actores
+		textField_actores = new JTextField();
+		textField_actores.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_actores.setColumns(10);
+		textField_actores.setBounds(98, 113, 69, 21);
+		panel_1.add(textField_actores);
 		
-		//isbn
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_1.setColumns(10);
-		textField_1.setBounds(99, 65, 69, 21);
-		panel_1.add(textField_1);
+		JLabel lblPremios = new JLabel("Premios");
+		lblPremios.setBounds(185, 113, 60, 17);
+		panel_1.add(lblPremios);
+		
+		//Premios
+		textField_premios = new JTextField();
+		textField_premios.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_premios.setColumns(10);
+		textField_premios.setBounds(255, 113, 69, 21);
+		panel_1.add(textField_premios);
+		
+		JLabel lblTitulo = new JLabel("Duración");
+		lblTitulo.setBounds(185, 75, 60, 17);
+		panel_1.add(lblTitulo);
+		
+		//Duración
+		textField_duracion = new JTextField();
+		textField_duracion.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField_duracion.setColumns(10);
+		textField_duracion.setBounds(250, 73, 69, 21);
+		panel_1.add(textField_duracion);
+		
+		
 
-		//AUTOR
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField_2.setColumns(10);
-		textField_2.setBounds(245, 65, 69, 21);
-		panel_1.add(textField_2);
+		JLabel lblTipo = new JLabel("Formato");
+		lblTipo.setBounds(122, 150, 60, 17);
+		panel_1.add(lblTipo);
 		
+		//Formato
+		JComboBox seleccionFormato = new JComboBox();
+		seleccionFormato.setModel(new DefaultComboBoxModel(new String[] {"MP4", "MP3"}));
+		seleccionFormato.setBounds(171, 145, 74, 26);
+		panel_1.add(seleccionFormato);
+		
+		//Volver a la ventana principal
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
@@ -144,7 +170,6 @@ public class VentanaAltaDocumento extends JFrame {
 				dispose();
 			}
 		});
-		
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnVolver.setFocusPainted(false);
@@ -154,17 +179,7 @@ public class VentanaAltaDocumento extends JFrame {
 		panel_1.add(btnVolver);
 		
 
-		JComboBox tipo = new JComboBox();
-		tipo.setModel(new DefaultComboBoxModel(new String[] {"Libro", "Pelicula", "Música", "Documental"}));
-		tipo.setBounds(245, 94, 74, 26);
-		panel_1.add(tipo);
-		
-		JLabel lblTipo = new JLabel("tipo");
-		lblTipo.setBounds(195, 99, 60, 17);
-		panel_1.add(lblTipo);
-		
-		
-		//------------------------- SELECCIÓN TIPO ------------------------- //
+		//------------------------- DAR DE ALTA PELICULA  ------------------------- //
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setForeground(Color.BLACK);
 		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -173,29 +188,27 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setBackground(UIManager.getColor("Button.darkShadow"));
 		btnAceptar.setBounds(261, 167, 87, 28);
 		btnAceptar.addActionListener(new ActionListener() {
-		//función para crear objeto Documento y llamada a función inserar
+		//función para crear objeto Pelicula y llamada a función inserar
 		public void actionPerformed(ActionEvent e) {  
-			titulo = textField.getText();
-			isbn = Integer.parseInt(textField_1.getText());
-			autor = textField_2.getText();
-				
-			Documento documento = new Documento(isbn, titulo, autor);
-			DocumentoDB docDB = new DocumentoDB();
-//			docDB.insertarDocumento(documento);
+
+			VentanaAltaDocumento altaDocumento = new VentanaAltaDocumento();
+			isbn = altaDocumento.getISBN();
+			director = textField_duracion.getText().toString();
+			actores = textField_actores.getText().toString();
+			premios = textField_premios.getText().toString();
+			dutracion = Integer.parseInt(textField_duracion.getText());
+			formato = seleccionFormato.getSelectedItem().toString();
+
+			Pelicula pelicula = new Pelicula(isbn,director, actores, premios, dutracion, formato);
 			
-			String seleccion = tipo.getSelectedItem().toString();
-				if (seleccion == "Libro") {
-					ventanaAltaLibro frame = new ventanaAltaLibro();
-					frame.setVisible(true);
-					dispose();
-				} else if(seleccion == "Pelicula") {
-					VentanaAltaPelicula frame = new VentanaAltaPelicula();
-					frame.setVisible(true);
-					dispose();
-				}
+			DocumentoDB docDB = new DocumentoDB();
+			docDB.insertarPelicula(pelicula);
+
 			}	
 		});			
 		panel_1.add(btnAceptar);
+		
 
 	}
+
 }

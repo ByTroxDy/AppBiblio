@@ -330,4 +330,33 @@ public class DocumentoDB {
 	        }
 	    }
 	}
+	
+	public void insertarPelicula(Pelicula pelicula) {
+		// Insertar nueva pelicula en la tabla 'peliculas'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String query = "INSERT INTO Peliculas (isbn, director, actores , premios, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setInt(1, pelicula.getISBN());
+	        statement.setString(2, pelicula.getDirector());
+	        statement.setString(3, pelicula.getActoresPrincipales());
+	        statement.setString(4, pelicula.getPremiosConseguidos());
+	        statement.setInt(5, pelicula.getDuracion());
+	        statement.setString(6, pelicula.getFormato());
+
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 }
