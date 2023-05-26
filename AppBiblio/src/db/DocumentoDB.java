@@ -345,8 +345,7 @@ public class DocumentoDB {
 	        return;
 	    }
 	}
-<<<<<<< Updated upstream
-=======
+
 	
 	public void insertarPelicula(Pelicula pelicula) {
 		// Insertar nueva pelicula en la tabla 'peliculas'
@@ -376,5 +375,4 @@ public class DocumentoDB {
 	        }
 	    }
 	}
->>>>>>> Stashed changes
 }
