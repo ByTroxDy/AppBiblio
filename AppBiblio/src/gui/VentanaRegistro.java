@@ -17,7 +17,7 @@ public class VentanaRegistro extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JButton btnRegistro;
+    private JButton btnVolver, btnRegistro;
     private ArrayList<Usuario> usuarios;
 
 	public VentanaRegistro() {
@@ -37,13 +37,14 @@ public class VentanaRegistro extends JFrame {
         JLabel lblPassword = new JLabel("Contraseña:");
         txtPassword = new JPasswordField(20);
         
+        btnVolver = new JButton("Volver");
         btnRegistro = new JButton("Registrarse");
         
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);
 		mainPanel.add(lblPassword);
 		mainPanel.add(txtPassword);
-		mainPanel.add(new JLabel());
+		mainPanel.add(btnVolver);
 		mainPanel.add(btnRegistro);
         
 		getContentPane().add(mainPanel);
@@ -64,6 +65,14 @@ public class VentanaRegistro extends JFrame {
             public void keyReleased(KeyEvent ex) {
             }
         });
+		
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ex) {
+				VentanaInicioSesion app = new VentanaInicioSesion();
+				app.setVisible(true);
+				dispose();
+			}
+		});
         
         btnRegistro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
