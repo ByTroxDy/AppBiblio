@@ -15,13 +15,12 @@ public class VentanaInicioSesion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JButton btnLogin;
-    private JButton btnRegistro;
+    private JButton btnRegistro, btnLogin, btnBuscarDocumento;
     
-    public String usuario;
+    public String usuario, password;
 
-    public String getNombreUsuario() {
-        return usuario;
+    public void setNombreUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
 	public VentanaInicioSesion() {
@@ -41,6 +40,7 @@ public class VentanaInicioSesion extends JFrame {
         
         btnLogin = new JButton("Iniciar sesión");
         btnRegistro = new JButton("Registrarse");
+        btnBuscarDocumento = new JButton("Buscar Documento");
         
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);
@@ -50,6 +50,21 @@ public class VentanaInicioSesion extends JFrame {
 		mainPanel.add(btnLogin);
         
 		getContentPane().add(mainPanel);
+		
+		JPanel docPanel = new JPanel();
+		docPanel.setLayout(new BorderLayout(0, 0));
+		docPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
+		
+		getContentPane().add(docPanel, BorderLayout.SOUTH);
+		docPanel.add(btnBuscarDocumento);
+
+		btnBuscarDocumento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ex) {
+				dispose();
+				VentanaBuscarDocumento ventana = new VentanaBuscarDocumento();
+				ventana.setVisible(true);
+			}
+		});
 		
 		txtPassword.addKeyListener(new KeyListener() {
             @Override
@@ -71,8 +86,8 @@ public class VentanaInicioSesion extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				String usuario = txtUsuario.getText();
-				String password = new String(txtPassword.getPassword());
+				usuario = txtUsuario.getText();
+				password = new String(txtPassword.getPassword());
 				
 				UsuarioDB usuDB = new UsuarioDB();
 				boolean exito = usuDB.iniciarSesion(usuario, password);

@@ -98,6 +98,8 @@ public class VentanaBuscarDocumento extends JDialog {
 			JOptionPane.showMessageDialog(this,
 					"No se encontraron documentos que coincidan con los criterios de búsqueda.", "Aviso",
 					JOptionPane.INFORMATION_MESSAGE);
+			MenuSocio menu = new MenuSocio();
+			menu.setVisible(true);
 		} else {
 
 			JFrame ventanaResultados = new JFrame("Resultados de la consulta");
@@ -126,7 +128,7 @@ public class VentanaBuscarDocumento extends JDialog {
 				fila[3] = documento.getReplicas();
 				
 				if (documento.getReplicas() == 0) {
-	                fila[3] = "No disponible";
+	                fila[3] = "Reservado";
 	                disponible = false;
 	            } else {
 	            	fila[3] = "Libre";
@@ -139,15 +141,13 @@ public class VentanaBuscarDocumento extends JDialog {
 			JScrollPane scrollPane = new JScrollPane(tablaDocumentos);
 
 			JButton btnVolverBuscar = new JButton("Volver a Buscar");
-			JButton btnPedir = new JButton("Pedir");
-			JButton btnReservar = new JButton("Reservar Documento");
+			JButton btnPedirReserva = new JButton("Pedir Reserva");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
 			panelBotones.setLayout(new FlowLayout());
 			panelBotones.add(btnVolverBuscar);
-			panelBotones.add(btnPedir);
-			panelBotones.add(btnReservar);
+			panelBotones.add(btnPedirReserva);
 
 			// Configurar el panel principal
 			JPanel panelPrincipal = new JPanel();
@@ -169,34 +169,27 @@ public class VentanaBuscarDocumento extends JDialog {
 				}
 			});
 			
-			btnPedir.addActionListener(new ActionListener() {
+//			VentanaInicioSesion ventana = new VentanaInicioSesion();
+//			String usuario = ventana.getNombreUsuario();
+			
+			String usuario = "socio";
+			
+			btnPedirReserva.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
 					int filaSeleccionada = tablaDocumentos.getSelectedRow();
 					if (filaSeleccionada == -1) {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else if (!disponible) {
-							JOptionPane.showMessageDialog(ventanaResultados, "Este documento no esta disponible",
-									"Aviso", JOptionPane.INFORMATION_MESSAGE);
-					} else {
 						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-						// Lógica para pedir préstamo del documento con el ISBN seleccionado
-						docDB.reservarDocumento(isbn);
+						// Reservas
+						docDB.reservarDocumento(usuario, isbn);
 						ventanaResultados.dispose();
-					}
-				}
-			});
-
-			btnReservar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent ex) {
-					int filaSeleccionada = tablaDocumentos.getSelectedRow();
-					if (filaSeleccionada == -1) {
-						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
-								"Error", JOptionPane.ERROR_MESSAGE);
+						System.out.println("Reservas");
 					} else {
 						int isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-						// Lógica para pedir préstamo del documento con el ISBN seleccionado
-						docDB.reservarDocumento(isbn);
+						// Prestamos
+						docDB.prestamoDocumento(usuario, isbn);
 						ventanaResultados.dispose();
 					}
 				}
