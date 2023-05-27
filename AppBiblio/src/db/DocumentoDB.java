@@ -4,6 +4,7 @@ import app.Documento;
 import app.Libro;
 import app.Musica;
 import app.Pelicula;
+import app.Reservas;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DocumentoDB {
-	private int isbn, replicas;
-	private String nombre, autor;
+	private int isbn, replicas, diasPendientes;
+	private String nombre, autor, usuario;
+	private Date fechaReserva;
 	
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
@@ -167,6 +169,44 @@ public class DocumentoDB {
         }
 
 		return documentos;
+	}
+	
+	public ArrayList<Reservas> consultarMisReservas(String myUser) {
+		ArrayList<Reservas> reservas = new ArrayList<>();
+
+		try (Connection conn = ConexionDB.getConnection()) {
+
+			String query = "SELECT * FROM reservas WHERE usuario = ?";
+
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, myUser);
+			ResultSet resultSet = statement.executeQuery();
+
+			// Recorrer los resultados y crear objetos Reserva
+			while (resultSet.next()) {
+				isbn = resultSet.getInt("isbn");
+				usuario = resultSet.getString("usuario");
+				fechaReserva = resultSet.getDate("fecha_reserva");
+				diasPendientes = resultSet.getInt("dias_pendientes");
+
+				Reservas reserva = new Reservas(isbn, usuario, fechaReserva, diasPendientes);
+				reservas.add(reserva);
+			}
+
+			resultSet.close();
+			statement.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+        	try {
+				ConexionDB.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+
+		return reservas;
 	}
 	
 	public void prestamoDocumento(String usuario, int isbn) {

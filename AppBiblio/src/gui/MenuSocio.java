@@ -3,13 +3,19 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import app.Reservas;
+import db.DocumentoDB;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MenuSocio extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JButton btnEditarPerfil, btnConsultarDocumentos, btnConsultarReservas, btnCerrarSesion;
+	private JButton btnEditarPerfil, btnConsultarDocumentos, btnDevolverDocumento, btnConsultarReservas, btnCerrarSesion;
+
+	static String usuario;
 
 	public MenuSocio() {
 		setTitle("Menu Socio");
@@ -17,7 +23,7 @@ public class MenuSocio extends JFrame {
 		setResizable(false);
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridLayout(5, 2, 10, 10));
+		mainPanel.setLayout(new GridLayout(6, 2, 10, 10));
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		JLabel lblTitulo = new JLabel("Bienvenido a la Biblioteca App");
@@ -26,12 +32,14 @@ public class MenuSocio extends JFrame {
 
 		btnEditarPerfil = new JButton("Editar Perfil");
 		btnConsultarDocumentos = new JButton("Consultar Documentos");
+		btnDevolverDocumento = new JButton("Devolver Documento");
 		btnConsultarReservas = new JButton("Consultar Mis Reservas");
 		btnCerrarSesion = new JButton("Cerrar Sesión");
 
 		mainPanel.add(lblTitulo);
 		mainPanel.add(btnEditarPerfil);
 		mainPanel.add(btnConsultarDocumentos);
+		mainPanel.add(btnDevolverDocumento);
 		mainPanel.add(btnConsultarReservas);
 		mainPanel.add(btnCerrarSesion);
 
@@ -55,13 +63,31 @@ public class MenuSocio extends JFrame {
 				dispose();
 			}
 		});
+		
+		btnDevolverDocumento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ex) {
+				JOptionPane.showMessageDialog(mainPanel, "Funcionalidad en desarrollo", "En construcción",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 
 		btnConsultarReservas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				// Lógica para reservar un documento y mostrar el resultado
-				JOptionPane.showMessageDialog(MenuSocio.this, "Funcionalidad en desarrollo", "En construcción",
-						JOptionPane.INFORMATION_MESSAGE);
+				ArrayList<Reservas> reservas;
+				DocumentoDB docDB = new DocumentoDB();
+
+				reservas = docDB.consultarMisReservas(usuario);
+
+				if (reservas.isEmpty()) {
+					JOptionPane.showMessageDialog(mainPanel, "No tienes reservas almacenadas.", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					VentanaConsultarReservas ventana = new VentanaConsultarReservas(reservas);
+					ventana.setVisible(true);
+					dispose();
+				}
 			}
 		});
 

@@ -14,6 +14,8 @@ import gui.VentanaCambiarEmail;
 
 public class UsuarioDB {
 	
+	private String grupo;
+	
 	VentanaRegistro ventanaR = new VentanaRegistro();
 	VentanaInicioSesion ventanaIS = new VentanaInicioSesion();
 	VentanaCambiarPassword ventanaCP = new VentanaCambiarPassword();
@@ -95,6 +97,35 @@ public class UsuarioDB {
 			}
         }
 	    return false;
+	}
+	
+	public String obtenerGrupo(String usuario) {
+		try (Connection conn = ConexionDB.getConnection()) {
+
+			String query = "SELECT rol FROM usuarios WHERE usuario = ?";
+
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, usuario);
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				grupo = resultSet.getString("rol");
+			}
+
+			resultSet.close();
+			statement.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+        	try {
+				ConexionDB.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+
+		return grupo;
 	}
 	
     public boolean validarCuenta(String usuarioActual, String contrasena) {

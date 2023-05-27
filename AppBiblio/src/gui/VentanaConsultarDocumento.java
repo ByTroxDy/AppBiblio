@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo, txtAutor;
-	private JButton btnVolver, btnBuscar;
+	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva;
 
 	private int filaSeleccionada, isbn;
 	private String titulo, autor, replicas;
 	static String usuario;
 
 	public VentanaConsultarDocumento() {
-		setTitle("Buscar Documento");
+		setTitle("Consultar Documento");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 
@@ -144,8 +144,8 @@ public class VentanaConsultarDocumento extends JDialog {
 			JTable tablaDocumentos = new JTable(modeloTabla);
 			JScrollPane scrollPane = new JScrollPane(tablaDocumentos);
 
-			JButton btnVolverBuscar = new JButton("Volver a Buscar");
-			JButton btnPedirReserva = new JButton("Pedir Reserva");
+			btnVolverBuscar = new JButton("Volver a Buscar");
+			btnPedirReserva = new JButton("Pedir Reserva");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
