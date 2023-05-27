@@ -6,9 +6,13 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,25 +23,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import app.Documento;
-import app.Libro;
+import app.Musica;
 import db.DocumentoDB;
+import app.Documento;
 
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+public class VentanaAltaMusica extends JFrame {
 
-
-public class ventanaAltaLibro extends JFrame {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private String editorial;
-	private int numpaginas;
-	private String tematica;
 	private Documento documento;
-	
+	private String lugar;
+	private String fecha;
+	private int duracion;
+	private String formato;
+	private JTextField textFieldLugar;
+	private JTextField textFieldFecha;
+	private JTextField textFieldDuracion;
 	/**
 	 * Launch the application.
 	 */
@@ -45,7 +49,7 @@ public class ventanaAltaLibro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ventanaAltaLibro frame = new ventanaAltaLibro();
+					VentanaAltaMusica frame = new VentanaAltaMusica();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +57,7 @@ public class ventanaAltaLibro extends JFrame {
 			}
 		});
 	}
-	
+
 	public void setDocument(Documento myDoc) {
 		this.documento = myDoc;
 	}
@@ -61,7 +65,7 @@ public class ventanaAltaLibro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ventanaAltaLibro() {	
+	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
@@ -79,7 +83,7 @@ public class ventanaAltaLibro extends JFrame {
 		panel.setBounds(53, 14, 359, 44);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("ALTA LIBRO");
+		JLabel lblAlta = new JLabel("ALTA MÚSCIA");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 		panel.add(lblAlta);
@@ -92,44 +96,61 @@ public class ventanaAltaLibro extends JFrame {
 		panel_1.setBounds(53, 70, 360, 208);
 		contentPane.add(panel_1);
 				
-		JLabel lblIntroduceElIsbn = new JLabel("Introduce los datos");
-		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceElIsbn.setBounds(66, 28, 212, 28);
-		panel_1.add(lblIntroduceElIsbn);
+		JLabel lblIntroduceDatos = new JLabel("Introduce los datos");
+		lblIntroduceDatos.setForeground(new Color(0, 0, 0));
+		lblIntroduceDatos.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
+		lblIntroduceDatos.setBounds(66, 28, 212, 28);
+		panel_1.add(lblIntroduceDatos);
 		
 		
-		JLabel lblIsbn = new JLabel("Editorial");
-		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(48, 68, 79, 17);
-		panel_1.add(lblIsbn);
-		
-		textField = new JTextField();
-		textField.setBounds(123, 67, 155, 21);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
+		JLabel lblLugar = new JLabel("Lugar");
+		lblLugar.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblLugar.setBounds(12, 67, 79, 17);
+		panel_1.add(lblLugar);
 
-		JLabel lblPginas = new JLabel("Páginas");
-		lblPginas.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPginas.setBounds(48, 94, 79, 17);
-		panel_1.add(lblPginas);
+		//Lugar
+		textFieldLugar = new JTextField();
+		textFieldLugar.setBounds(87, 67, 86, 20);
+		panel_1.add(textFieldLugar);
+		textFieldLugar.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(123, 93, 155, 21);
-		panel_1.add(textField_1);
 		
-		JLabel lblTemtica = new JLabel("Temática");
-		lblTemtica.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblTemtica.setBounds(48, 123, 79, 17);
-		panel_1.add(lblTemtica);
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblFecha.setBounds(185, 67, 79, 17);
+		panel_1.add(lblFecha);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ciencias", "Historia", "Literatura", "Filosofía", "Técnicos", "Otros..."}));
-		comboBox.setBounds(123, 119, 155, 26);
-		panel_1.add(comboBox);
-
+		//Fecha
+		textFieldFecha = new JTextField();
+		textFieldFecha.setColumns(10);
+		textFieldFecha.setBounds(250, 67, 86, 20);
+		panel_1.add(textFieldFecha);
+		
+		
+		JLabel lblDuracion = new JLabel("Duración");
+		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblDuracion.setBounds(12, 98, 79, 17);
+		panel_1.add(lblDuracion);
+		
+		//Duracion
+		textFieldDuracion = new JTextField();
+		textFieldDuracion.setColumns(10);
+		textFieldDuracion.setBounds(87, 95, 86, 20);
+		panel_1.add(textFieldDuracion);
+		
+		
+		JLabel lblIsbn_3 = new JLabel("Formato");
+		lblIsbn_3.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblIsbn_3.setBounds(185, 98, 79, 17);
+		panel_1.add(lblIsbn_3);
+		
+		//Formato
+		JComboBox formatoBox = new JComboBox();
+		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Digital", "Fisico"}));
+		formatoBox.setBounds(250, 98, 86, 22);
+		panel_1.add(formatoBox);
+		
+		//Volver
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
@@ -146,24 +167,26 @@ public class ventanaAltaLibro extends JFrame {
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
+
 		
-		
+		//Alta
 		JButton btnNewButton = new JButton("Alta");
 		btnNewButton.setBounds(269, 168, 79, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editorial = textField.getText().toString();
-				numpaginas = Integer.parseInt(textField_1.getText());
-				tematica = comboBox.getSelectedItem().toString();
+				lugar = textFieldLugar.getText().toString();
+				fecha = textFieldFecha.getText().toString();
+				duracion = Integer.parseInt(textFieldDuracion.getText());
+				formato = formatoBox.getSelectedItem().toString();
 				
-				Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
+				Musica musica = new Musica(documento.getISBN(), lugar, fecha, duracion, formato);
 				
 				// Primer Document
 				DocumentoDB docDB = new DocumentoDB();
 				
 				try {
-					docDB.insertDocumentLlibre(documento, libro);
+					docDB.insertDocumentMusica(documento, musica);
 				} catch (SQLException ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
@@ -177,4 +200,5 @@ public class ventanaAltaLibro extends JFrame {
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 	}
+
 }
