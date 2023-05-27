@@ -12,6 +12,11 @@ public class Usuario {
 		this.email = email;
 		this.ban = ban;
 	}
+	
+	public Usuario(String usuario2, String password2) {
+		this.usuario = usuario2;
+		this.password = password2;
+	}
 
 	public String getUsuario() {
 		return usuario;

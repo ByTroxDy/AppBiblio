@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 public class VentanaCambiarPassword extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
-    private JPasswordField txtContrasenaActual;
-    private JPasswordField txtNuevaContrasena;
-    private JButton btnCancelar;
-    private JButton btnGuardarCambios;
+    private JPasswordField txtContrasenaActual, txtNuevaContrasena;
+    private JButton btnCancelar, btnGuardarCambios;
+    
+    String usuario, contrasenaActual, nuevaContrasena;
 
     public VentanaCambiarPassword() {
         setTitle("Cambiar Contraseña");
@@ -58,9 +58,9 @@ public class VentanaCambiarPassword extends JFrame {
 
         btnGuardarCambios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-                String usuario = txtUsuario.getText();
-                String contrasenaActual = new String(txtContrasenaActual.getPassword());
-                String nuevaContrasena = new String(txtNuevaContrasena.getPassword());
+                usuario = txtUsuario.getText();
+                contrasenaActual = new String(txtContrasenaActual.getPassword());
+                nuevaContrasena = new String(txtNuevaContrasena.getPassword());
 
                 UsuarioDB usuDB = new UsuarioDB();
                 usuDB.cambiarContrasena(usuario, contrasenaActual, nuevaContrasena);
@@ -70,7 +70,6 @@ public class VentanaCambiarPassword extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

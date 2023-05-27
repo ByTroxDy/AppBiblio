@@ -9,15 +9,12 @@ import java.awt.event.ActionListener;
 
 public class MenuSocio extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JButton btnEditarPerfil;
-	private JButton btnConsultarDocumentos;
-	private JButton btnConsultarReservas;
-	private JButton btnCerrarSesion;
-	
+	private JButton btnEditarPerfil, btnConsultarDocumentos, btnConsultarReservas, btnCerrarSesion;
+
 	public MenuSocio() {
 		setTitle("Menu Socio");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(5, 2, 10, 10));
@@ -44,21 +41,21 @@ public class MenuSocio extends JFrame {
 		btnEditarPerfil.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				VentanaEditarPerfil editarPerfil = new VentanaEditarPerfil();
-				editarPerfil.setVisible(true);
+				VentanaEditarPerfil ventana = new VentanaEditarPerfil();
+				ventana.setVisible(true);
 				dispose();
 			}
 		});
-		
+
 		btnConsultarDocumentos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				VentanaBuscarDocumento buscarDoc = new VentanaBuscarDocumento();
-				buscarDoc.setVisible(true);
+				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
+				ventana.setVisible(true);
 				dispose();
 			}
 		});
-		
+
 		btnConsultarReservas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
@@ -71,16 +68,16 @@ public class MenuSocio extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				dispose();
 				VentanaInicioSesion app = new VentanaInicioSesion();
 				app.setVisible(true);
+				dispose();
 			}
 		});
 
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
-	
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -90,5 +87,4 @@ public class MenuSocio extends JFrame {
 			}
 		});
 	}
-
 }

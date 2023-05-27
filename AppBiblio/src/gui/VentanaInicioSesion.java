@@ -15,13 +15,9 @@ public class VentanaInicioSesion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JButton btnRegistro, btnLogin, btnBuscarDocumento;
+    private JButton btnRegistro, btnLogin, btnConsultarDocumento;
     
     public String usuario, password;
-
-    public void setNombreUsuario(String usuario) {
-        this.usuario = usuario;
-    }
 
 	public VentanaInicioSesion() {
 		super("Biblioteca App - Iniciar sesión");
@@ -40,7 +36,7 @@ public class VentanaInicioSesion extends JFrame {
         
         btnLogin = new JButton("Iniciar sesión");
         btnRegistro = new JButton("Registrarse");
-        btnBuscarDocumento = new JButton("Buscar Documento");
+        btnConsultarDocumento = new JButton("Consultar Documento");
         
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);
@@ -56,15 +52,7 @@ public class VentanaInicioSesion extends JFrame {
 		docPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
 		
 		getContentPane().add(docPanel, BorderLayout.SOUTH);
-		docPanel.add(btnBuscarDocumento);
-
-		btnBuscarDocumento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ex) {
-				dispose();
-				VentanaBuscarDocumento ventana = new VentanaBuscarDocumento();
-				ventana.setVisible(true);
-			}
-		});
+		docPanel.add(btnConsultarDocumento);
 		
 		txtPassword.addKeyListener(new KeyListener() {
             @Override
@@ -93,6 +81,7 @@ public class VentanaInicioSesion extends JFrame {
 				boolean exito = usuDB.iniciarSesion(usuario, password);
 				
                 if (exito) {
+                	VentanaConsultarDocumento.usuario = usuario;
                 	MenuSocio menu = new MenuSocio();
     	            menu.setVisible(true);
     	            dispose();
@@ -106,11 +95,20 @@ public class VentanaInicioSesion extends JFrame {
         
         btnRegistro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-            	VentanaRegistro registro = new VentanaRegistro();
-            	registro.setVisible(true);
+            	VentanaRegistro ventana = new VentanaRegistro();
+            	ventana.setVisible(true);
             	dispose();
             }
         });
+        
+		btnConsultarDocumento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ex) {
+				VentanaConsultarDocumento.usuario = null;
+				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
+		        ventana.setVisible(true);
+		        dispose();
+			}
+		});
 
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla

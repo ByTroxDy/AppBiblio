@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 
 public class VentanaCambiarEmail extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtUsuario;
+	private JTextField txtUsuario, txtEmail;
     private JPasswordField txtContrasena;
-    private JTextField txtEmail;
-    private JButton btnCancelar;
-    private JButton btnGuardarCambios;
+    private JButton btnCancelar, btnGuardarCambios;
+    
+    private String usuario, contrasena, email;
 
     public VentanaCambiarEmail() {
         setTitle("Cambiar Email");
@@ -58,9 +58,9 @@ public class VentanaCambiarEmail extends JFrame {
 
         btnGuardarCambios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-                String usuario = txtUsuario.getText();
-                String contrasena = new String(txtContrasena.getPassword());
-                String email = txtEmail.getText();
+                usuario = txtUsuario.getText();
+                contrasena = new String(txtContrasena.getPassword());
+                email = txtEmail.getText();
                 
                 UsuarioDB usuDB = new UsuarioDB();
                 usuDB.cambiarEmail(usuario, contrasena, email);

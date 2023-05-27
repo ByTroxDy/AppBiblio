@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 
 public class VentanaCambiarNombreUsuario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtUsuarioActual;
+	private JTextField txtUsuarioActual, txtNuevoUsuario;
     private JPasswordField txtContrasena;
-    private JTextField txtNuevoUsuario;
-    private JButton btnCancelar;
-    private JButton btnGuardarCambios;
+    private JButton btnCancelar, btnGuardarCambios;
+    
+    private String usuarioActual, nuevoUsuario, contrasena;
 
     public VentanaCambiarNombreUsuario() {
         setTitle("Cambiar Nombre de Usuario");
@@ -27,20 +27,22 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 
         JLabel lblUsuarioActual = new JLabel("Usuario actual:");
         txtUsuarioActual = new JTextField();
+        
+        JLabel lblNuevoUsuario = new JLabel("Nuevo usuario:");
+        txtNuevoUsuario = new JTextField();
+        
         JLabel lblContrasena = new JLabel("Contraseña:");
         txtContrasena = new JPasswordField();
-        JLabel lblNuevoUsuario = new JLabel("Nuevo nombre de usuario:");
-        txtNuevoUsuario = new JTextField();
 
         btnCancelar = new JButton("Cancelar");
         btnGuardarCambios = new JButton("Guardar Cambios");
 
         panel.add(lblUsuarioActual);
         panel.add(txtUsuarioActual);
-        panel.add(lblContrasena);
-        panel.add(txtContrasena);
         panel.add(lblNuevoUsuario);
         panel.add(txtNuevoUsuario);
+        panel.add(lblContrasena);
+        panel.add(txtContrasena);
         panel.add(btnCancelar);
         panel.add(btnGuardarCambios);
 
@@ -48,17 +50,17 @@ public class VentanaCambiarNombreUsuario extends JFrame {
         
         btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				VentanaEditarPerfil editarPerfil = new VentanaEditarPerfil();
-				editarPerfil.setVisible(true);
+				VentanaEditarPerfil ventana = new VentanaEditarPerfil();
+				ventana.setVisible(true);
 				dispose();
 			}
 		});
 
         btnGuardarCambios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-                String usuarioActual = txtUsuarioActual.getText();
-                String contrasena = new String(txtContrasena.getPassword());
-                String nuevoUsuario = txtNuevoUsuario.getText();
+                usuarioActual = txtUsuarioActual.getText();
+                nuevoUsuario = txtNuevoUsuario.getText();
+                contrasena = new String(txtContrasena.getPassword());
                 
                 UsuarioDB usuDB = new UsuarioDB();
 

@@ -40,24 +40,24 @@ public class VentanaEditarPerfil extends JFrame {
 
         btnCambiarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-                VentanaCambiarNombreUsuario cambiarNombreUsuario = new VentanaCambiarNombreUsuario();
-                cambiarNombreUsuario.setVisible(true);
+                VentanaCambiarNombreUsuario ventana = new VentanaCambiarNombreUsuario();
+                ventana.setVisible(true);
                 dispose();
             }
         });
 
         btnCambiarContrasena.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-            	VentanaCambiarPassword cambiarPassword = new VentanaCambiarPassword();
-            	cambiarPassword.setVisible(true);
+            	VentanaCambiarPassword ventana = new VentanaCambiarPassword();
+            	ventana.setVisible(true);
                 dispose();
             }
         });
 
         btnCambiarEmail.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-            	VentanaCambiarEmail cambiarEmail = new VentanaCambiarEmail();
-            	cambiarEmail.setVisible(true);
+            	VentanaCambiarEmail ventana = new VentanaCambiarEmail();
+            	ventana.setVisible(true);
                 dispose();
             }
         });

@@ -1,6 +1,9 @@
 package db;
 
 import app.Documento;
+import app.Libro;
+import app.Musica;
+import app.Pelicula;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +16,6 @@ import java.util.Date;
 public class DocumentoDB {
 	private int isbn, replicas;
 	private String nombre, autor;
-	//private Connection conn;
-	
-
 	
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
@@ -276,6 +276,63 @@ public class DocumentoDB {
 	    }
 
 	    System.out.println("Préstamo realizado con éxito.");
+	}
+	
+	public void reservarDocumento(String usuario, int isbn) {
+	    // Verificar si el usuario ya tiene reservado el documento seleccionado
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String checkQuery = "SELECT COUNT(*) FROM reservas WHERE usuario = ? AND isbn = ?";
+	        
+	        PreparedStatement checkStatement = conn.prepareStatement(checkQuery);
+	        checkStatement.setString(1, usuario);
+	        checkStatement.setInt(2, isbn);
+	        ResultSet checkResult = checkStatement.executeQuery();
+	        checkResult.next();
+	        int cantidadReservasDocumento = checkResult.getInt(1);
+	        checkResult.close();
+	        checkStatement.close();
+
+	        if (cantidadReservasDocumento > 0) {
+	            System.out.println("Ya has reservado este documento.");
+	            return;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Insertar nueva reserva en la tabla 'reservas'
+	    try (Connection conn = ConexionDB.getConnection()) {
+	    	
+	        String query = "INSERT INTO reservas (usuario, isbn, fecha_reserva, dias_pendientes) VALUES (?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setString(1, usuario);
+	        statement.setInt(2, isbn);
+	        statement.setDate(3, new java.sql.Date(new Date().getTime())); // Fecha actual
+	        statement.setDate(4, null);
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    System.out.println("Reserva realizada con éxito.");
 	}
 	
 	/* PUBLIC FUNCTIONS */	
