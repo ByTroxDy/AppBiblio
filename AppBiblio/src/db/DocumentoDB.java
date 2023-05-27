@@ -283,6 +283,8 @@ public class DocumentoDB {
 	    System.out.println("Préstamo realizado con éxito.");
 	}
 	
+	/* PUBLIC FUNCTIONS */	
+	//Insertar documento libro
 	public void insertDocumentLlibre(Documento documento, Libro libro) throws SQLException  {
 		Connection conn = ConexionDB.getConnection();
 		try {
@@ -301,14 +303,58 @@ public class DocumentoDB {
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-	    }
+	    }// try catch finally
 	}//insertDocumentLlibre
+	
+	//Insertar documento pelicula
+	public void insertDocumentPelicula(Documento documento, Pelicula pelicula) throws SQLException  {
+		Connection conn = ConexionDB.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			insertarDocumento(documento, conn);
+			insertarPelicula(pelicula, conn);
+			
+			conn.commit();
+		}catch (SQLException e) {
+			conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }// try catch finally
+	}//insertDocumentPelicula
+	
+	
+	//Insertar documento musica
+	public void insertDocumentMusica(Documento documento, Musica musica) throws SQLException  {
+		Connection conn = ConexionDB.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			insertarDocumento(documento, conn);
+			insertarMusica(musica, conn);
+			
+			conn.commit();
+		}catch (SQLException e) {
+			conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    } finally {
+	        try {
+	            ConexionDB.closeConnection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }// try catch finally
+	}//insertDocumentMusica
 
 	/* PRIVATE FUNCTIONS */
+	//Insertar documento
 	private void insertarDocumento(Documento documento, Connection conn) throws SQLException {
-		// Insertar nuevo documento en la tabla 'documentos'
 	    try  {
-	    	
 	        String query = "INSERT INTO documentos (isbn, titulo , autor, biblioteca) VALUES (?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
@@ -323,12 +369,12 @@ public class DocumentoDB {
 	    	conn.rollback();
 	        e.printStackTrace();
 	        return;
-	    }
-	}
+	    }//try cath
+	}//insertarDocumento
+	
+	//Insertar libro
 	private void insertarLibro(Libro libro, Connection conn) throws SQLException {
-		// Insertar nueva pelicula en la tabla 'peliculas'
 	    try  {
-	    	
 	        String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
@@ -343,14 +389,12 @@ public class DocumentoDB {
 	    	conn.rollback();
 	        e.printStackTrace();
 	        return;
-	    }
-	}
+	    }//try cath
+	}//insertarLibro
 
-	
-	public void insertarPelicula(Pelicula pelicula) {
-		// Insertar nueva pelicula en la tabla 'peliculas'
-	    try (Connection conn = ConexionDB.getConnection()) {
-	    	
+	//Insertar Pelicula
+	public void insertarPelicula(Pelicula pelicula, Connection conn) throws SQLException {
+	    try {
 	        String query = "INSERT INTO peliculas (isbn, director, actores , premios, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
@@ -365,14 +409,32 @@ public class DocumentoDB {
 	        statement.close();
 	        
 	    } catch (SQLException e) {
+	    	conn.rollback();
 	        e.printStackTrace();
 	        return;
-	    } finally {
-	        try {
-	            ConexionDB.closeConnection();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
-}
+	    }//try cath
+	}//insertarPelicula
+	
+	//Insertar Musica
+	public void insertarMusica(Musica musica, Connection conn) throws SQLException {
+	    try {
+	        String query = "INSERT INTO musicas (isbn, lugar, fecha , duracion, formato) VALUES (?, ?, ?, ?, ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setInt(1, musica.getISBN());
+	        statement.setString(2, musica.getLugar());
+	        statement.setString(3, musica.getFecha());
+	        statement.setInt(4, musica.getDuracion());
+	        statement.setString(5, musica.getFormato());
+
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	    	conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    }//try cath
+	}//insertarMusica
+	
+}//DocumentoDB

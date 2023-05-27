@@ -7,9 +7,8 @@ public class Pelicula extends Documento {
 	private int duracion;
 	private String formato;
 
-	public Pelicula(int isbn, String titulo, String autor, int replicas, String director, String actoresPrincipales,
-			String premiosConseguidos, int duracion, String formato) {
-		super(isbn, titulo, autor, replicas);
+	public Pelicula(int isbn, String director, String actoresPrincipales, String premiosConseguidos, int duracion, String formato) {
+		super(isbn);
 		this.director = director;
 		this.actoresPrincipales = actoresPrincipales;
 		this.premiosConseguidos = premiosConseguidos;
