@@ -1,8 +1,8 @@
 package gui;
 
-import javax.swing.*;
+import db.UsuarioMaxDB;
 
-import db.UsuarioDB;
+import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -61,9 +61,17 @@ public class VentanaCambiarPassword extends JFrame {
                 usuario = txtUsuario.getText();
                 contrasenaActual = new String(txtContrasenaActual.getPassword());
                 nuevaContrasena = new String(txtNuevaContrasena.getPassword());
-
-                UsuarioDB usuDB = new UsuarioDB();
-                usuDB.cambiarContrasena(usuario, contrasenaActual, nuevaContrasena);
+                
+                UsuarioMaxDB usuDB = new UsuarioMaxDB();
+                if (!usuDB.validarCuenta(usuario, contrasenaActual)) {
+                	JOptionPane.showMessageDialog(panel, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (usuDB.cambiarContrasena(usuario, nuevaContrasena)) {
+                	JOptionPane.showMessageDialog(panel, "Contraseña actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                txtUsuario.setText("");
+                txtContrasenaActual.setText("");
+                txtNuevaContrasena.setText("");
             }
         });
 

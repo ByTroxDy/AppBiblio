@@ -5,12 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
+import gui.VentanaRegistro;
+
 public class UsuarioMaxDB {
+	VentanaRegistro ventanaR = new VentanaRegistro();
 
     private Connection conn;
 
-    public UsuarioMaxDB() throws SQLException {
-        conn = ConexionDB.getConnection();
+    public UsuarioMaxDB() {
+        try {
+			conn = ConexionDB.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
     public boolean guardarRegistro(String usuario, String password) {
@@ -21,6 +30,7 @@ public class UsuarioMaxDB {
                 resultSet.next();
                 int count = resultSet.getInt(1);
                 if (count > 0) {
+                	JOptionPane.showMessageDialog(ventanaR, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }
@@ -121,36 +131,30 @@ public class UsuarioMaxDB {
         }
     }
 
-    public void cambiarContrasena(String usuario, String contrasenaActual, String nuevaContrasena) {
-        boolean cuentaValida = validarCuenta(usuario, contrasenaActual);
-        if (!cuentaValida) {
-            return;
-        }
-
+    public boolean cambiarContrasena(String usuario, String nuevaContrasena) {
         String query = "UPDATE usuarios SET password = ? WHERE usuario = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, nuevaContrasena);
             statement.setString(2, usuario);
             statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void cambiarEmail(String usuario, String contrasena, String email) {
-        boolean cuentaValida = validarCuenta(usuario, contrasena);
-        if (!cuentaValida) {
-            return;
-        }
-
+    public boolean cambiarEmail(String usuario, String email) {
         String query = "UPDATE usuarios SET email = ? WHERE usuario = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, usuario);
             statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+		return false;
     }
 
     public void cerrarConexion() {

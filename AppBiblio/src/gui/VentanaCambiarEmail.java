@@ -2,7 +2,7 @@ package gui;
 
 import javax.swing.*;
 
-import db.UsuarioDB;
+import db.UsuarioMaxDB;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -62,8 +62,16 @@ public class VentanaCambiarEmail extends JFrame {
                 contrasena = new String(txtContrasena.getPassword());
                 email = txtEmail.getText();
                 
-                UsuarioDB usuDB = new UsuarioDB();
-                usuDB.cambiarEmail(usuario, contrasena, email);
+                UsuarioMaxDB usuDB = new UsuarioMaxDB();
+                if (!usuDB.validarCuenta(usuario, contrasena)) {
+                	JOptionPane.showMessageDialog(panel, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (usuDB.cambiarEmail(usuario, email)) {
+                	JOptionPane.showMessageDialog(panel, "Email actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                txtUsuario.setText("");
+                txtContrasena.setText("");
+                txtEmail.setText("");
             }
         });
 

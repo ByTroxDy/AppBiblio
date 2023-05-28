@@ -27,9 +27,9 @@ public class VentanaRegistro extends JFrame {
         
         usuarios = new ArrayList<>();
         
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(3, 2, 10, 10));
-        mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 2, 10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         JLabel lblUsuario = new JLabel("Nombre de usuario:");
         txtUsuario = new JTextField(20);
@@ -40,14 +40,14 @@ public class VentanaRegistro extends JFrame {
         btnVolver = new JButton("Volver");
         btnRegistro = new JButton("Registrarse");
         
-		mainPanel.add(lblUsuario);
-		mainPanel.add(txtUsuario);
-		mainPanel.add(lblPassword);
-		mainPanel.add(txtPassword);
-		mainPanel.add(btnVolver);
-		mainPanel.add(btnRegistro);
+        panel.add(lblUsuario);
+		panel.add(txtUsuario);
+		panel.add(lblPassword);
+		panel.add(txtPassword);
+		panel.add(btnVolver);
+		panel.add(btnRegistro);
         
-		getContentPane().add(mainPanel);
+		getContentPane().add(panel);
 		
 		txtPassword.addKeyListener(new KeyListener() {
             @Override
@@ -83,9 +83,8 @@ public class VentanaRegistro extends JFrame {
                 usuarios.add(nuevoUsuario);
                 
                 UsuarioDB usuDB = new UsuarioDB();
-                boolean exito = usuDB.guardarRegistro(nombre, password);
                 
-                if (exito) {
+                if (usuDB.guardarRegistro(nombre, password)) {
     		        VentanaInicioSesion app = new VentanaInicioSesion();
     	            app.setVisible(true);
     	            dispose();
