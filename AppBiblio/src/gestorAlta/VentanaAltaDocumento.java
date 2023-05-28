@@ -1,4 +1,4 @@
-package gestor;
+package gestorAlta;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.Documento;
+import gestor.VentanaGestor;
 
 public class VentanaAltaDocumento extends JFrame {
 
@@ -192,9 +193,8 @@ public class VentanaAltaDocumento extends JFrame {
 						frame.setDocument(new Documento(isbn, titulo, autor));
 						frame.setVisible(true);
 						dispose();
-					}
-				}
-
+					}//if
+				}//if else
 			}// actionPerformed
 		});
 		panel_1.add(btnAceptar);

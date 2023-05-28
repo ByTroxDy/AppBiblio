@@ -1,4 +1,4 @@
-package gestor;
+package gestorAlta;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -19,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import gestor.VentanaGestor;
 import app.Documento;
 import app.Libro;
 import db.DocumentoDB;
@@ -125,8 +127,8 @@ public class ventanaAltaLibro extends JFrame {
 		lblTemtica.setBounds(48, 123, 79, 17);
 		panel_1.add(lblTemtica);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ciencias", "Historia", "Literatura", "Filosofía", "Técnicos", "Otros..."}));
+		JComboBox<Object> comboBox = new JComboBox<Object>();
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciencias", "Historia", "Literatura", "Filosofía", "Técnicos", "Otros..."}));
 		comboBox.setBounds(123, 119, 155, 26);
 		panel_1.add(comboBox);
 
@@ -164,12 +166,12 @@ public class ventanaAltaLibro extends JFrame {
 				
 				try {
 					docDB.insertDocumentLlibre(documento, libro);
+					JOptionPane.showMessageDialog(panel_1, "Se ha dado de alta al libro correctamente", "Alta Libro", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
 					ex.printStackTrace();
-				}
-				
-			}
+		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}//try catch
+			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);

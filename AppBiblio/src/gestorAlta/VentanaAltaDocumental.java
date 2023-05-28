@@ -1,4 +1,4 @@
-package gestor;
+package gestorAlta;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -21,9 +22,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import gestor.VentanaGestor;
 import app.Documental;
 import app.Documento;
-import app.Libro;
 import db.DocumentoDB;
 
 public class VentanaAltaDocumental extends JFrame {
@@ -153,8 +154,8 @@ public class VentanaAltaDocumental extends JFrame {
 		panel_1.add(lblFormato);
 		
 		//Formato
-		JComboBox formatoBox = new JComboBox();
-		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Físico", "Digital"}));
+		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
 		formatoBox.setBounds(269, 95, 79, 22);
 		panel_1.add(formatoBox);
 		
@@ -195,12 +196,12 @@ public class VentanaAltaDocumental extends JFrame {
 				
 				try {
 					docDB.insertDocumentDocumental(documento,documental);
+					JOptionPane.showMessageDialog(panel_1, "Se ha dado de alta al documental correctamente", "Alta Documental", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
 					ex.printStackTrace();
-				}
-				
-			}
+		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}// try catch
+			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);

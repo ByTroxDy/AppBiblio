@@ -466,6 +466,27 @@ public class DocumentoDB {
 		    }// try catch finally
 		}//insertDocumentMusica
 
+		
+	/* BAJA DOCUEMENTO */
+	public void bajaDocumento(int isbn) throws SQLException {
+		Connection conn = ConexionDB.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			String query = ("DELETE FROM documentos WHERE isbn = " + isbn);
+			
+			PreparedStatement statement = conn.prepareStatement(query);
+	        statement.executeUpdate();
+	        statement.close();
+		        
+			conn.commit();
+		}catch (SQLException e){
+	    	conn.rollback();
+	        e.printStackTrace();
+	        return;
+		}//try catch
+	}//bajaDocumento
+	
+	
 	/* PRIVATE FUNCTIONS */
 	//Insertar documento
 	private void insertarDocumento(Documento documento, Connection conn) throws SQLException {
@@ -508,7 +529,7 @@ public class DocumentoDB {
 	}//insertarLibro
 
 	//Insertar Pelicula
-	public void insertarPelicula(Pelicula pelicula, Connection conn) throws SQLException {
+	private void insertarPelicula(Pelicula pelicula, Connection conn) throws SQLException {
 	    try {
 	        String query = "INSERT INTO peliculas (isbn, director, actores , premios, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
 	        
@@ -531,7 +552,7 @@ public class DocumentoDB {
 	}//insertarPelicula
 	
 	//Insertar Musica
-	public void insertarMusica(Musica musica, Connection conn) throws SQLException {
+	private void insertarMusica(Musica musica, Connection conn) throws SQLException {
 	    try {
 	        String query = "INSERT INTO musicas (isbn, lugar, fecha , duracion, formato) VALUES (?, ?, ?, ?, ?)";
 	        
@@ -554,7 +575,7 @@ public class DocumentoDB {
 	
 	
 	//Insertar Documental
-	public void insertarDocumental(Documental documental, Connection conn) throws SQLException {
+	private void insertarDocumental(Documental documental, Connection conn) throws SQLException {
 	    try {
 	        String query = "INSERT INTO documental (isbn, productora, premiosConcedidos , documentalesRelacionados, duracion, formato) VALUES (?, ?, ?, ?, ?. ?)";
 	        
@@ -575,4 +596,12 @@ public class DocumentoDB {
 	        return;
 	    }//try cath
 	}//insertarDocumental
+	
+	
+
 }//DocumentoDB
+
+
+
+
+

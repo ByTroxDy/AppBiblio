@@ -89,8 +89,8 @@ public class VentanaCopiaSeguridad extends JFrame {
 		lblIntroduceElIsbn.setBounds(97, 38, 202, 28);
 		panel_1.add(lblIntroduceElIsbn);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Películas", "Música", "Libros", "Documentales"}));
+		JComboBox<Object> comboBox = new JComboBox<Object>();
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Todos", "Películas", "Música", "Libros", "Documentales"}));
 		comboBox.setBounds(133, 91, 131, 26);
 		panel_1.add(comboBox);
 		
