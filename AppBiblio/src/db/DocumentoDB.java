@@ -423,18 +423,18 @@ public class DocumentoDB {
 	
 	
 	//Insertar documento musica
-	public void insertDocumentMusica(Documento documento, Musica musica) throws SQLException  {
+	public boolean insertDocumentMusica(Documento documento, Musica musica) throws SQLException  {
 		Connection conn = ConexionDB.getConnection();
 		try {
 			conn.setAutoCommit(false);
 			insertarDocumento(documento, conn);
 			insertarMusica(musica, conn);
-			
 			conn.commit();
+			return true;
 		}catch (SQLException e) {
 			conn.rollback();
 	        e.printStackTrace();
-	        return;
+	        return false;
 	    } finally {
 	        try {
 	            ConexionDB.closeConnection();
@@ -538,7 +538,7 @@ public class DocumentoDB {
 	        PreparedStatement statement = conn.prepareStatement(query);
 	        statement.setInt(1, musica.getISBN());
 	        statement.setString(2, musica.getLugar());
-	        statement.setString(3, musica.getFecha());
+	        statement.setDate(3, new java.sql.Date(musica.getFecha().getTime()));
 	        statement.setInt(4, musica.getDuracion());
 	        statement.setString(5, musica.getFormato());
 

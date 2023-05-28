@@ -1,14 +1,14 @@
 package app;
 
-//import java.util.Date;
+import java.util.Date;
 
 public class Musica extends Documento {
 	private String lugar;
-	private String fecha;
+	private Date fecha;
 	private int duracion;
 	private String formato;
 
-	public Musica(int isbn, String titulo, String autor, int replicas, String lugar, String fecha, int duracion, String formato) {
+	public Musica(int isbn, String titulo, String autor, int replicas, String lugar, Date fecha, int duracion, String formato) {
 		super(isbn, titulo, autor, replicas);
 		this.lugar = lugar;
 		this.fecha = fecha;
@@ -16,10 +16,10 @@ public class Musica extends Documento {
 		this.formato = formato;
 	}
 	
-	public Musica(int isbn, String lugar, String fecha, int duracion, String formato) {
+	public Musica(int isbn, String lugar, Date fecha2, int duracion, String formato) {
 		super(isbn);
 		this.lugar = lugar;
-		this.fecha = fecha;
+		this.fecha = fecha2;
 		this.duracion = duracion;
 		this.formato = formato;
 	}
@@ -32,11 +32,11 @@ public class Musica extends Documento {
 		this.lugar = lugar;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

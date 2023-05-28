@@ -85,6 +85,7 @@ public class VentanaRegistro extends JFrame {
                 UsuarioDB usuDB = new UsuarioDB();
                 
                 if (usuDB.guardarRegistro(nombre, password)) {
+                	JOptionPane.showMessageDialog(panel, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
     		        VentanaInicioSesion app = new VentanaInicioSesion();
     	            app.setVisible(true);
     	            dispose();

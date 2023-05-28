@@ -6,15 +6,15 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -22,6 +22,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import com.toedter.calendar.JDateChooser;
 
 import app.Musica;
 import db.DocumentoDB;
@@ -36,12 +38,13 @@ public class VentanaAltaMusica extends JFrame {
 	private JPanel contentPane;
 	private Documento documento;
 	private String lugar;
-	private String fecha;
+	private Date fecha;
 	private int duracion;
 	private String formato;
 	private JTextField textFieldLugar;
-	private JTextField textFieldFecha;
 	private JTextField textFieldDuracion;
+	private JDateChooser dateChooser;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -121,10 +124,10 @@ public class VentanaAltaMusica extends JFrame {
 		panel_1.add(lblFecha);
 		
 		//Fecha
-		textFieldFecha = new JTextField();
-		textFieldFecha.setColumns(10);
-		textFieldFecha.setBounds(250, 67, 86, 20);
-		panel_1.add(textFieldFecha);
+		dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(250, 67, 86, 20);
+        panel_1.add(dateChooser);
 		
 		
 		JLabel lblDuracion = new JLabel("Duración");
@@ -145,8 +148,8 @@ public class VentanaAltaMusica extends JFrame {
 		panel_1.add(lblIsbn_3);
 		
 		//Formato
-		JComboBox formatoBox = new JComboBox();
-		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Digital", "Fisico"}));
+		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Fisico"}));
 		formatoBox.setBounds(250, 98, 86, 22);
 		panel_1.add(formatoBox);
 		
@@ -176,22 +179,29 @@ public class VentanaAltaMusica extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lugar = textFieldLugar.getText().toString();
-				fecha = textFieldFecha.getText().toString();
+				fecha = dateChooser.getDate();
 				duracion = Integer.parseInt(textFieldDuracion.getText());
 				formato = formatoBox.getSelectedItem().toString();
-				
+
 				Musica musica = new Musica(documento.getISBN(), lugar, fecha, duracion, formato);
 				
-				// Primer Document
-				DocumentoDB docDB = new DocumentoDB();
-				
-				try {
-					docDB.insertDocumentMusica(documento, musica);
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				}
-				
+		        try {
+					// Primer Document
+					DocumentoDB docDB = new DocumentoDB();
+					if (docDB.insertDocumentMusica(documento, musica)) {
+						JOptionPane.showMessageDialog(panel_1, "Alta exitoso", "Alta Musica", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+					textFieldLugar.setText("");
+					dateChooser.setDate(null);
+					textFieldDuracion.setText("");
+					
+		        } catch (NullPointerException ex) {
+		        	JOptionPane.showMessageDialog(panel_1, "La fecha no tiene sentido, puto", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
+		        	dateChooser.setDate(null);
+		        } catch (SQLException ex) {
+		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
 			}
 		});
 		btnNewButton.setFocusPainted(false);
