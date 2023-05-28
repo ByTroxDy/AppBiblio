@@ -1,5 +1,6 @@
 package db;
 
+import app.Documental;
 import app.Documento;
 import app.Libro;
 import app.Musica;
@@ -442,6 +443,28 @@ public class DocumentoDB {
 	        }
 	    }// try catch finally
 	}//insertDocumentMusica
+	
+	//Insertar documento musica
+		public void insertDocumentDocumental(Documento documento, Documental documental) throws SQLException  {
+			Connection conn = ConexionDB.getConnection();
+			try {
+				conn.setAutoCommit(false);
+				insertarDocumento(documento, conn);
+				insertarDocumental(documental, conn);
+				
+				conn.commit();
+			}catch (SQLException e) {
+				conn.rollback();
+		        e.printStackTrace();
+		        return;
+		    } finally {
+		        try {
+		            ConexionDB.closeConnection();
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }// try catch finally
+		}//insertDocumentMusica
 
 	/* PRIVATE FUNCTIONS */
 	//Insertar documento
@@ -529,4 +552,27 @@ public class DocumentoDB {
 	    }//try cath
 	}//insertarMusica
 	
+	
+	//Insertar Documental
+	public void insertarDocumental(Documental documental, Connection conn) throws SQLException {
+	    try {
+	        String query = "INSERT INTO documental (isbn, productora, premiosConcedidos , documentalesRelacionados, duracion, formato) VALUES (?, ?, ?, ?, ?. ?)";
+	        
+	        PreparedStatement statement = conn.prepareStatement(query);
+	        statement.setInt(1, documental.getISBN());
+	        statement.setString(2, documental.getProductora());
+	        statement.setString(3, documental.getPremiosConcedidos());
+	        statement.setString(4, documental.getDocumentalesRelacionados());
+	        statement.setInt(5, documental.getDuracion());
+	        statement.setString(6, documental.getFormato());
+
+	        statement.executeUpdate();
+	        statement.close();
+	        
+	    } catch (SQLException e) {
+	    	conn.rollback();
+	        e.printStackTrace();
+	        return;
+	    }//try cath
+	}//insertarDocumental
 }//DocumentoDB
