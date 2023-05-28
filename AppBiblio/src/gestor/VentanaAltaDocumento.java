@@ -173,13 +173,19 @@ public class VentanaAltaDocumento extends JFrame {
 					frame.setVisible(true);
 					dispose();
 				} else if(tipo == "Pelicula") {
-					ventanaAltaLibro frame = new ventanaAltaLibro();
+					VentanaAltaPelicula frame = new VentanaAltaPelicula();
 					// El meu document
 					frame.setDocument(new Documento(isbn, titulo, autor));
 					frame.setVisible(true);
 					dispose();
 				} else if(tipo == "Musica") {
 					VentanaAltaMusica frame = new VentanaAltaMusica();
+					// El meu document
+					frame.setDocument(new Documento(isbn, titulo, autor));
+					frame.setVisible(true);
+					dispose();
+				} else if(tipo == "Documental") {
+					VentanaAltaDocumental frame = new VentanaAltaDocumental();
 					// El meu document
 					frame.setDocument(new Documento(isbn, titulo, autor));
 					frame.setVisible(true);

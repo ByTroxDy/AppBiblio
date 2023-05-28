@@ -16,6 +16,15 @@ public class Documental extends Documento {
 		this.duracion = duracion;
 		this.formato = formato;
 	}
+	
+	public Documental(int isbn, String productora, String premiosConcedidos, String documentalesRelacionados, int duracion, String formato) {
+		super(isbn);
+		this.productora = productora;
+		this.premiosConcedidos = premiosConcedidos;
+		this.documentalesRelacionados = documentalesRelacionados;
+		this.duracion = duracion;
+		this.formato = formato;
+	}
 
 	public String getProductora() {
 		return productora;
