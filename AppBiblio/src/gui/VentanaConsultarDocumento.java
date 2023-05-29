@@ -14,11 +14,11 @@ import java.util.ArrayList;
 public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo, txtAutor;
-	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva;
+	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc;
 
 	private int filaSeleccionada, isbn;
 	private String titulo, autor, replicas;
-	static String usuario;
+	static String usuario, grupo;
 
 	public VentanaConsultarDocumento() {
 		setTitle("Consultar Documento");
@@ -118,7 +118,7 @@ public class VentanaConsultarDocumento extends JDialog {
 	                return false; // Desactivar la edición de todas las celdas
 	            }
 	        };
-			
+	        
 			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Titulo");
 			modeloTabla.addColumn("Autor");
@@ -146,12 +146,14 @@ public class VentanaConsultarDocumento extends JDialog {
 
 			btnVolverBuscar = new JButton("Volver a Buscar");
 			btnPedirReserva = new JButton("Pedir Reserva");
+			btnBajaDoc = new JButton("Dar de baja");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
 			panelBotones.setLayout(new FlowLayout());
 			panelBotones.add(btnVolverBuscar);
 			panelBotones.add(btnPedirReserva);
+			panelBotones.add(btnBajaDoc);
 
 			// Configurar el panel principal
 			JPanel panelPrincipal = new JPanel();
@@ -168,6 +170,10 @@ public class VentanaConsultarDocumento extends JDialog {
 			if (usuario == null) {
 				btnPedirReserva.setVisible(false);
 			}
+			
+			if (grupo.equals("socio") | grupo == null) {
+				btnBajaDoc.setVisible(false);
+			}
 
 			btnVolverBuscar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
@@ -182,7 +188,7 @@ public class VentanaConsultarDocumento extends JDialog {
 					filaSeleccionada = tablaDocumentos.getSelectedRow();
 					isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 					replicas = (String) tablaDocumentos.getValueAt(filaSeleccionada, 3);
-					
+
 					if (filaSeleccionada == -1) {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
@@ -193,6 +199,21 @@ public class VentanaConsultarDocumento extends JDialog {
 						docDB.reservarDocumento(usuario, isbn);
 						ventanaResultados.dispose();
 					}
+				}
+			});
+			
+			btnBajaDoc.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ex) {
+					filaSeleccionada = tablaDocumentos.getSelectedRow();
+					isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
+
+					if (filaSeleccionada == -1) {
+						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						
+					}
+					
 				}
 			});
 		}

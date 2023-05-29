@@ -82,17 +82,16 @@ public class VentanaInicioSesion extends JFrame {
 
 				if (usuDB.iniciarSesion(usuario, password)) {
 					VentanaConsultarDocumento.usuario = usuario;
+					VentanaConsultarDocumento.grupo = grupo;
 					MenuSocio.usuario = usuario;
 
 					if (grupo.equals("socio")) {
 						MenuSocio menu = new MenuSocio();
 						menu.setVisible(true);
 					} else if (grupo.equals("gestor")) {
-						MenuGestor menu = new MenuGestor();
-						menu.setVisible(true);
+						
 					} else if (grupo.equals("admin")) {
-						MenuAdmin menu = new MenuAdmin();
-						menu.setVisible(true);
+						
 					}
 
 					dispose();
