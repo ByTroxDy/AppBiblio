@@ -34,7 +34,7 @@ public class VentanaCopiaSeguridad extends JFrame {
 	 */
 	public VentanaCopiaSeguridad() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBackground(SystemColor.window);

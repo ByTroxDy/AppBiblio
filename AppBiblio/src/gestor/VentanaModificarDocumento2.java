@@ -41,7 +41,7 @@ public class VentanaModificarDocumento2 extends JFrame {
 	 */
 	public VentanaModificarDocumento2() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);

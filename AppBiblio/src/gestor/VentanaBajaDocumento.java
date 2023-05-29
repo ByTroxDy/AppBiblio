@@ -1,46 +1,26 @@
-package gestorBaja;
+package gestor;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
-import gestor.MenuGestor;
-import db.DocumentoDB;
+import db.DocumentoMaxDB;
 
 public class VentanaBajaDocumento extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldIsbn;
 	private int isbn; 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaBajaDocumento frame = new VentanaBajaDocumento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaBajaDocumento() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -112,15 +92,14 @@ public class VentanaBajaDocumento extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				isbn = Integer.parseInt(textFieldIsbn.getText());
-				DocumentoDB baja = new DocumentoDB();
-
-				try {
-					baja.bajaDocumento(isbn);
-					JOptionPane.showMessageDialog(panel_1, "Se ha dado de baja correctamente", "Baja" + isbn, JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}// try catch
-			}//actionPerformed
+				
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				if (docDB.bajaDocumento(isbn)) {
+					JOptionPane.showMessageDialog(panel_1, "Se ha dado de baja correctamente", "Dar de Baja", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
@@ -129,6 +108,20 @@ public class VentanaBajaDocumento extends JFrame {
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 
 	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaBajaDocumento frame = new VentanaBajaDocumento();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 }
 
 

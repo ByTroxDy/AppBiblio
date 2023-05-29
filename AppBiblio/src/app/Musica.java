@@ -9,7 +9,7 @@ public class Musica extends Documento {
 	private String formato;
 
 	public Musica(int isbn, String titulo, String autor, int replicas, String lugar, Date fecha, int duracion, String formato) {
-		super(isbn, titulo, autor, replicas);
+		super(isbn);
 		this.lugar = lugar;
 		this.fecha = fecha;
 		this.duracion = duracion;

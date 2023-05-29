@@ -9,7 +9,7 @@ public class Documental extends Documento {
 
 	public Documental(int isbn, String titulo, String autor, int replicas, String productora, String premiosConcedidos,
 			String documentalesRelacionados, int duracion, String formato) {
-		super(isbn, titulo, autor, replicas);
+		super(isbn);
 		this.productora = productora;
 		this.premiosConcedidos = premiosConcedidos;
 		this.documentalesRelacionados = documentalesRelacionados;

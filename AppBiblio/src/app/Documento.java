@@ -16,11 +16,12 @@ public class Documento {
 		this.biblioteca = biblioteca;
 	}
 	
-	public Documento(int isbn2, String titulo2, String autor2) {
+	public Documento(int isbn2, String titulo2, String autor2, int replicas2) {
 		super();
 		this.isbn = isbn2;
 		this.titulo = titulo2;
 		this.autor = autor2;
+		this.replicas = replicas2;
 	}
 
 	public Documento(int isbn3) {

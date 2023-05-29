@@ -1,9 +1,8 @@
 package app;
 
 public class Libro extends Documento {
-	private String editorial;
+	private String editorial, tematica;
 	private int numeroPaginas;
-	private String tematica;
 
 	public Libro(int isbn, String titulo, String autor, int replicas, String biblioteca, String editorial, int numeroPaginas,
 			String tematica) {
@@ -19,7 +18,6 @@ public class Libro extends Documento {
 		this.numeroPaginas = numeroPaginas;
 		this.tematica = tematica;
 	}
-
 	
 	public String getEditorial() {
 		return editorial;

@@ -6,8 +6,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import gestorAlta.VentanaAltaDocumento;
-import gestorBaja.VentanaBajaDocumento;
 import gui.VentanaConsultarDocumento;
 
 import java.awt.*;

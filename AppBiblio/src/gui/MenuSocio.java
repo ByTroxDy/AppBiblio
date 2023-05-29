@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import app.Reservas;
-import db.DocumentoDB;
+import db.DocumentoMaxDB;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -76,7 +76,7 @@ public class MenuSocio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
 				ArrayList<Reservas> reservas;
-				DocumentoDB docDB = new DocumentoDB();
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
 
 				reservas = docDB.consultarMisReservas(usuario);
 

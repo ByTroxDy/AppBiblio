@@ -1,44 +1,20 @@
-package gestorAlta;
+package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import db.DocumentoMaxDB;
+import app.Documental;
+import app.Documento;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import gestor.MenuGestor;
-import app.Documental;
-import app.Documento;
-import db.DocumentoDB;
-import javax.swing.border.EtchedBorder;
-import java.awt.Rectangle;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
-import javax.swing.border.BevelBorder;
-
-import gestor.BorderRedondo;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaAltaDocumental extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private String productora;
@@ -51,31 +27,10 @@ public class VentanaAltaDocumental extends JFrame {
 	private JTextField textFieldDocRelacionados;
 	private JTextField textFieldDuracion;
 	private Documento documento;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaDocumental frame = new VentanaAltaDocumental();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	public void setDocument(Documento myDoc) {
-		this.documento = myDoc;
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaAltaDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -199,20 +154,31 @@ public class VentanaAltaDocumental extends JFrame {
 				
 				Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
 				
-				// Primer Document
-				DocumentoDB docDB = new DocumentoDB();
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				if (docDB.insertDocDocl(documento, documental)) {
+					JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 				
-				try {
-					docDB.insertDocumentDocumental(documento,documental);
-					JOptionPane.showMessageDialog(panel_1, "Se ha dado de alta al documental correctamente", "Alta Documental", JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}// try catch
-			}//actionPerformed
+			}
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaAltaDocumental frame = new VentanaAltaDocumental();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 }

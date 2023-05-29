@@ -1,40 +1,23 @@
-package gestorAlta;
+package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Date;
+import db.DocumentoMaxDB;
+import app.Documento;
+import app.Musica;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
 import com.toedter.calendar.JDateChooser;
 
-import gestor.MenuGestor;
-import app.Musica;
-import db.DocumentoDB;
-import app.Documento;
-
 public class VentanaAltaMusica extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Documento documento;
@@ -45,33 +28,10 @@ public class VentanaAltaMusica extends JFrame {
 	private JTextField textFieldLugar;
 	private JTextField textFieldDuracion;
 	private JDateChooser dateChooser;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaMusica frame = new VentanaAltaMusica();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	public void setDocument(Documento myDoc) {
-		this.documento = myDoc;
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -185,31 +145,41 @@ public class VentanaAltaMusica extends JFrame {
 				formato = formatoBox.getSelectedItem().toString();
 
 				Musica musica = new Musica(documento.getISBN(), lugar, fecha, duracion, formato);
-				
-		        try {
-					// Primer Document
-					DocumentoDB docDB = new DocumentoDB();
-					if (docDB.insertDocumentMusica(documento, musica)) {
-						JOptionPane.showMessageDialog(panel_1, "Alta exitoso", "Alta Musica", JOptionPane.INFORMATION_MESSAGE);
-					}//if
-					
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+		        
+				try {
+					if (docDB.insertDocMus(documento, musica)) {
+						JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 					textFieldLugar.setText("");
 					dateChooser.setDate(null);
 					textFieldDuracion.setText("");
-					
 		        } catch (NullPointerException ex) {
 		        	JOptionPane.showMessageDialog(panel_1, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
 		        	dateChooser.setDate(null);
-		        } catch (SQLException ex) {
-		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-		        }//try catch
-			}//actionPerformed
+		        }
+			}
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaAltaMusica frame = new VentanaAltaMusica();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

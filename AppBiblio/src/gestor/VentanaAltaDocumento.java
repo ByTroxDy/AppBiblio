@@ -1,55 +1,29 @@
-package gestorAlta;
+package gestor;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.Documento;
-import gestor.MenuGestor;
 
 public class VentanaAltaDocumento extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldTitulo;
-	private JTextField textFieldIsbn;
-	private JTextField textFieldAutor;
-	private int isbn;
-	private String titulo;
-	private String autor;
-	private String tipo;
-	private JTextField textField;
-	private JTextField txtBenicarlo;
-	private int replicas;
-	private String biblioteca;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaDocumento frame = new VentanaAltaDocumento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	private JTextField textFieldTitulo, textFieldIsbn, textFieldAutor, textField, txtBenicarlo;
+	
+	private int isbn, replicas;
+	private String titulo, autor, tipo, biblioteca;
+	
 	public VentanaAltaDocumento() {
 		setTitle("Alta Documento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 459, 323);
+		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -200,36 +174,45 @@ public class VentanaAltaDocumento extends JFrame {
 					tipo = tipoBox.getSelectedItem().toString();
 					replicas = Integer.parseInt(textField.getText());
 					biblioteca = txtBenicarlo.getText().toString();
-							
+					
+					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
+						
 					if (tipo == "Libro") {
-						ventanaAltaLibro frame = new ventanaAltaLibro();
-						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
+						VentanaAltaLibro.documento = doc;
+						VentanaAltaLibro frame = new VentanaAltaLibro();
 						frame.setVisible(true);
-						dispose();
 					} else if (tipo == "Pelicula") {
+						VentanaAltaPelicula.documento = doc;
 						VentanaAltaPelicula frame = new VentanaAltaPelicula();
-						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
-						dispose();
 					} else if (tipo == "Musica") {
+						VentanaAltaPelicula.documento = doc;
 						VentanaAltaMusica frame = new VentanaAltaMusica();
-						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
-						dispose();
 					} else if (tipo == "Documental") {
+						VentanaAltaPelicula.documento = doc;
 						VentanaAltaDocumental frame = new VentanaAltaDocumental();
-						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
-						dispose();
-					}//if
-				}//if else
-			}// actionPerformed
+					}
+					
+					dispose();
+				}
+			}
 		});
 		panel_1.add(btnAceptar);
-		
 	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaAltaDocumento frame = new VentanaAltaDocumento();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 }

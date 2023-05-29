@@ -1,7 +1,7 @@
 package gui;
 
 import app.Documento;
-import db.DocumentoDB;
+import db.DocumentoMaxDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -90,7 +90,7 @@ public class VentanaConsultarDocumento extends JDialog {
 
 	public void consultarDocumentos(String titulo, String autor) {
 		ArrayList<Documento> documentos;
-		DocumentoDB docDB = new DocumentoDB();
+		DocumentoMaxDB docDB = new DocumentoMaxDB();
 
 		if (!titulo.isEmpty() && autor.isEmpty()) {
 			documentos = docDB.consultarDocumentosPorNombre(titulo);
@@ -212,14 +212,9 @@ public class VentanaConsultarDocumento extends JDialog {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
-						try {
-							docDB.bajaDocumento(isbn);
-							JOptionPane.showMessageDialog(ventanaResultados, "Se ha dado de baja correctamenete a isbn: " + isbn,
-									"Baja documento", JOptionPane.INFORMATION_MESSAGE);
-						} catch (SQLException e) {
-							JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
-									"Error", JOptionPane.ERROR_MESSAGE);
-						}
+						docDB.bajaDocumento(isbn);
+						JOptionPane.showMessageDialog(ventanaResultados, "Se ha dado de baja correctamenete a isbn: " + isbn,
+								"Baja documento", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
 				}
