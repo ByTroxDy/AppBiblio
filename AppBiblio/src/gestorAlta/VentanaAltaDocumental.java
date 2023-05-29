@@ -1,4 +1,4 @@
-package gestor;
+package gestorAlta;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -21,10 +22,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import gestor.VentanaGestor;
 import app.Documental;
 import app.Documento;
-import app.Libro;
 import db.DocumentoDB;
+import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
+import javax.swing.border.BevelBorder;
+
+import gestor.BorderRedondo;
 
 public class VentanaAltaDocumental extends JFrame {
 
@@ -85,7 +93,7 @@ public class VentanaAltaDocumental extends JFrame {
 		
 		JLabel lblAlta = new JLabel("ALTA DOCUMENTALES");
 		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel.add(lblAlta);
 
 		JPanel panel_1 = new JPanel();
@@ -98,8 +106,8 @@ public class VentanaAltaDocumental extends JFrame {
 				
 		JLabel lblIntroducDatos = new JLabel("Introduce los datos");
 		lblIntroducDatos.setForeground(new Color(0, 0, 0));
-		lblIntroducDatos.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroducDatos.setBounds(66, 28, 212, 28);
+		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblIntroducDatos.setBounds(89, 11, 189, 45);
 		panel_1.add(lblIntroducDatos);
 		
 		
@@ -126,7 +134,7 @@ public class VentanaAltaDocumental extends JFrame {
 		textFieldPremios.setBounds(96, 96, 79, 20);
 		panel_1.add(textFieldPremios);
 		
-		JLabel lblDocumentalesRealcionados = new JLabel("documentales Realcionados");
+		JLabel lblDocumentalesRealcionados = new JLabel("Documentales realcionados");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDocumentalesRealcionados.setBounds(12, 126, 206, 17);
 		panel_1.add(lblDocumentalesRealcionados);
@@ -153,13 +161,14 @@ public class VentanaAltaDocumental extends JFrame {
 		panel_1.add(lblFormato);
 		
 		//Formato
-		JComboBox formatoBox = new JComboBox();
-		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Físico", "Digital"}));
+		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
 		formatoBox.setBounds(269, 95, 79, 22);
 		panel_1.add(formatoBox);
 		
 		//Volver
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
@@ -170,15 +179,15 @@ public class VentanaAltaDocumental extends JFrame {
 		});
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 169, 79, 28);
+		btnVolver.setBackground(new Color(255, 255, 255));
+		btnVolver.setBounds(12, 174, 168, 23);
+		btnVolver.setBorder(new BorderRedondo(20)); 
 		panel_1.add(btnVolver);
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
 		
 		//Aceptar
 		JButton btnNewButton = new JButton("Alta");
-		btnNewButton.setBounds(269, 168, 79, 28);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setBounds(190, 173, 158, 24);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -195,15 +204,13 @@ public class VentanaAltaDocumental extends JFrame {
 				
 				try {
 					docDB.insertDocumentDocumental(documento,documental);
+					JOptionPane.showMessageDialog(panel_1, "Se ha dado de alta al documental correctamente", "Alta Documental", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
 					ex.printStackTrace();
-				}
-				
-			}
+		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}// try catch
+			}//actionPerformed
 		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));

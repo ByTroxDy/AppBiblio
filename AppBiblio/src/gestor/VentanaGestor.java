@@ -5,6 +5,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import gestorAlta.VentanaAltaDocumento;
+import gestorBaja.VentanaBajaDocumento;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,8 +29,8 @@ public class VentanaGestor extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}//try catch
+			}//run
 		});
 	}
 
@@ -46,7 +50,8 @@ public class VentanaGestor extends JFrame {
 		setLocationRelativeTo(null);
 		
 		
-		// ------------------------------ PRIMERO PANEL ------------------------------ //
+		/* PANEL PRINCIPAL */
+		
 		//Creación de panel Titulo
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.window);
@@ -71,26 +76,26 @@ public class VentanaGestor extends JFrame {
 		contentPane.add(panel_1);
 		
 		//Ttitulo del panel de contenido
-		JLabel lblSelecciona = new JLabel("Selecciona una funcion");
+		JLabel lblSelecciona = new JLabel("Que desea hacer?");
 		lblSelecciona.setBackground(SystemColor.activeCaption);
 		lblSelecciona.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblSelecciona.setForeground(new Color(0, 0, 0));
-		lblSelecciona.setBounds(65, 33, 272, 36);
+		lblSelecciona.setBounds(98, 33, 179, 36);
 		panel_1.add(lblSelecciona);
 		
 		
 		//Selección de la función a realizar
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setForeground(new Color(238, 238, 236));
 		comboBox.setBackground(new Color(46, 52, 54));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Alta Documento", "Baja Documento", "Modificar Documento", "Copia de seguridad", "Restauracion"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Documento", "Baja Documento", "Modificar Documento", "Copia de seguridad", "Restauracion"}));
 		comboBox.setToolTipText("");
 		comboBox.setBounds(101, 92, 165, 26);
 		panel_1.add(comboBox);
 		
 		//Boton para avanzar
 		JButton btnNewButton = new JButton("Siguiente");
-		btnNewButton.setBounds(110, 161, 151, 35);
+		btnNewButton.setBounds(10, 171, 340, 26);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 
@@ -118,8 +123,8 @@ public class VentanaGestor extends JFrame {
 					VentanaRestauracion frame = new VentanaRestauracion();
 					frame.setVisible(true);
 					dispose();
-				}
-			}
+				}//if
+			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);

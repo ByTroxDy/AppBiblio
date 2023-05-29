@@ -1,4 +1,4 @@
-package gestor;
+package gestorAlta;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -7,12 +7,14 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -21,12 +23,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import app.Documento;
-import app.Pelicula;
+import com.toedter.calendar.JDateChooser;
+
+import gestor.VentanaGestor;
+import app.Musica;
 import db.DocumentoDB;
+import app.Documento;
 
-public class VentanaAltaPelicula extends JFrame {
-
+public class VentanaAltaMusica extends JFrame {
 
 	/**
 	 * 
@@ -34,16 +38,14 @@ public class VentanaAltaPelicula extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Documento documento;
-	private String director;
-	private String actoresPrincipales;
-	private String premios;
+	private String lugar;
+	private Date fecha;
 	private int duracion;
 	private String formato;
-	private JTextField textFieldDirector;
-	private JTextField textFieldActores;
-	private JTextField textFieldPremios;
-	private JTextField textFieldDureacion;
-
+	private JTextField textFieldLugar;
+	private JTextField textFieldDuracion;
+	private JDateChooser dateChooser;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +53,7 @@ public class VentanaAltaPelicula extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAltaPelicula frame = new VentanaAltaPelicula();
+					VentanaAltaMusica frame = new VentanaAltaMusica();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,12 +65,11 @@ public class VentanaAltaPelicula extends JFrame {
 	public void setDocument(Documento myDoc) {
 		this.documento = myDoc;
 	}
-	
-	
+
 	/**
 	 * Create the frame.
 	 */
-	public VentanaAltaPelicula() {
+	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
@@ -86,7 +87,7 @@ public class VentanaAltaPelicula extends JFrame {
 		panel.setBounds(53, 14, 359, 44);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("ALTA PELICULA");
+		JLabel lblAlta = new JLabel("ALTA MÚSCIA");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 		panel.add(lblAlta);
@@ -106,63 +107,51 @@ public class VentanaAltaPelicula extends JFrame {
 		panel_1.add(lblIntroduceDatos);
 		
 		
-		JLabel lblDirector = new JLabel("Director");
-		lblDirector.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDirector.setBounds(12, 67, 79, 17);
-		panel_1.add(lblDirector);
+		JLabel lblLugar = new JLabel("Lugar");
+		lblLugar.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblLugar.setBounds(12, 67, 79, 17);
+		panel_1.add(lblLugar);
 
-		//Director
-		textFieldDirector = new JTextField();
-		textFieldDirector.setBounds(74, 67, 86, 20);
-		panel_1.add(textFieldDirector);
-		textFieldDirector.setColumns(10);
+		//Lugar
+		textFieldLugar = new JTextField();
+		textFieldLugar.setBounds(87, 67, 86, 20);
+		panel_1.add(textFieldLugar);
+		textFieldLugar.setColumns(10);
 		
 		
-		JLabel lblActorees = new JLabel("Actores");
-		lblActorees.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblActorees.setBounds(170, 67, 79, 17);
-		panel_1.add(lblActorees);
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblFecha.setBounds(185, 67, 79, 17);
+		panel_1.add(lblFecha);
 		
-		//Actores
-		textFieldActores = new JTextField();
-		textFieldActores.setColumns(10);
-		textFieldActores.setBounds(246, 67, 86, 20);
-		panel_1.add(textFieldActores);
-		
-		
-		JLabel lblPremios = new JLabel("Premios");
-		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPremios.setBounds(12, 98, 79, 17);
-		panel_1.add(lblPremios);
-		
-		//Premios
-		textFieldPremios = new JTextField();
-		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(74, 98, 86, 20);
-		panel_1.add(textFieldPremios);
+		//Fecha
+		dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(250, 67, 86, 20);
+        panel_1.add(dateChooser);
 		
 		
-		JLabel lblDuracion = new JLabel("Duracion");
+		JLabel lblDuracion = new JLabel("Duración");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDuracion.setBounds(170, 95, 79, 17);
+		lblDuracion.setBounds(12, 98, 79, 17);
 		panel_1.add(lblDuracion);
 		
 		//Duracion
-		textFieldDureacion = new JTextField();
-		textFieldDureacion.setColumns(10);
-		textFieldDureacion.setBounds(246, 95, 86, 20);
-		panel_1.add(textFieldDureacion);
+		textFieldDuracion = new JTextField();
+		textFieldDuracion.setColumns(10);
+		textFieldDuracion.setBounds(87, 95, 86, 20);
+		panel_1.add(textFieldDuracion);
 		
 		
-		JLabel lblFormato = new JLabel("Formato");
-		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblFormato.setBounds(94, 129, 79, 17);
-		panel_1.add(lblFormato);
+		JLabel lblIsbn_3 = new JLabel("Formato");
+		lblIsbn_3.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblIsbn_3.setBounds(185, 98, 79, 17);
+		panel_1.add(lblIsbn_3);
 		
 		//Formato
-		JComboBox formatoBox = new JComboBox();
-		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Digital", "Fisico"}));
-		formatoBox.setBounds(157, 128, 92, 22);
+		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Fisico"}));
+		formatoBox.setBounds(250, 98, 86, 22);
 		panel_1.add(formatoBox);
 		
 		//Volver
@@ -182,7 +171,7 @@ public class VentanaAltaPelicula extends JFrame {
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
-		
+
 		
 		//Alta
 		JButton btnNewButton = new JButton("Alta");
@@ -190,25 +179,31 @@ public class VentanaAltaPelicula extends JFrame {
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				director = textFieldDirector.getText().toString();
-				actoresPrincipales = textFieldActores.getText().toString();
-				premios = textFieldPremios.getText().toString();
-				duracion = Integer.parseInt(textFieldDureacion.getText());
+				lugar = textFieldLugar.getText().toString();
+				fecha = dateChooser.getDate();
+				duracion = Integer.parseInt(textFieldDuracion.getText());
 				formato = formatoBox.getSelectedItem().toString();
+
+				Musica musica = new Musica(documento.getISBN(), lugar, fecha, duracion, formato);
 				
-				Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
-				
-				// Primer Document
-				DocumentoDB docDB = new DocumentoDB();
-				
-				try {
-					docDB.insertDocumentPelicula(documento, pelicula);
-				} catch (SQLException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				}
-				
-			}
+		        try {
+					// Primer Document
+					DocumentoDB docDB = new DocumentoDB();
+					if (docDB.insertDocumentMusica(documento, musica)) {
+						JOptionPane.showMessageDialog(panel_1, "Alta exitoso", "Alta Musica", JOptionPane.INFORMATION_MESSAGE);
+					}//if
+					
+					textFieldLugar.setText("");
+					dateChooser.setDate(null);
+					textFieldDuracion.setText("");
+					
+		        } catch (NullPointerException ex) {
+		        	JOptionPane.showMessageDialog(panel_1, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
+		        	dateChooser.setDate(null);
+		        } catch (SQLException ex) {
+		        	JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+		        }//try catch
+			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
@@ -216,4 +211,5 @@ public class VentanaAltaPelicula extends JFrame {
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 	}
+
 }
