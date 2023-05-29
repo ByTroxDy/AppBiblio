@@ -144,14 +144,14 @@ public class ventanaAltaLibro extends JFrame {
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 169, 79, 28);
+		btnVolver.setBounds(12, 174, 171, 23);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		
 		
 		JButton btnNewButton = new JButton("Alta");
-		btnNewButton.setBounds(269, 168, 79, 28);
+		btnNewButton.setBounds(187, 173, 161, 24);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -16,7 +16,6 @@ public class VentanaModificarDocumento2 extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
@@ -139,8 +138,8 @@ public class VentanaModificarDocumento2 extends JFrame {
 		lblFormato_1.setBounds(12, 125, 85, 17);
 		panel_1.add(lblFormato_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Película", "Música", "Libro", "Documental"}));
+		JComboBox<Object> comboBox = new JComboBox<Object>();
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Película", "Música", "Libro", "Documental"}));
 		comboBox.setBounds(41, 125, 93, 17);
 		panel_1.add(comboBox);
 		
@@ -148,8 +147,8 @@ public class VentanaModificarDocumento2 extends JFrame {
 		lblFormato_1_1.setBounds(191, 125, 85, 17);
 		panel_1.add(lblFormato_1_1);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"MP3", "MP4", "Digital", "Físico"}));
+		JComboBox<Object> comboBox_1 = new JComboBox<Object>();
+		comboBox_1.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físico"}));
 		comboBox_1.setBounds(245, 125, 87, 17);
 		panel_1.add(comboBox_1);
 		

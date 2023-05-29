@@ -44,6 +44,7 @@ public class VentanaAltaDocumento extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaAltaDocumento() {
+		setTitle("Alta Documento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
 		contentPane = new JPanel();
@@ -136,7 +137,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 167, 79, 28);
+		btnVolver.setBounds(12, 172, 153, 23);
 		panel_1.add(btnVolver);
 
 		JComboBox<Object> tipoBox = new JComboBox<Object>();
@@ -156,7 +157,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setFocusPainted(false);
 		btnAceptar.setBorderPainted(false);
 		btnAceptar.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnAceptar.setBounds(261, 167, 87, 28);
+		btnAceptar.setBounds(195, 172, 153, 23);
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {
@@ -198,6 +199,5 @@ public class VentanaAltaDocumento extends JFrame {
 			}// actionPerformed
 		});
 		panel_1.add(btnAceptar);
-
 	}
 }

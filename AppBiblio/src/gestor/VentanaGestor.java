@@ -76,11 +76,11 @@ public class VentanaGestor extends JFrame {
 		contentPane.add(panel_1);
 		
 		//Ttitulo del panel de contenido
-		JLabel lblSelecciona = new JLabel("Selecciona una funcion");
+		JLabel lblSelecciona = new JLabel("Que desea hacer?");
 		lblSelecciona.setBackground(SystemColor.activeCaption);
 		lblSelecciona.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblSelecciona.setForeground(new Color(0, 0, 0));
-		lblSelecciona.setBounds(65, 33, 272, 36);
+		lblSelecciona.setBounds(98, 33, 179, 36);
 		panel_1.add(lblSelecciona);
 		
 		
@@ -95,7 +95,7 @@ public class VentanaGestor extends JFrame {
 		
 		//Boton para avanzar
 		JButton btnNewButton = new JButton("Siguiente");
-		btnNewButton.setBounds(110, 161, 151, 35);
+		btnNewButton.setBounds(10, 171, 340, 26);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 
