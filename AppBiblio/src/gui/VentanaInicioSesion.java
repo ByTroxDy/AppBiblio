@@ -1,6 +1,7 @@
 package gui;
 
 import db.UsuarioDB;
+import gestor.MenuGestor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -89,7 +90,8 @@ public class VentanaInicioSesion extends JFrame {
 						MenuSocio menu = new MenuSocio();
 						menu.setVisible(true);
 					} else if (grupo.equals("gestor")) {
-						
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
 					} else if (grupo.equals("admin")) {
 						
 					}

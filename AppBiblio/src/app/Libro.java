@@ -5,9 +5,9 @@ public class Libro extends Documento {
 	private int numeroPaginas;
 	private String tematica;
 
-	public Libro(int isbn, String titulo, String autor, int replicas, String editorial, int numeroPaginas,
+	public Libro(int isbn, String titulo, String autor, int replicas, String biblioteca, String editorial, int numeroPaginas,
 			String tematica) {
-		super(isbn, titulo, autor, replicas);
+		super(isbn, titulo, autor, replicas, biblioteca);
 		this.editorial = editorial;
 		this.numeroPaginas = numeroPaginas;
 		this.tematica = tematica;

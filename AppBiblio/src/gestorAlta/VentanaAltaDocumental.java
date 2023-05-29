@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import gestor.VentanaGestor;
+import gestor.MenuGestor;
 import app.Documental;
 import app.Documento;
 import db.DocumentoDB;
@@ -172,7 +172,7 @@ public class VentanaAltaDocumental extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
-				VentanaGestor frame = new VentanaGestor();
+				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
 			}

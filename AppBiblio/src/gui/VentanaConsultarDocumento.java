@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VentanaConsultarDocumento extends JDialog {
@@ -211,7 +212,14 @@ public class VentanaConsultarDocumento extends JDialog {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
-						
+						try {
+							docDB.bajaDocumento(isbn);
+							JOptionPane.showMessageDialog(ventanaResultados, "Se ha dado de baja correctamenete a isbn: " + isbn,
+									"Baja documento", JOptionPane.INFORMATION_MESSAGE);
+						} catch (SQLException e) {
+							JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+									"Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					
 				}

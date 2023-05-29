@@ -5,13 +5,15 @@ public class Documento {
 	protected String titulo;
 	protected String autor;
 	protected int replicas;
-
-	public Documento(int isbn, String titulo, String autor, int replicas) {
+	protected String biblioteca;
+	
+	public Documento(int isbn, String titulo, String autor, int replicas, String biblioteca) {
 		super();
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.replicas = replicas;
+		this.biblioteca = biblioteca;
 	}
 	
 	public Documento(int isbn2, String titulo2, String autor2) {
@@ -27,7 +29,6 @@ public class Documento {
 
 	}
 
-	
 	public int getISBN() {
 		return isbn;
 	}
@@ -58,6 +59,14 @@ public class Documento {
 
 	public void setReplicas(int replicas) {
 		this.replicas = replicas;
+	}	
+	
+	public String getBiblioteca() {
+		return biblioteca;
+	}
+
+	public void setBiblioteca(String biblioteca) {
+		this.biblioteca = biblioteca;
 	}
 
 	@Override

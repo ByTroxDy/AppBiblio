@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import app.Documento;
-import gestor.VentanaGestor;
+import gestor.MenuGestor;
 
 public class VentanaAltaDocumento extends JFrame {
 
@@ -23,7 +23,10 @@ public class VentanaAltaDocumento extends JFrame {
 	private String titulo;
 	private String autor;
 	private String tipo;
-
+	private JTextField textField;
+	private JTextField txtBenicarlo;
+	private int replicas;
+	private String biblioteca;
 	/**
 	 * Launch the application.
 	 */
@@ -126,7 +129,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			// función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {
-				VentanaGestor frame = new VentanaGestor();
+				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
 			}
@@ -149,7 +152,33 @@ public class VentanaAltaDocumento extends JFrame {
 		JLabel lblTipo = new JLabel("tipo");
 		lblTipo.setBounds(195, 99, 60, 17);
 		panel_1.add(lblTipo);
-
+		
+		JLabel lblReplicas = new JLabel("Replicas");
+		lblReplicas.setBounds(40, 127, 60, 17);
+		panel_1.add(lblReplicas);
+		
+		//replicas
+		textField = new JTextField();
+		textField.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textField.setColumns(10);
+		textField.setBounds(99, 124, 69, 21);
+		panel_1.add(textField);
+		
+		
+		JLabel lblBiblioteca = new JLabel("Biblio");
+		lblBiblioteca.setBounds(195, 135, 60, 17);
+		panel_1.add(lblBiblioteca);
+		
+		//biblioteca
+		txtBenicarlo = new JTextField();
+		txtBenicarlo.setEditable(false);
+		txtBenicarlo.setText("Benicarlo");
+		txtBenicarlo.setFont(new Font("Dialog", Font.PLAIN, 10));
+		txtBenicarlo.setColumns(10);
+		txtBenicarlo.setBounds(245, 132, 69, 21);
+		
+		panel_1.add(txtBenicarlo);
+		
 		// ------------------------- SELECCIÓN TIPO ------------------------- //
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setForeground(Color.BLACK);
@@ -169,29 +198,31 @@ public class VentanaAltaDocumento extends JFrame {
 					titulo = textFieldTitulo.getText();
 					autor = textFieldAutor.getText();
 					tipo = tipoBox.getSelectedItem().toString();
-					
+					replicas = Integer.parseInt(textField.getText());
+					biblioteca = txtBenicarlo.getText().toString();
+							
 					if (tipo == "Libro") {
 						ventanaAltaLibro frame = new ventanaAltaLibro();
 						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor));
+						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
 						dispose();
 					} else if (tipo == "Pelicula") {
 						VentanaAltaPelicula frame = new VentanaAltaPelicula();
 						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor));
+						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
 						dispose();
 					} else if (tipo == "Musica") {
 						VentanaAltaMusica frame = new VentanaAltaMusica();
 						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor));
+						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
 						dispose();
 					} else if (tipo == "Documental") {
 						VentanaAltaDocumental frame = new VentanaAltaDocumental();
 						// El meu document
-						frame.setDocument(new Documento(isbn, titulo, autor));
+						frame.setDocument(new Documento(isbn, titulo, autor, replicas, biblioteca));
 						frame.setVisible(true);
 						dispose();
 					}//if
@@ -199,5 +230,6 @@ public class VentanaAltaDocumento extends JFrame {
 			}// actionPerformed
 		});
 		panel_1.add(btnAceptar);
+		
 	}
 }

@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
 
-import gestor.VentanaGestor;
+import gestor.MenuGestor;
 import app.Musica;
 import db.DocumentoDB;
 import app.Documento;
@@ -159,7 +159,7 @@ public class VentanaAltaMusica extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
-				VentanaGestor frame = new VentanaGestor();
+				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
 			}

@@ -97,7 +97,7 @@ public class VentanaRestauracion extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaGestor frame = new VentanaGestor();
+				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
 			}

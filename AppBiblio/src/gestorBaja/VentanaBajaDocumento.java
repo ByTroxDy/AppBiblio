@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import gestor.VentanaGestor;
+import gestor.MenuGestor;
 import db.DocumentoDB;
 
 public class VentanaBajaDocumento extends JFrame {
@@ -92,7 +92,7 @@ public class VentanaBajaDocumento extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
-				VentanaGestor frame = new VentanaGestor();
+				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
 			}

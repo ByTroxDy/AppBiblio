@@ -378,11 +378,11 @@ public class DocumentoDB {
 	
 	/* PUBLIC FUNCTIONS */	
 	//Insertar documento libro
-	public void insertDocumentLlibre(Documento documento, Libro libro) throws SQLException  {
+	public void insertDocumentLlibre(Libro libro) throws SQLException  {
 		Connection conn = ConexionDB.getConnection();
 		try {
 			conn.setAutoCommit(false);
-			insertarDocumento(documento, conn);
+			insertarDocumento(libro, conn);
 			insertarLibro(libro, conn);
 			
 			conn.commit();
@@ -489,18 +489,22 @@ public class DocumentoDB {
 	
 	/* PRIVATE FUNCTIONS */
 	//Insertar documento
-	private void insertarDocumento(Documento documento, Connection conn) throws SQLException {
-	    try  {
-	        String query = "INSERT INTO documentos (isbn, titulo , autor, biblioteca) VALUES (?, ?, ?, ?)";
+	public void insertarDocumento(Documento documento) throws SQLException {
+	    Connection conn;
+		try  {
+	    	conn.setAutoCommit(false);
+	        String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca) VALUES (?, ?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);
 	        statement.setInt(1, documento.getISBN());
 	        statement.setString(2, documento.getTitulo());
 	        statement.setString(3, documento.getAutor());
-	        statement.setString(4, "Benicarlo");
+	        statement.setInt(4, documento.getReplicas());
+	        statement.setString(5, documento.getBiblioteca());
 	        statement.executeUpdate();
 	        statement.close();
 	        
+	        conn.commit();
 	    } catch (SQLException e) {
 	    	conn.rollback();
 	        e.printStackTrace();
@@ -509,8 +513,9 @@ public class DocumentoDB {
 	}//insertarDocumento
 	
 	//Insertar libro
-	private void insertarLibro(Libro libro, Connection conn) throws SQLException {
-	    try  {
+	public void insertarLibro(Libro libro) throws SQLException {
+	    Connection conn;
+		try  {
 	        String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
 	        
 	        PreparedStatement statement = conn.prepareStatement(query);

@@ -8,12 +8,13 @@ import javax.swing.border.TitledBorder;
 
 import gestorAlta.VentanaAltaDocumento;
 import gestorBaja.VentanaBajaDocumento;
+import gui.VentanaConsultarDocumento;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaGestor extends JFrame {
+public class MenuGestor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,7 +26,7 @@ public class VentanaGestor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaGestor frame = new VentanaGestor();
+					MenuGestor frame = new MenuGestor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +38,7 @@ public class VentanaGestor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaGestor() {
+	public MenuGestor() {
 		setTitle("Gestor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 459, 323);
@@ -88,7 +89,7 @@ public class VentanaGestor extends JFrame {
 		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setForeground(new Color(238, 238, 236));
 		comboBox.setBackground(new Color(46, 52, 54));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Documento", "Baja Documento", "Modificar Documento", "Copia de seguridad", "Restauracion"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Documento", "Consultar Documento", "Copia de seguridad", "Restauracion"}));
 		comboBox.setToolTipText("");
 		comboBox.setBounds(101, 92, 165, 26);
 		panel_1.add(comboBox);
@@ -106,24 +107,18 @@ public class VentanaGestor extends JFrame {
 				if (seleccion == "Alta Documento") {
 					VentanaAltaDocumento frame = new VentanaAltaDocumento();
 					frame.setVisible(true);
-					dispose();
-				} else if(seleccion == "Baja Documento"){
-					VentanaBajaDocumento frame = new VentanaBajaDocumento();
+				} else if(seleccion == "Consultar Documento"){
+					VentanaConsultarDocumento frame = new VentanaConsultarDocumento();
 					frame.setVisible(true);
-					dispose();
-				} else if(seleccion == "Modificar Documento") {
-					VentanaModificarDocumento1 frame = new VentanaModificarDocumento1();
-					frame.setVisible(true);
-					dispose();
 				} else if(seleccion == "Copia de seguridad"){
 					VentanaCopiaSeguridad frame = new VentanaCopiaSeguridad();
 					frame.setVisible(true);
-					dispose();
 				} else {
 					VentanaRestauracion frame = new VentanaRestauracion();
 					frame.setVisible(true);
-					dispose();
 				}//if
+				
+				dispose();
 			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
