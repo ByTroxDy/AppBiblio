@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,7 +36,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE titulo LIKE ?";
+		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -64,7 +63,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorAutor(String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE autor LIKE ?";
+		String query = "SELECT * FROM documentos WHERE autor LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -91,7 +90,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ?";
+		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -119,7 +118,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarTodosDocumentos() {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos";
+		String query = "SELECT * FROM documentos WHERE fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -354,11 +353,40 @@ public class DocumentoMaxDB {
 	        return false;
 	    }
 	}
-
-	public void insertarDocumento(Documento documento) {
+	
+	public boolean checkDocumento(Documento documento) {
+		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
+		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
+			
+			checkStatement.setInt(1, documento.getISBN());
+			ResultSet checkResult = checkStatement.executeQuery();
+			checkResult.next();
+			int varisbn = checkResult.getInt(1);
+			
+			if (varisbn > 0) {
+				String updateQuery = "UPDATE documentos SET fecha_baja = NULL WHERE isbn = ?";
+				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
+					
+					updateStatement.setInt(1, documento.getISBN());
+					updateStatement.executeUpdate();
+					
+					return true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return false;
+	}
+	
+	public void insertarDocumento(Documento documento) {		
 		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
-		try (PreparedStatement statement = conn.prepareStatement(query);) {
-
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
 			statement.setInt(1, documento.getISBN());
 			statement.setString(2, documento.getTitulo());
 			statement.setString(3, documento.getAutor());
