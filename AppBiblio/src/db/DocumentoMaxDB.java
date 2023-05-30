@@ -352,11 +352,40 @@ public class DocumentoMaxDB {
 	        return false;
 	    }
 	}
-
-	public void insertarDocumento(Documento documento) {
+	
+	public boolean checkDocumento(Documento documento) {
+		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
+		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
+			
+			checkStatement.setInt(1, documento.getISBN());
+			ResultSet checkResult = checkStatement.executeQuery();
+			checkResult.next();
+			int varisbn = checkResult.getInt(1);
+			
+			if (varisbn > 0) {
+				String updateQuery = "UPDATE documentos SET fecha_baja = NULL WHERE isbn = ?";
+				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
+					
+					updateStatement.setInt(1, documento.getISBN());
+					updateStatement.executeUpdate();
+					
+					return true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return false;
+	}
+	
+	public void insertarDocumento(Documento documento) {		
 		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
-		try (PreparedStatement statement = conn.prepareStatement(query);) {
-
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
 			statement.setInt(1, documento.getISBN());
 			statement.setString(2, documento.getTitulo());
 			statement.setString(3, documento.getAutor());
