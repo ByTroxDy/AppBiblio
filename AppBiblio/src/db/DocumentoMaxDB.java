@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +17,6 @@ import app.Libro;
 import app.Musica;
 import app.Pelicula;
 import app.Reservas;
-
 
 public class DocumentoMaxDB {
 	private int isbn, replicas, diasPendientes;
@@ -37,7 +35,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE titulo LIKE ?";
+		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -64,7 +62,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorAutor(String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE autor LIKE ?";
+		String query = "SELECT * FROM documentos WHERE autor LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -91,7 +89,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor2) {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ?";
+		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
@@ -119,7 +117,7 @@ public class DocumentoMaxDB {
 
 	public ArrayList<Documento> consultarTodosDocumentos() {
 		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos";
+		String query = "SELECT * FROM documentos WHERE fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
