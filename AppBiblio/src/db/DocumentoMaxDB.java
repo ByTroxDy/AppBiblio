@@ -356,11 +356,7 @@ public class DocumentoMaxDB {
 	}
 
 	public void insertarDocumento(Documento documento) {
-//		Calendar c = Calendar.getInstance();
-//		String stringFecha = c.get(Calendar.DATE) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.YEAR);
-//		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(stringFecha);
-
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query);) {
 
 			statement.setInt(1, documento.getISBN());
@@ -368,7 +364,6 @@ public class DocumentoMaxDB {
 			statement.setString(3, documento.getAutor());
 			statement.setInt(4, documento.getReplicas());
 			statement.setString(5, documento.getBiblioteca());
-//			statement.setDate(6, (java.sql.Date) fecha);
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -467,11 +462,11 @@ public class DocumentoMaxDB {
 	}
 
 	public boolean bajaDocumento(int isbn) {
-		// Ayoub cambiar a insert documentos, nombre del campo fecha_baja
-		String query = ("DELETE FROM documentos WHERE isbn = ?");
+		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setInt(1, isbn);
+			statement.setDate(1,new java.sql.Date(new Date().getTime()) );
+			statement.setInt(2, isbn);
 			statement.executeUpdate();
 			
 			return true;
