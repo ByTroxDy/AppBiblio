@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class VentanaConsultarDocumento extends JDialog {
@@ -172,7 +171,9 @@ public class VentanaConsultarDocumento extends JDialog {
 				btnPedirReserva.setVisible(false);
 			}
 			
-			if (grupo.equals("socio") | grupo == null) {
+			if (grupo == null) {
+				btnBajaDoc.setVisible(false);
+			} else if (grupo.equals("socio")) {
 				btnBajaDoc.setVisible(false);
 			}
 

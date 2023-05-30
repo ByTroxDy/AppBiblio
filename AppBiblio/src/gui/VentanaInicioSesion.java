@@ -116,6 +116,7 @@ public class VentanaInicioSesion extends JFrame {
 		btnConsultarDocumento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
 				VentanaConsultarDocumento.usuario = null;
+				VentanaConsultarDocumento.grupo = null;
 				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
 				ventana.setVisible(true);
 				dispose();
