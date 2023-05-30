@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import app.Documental;
 import app.Documento;
@@ -14,6 +18,7 @@ import app.Libro;
 import app.Musica;
 import app.Pelicula;
 import app.Reservas;
+
 
 public class DocumentoMaxDB {
 	private int isbn, replicas, diasPendientes;
@@ -351,7 +356,7 @@ public class DocumentoMaxDB {
 	}
 
 	public void insertarDocumento(Documento documento) {
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query);) {
 
 			statement.setInt(1, documento.getISBN());
@@ -457,11 +462,11 @@ public class DocumentoMaxDB {
 	}
 
 	public boolean bajaDocumento(int isbn) {
-		// Ayoub cambiar a insert documentos, nombre del campo fecha_baja
-		String query = ("DELETE FROM documentos WHERE isbn = ?");
+		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setInt(1, isbn);
+			statement.setDate(1,new java.sql.Date(new Date().getTime()) );
+			statement.setInt(2, isbn);
 			statement.executeUpdate();
 			
 			return true;
@@ -470,6 +475,30 @@ public class DocumentoMaxDB {
 			return false;
 		}
 	}
+	
+	public void copiaSeguridad(String user, String pass, String backupName) {
+		Process p;
+		InputStream is;
+		FileOutputStream fos;
+		byte[] buffer = new byte[1000];
+		int leido;
+		
+		try {
+			p = Runtime.getRuntime().exec("mysqldump -u" + user + " -p" + pass + "app_biblioteca");
+			is = p.getInputStream();
+			fos = new FileOutputStream(backupName);
+			leido = is.read(buffer);
+			
+			while(leido > 0) {
+				fos.write(buffer, 0, leido);
+				leido = is.read(buffer);
+			}//while
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//try catch	
+	}//copiaSeguridad
+	
 
 	public void cerrarConexion() {
 		try {
