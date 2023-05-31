@@ -16,12 +16,13 @@ import app.Documento;
 import app.Libro;
 import app.Musica;
 import app.Pelicula;
+import app.Prestamos;
 import app.Reservas;
 
 public class DocumentoMaxDB {
-	private int isbn, replicas, diasPendientes;
+	private int isbn, replicas, diasRetardo, diasPendientes;
 	private String nombre, autor, usuario;
-	private Date fechaReserva;
+	private Date fechaPrestamo, fechaDevolucion, fechaReserva;
 
 	private Connection conn;
 
@@ -139,6 +140,34 @@ public class DocumentoMaxDB {
 		}
 
 		return documentos;
+	}
+	
+	public ArrayList<Prestamos> consultarMisPrestamos(String myUser) {
+		ArrayList<Prestamos> prestamos = new ArrayList<>();
+		String query = "SELECT * FROM prestamos WHERE usuario = ?";
+
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+
+			statement.setString(1, myUser);
+			ResultSet resultSet = statement.executeQuery();
+
+			// Recorrer los resultados y crear objetos Reserva
+			while (resultSet.next()) {
+				isbn = resultSet.getInt("isbn");
+				usuario = resultSet.getString("usuario");
+				fechaPrestamo = resultSet.getDate("fecha_prestamo");
+				fechaDevolucion = resultSet.getDate("fecha_devolucion");
+				diasRetardo = resultSet.getInt("dias_retardo");
+
+				Prestamos prestamo = new Prestamos(isbn, usuario, fechaPrestamo, fechaDevolucion, diasRetardo);
+				prestamos.add(prestamo);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return prestamos;
 	}
 
 	public ArrayList<Reservas> consultarMisReservas(String myUser) {
