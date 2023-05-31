@@ -17,16 +17,10 @@ import java.awt.event.ActionListener;
 public class VentanaAltaDocumental extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String productora;
-	private String premios;
-	private String documentalesRealcionados;
+	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
-	private String formato;
-	private JTextField textFieldProductora;
-	private JTextField textFieldPremios;
-	private JTextField textFieldDocRelacionados;
-	private JTextField textFieldDuracion;
-	private Documento documento;
+	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
+	static Documento documento;
 
 	public VentanaAltaDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

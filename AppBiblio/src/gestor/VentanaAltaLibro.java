@@ -18,7 +18,6 @@ public class VentanaAltaLibro extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField, textField_1;
-	
 	private String editorial, tematica;
 	private int numpaginas;
 	

@@ -381,10 +381,10 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}//try catch
 		return false;
-	}
+	}//checkDocumento
 	
 	public void insertarDocumento(Documento documento) {		
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documento.getISBN());
@@ -392,6 +392,7 @@ public class DocumentoMaxDB {
 			statement.setString(3, documento.getAutor());
 			statement.setInt(4, documento.getReplicas());
 			statement.setString(5, documento.getBiblioteca());
+			statement.setDate(6, new java.sql.Date(new Date().getTime()));
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -401,8 +402,8 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarDocumento
 
 	public void insertarLibro(Libro libro) {
 		String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
@@ -447,7 +448,7 @@ public class DocumentoMaxDB {
 	}
 	
 	public void insertarDocumental(Documental documental) {
-		String query = "INSERT INTO documental (isbn, productora, premios, doc_relacionados, duracion, formato) VALUES (?, ?, ?, ?, ?. ?)";
+		String query = "INSERT INTO documentales (isbn, productora, premios, doc_relacionados, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documental.getISBN());
@@ -465,11 +466,11 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarDocumental
 
 	public void insertarMusica(Musica musica) {
-		String query = "INSERT INTO musicas (isbn, lugar, fecha, duracion, formato) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO musica (isbn, lugar, fecha, duracion, formato) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
 			statement.setInt(1, musica.getISBN());
@@ -486,14 +487,14 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarMusica
 
 	public boolean bajaDocumento(int isbn) {
 		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setDate(1,new java.sql.Date(new Date().getTime()) );
+			statement.setDate(1,new java.sql.Date(new Date().getTime()));
 			statement.setInt(2, isbn);
 			statement.executeUpdate();
 			
@@ -501,8 +502,14 @@ public class DocumentoMaxDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}
-	}
+		}//try catch
+	}//bajaDocumento
+
+	
+	//ModificarDocumento
+	public void modificarDocumento(Documento documento){
+		
+	}//modificarDocumento
 	
 	public void copiaSeguridad(String user, String pass, String backupName) {
 		Process p;
