@@ -1,7 +1,7 @@
 package gui;
 
 import app.Usuario;
-import db.UsuarioDB;
+import db.UsuarioMaxDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -82,7 +82,7 @@ public class VentanaRegistro extends JFrame {
                 Usuario nuevoUsuario = new Usuario(nombre, password, null, false);
                 usuarios.add(nuevoUsuario);
                 
-                UsuarioDB usuDB = new UsuarioDB();
+                UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro(nombre, password)) {
                 	JOptionPane.showMessageDialog(panel, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);

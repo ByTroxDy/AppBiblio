@@ -1,6 +1,6 @@
 package gui;
 
-import db.UsuarioDB;
+import db.UsuarioMaxDB;
 import gestor.MenuGestor;
 
 import javax.swing.*;
@@ -78,7 +78,7 @@ public class VentanaInicioSesion extends JFrame {
 				usuario = txtUsuario.getText();
 				password = new String(txtPassword.getPassword());
 
-				UsuarioDB usuDB = new UsuarioDB();
+				UsuarioMaxDB usuDB = new UsuarioMaxDB();
 				grupo = usuDB.obtenerGrupo(usuario);
 
 				if (usuDB.iniciarSesion(usuario, password)) {
