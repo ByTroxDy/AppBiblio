@@ -149,6 +149,9 @@ public class VentanaAltaMusica extends JFrame {
 				try {
 					if (docDB.insertDocMus(documento, musica)) {
 						JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
 					} else {
 						JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
 					}

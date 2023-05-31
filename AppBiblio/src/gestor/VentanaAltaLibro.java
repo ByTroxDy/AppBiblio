@@ -122,17 +122,16 @@ public class VentanaAltaLibro extends JFrame {
 				Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
 				
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				if (!docDB.checkDocumento(libro)) {
-					if (docDB.insertDocLib(documento, libro)) {
-						JOptionPane.showMessageDialog(panel, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(panel, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-					}
+
+				if (docDB.insertDocLib(documento, libro)) {
+					JOptionPane.showMessageDialog(panel, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+					dispose();
 				} else {
-					JOptionPane.showMessageDialog(panel, "Actulizado exitosamente", "Libro", JOptionPane.INFORMATION_MESSAGE);
-				}
-				
-			}
+					JOptionPane.showMessageDialog(panel, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+				}// if else
+			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);

@@ -157,6 +157,9 @@ public class VentanaAltaPelicula extends JFrame {
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 				if (docDB.insertDocPel(documento, pelicula)) {
 					JOptionPane.showMessageDialog(panel, "Registro exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(panel, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
 				}

@@ -151,11 +151,13 @@ public class VentanaAltaDocumental extends JFrame {
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 				if (docDB.insertDocDocl(documento, documental)) {
 					JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
+				}//if else
+			}//actionPerformed
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));

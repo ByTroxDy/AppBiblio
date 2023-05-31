@@ -5,6 +5,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import db.DocumentoMaxDB;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +16,8 @@ public class VentanaRestauracion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private JTextField textFieldNom;
+	private String nom;
 	/**
 	 * Launch the application.
 	 */
@@ -63,37 +67,25 @@ public class VentanaRestauracion extends JFrame {
 		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido/a", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(53, 70, 360, 208);
 		contentPane.add(panel_1);
-		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(246, 166, 102, 30);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
-		
-		JLabel lblIsbn = new JLabel("Tipo");
-		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(88, 95, 60, 17);
-		panel_1.add(lblIsbn);
 
-		
-		JLabel lblIntroduceElIsbn = new JLabel("Tipo de copia");
+		JLabel lblIntroduceElIsbn = new JLabel("Nom del backup");
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
 		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblIntroduceElIsbn.setBounds(125, 38, 122, 28);
+		lblIntroduceElIsbn.setBounds(107, 52, 139, 28);
 		panel_1.add(lblIntroduceElIsbn);
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Todos", "Películas", "Música", "Libros", "Documentales"}));
-		comboBox.setBounds(133, 91, 131, 26);
-		panel_1.add(comboBox);
+		JLabel lblIsbn = new JLabel("Nom");
+		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblIsbn.setBounds(100, 95, 60, 17);
+		panel_1.add(lblIsbn);
 		
+		//Nom
+		textFieldNom = new JTextField();
+		textFieldNom.setBounds(146, 94, 114, 21);
+		panel_1.add(textFieldNom);
+		textFieldNom.setColumns(10);
+
+		//Volver
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -109,6 +101,25 @@ public class VentanaRestauracion extends JFrame {
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
+		
+		//Aceptar
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBounds(246, 166, 102, 30);
+		panel_1.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nom = textFieldNom.getText();
+				
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				docDB.restaurarBackup(nom);
+				
+				JOptionPane.showMessageDialog(panel_1, nom +" Restaurado correctamene", "Restauración", JOptionPane.INFORMATION_MESSAGE);
+			}//actionPerformed
+		});
+		btnNewButton.setFocusPainted(false);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 	}
-
 }
