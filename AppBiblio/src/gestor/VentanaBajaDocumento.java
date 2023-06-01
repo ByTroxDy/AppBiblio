@@ -95,9 +95,9 @@ public class VentanaBajaDocumento extends JFrame {
 				
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 				if (docDB.bajaDocumento(isbn)) {
-					JOptionPane.showMessageDialog(panel_1, "Se ha dado de baja correctamente", "Dar de Baja", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(panel_1, "Sa donat de baixa correctament", "Donar de Baixa", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panel_1, "Error al introduir dades en la DB", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

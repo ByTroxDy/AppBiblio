@@ -186,21 +186,20 @@ public class VentanaAltaDocumento extends JFrame {
 						VentanaAltaPelicula frame = new VentanaAltaPelicula();
 						frame.setVisible(true);
 					} else if (tipo == "Musica") {
-						VentanaAltaPelicula.documento = doc;
+						VentanaAltaMusica.documento = doc;
 						VentanaAltaMusica frame = new VentanaAltaMusica();
 						frame.setVisible(true);
 					} else if (tipo == "Documental") {
-						VentanaAltaPelicula.documento = doc;
+						VentanaAltaDocumental.documento = doc;
 						VentanaAltaDocumental frame = new VentanaAltaDocumental();
 						frame.setVisible(true);
-					}
-					
+					}//if					
 					dispose();
-				}
-			}
+				}//if else
+			}//actionPerformed
 		});
 		panel_1.add(btnAceptar);
-	}
+	}//VentanaAltaDocumento
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -210,9 +209,8 @@ public class VentanaAltaDocumento extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}//try catch
+			}//run
 		});
-	}
-	
-}
+	}//main
+}//VentanaAltaDocumento

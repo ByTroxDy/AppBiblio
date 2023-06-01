@@ -20,14 +20,13 @@ import com.toedter.calendar.JDateChooser;
 public class VentanaAltaMusica extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Documento documento;
-	private String lugar;
+	private String lugar, formato;
 	private Date fecha;
 	private int duracion;
-	private String formato;
-	private JTextField textFieldLugar;
-	private JTextField textFieldDuracion;
+	private JTextField textFieldLugar, textFieldDuracion;
 	private JDateChooser dateChooser;
+
+	static Documento documento;
 
 	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +148,10 @@ public class VentanaAltaMusica extends JFrame {
 		        
 				try {
 					if (docDB.insertDocMus(documento, musica)) {
-						JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
 					} else {
 						JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
 					}

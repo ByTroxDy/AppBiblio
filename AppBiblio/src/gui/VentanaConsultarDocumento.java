@@ -2,6 +2,7 @@ package gui;
 
 import app.Documento;
 import db.DocumentoMaxDB;
+import gestor.MenuGestor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,12 +57,14 @@ public class VentanaConsultarDocumento extends JDialog {
 				if (usuario == null) {
 					VentanaInicioSesion app = new VentanaInicioSesion();
 					app.setVisible(true);
-					dispose();
-				} else {
+				} else if (grupo.equals("socio")) {
 					MenuSocio menu = new MenuSocio();
 					menu.setVisible(true);
-					dispose();
+				} else if (grupo.equals("gestor")) {
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
 				}
+				dispose();
 			}
 		});
 

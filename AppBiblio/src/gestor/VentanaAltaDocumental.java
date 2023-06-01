@@ -17,16 +17,10 @@ import java.awt.event.ActionListener;
 public class VentanaAltaDocumental extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String productora;
-	private String premios;
-	private String documentalesRealcionados;
+	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
-	private String formato;
-	private JTextField textFieldProductora;
-	private JTextField textFieldPremios;
-	private JTextField textFieldDocRelacionados;
-	private JTextField textFieldDuracion;
-	private Documento documento;
+	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
+	static Documento documento;
 
 	public VentanaAltaDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,11 +151,13 @@ public class VentanaAltaDocumental extends JFrame {
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 				if (docDB.insertDocDocl(documento, documental)) {
 					JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
+				}//if else
+			}//actionPerformed
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));

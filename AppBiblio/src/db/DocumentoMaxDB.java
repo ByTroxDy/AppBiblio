@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import app.Documental;
 import app.Documento;
@@ -382,20 +384,21 @@ public class DocumentoMaxDB {
 	    }
 	}
 	
-	public boolean checkDocumento(Documento documento) {
+	public boolean checkDocumento(int isbn) {
 		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
 		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
 			
-			checkStatement.setInt(1, documento.getISBN());
+			checkStatement.setInt(1, isbn);
 			ResultSet checkResult = checkStatement.executeQuery();
 			checkResult.next();
 			int varisbn = checkResult.getInt(1);
 			
 			if (varisbn > 0) {
-				String updateQuery = "UPDATE documentos SET fecha_baja = NULL WHERE isbn = ?";
+				String updateQuery = "UPDATE documentos SET fecha_baja = NULL AND fecha_alta = ? WHERE isbn = ?";
 				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
 					
-					updateStatement.setInt(1, documento.getISBN());
+					updateStatement.setDate(1, new java.sql.Date(new Date().getTime()));
+					updateStatement.setInt(2, isbn);
 					updateStatement.executeUpdate();
 					
 					return true;
@@ -409,10 +412,10 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}//try catch
 		return false;
-	}
+	}//checkDocumento
 	
 	public void insertarDocumento(Documento documento) {		
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_baja) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documento.getISBN());
@@ -420,6 +423,7 @@ public class DocumentoMaxDB {
 			statement.setString(3, documento.getAutor());
 			statement.setInt(4, documento.getReplicas());
 			statement.setString(5, documento.getBiblioteca());
+			statement.setDate(6, new java.sql.Date(new Date().getTime()));
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -429,8 +433,8 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarDocumento
 
 	public void insertarLibro(Libro libro) {
 		String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
@@ -475,7 +479,7 @@ public class DocumentoMaxDB {
 	}
 	
 	public void insertarDocumental(Documental documental) {
-		String query = "INSERT INTO documental (isbn, productora, premios, doc_relacionados, duracion, formato) VALUES (?, ?, ?, ?, ?. ?)";
+		String query = "INSERT INTO documentales (isbn, productora, premios, doc_relacionados, duracion, formato) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documental.getISBN());
@@ -493,11 +497,11 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarDocumental
 
 	public void insertarMusica(Musica musica) {
-		String query = "INSERT INTO musicas (isbn, lugar, fecha, duracion, formato) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO musica (isbn, lugar, fecha, duracion, formato) VALUES (?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
 			statement.setInt(1, musica.getISBN());
@@ -514,14 +518,14 @@ public class DocumentoMaxDB {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		}
-	}
+		}//try catch
+	}//insertarMusica
 
 	public boolean bajaDocumento(int isbn) {
 		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setDate(1,new java.sql.Date(new Date().getTime()) );
+			statement.setDate(1, new java.sql.Date(new Date().getTime()));
 			statement.setInt(2, isbn);
 			statement.executeUpdate();
 			
@@ -529,20 +533,27 @@ public class DocumentoMaxDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}
-	}
+		}//try catch
+	}//bajaDocumento
+
 	
-	public void copiaSeguridad(String user, String pass, String backupName) {
-		Process p;
+	//ModificarDocumento
+	public void modificarDocumento(Documento documento){
+		
+	}//modificarDocumento
+	
+	
+	public void copiaSeguridad(String backupName) {
+		Process process;
 		InputStream is;
 		FileOutputStream fos;
 		byte[] buffer = new byte[1000];
 		int leido;
 		
 		try {
-			p = Runtime.getRuntime().exec("mysqldump -u" + user + " -p" + pass + "app_biblioteca");
-			is = p.getInputStream();
-			fos = new FileOutputStream(backupName);
+			process = Runtime.getRuntime().exec("mysqldump -h 10.2.18.166 -u admins -padmins app_biblioteca");
+			is = process.getInputStream();
+			fos = new FileOutputStream("backups/" + backupName+".sql");
 			leido = is.read(buffer);
 			
 			while(leido > 0) {
@@ -550,10 +561,38 @@ public class DocumentoMaxDB {
 				leido = is.read(buffer);
 			}//while
 			
+			fos.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}//try catch	
 	}//copiaSeguridad
+	
+	public void restaurarBackup(String backupName) {
+		Process process;
+		OutputStream os;
+		FileInputStream fis;
+		byte[] buffer = new byte[1000];
+		int leido;
+		
+		try {
+			process = Runtime.getRuntime().exec("mysql -h 10.2.18.166 -u admins -padmins test");
+			os = process.getOutputStream();
+			fis = new FileInputStream("backups/" + backupName+".sql");
+			leido = fis.read(buffer);
+			
+			while(leido > 0) {
+				os.write(buffer, 0, leido);
+				leido = fis.read(buffer);
+			}//while
+			os.flush();
+			os.close();
+			fis.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}//try catch	
+	}//restaurarBackup
 	
 
 	public void cerrarConexion() {

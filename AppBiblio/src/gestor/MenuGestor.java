@@ -7,6 +7,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import gui.VentanaConsultarDocumento;
+import gui.VentanaInicioSesion;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -94,7 +95,7 @@ public class MenuGestor extends JFrame {
 		
 		//Boton para avanzar
 		JButton btnNewButton = new JButton("Siguiente");
-		btnNewButton.setBounds(10, 171, 340, 26);
+		btnNewButton.setBounds(183, 171, 165, 26);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 
@@ -103,7 +104,7 @@ public class MenuGestor extends JFrame {
 				//extracción de la funcion seleccionada
 				String seleccion = comboBox.getSelectedItem().toString();
 				if (seleccion == "Alta Documento") {
-					VentanaAltaDocumento frame = new VentanaAltaDocumento();
+					VentanaComprobarIsbn frame = new VentanaComprobarIsbn();
 					frame.setVisible(true);
 				} else if(seleccion == "Consultar Documento"){
 					VentanaConsultarDocumento frame = new VentanaConsultarDocumento();
@@ -124,5 +125,23 @@ public class MenuGestor extends JFrame {
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnNewButton.setBackground(UIManager.getColor("CheckBoxMenuItem.foreground"));
+		
+		//Boton para avanzar
+		JButton btnCerrarSesion = new JButton("Tancar Sesio");
+		btnCerrarSesion.setBounds(10, 171, 165, 26);
+		panel_1.add(btnCerrarSesion);
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ex) {
+				VentanaInicioSesion app = new VentanaInicioSesion();
+				app.setVisible(true);
+				dispose();
+			}
+		});
+		btnCerrarSesion.setFocusPainted(false);
+		btnCerrarSesion.setBorderPainted(false);
+		btnCerrarSesion.setForeground(new Color(0, 0, 0));
+		btnCerrarSesion.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnCerrarSesion.setBackground(UIManager.getColor("CheckBoxMenuItem.foreground"));
 	}
 }
