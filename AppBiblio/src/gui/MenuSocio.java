@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import app.Prestamos;
 import app.Reservas;
 import db.DocumentoMaxDB;
 
@@ -67,8 +68,19 @@ public class MenuSocio extends JFrame {
 		btnDevolverDocumento.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				JOptionPane.showMessageDialog(mainPanel, "Funcionalidad en desarrollo", "En construcción",
-						JOptionPane.INFORMATION_MESSAGE);
+				ArrayList<Prestamos> prestamos;
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+
+				prestamos = docDB.consultarMisPrestamos(usuario);
+
+				if (prestamos.isEmpty()) {
+					JOptionPane.showMessageDialog(mainPanel, "No tienes reservas almacenadas.", "Aviso",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					VentanaDevolverDocumento ventana = new VentanaDevolverDocumento(prestamos);
+					ventana.setVisible(true);
+					dispose();
+				}
 			}
 		});
 
