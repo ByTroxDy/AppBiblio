@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import gui.VentanaRegistro;
+import socio.VentanaRegistro;
 
 public class UsuarioMaxDB {
 	VentanaRegistro ventanaR = new VentanaRegistro();

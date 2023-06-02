@@ -576,7 +576,7 @@ public class DocumentoMaxDB {
 		int leido;
 		
 		try {
-			process = Runtime.getRuntime().exec("mysql -h 10.2.18.166 -u admins -padmins test");
+			process = Runtime.getRuntime().exec("mysql -h 192.168.50.112 -u phpmyadmin -pphpmyadmin test");
 			os = process.getOutputStream();
 			fis = new FileInputStream("backups/" + backupName+".sql");
 			leido = fis.read(buffer);

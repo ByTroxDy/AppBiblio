@@ -6,8 +6,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import gui.VentanaConsultarDocumento;
-import gui.VentanaInicioSesion;
+import socio.VentanaConsultarDocumento;
+import socio.VentanaInicioSesion;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

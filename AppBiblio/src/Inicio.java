@@ -1,4 +1,4 @@
-import gui.VentanaInicioSesion;
+import socio.VentanaInicioSesion;
 
 public class Inicio {
 
