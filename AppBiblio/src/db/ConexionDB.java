@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class ConexionDB {
 //    private static final String URL = "jdbc:mysql://db4free.net/app_biblioteca";
-	private static final String URL = "jdbc:mysql://10.2.18.166/app_biblioteca";
+	private static final String URL = "jdbc:mysql://192.168.50.112/app_biblioteca";
     private static final String USER = "biblio_admin";
-    private static final String PASSWORD = "MyPass!123";
+    private static final String PASSWORD = "password";
     private static Connection conn;
 
     public static Connection getConnection() throws SQLException {
