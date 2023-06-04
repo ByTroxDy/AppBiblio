@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo, txtAutor;
-	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc;
+	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc, btnModifDoc;
 
 	private int filaSeleccionada, isbn;
 	private String titulo, autor, replicas;

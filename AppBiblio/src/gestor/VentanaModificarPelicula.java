@@ -1,29 +1,41 @@
 package gestor;
 
-import db.DocumentoMaxDB;
-import app.Documento;
-import app.Pelicula;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import app.Documento;
+import app.Pelicula;
+import db.DocumentoMaxDB;
 
-public class VentanaAltaPelicula extends JFrame {
+public class VentanaModificarPelicula extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;	
+	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;
 	private String director, actoresPrincipales, premios, formato;
 	private int duracion;
-	
 	static Documento documento;
-	
-	public VentanaAltaPelicula() {
+
+
+	public VentanaModificarPelicula() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
@@ -41,7 +53,7 @@ public class VentanaAltaPelicula extends JFrame {
 		panelTitle.setBounds(53, 14, 359, 44);
 		contentPane.add(panelTitle);
 		
-		JLabel lblAlta = new JLabel("ALTA PELICULA");
+		JLabel lblAlta = new JLabel("MODIFICAR PELICULA");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 		panelTitle.add(lblAlta);
@@ -54,13 +66,12 @@ public class VentanaAltaPelicula extends JFrame {
 		panel.setBounds(53, 70, 360, 208);
 		contentPane.add(panel);
 				
-		JLabel lblIntroduceDatos = new JLabel("Introduce los datos");
+		JLabel lblIntroduceDatos = new JLabel("Introduce los nuevos datos");
 		lblIntroduceDatos.setForeground(new Color(0, 0, 0));
 		lblIntroduceDatos.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceDatos.setBounds(66, 28, 212, 28);
+		lblIntroduceDatos.setBounds(58, 28, 258, 28);
 		panel.add(lblIntroduceDatos);
-		
-		
+
 		JLabel lblDirector = new JLabel("Director");
 		lblDirector.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDirector.setBounds(12, 67, 79, 17);
@@ -152,17 +163,17 @@ public class VentanaAltaPelicula extends JFrame {
 				formato = formatoBox.getSelectedItem().toString();
 				
 				Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
-
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				if (docDB.insertDocPel(documento, pelicula)) {
-					JOptionPane.showMessageDialog(panel, "Registro exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
+				
+				if (docDB.updateDocPel(documento, pelicula)) {
+					JOptionPane.showMessageDialog(panel, "Actualización exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
 					MenuGestor menu = new MenuGestor();
 					menu.setVisible(true);
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(panel, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
+				}// if else
+			}// actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
@@ -175,12 +186,12 @@ public class VentanaAltaPelicula extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAltaPelicula frame = new VentanaAltaPelicula();
+					VentanaModificarPelicula frame = new VentanaModificarPelicula();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}// try catch
+			}// run
 		});
-	}
-}
+	}// main
+}// VentanaModificarPelicula

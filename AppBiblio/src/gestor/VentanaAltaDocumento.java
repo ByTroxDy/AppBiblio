@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 import app.Documento;
 
+
 public class VentanaAltaDocumento extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -99,33 +100,16 @@ public class VentanaAltaDocumento extends JFrame {
 		textFieldAutor.setBounds(245, 65, 69, 21);
 		panel_1.add(textFieldAutor);
 
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			// función para cambiar de ventana haciendo click en el boton
-			public void actionPerformed(ActionEvent e) {
-				MenuGestor frame = new MenuGestor();
-				frame.setVisible(true);
-				dispose();
-			}
-		});
-
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 172, 153, 23);
-		panel_1.add(btnVolver);
-
+		JLabel lblTipo = new JLabel("tipo");
+		lblTipo.setBounds(195, 99, 60, 17);
+		panel_1.add(lblTipo);
+		
 		JComboBox<Object> tipoBox = new JComboBox<Object>();
 		tipoBox.setModel(
 				new DefaultComboBoxModel<Object>(new String[] { "Libro", "Pelicula", "Musica", "Documental" }));
 		tipoBox.setBounds(245, 94, 74, 26);
 		panel_1.add(tipoBox);
 
-		JLabel lblTipo = new JLabel("tipo");
-		lblTipo.setBounds(195, 99, 60, 17);
-		panel_1.add(lblTipo);
 		
 		JLabel lblReplicas = new JLabel("Replicas");
 		lblReplicas.setBounds(40, 127, 60, 17);
@@ -150,8 +134,27 @@ public class VentanaAltaDocumento extends JFrame {
 		txtBenicarlo.setFont(new Font("Dialog", Font.PLAIN, 10));
 		txtBenicarlo.setColumns(10);
 		txtBenicarlo.setBounds(245, 132, 69, 21);
-		
 		panel_1.add(txtBenicarlo);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			// función para cambiar de ventana haciendo click en el boton
+			public void actionPerformed(ActionEvent e) {
+				MenuGestor frame = new MenuGestor();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+
+		btnVolver.setForeground(Color.BLACK);
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnVolver.setBounds(12, 172, 153, 23);
+		panel_1.add(btnVolver);
+
+
 		
 		// ------------------------- SELECCIÓN TIPO ------------------------- //
 		JButton btnAceptar = new JButton("Aceptar");
@@ -176,7 +179,7 @@ public class VentanaAltaDocumento extends JFrame {
 					biblioteca = txtBenicarlo.getText().toString();
 					
 					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
-						
+					
 					if (tipo == "Libro") {
 						VentanaAltaLibro.documento = doc;
 						VentanaAltaLibro frame = new VentanaAltaLibro();

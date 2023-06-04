@@ -88,7 +88,7 @@ public class MenuGestor extends JFrame {
 		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setForeground(new Color(238, 238, 236));
 		comboBox.setBackground(new Color(46, 52, 54));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Documento", "Consultar Documento", "Copia de seguridad", "Restauracion"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Documento", "Modificar Documento", "Consultar Documento", "Copia de seguridad", "Restauracion"}));
 		comboBox.setToolTipText("");
 		comboBox.setBounds(101, 92, 165, 26);
 		panel_1.add(comboBox);
@@ -104,9 +104,12 @@ public class MenuGestor extends JFrame {
 				//extracción de la funcion seleccionada
 				String seleccion = comboBox.getSelectedItem().toString();
 				if (seleccion == "Alta Documento") {
-					VentanaComprobarIsbn frame = new VentanaComprobarIsbn();
+					VentanaAltaDocumento frame = new VentanaAltaDocumento();
 					frame.setVisible(true);
-				} else if(seleccion == "Consultar Documento"){
+				}else if (seleccion == "Modificar Documento") {
+					VentanaModificarDocumento frame = new VentanaModificarDocumento();
+					frame.setVisible(true);
+				}else if(seleccion == "Consultar Documento"){
 					VentanaConsultarDocumento frame = new VentanaConsultarDocumento();
 					frame.setVisible(true);
 				} else if(seleccion == "Copia de seguridad"){
@@ -116,7 +119,6 @@ public class MenuGestor extends JFrame {
 					VentanaRestauracion frame = new VentanaRestauracion();
 					frame.setVisible(true);
 				}//if
-				
 				dispose();
 			}//actionPerformed
 		});
@@ -127,7 +129,7 @@ public class MenuGestor extends JFrame {
 		btnNewButton.setBackground(UIManager.getColor("CheckBoxMenuItem.foreground"));
 		
 		//Boton para avanzar
-		JButton btnCerrarSesion = new JButton("Tancar Sesio");
+		JButton btnCerrarSesion = new JButton("Tancar Sesió");
 		btnCerrarSesion.setBounds(10, 171, 165, 26);
 		panel_1.add(btnCerrarSesion);
 		btnCerrarSesion.addActionListener(new ActionListener() {

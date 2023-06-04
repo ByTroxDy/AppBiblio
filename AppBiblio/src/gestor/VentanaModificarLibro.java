@@ -1,29 +1,41 @@
 package gestor;
 
-import db.DocumentoMaxDB;
-import app.Documento;
-import app.Libro;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import app.Documento;
+import app.Libro;
+import db.DocumentoMaxDB;
 
-public class VentanaAltaLibro extends JFrame {
+public class VentanaModificarLibro extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField, textField_1;
+	private JTextField textFieldEditorial, textFieldPaginas;
 	private String editorial, tematica;
 	private int numpaginas;
 	
 	static Documento documento;
 
-	public VentanaAltaLibro() {
+	public VentanaModificarLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
@@ -41,7 +53,7 @@ public class VentanaAltaLibro extends JFrame {
 		panelTitle.setBounds(53, 14, 359, 44);
 		contentPane.add(panelTitle);
 
-		JLabel lblAlta = new JLabel("LIBRO");
+		JLabel lblAlta = new JLabel("MODIFICAR LIBRO");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
 		panelTitle.add(lblAlta);
@@ -55,10 +67,10 @@ public class VentanaAltaLibro extends JFrame {
 		panel.setBounds(53, 70, 360, 208);
 		contentPane.add(panel);
 
-		JLabel lblIntroduceElIsbn = new JLabel("Introduce los datos");
+		JLabel lblIntroduceElIsbn = new JLabel("Introduce los nuevos datos");
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
 		lblIntroduceElIsbn.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceElIsbn.setBounds(66, 28, 212, 28);
+		lblIntroduceElIsbn.setBounds(48, 29, 255, 28);
 		panel.add(lblIntroduceElIsbn);
 
 		JLabel lblIsbn = new JLabel("Editorial");
@@ -66,20 +78,20 @@ public class VentanaAltaLibro extends JFrame {
 		lblIsbn.setBounds(48, 68, 79, 17);
 		panel.add(lblIsbn);
 
-		textField = new JTextField();
-		textField.setBounds(123, 67, 155, 21);
-		panel.add(textField);
-		textField.setColumns(10);
+		textFieldEditorial = new JTextField();
+		textFieldEditorial.setBounds(123, 67, 155, 21);
+		panel.add(textFieldEditorial);
+		textFieldEditorial.setColumns(10);
 
 		JLabel lblPginas = new JLabel("Páginas");
 		lblPginas.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblPginas.setBounds(48, 94, 79, 17);
 		panel.add(lblPginas);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(123, 93, 155, 21);
-		panel.add(textField_1);
+		textFieldPaginas = new JTextField();
+		textFieldPaginas.setColumns(10);
+		textFieldPaginas.setBounds(123, 93, 155, 21);
+		panel.add(textFieldPaginas);
 
 		JLabel lblTemtica = new JLabel("Temática");
 		lblTemtica.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -115,20 +127,20 @@ public class VentanaAltaLibro extends JFrame {
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editorial = textField.getText().toString();
-				numpaginas = Integer.parseInt(textField_1.getText());
+				editorial = textFieldEditorial.getText().toString();
+				numpaginas = Integer.parseInt(textFieldPaginas.getText());
 				tematica = comboBox.getSelectedItem().toString();
 
 				Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 
-				if (docDB.insertDocLib(documento, libro)) {
-					JOptionPane.showMessageDialog(panel, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+				if (docDB.updateDocLib(documento, libro)) {
+					JOptionPane.showMessageDialog(panel, "Actualización exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
 					MenuGestor menu = new MenuGestor();
 					menu.setVisible(true);
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(panel, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panel, "Error al intentar actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
 				}// if else
 			}//actionPerformed
 		});
@@ -143,7 +155,7 @@ public class VentanaAltaLibro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAltaLibro frame = new VentanaAltaLibro();
+					VentanaModificarLibro frame = new VentanaModificarLibro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

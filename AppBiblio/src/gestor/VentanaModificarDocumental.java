@@ -1,28 +1,41 @@
 package gestor;
 
-import db.DocumentoMaxDB;
-import app.Documental;
-import app.Documento;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import app.Documental;
+import app.Documento;
+import db.DocumentoMaxDB;
 
-public class VentanaAltaDocumental extends JFrame {
+public class VentanaModificarDocumental extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
 	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
-	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
 	static Documento documento;
-
-	public VentanaAltaDocumental() {
+	
+	public VentanaModificarDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 478, 329);
 		contentPane = new JPanel();
@@ -40,7 +53,7 @@ public class VentanaAltaDocumental extends JFrame {
 		panel.setBounds(53, 14, 359, 44);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("ALTA DOCUMENTALES");
+		JLabel lblAlta = new JLabel("MODIFICAR DOCUMENTAL");
 		lblAlta.setForeground(new Color(0, 0, 0));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel.add(lblAlta);
@@ -53,10 +66,10 @@ public class VentanaAltaDocumental extends JFrame {
 		panel_1.setBounds(53, 70, 360, 208);
 		contentPane.add(panel_1);
 				
-		JLabel lblIntroducDatos = new JLabel("Introduce los datos");
+		JLabel lblIntroducDatos = new JLabel("Introduce los nuevos datos");
 		lblIntroducDatos.setForeground(new Color(0, 0, 0));
 		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblIntroducDatos.setBounds(89, 11, 189, 45);
+		lblIntroducDatos.setBounds(50, 25, 259, 31);
 		panel_1.add(lblIntroducDatos);
 		
 		
@@ -128,52 +141,56 @@ public class VentanaAltaDocumental extends JFrame {
 		});
 		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(new Color(255, 255, 255));
+		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
 		btnVolver.setBounds(12, 174, 168, 23);
 		panel_1.add(btnVolver);
 		
 		//Aceptar
-		JButton btnNewButton = new JButton("Alta");
+		JButton btnNewButton = new JButton("Modificar");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setBounds(190, 173, 158, 24);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				productora = textFieldProductora.getText().toString();
-				premios = textFieldPremios.getText().toString();
-				documentalesRealcionados = textFieldDocRelacionados.getText().toString();
-				duracion = Integer.parseInt(textFieldDuracion.getText());
-				formato = formatoBox.getSelectedItem().toString();
-				
-				Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
-				
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				if (docDB.insertDocDocl(documento, documental)) {
-					JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
-					MenuGestor menu = new MenuGestor();
-					menu.setVisible(true);
-					dispose();
+				if (textFieldProductora.getText().isEmpty() | textFieldPremios.getText().isEmpty() | textFieldDocRelacionados.getText().isEmpty()
+						| textFieldDuracion.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panel_1, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}//if else
+					productora = textFieldProductora.getText().toString();
+					premios = textFieldPremios.getText().toString();
+					documentalesRealcionados = textFieldDocRelacionados.getText().toString();
+					duracion = Integer.parseInt(textFieldDuracion.getText());
+					formato = formatoBox.getSelectedItem().toString();
+					
+					Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
+					if (docDB.updateDocDocl(documento, documental)) {
+						JOptionPane.showMessageDialog(panel_1, "Actualización exitoso", "Documental", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(panel_1, "Error al actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}//if else
+				}// if else
 			}//actionPerformed
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
-	}
+	}// VentanaModificarDocumental
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaAltaDocumental frame = new VentanaAltaDocumental();
+					VentanaModificarDocumental frame = new VentanaModificarDocumental();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}// try catch
+			}// run
 		});
-	}
-	
-}
+	}// main
+}// VentanaModificarDocumental
