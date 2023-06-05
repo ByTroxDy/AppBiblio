@@ -45,7 +45,7 @@ public class VentanaBajaDocumento extends JFrame {
 		panel.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaBajaDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
 		lblNewLabel.setBounds(491, 0, 55, 70);
 		panel.add(lblNewLabel);
 

@@ -47,7 +47,7 @@ public class VentanaAltaPelicula extends JFrame {
 		panelTitle.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaPelicula.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(455, 0, 84, 70);
 		panelTitle.add(lblNewLabel);
