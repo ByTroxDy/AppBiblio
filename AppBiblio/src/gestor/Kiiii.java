@@ -1,4 +1,4 @@
-package socio;
+package gestor;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
