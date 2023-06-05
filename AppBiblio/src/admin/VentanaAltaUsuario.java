@@ -17,7 +17,7 @@ import javax.swing.Action;
 import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
-public class administradorAltaUsuario extends JFrame {
+public class VentanaAltaUsuario extends JFrame {
 
 	private JPanel panel;
 	private static VentanaAltaUsuario frame;

@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
 public class MenuAdmin extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel menuAdministrador;
 	private static MenuAdmin frame;
 	private final Action action = new alta();
