@@ -308,6 +308,38 @@ public class DocumentoMaxDB {
 		System.out.println("Reserva realizada con éxito.");
 	}
 	
+	// INSERTS
+	public boolean checkDocumento(int isbn) {
+		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
+		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
+			
+			checkStatement.setInt(1, isbn);
+			ResultSet checkResult = checkStatement.executeQuery();
+			checkResult.next();
+			int varisbn = checkResult.getInt(1);
+			
+			if (varisbn > 0) {
+				String updateQuery = "UPDATE documentos SET fecha_baja = NULL AND fecha_alta = ? WHERE isbn = ?";
+				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
+					
+					updateStatement.setDate(1, new java.sql.Date(new Date().getTime()));
+					updateStatement.setInt(2, isbn);
+					updateStatement.executeUpdate();
+					
+					return true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return false;
+	}//checkDocumento
+	
+	//INSERTS
 	public boolean insertDocLib(Documento doc, Libro lib) {
 		try {
 			conn.setAutoCommit(false);
@@ -383,38 +415,8 @@ public class DocumentoMaxDB {
 	        return false;
 	    }
 	}
-	
-	public boolean checkDocumento(int isbn) {
-		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
-		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
-			
-			checkStatement.setInt(1, isbn);
-			ResultSet checkResult = checkStatement.executeQuery();
-			checkResult.next();
-			int varisbn = checkResult.getInt(1);
-			
-			if (varisbn > 0) {
-				String updateQuery = "UPDATE documentos SET fecha_baja = NULL AND fecha_alta = ? WHERE isbn = ?";
-				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
-					
-					updateStatement.setDate(1, new java.sql.Date(new Date().getTime()));
-					updateStatement.setInt(2, isbn);
-					updateStatement.executeUpdate();
-					
-					return true;
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			} else {
-				return false;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}//try catch
-		return false;
-	}//checkDocumento
-	
-	public void insertarDocumento(Documento documento) {		
+
+	public void insertarDocumento(Documento documento) {
 		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
@@ -520,7 +522,230 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}//try catch
 	}//insertarMusica
+	
+	
+	// UPDATES	
+	public boolean comprobarIsbn(int isbn) {
+		String query = ("SELECT COUNT(*) FROM documentos WHERE isbn = ?");
+		try(PreparedStatement statement = conn.prepareStatement(query)){
+			int varisbn;
+			
+			statement.setInt(1, isbn);			
+			ResultSet checkResult = statement.executeQuery();
+			checkResult.next();
+			varisbn = checkResult.getInt(1);
+			
+			if (varisbn > 0) {
+				return true;
+			}//if
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}//try catch
+	}//comprobarIsbn
+	
+	public String getTipo(int isbn) {
+		String tipo  ="";
+		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
+		try  (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			ResultSet checkResult = statement.executeQuery();
+			checkResult.next();
+			tipo = checkResult.getString(1);
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return tipo;
+	}//getTipo
+	
+	public boolean updateDocLib(Documento doc, Libro lib) {
+		try {
+			conn.setAutoCommit(false);
+			updateDocumento(doc);
+			updateLibro(lib);
+			conn.commit();
+			return true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public boolean updateDocPel(Documento doc, Pelicula peli) {
+		try {
+			conn.setAutoCommit(false);
+			updateDocumento(doc);
+			updatePelicula(peli);
+			conn.commit();
+			return true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
+	public boolean updateDocMus(Documento doc, Musica mus) {
+		try {
+			conn.setAutoCommit(false);
+			updateDocumento(doc);
+			updateMusica(mus);
+			conn.commit();
+			return true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public boolean updateDocDocl(Documento doc, Documental docl) {
+		try {
+			conn.setAutoCommit(false);
+			updateDocumento(doc);
+			updateDocumental(docl);
+			conn.commit();
+			return true;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				return false;
+			}
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public void updateDocumento(Documento documento){
+		String query = "UPDATE documentos SET titulo = ?, autor = ?, replicas = ? WHERE isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, documento.getTitulo());
+			statement.setString(2, documento.getAutor());
+			statement.setInt(3, documento.getReplicas());	
+			statement.setInt(4, documento.getISBN());
+
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}//try catch
+	}//modificarDocumento
+		
+	public void updateLibro(Libro libro){
+		String query = "UPDATE libros SET editorial = ?, npaginas = ?, tematica = ? WHERE isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, libro.getEditorial());
+			statement.setInt(2, libro.getNumeroPaginas());
+			statement.setString(3, libro.getTematica());
+			statement.setInt(4, libro.getISBN());
+			statement.executeUpdate();
+
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}//try catch
+	}//modificarDocumento
+	
+	public void updatePelicula(Pelicula peli){
+		String query = "UPDATE peliculas SET director = ?, actores = ?, premios = ?, duracion = ?, formato = ? WHERE isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, peli.getDirector());
+			statement.setString(2, peli.getActoresPrincipales());
+			statement.setString(3, peli.getPremiosConseguidos());
+			statement.setInt(4, peli.getDuracion());
+			statement.setString(5, peli.getFormato());
+			statement.setInt(6, peli.getISBN());
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}//try catch
+	}//modificarDocumento
+	
+	public void updateMusica(Musica musica){
+		String query = "UPDATE musica SET lugar = ?, fecha = ?, duracion = ?, formato = ? WHERE isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, musica.getLugar());
+			statement.setDate(2, new java.sql.Date(musica.getFecha().getTime()));
+			statement.setInt(3, musica.getDuracion());
+			statement.setString(4, musica.getFormato());
+			statement.setInt(5, musica.getISBN());
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}// try catch
+	}// updateMusica
+	
+	public void updateDocumental(Documental documental){
+		String query = "UPDATE documentales SET productora = ?, premios = ?, doc_relacionados = ?, duracion = ?, formato = ? WHERE isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, documental.getProductora());
+			statement.setString(2, documental.getPremiosConcedidos());
+			statement.setString(3, documental.getDocumentalesRelacionados());
+			statement.setInt(4, documental.getDuracion());
+			statement.setString(5, documental.getFormato());
+			statement.setInt(6, documental.getISBN());
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}// try catch
+	}// updateDocumental
+	
+	
+	// BAJAS
 	public boolean bajaDocumento(int isbn) {
 		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -536,13 +761,7 @@ public class DocumentoMaxDB {
 		}//try catch
 	}//bajaDocumento
 
-	
-	//ModificarDocumento
-	public void modificarDocumento(Documento documento){
-		
-	}//modificarDocumento
-	
-	
+	// BAKUP
 	public void copiaSeguridad(String backupName) {
 		Process process;
 		InputStream is;
@@ -567,7 +786,8 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}//try catch	
 	}//copiaSeguridad
-	
+
+	// RESTAURE
 	public void restaurarBackup(String backupName) {
 		Process process;
 		OutputStream os;
@@ -594,7 +814,7 @@ public class DocumentoMaxDB {
 		}//try catch	
 	}//restaurarBackup
 	
-
+	// CLOSE
 	public void cerrarConexion() {
 		try {
 			if (conn != null) {

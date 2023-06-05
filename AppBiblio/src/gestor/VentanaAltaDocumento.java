@@ -1,10 +1,7 @@
 package gestor;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +20,7 @@ public class VentanaAltaDocumento extends JFrame {
 	public VentanaAltaDocumento() {
 		setTitle("Alta Documento");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -34,72 +31,131 @@ public class VentanaAltaDocumento extends JFrame {
 
 		// Panel
 		JPanel principal = new JPanel();
-		principal.setBackground(SystemColor.window);
+		principal.setBackground(new Color(0, 128, 192));
 		principal.setForeground(new Color(0, 0, 0));
-		principal.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		principal.setBounds(53, 14, 359, 44);
+		principal.setBorder(null);
+		principal.setBounds(0, 0, 592, 69);
+		principal.setLayout(null);
 		contentPane.add(principal);
 
-		// Introduccion de datos
-
 		// Titulo del panel creado
-		JLabel lblAlta = new JLabel("ALTA DOCUMENTO");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
+		JLabel lblAlta = new JLabel("ALTA DOCUMENT");
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblAlta.setBounds(95, 11, 375, 47);
 		principal.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaAltaDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(480, 0, 60, 69);
+		principal.add(lblNewLabel);
 
 		// Creación de panel de contenido
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)),
-				"Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 
 		// Titulo Introduce los datos
-		JLabel lblIntroduceLosDatos = new JLabel("Introduce los datos");
+		JLabel lblIntroduceLosDatos = new JLabel("Introdueix les dades");
+		lblIntroduceLosDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceLosDatos.setForeground(Color.BLACK);
-		lblIntroduceLosDatos.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblIntroduceLosDatos.setBounds(88, 26, 189, 28);
+		lblIntroduceLosDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceLosDatos.setBounds(0, 26, 584, 28);
 		panel_1.add(lblIntroduceLosDatos);
 
 		// Labels y textField para la introducción de datos
-		JLabel lblTitulo = new JLabel("Titulo");
-		lblTitulo.setBounds(46, 95, 60, 17);
+		JLabel lblTitulo = new JLabel("Títol");
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblTitulo.setBounds(53, 117, 36, 17);
 		panel_1.add(lblTitulo);
 
 		// TITULO
 		textFieldTitulo = new JTextField();
-		textFieldTitulo.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldTitulo.setForeground(new Color(255, 255, 255));
+		textFieldTitulo.setBackground(new Color(0, 128, 192));
+		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(99, 98, 69, 21);
+		textFieldTitulo.setBounds(99, 115, 173, 21);
 		panel_1.add(textFieldTitulo);
 
 		JLabel lblIsbn = new JLabel("ISBN");
-		lblIsbn.setBounds(46, 66, 60, 17);
+		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblIsbn.setBounds(53, 67, 36, 17);
 		panel_1.add(lblIsbn);
 
 		// isbn
 		textFieldIsbn = new JTextField();
-		textFieldIsbn.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldIsbn.setForeground(new Color(255, 255, 255));
+		textFieldIsbn.setBackground(new Color(0, 128, 192));
+		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldIsbn.setColumns(10);
-		textFieldIsbn.setBounds(99, 65, 69, 21);
+		textFieldIsbn.setBounds(99, 65, 173, 21);
 		panel_1.add(textFieldIsbn);
 
 		JLabel lblAutor = new JLabel("Autor");
-		lblAutor.setBounds(195, 66, 60, 17);
+		lblAutor.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblAutor.setBounds(307, 66, 60, 17);
 		panel_1.add(lblAutor);
 
 		// AUTOR
 		textFieldAutor = new JTextField();
-		textFieldAutor.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldAutor.setForeground(new Color(255, 255, 255));
+		textFieldAutor.setBackground(new Color(0, 128, 192));
+		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldAutor.setColumns(10);
-		textFieldAutor.setBounds(245, 65, 69, 21);
+		textFieldAutor.setBounds(357, 65, 192, 21);
 		panel_1.add(textFieldAutor);
 
-		JButton btnVolver = new JButton("Volver");
+		JLabel lblTipo = new JLabel("Tipus");
+		lblTipo.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblTipo.setBounds(307, 115, 60, 17);
+		panel_1.add(lblTipo);
+		
+		JComboBox<Object> tipoBox = new JComboBox<Object>();
+		tipoBox.setFont(new Font("Dialog", Font.BOLD, 12));
+		tipoBox.setForeground(new Color(255, 255, 255));
+		tipoBox.setBackground(new Color(0, 128, 192));
+		tipoBox.setModel(
+				new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pelicula", "Musica", "Documental" }));
+		tipoBox.setBounds(357, 110, 192, 26);
+		panel_1.add(tipoBox);
+
+		JLabel lblReplicas = new JLabel("Repliques");
+		lblReplicas.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblReplicas.setBounds(15, 166, 71, 17);
+		panel_1.add(lblReplicas);
+		
+		//replicas
+		textField = new JTextField();
+		textField.setForeground(new Color(255, 255, 255));
+		textField.setBackground(new Color(0, 128, 192));
+		textField.setFont(new Font("Dialog", Font.BOLD, 12));
+		textField.setColumns(10);
+		textField.setBounds(99, 164, 173, 21);
+		panel_1.add(textField);
+
+		JLabel lblBiblioteca = new JLabel("Biblio");
+		lblBiblioteca.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblBiblioteca.setBounds(307, 168, 60, 17);
+		panel_1.add(lblBiblioteca);
+		
+		//biblioteca
+		txtBenicarlo = new JTextField();
+		txtBenicarlo.setForeground(new Color(255, 255, 255));
+		txtBenicarlo.setBackground(new Color(0, 128, 192));
+		txtBenicarlo.setEditable(false);
+		txtBenicarlo.setText("Benicarlo");
+		txtBenicarlo.setFont(new Font("Dialog", Font.BOLD, 12));
+		txtBenicarlo.setColumns(10);
+		txtBenicarlo.setBounds(357, 165, 192, 21);
+		panel_1.add(txtBenicarlo);
+		
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			// función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {
@@ -108,59 +164,21 @@ public class VentanaAltaDocumento extends JFrame {
 				dispose();
 			}
 		});
-
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 172, 153, 23);
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 262, 282, 23);
 		panel_1.add(btnVolver);
 
-		JComboBox<Object> tipoBox = new JComboBox<Object>();
-		tipoBox.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Libro", "Pelicula", "Musica", "Documental" }));
-		tipoBox.setBounds(245, 94, 74, 26);
-		panel_1.add(tipoBox);
-
-		JLabel lblTipo = new JLabel("tipo");
-		lblTipo.setBounds(195, 99, 60, 17);
-		panel_1.add(lblTipo);
-		
-		JLabel lblReplicas = new JLabel("Replicas");
-		lblReplicas.setBounds(40, 127, 60, 17);
-		panel_1.add(lblReplicas);
-		
-		//replicas
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 10));
-		textField.setColumns(10);
-		textField.setBounds(99, 124, 69, 21);
-		panel_1.add(textField);
-		
-		
-		JLabel lblBiblioteca = new JLabel("Biblio");
-		lblBiblioteca.setBounds(195, 135, 60, 17);
-		panel_1.add(lblBiblioteca);
-		
-		//biblioteca
-		txtBenicarlo = new JTextField();
-		txtBenicarlo.setEditable(false);
-		txtBenicarlo.setText("Benicarlo");
-		txtBenicarlo.setFont(new Font("Dialog", Font.PLAIN, 10));
-		txtBenicarlo.setColumns(10);
-		txtBenicarlo.setBounds(245, 132, 69, 21);
-		
-		panel_1.add(txtBenicarlo);
-		
-		// ------------------------- SELECCIÓN TIPO ------------------------- //
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setForeground(Color.BLACK);
-		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 12));
+		JButton btnAceptar = new JButton("Acceptar");
+		btnAceptar.setForeground(new Color(255, 255, 255));
+		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnAceptar.setFocusPainted(false);
 		btnAceptar.setBorderPainted(false);
-		btnAceptar.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnAceptar.setBounds(195, 172, 153, 23);
+		btnAceptar.setBackground(new Color(0, 128, 192));
+		btnAceptar.setBounds(317, 262, 267, 23);
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {
@@ -176,8 +194,8 @@ public class VentanaAltaDocumento extends JFrame {
 					biblioteca = txtBenicarlo.getText().toString();
 					
 					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
-						
-					if (tipo == "Libro") {
+					
+					if (tipo == "Llibre") {
 						VentanaAltaLibro.documento = doc;
 						VentanaAltaLibro frame = new VentanaAltaLibro();
 						frame.setVisible(true);

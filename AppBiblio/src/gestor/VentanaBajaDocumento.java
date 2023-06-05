@@ -20,7 +20,7 @@ public class VentanaBajaDocumento extends JFrame {
 
 	public VentanaBajaDocumento() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -30,45 +30,57 @@ public class VentanaBajaDocumento extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBorder(null);
+		panel.setBounds(0, 0, 592, 71);
+		panel.setLayout(null);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("BAJA DOCUMENTO");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
+		JLabel lblAlta = new JLabel("BAIXA DOCUMENT");
+		lblAlta.setBounds(71, 0, 410, 70);
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaBajaDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setBounds(491, 0, 55, 70);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
 		JLabel lblIsbn = new JLabel("isbn");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(78, 99, 60, 17);
+		lblIsbn.setBounds(177, 120, 38, 17);
 		panel_1.add(lblIsbn);
 
 		
-		JLabel lblIntroduceElIsbn = new JLabel("Introduce el ISBN");
+		JLabel lblIntroduceElIsbn = new JLabel("Introdueix el ISBN");
+		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceElIsbn.setBounds(78, 40, 212, 28);
+		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceElIsbn.setBounds(0, 57, 584, 28);
 		panel_1.add(lblIntroduceElIsbn);
 		
 		//isbn
 		textFieldIsbn = new JTextField();
-		textFieldIsbn.setBounds(115, 98, 158, 21);
+		textFieldIsbn.setForeground(new Color(255, 255, 255));
+		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldIsbn.setBackground(new Color(0, 128, 192));
+		textFieldIsbn.setBounds(214, 119, 197, 21);
 		panel_1.add(textFieldIsbn);
 		textFieldIsbn.setColumns(10);
 		
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
@@ -77,17 +89,17 @@ public class VentanaBajaDocumento extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 169, 79, 28);
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 257, 278, 28);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		
 		//Baja
-		JButton btnNewButton = new JButton("Baja");
-		btnNewButton.setBounds(269, 168, 79, 28);
+		JButton btnNewButton = new JButton("Acceptar");
+		btnNewButton.setBounds(306, 257, 278, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,9 +115,9 @@ public class VentanaBajaDocumento extends JFrame {
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 
 	}
 	

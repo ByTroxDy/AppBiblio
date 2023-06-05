@@ -5,10 +5,7 @@ import app.Documental;
 import app.Documento;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +21,7 @@ public class VentanaAltaDocumental extends JFrame {
 
 	public VentanaAltaDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -34,89 +31,114 @@ public class VentanaAltaDocumental extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBorder(null);
+		panel.setBounds(0, 0, 592, 70);
+		panel.setLayout(null);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("ALTA DOCUMENTALES");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
+		JLabel lblAlta = new JLabel("ALTA DOCUMENTAL");
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setBounds(63, 11, 427, 48);
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaAltaDocumental.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(485, 0, 71, 73);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
-		JLabel lblIntroducDatos = new JLabel("Introduce los datos");
+		JLabel lblIntroducDatos = new JLabel("Introdueix les dades");
+		lblIntroducDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroducDatos.setForeground(new Color(0, 0, 0));
-		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblIntroducDatos.setBounds(89, 11, 189, 45);
+		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroducDatos.setBounds(0, 11, 584, 45);
 		panel_1.add(lblIntroducDatos);
 		
 		
 		JLabel lblProductora = new JLabel("Productora");
 		lblProductora.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblProductora.setBounds(12, 67, 79, 17);
+		lblProductora.setBounds(21, 77, 79, 17);
 		panel_1.add(lblProductora);
 		
 		//Proudctora
 		textFieldProductora = new JTextField();
-		textFieldProductora.setBounds(96, 67, 79, 20);
+		textFieldProductora.setForeground(new Color(255, 255, 255));
+		textFieldProductora.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldProductora.setBackground(new Color(0, 128, 192));
+		textFieldProductora.setBounds(105, 77, 162, 20);
 		panel_1.add(textFieldProductora);
 		textFieldProductora.setColumns(10);
 		
 		
-		JLabel lblPremios = new JLabel("Premios");
+		JLabel lblPremios = new JLabel("Premis");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPremios.setBounds(12, 96, 79, 17);
+		lblPremios.setBounds(21, 128, 79, 17);
 		panel_1.add(lblPremios);
 		
 		//Premios
 		textFieldPremios = new JTextField();
+		textFieldPremios.setForeground(new Color(255, 255, 255));
+		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldPremios.setBackground(new Color(0, 128, 192));
 		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(96, 96, 79, 20);
+		textFieldPremios.setBounds(105, 128, 162, 20);
 		panel_1.add(textFieldPremios);
 		
-		JLabel lblDocumentalesRealcionados = new JLabel("Documentales realcionados");
+		JLabel lblDocumentalesRealcionados = new JLabel("Documentals relacionats");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDocumentalesRealcionados.setBounds(12, 126, 206, 17);
+		lblDocumentalesRealcionados.setBounds(105, 176, 195, 17);
 		panel_1.add(lblDocumentalesRealcionados);
 		
 		textFieldDocRelacionados = new JTextField();
+		textFieldDocRelacionados.setForeground(new Color(255, 255, 255));
+		textFieldDocRelacionados.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDocRelacionados.setBackground(new Color(0, 128, 192));
 		textFieldDocRelacionados.setColumns(10);
-		textFieldDocRelacionados.setBounds(228, 126, 120, 20);
+		textFieldDocRelacionados.setBounds(311, 175, 162, 20);
 		panel_1.add(textFieldDocRelacionados);
 		
-		JLabel lblDuracion = new JLabel("Duración");
+		JLabel lblDuracion = new JLabel("Duració");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDuracion.setBounds(199, 67, 79, 17);
+		lblDuracion.setBounds(321, 76, 79, 17);
 		panel_1.add(lblDuracion);
 		
 		//Duracion
 		textFieldDuracion = new JTextField();
+		textFieldDuracion.setForeground(new Color(255, 255, 255));
+		textFieldDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDuracion.setBackground(new Color(0, 128, 192));
 		textFieldDuracion.setColumns(10);
-		textFieldDuracion.setBounds(276, 67, 74, 20);
+		textFieldDuracion.setBounds(398, 76, 162, 20);
 		panel_1.add(textFieldDuracion);
 		
-		JLabel lblFormato = new JLabel("Formato");
+		JLabel lblFormato = new JLabel("Format");
 		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblFormato.setBounds(199, 96, 79, 17);
+		lblFormato.setBounds(321, 127, 79, 17);
 		panel_1.add(lblFormato);
 		
 		//Formato
 		JComboBox<Object> formatoBox = new JComboBox<Object>();
-		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
-		formatoBox.setBounds(269, 95, 79, 22);
+		formatoBox.setForeground(new Color(255, 255, 255));
+		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
+		formatoBox.setBackground(new Color(0, 128, 192));
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físic", "Digital"}));
+		formatoBox.setBounds(391, 126, 169, 22);
 		panel_1.add(formatoBox);
 		
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
@@ -126,17 +148,16 @@ public class VentanaAltaDocumental extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(new Color(255, 255, 255));
-		btnVolver.setBounds(12, 174, 168, 23);
-		btnVolver.setBorder(new BorderRedondo(20)); 
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 257, 277, 23);
 		panel_1.add(btnVolver);
 		
 		//Aceptar
-		JButton btnNewButton = new JButton("Alta");
+		JButton btnNewButton = new JButton("Acceptar");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBounds(190, 173, 158, 24);
+		btnNewButton.setBounds(299, 256, 275, 24);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,9 +180,9 @@ public class VentanaAltaDocumental extends JFrame {
 				}//if else
 			}//actionPerformed
 		});
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 	}
 	
 	public static void main(String[] args) {
@@ -176,5 +197,4 @@ public class VentanaAltaDocumental extends JFrame {
 			}
 		});
 	}
-	
 }

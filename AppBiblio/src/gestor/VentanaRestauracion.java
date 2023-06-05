@@ -1,10 +1,7 @@
 package gestor;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import db.DocumentoMaxDB;
 
@@ -18,28 +15,11 @@ public class VentanaRestauracion extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldNom;
 	private String nom;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRestauracion frame = new VentanaRestauracion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public VentanaRestauracion() {
+		setTitle("Restauració");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBackground(SystemColor.window);
@@ -49,44 +29,55 @@ public class VentanaRestauracion extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBounds(0, 0, 584, 71);
+		panel.setLayout(null);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("RESTAURACIÓN");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
+		JLabel lblAlta = new JLabel("RESTAURACIÓ");
+		lblAlta.setBounds(112, 0, 370, 71);
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaRestauracion.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(476, 0, 46, 71);
+		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido/a", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBounds(0, 70, 584, 291);
 		contentPane.add(panel_1);
 
 		JLabel lblIntroduceElIsbn = new JLabel("Nom del backup");
+		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblIntroduceElIsbn.setBounds(107, 52, 139, 28);
+		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceElIsbn.setBounds(0, 52, 584, 28);
 		panel_1.add(lblIntroduceElIsbn);
 		
 		JLabel lblIsbn = new JLabel("Nom");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(100, 95, 60, 17);
+		lblIsbn.setBounds(190, 109, 60, 17);
 		panel_1.add(lblIsbn);
 		
 		//Nom
 		textFieldNom = new JTextField();
-		textFieldNom.setBounds(146, 94, 114, 21);
+		textFieldNom.setForeground(new Color(255, 255, 255));
+		textFieldNom.setBackground(new Color(0, 128, 192));
+		textFieldNom.setFont(new Font("Tahoma", Font.BOLD, 14));
+		textFieldNom.setBounds(236, 108, 165, 21);
 		panel_1.add(textFieldNom);
 		textFieldNom.setColumns(10);
 
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuGestor frame = new MenuGestor();
@@ -94,17 +85,17 @@ public class VentanaRestauracion extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 168, 102, 30);
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(10, 250, 286, 30);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		
 		//Aceptar
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(246, 166, 102, 30);
+		JButton btnNewButton = new JButton("Acceptar");
+		btnNewButton.setBounds(306, 250, 268, 30);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,8 +109,21 @@ public class VentanaRestauracion extends JFrame {
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
-	}
-}
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
+	}// VentanaRestauracion
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaRestauracion frame = new VentanaRestauracion();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}// try carch
+			}// run
+		});
+	}// main
+}// VentanaRestauracion
