@@ -40,7 +40,7 @@ public class VentanaAltaMusica extends JFrame {
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 584, 71);
+		panel.setBounds(0, 0, 592, 71);
 		panel.setLayout(null);
 		contentPane.add(panel);
 		
@@ -62,7 +62,7 @@ public class VentanaAltaMusica extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
 		JLabel lblIntroduceDatos = new JLabel("Introdueix les dades");
@@ -139,14 +139,14 @@ public class VentanaAltaMusica extends JFrame {
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(12, 252, 292, 28);
+		btnVolver.setBounds(10, 257, 292, 28);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
 		//Alta
 		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(314, 252, 260, 28);
+		btnNewButton.setBounds(314, 257, 270, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

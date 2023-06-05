@@ -25,6 +25,8 @@ import javax.swing.border.TitledBorder;
 import app.Documental;
 import app.Documento;
 import db.DocumentoMaxDB;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class VentanaModificarDocumental extends JFrame {
 
@@ -37,7 +39,7 @@ public class VentanaModificarDocumental extends JFrame {
 	
 	public VentanaModificarDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -48,84 +50,92 @@ public class VentanaModificarDocumental extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.window);
+		panel.setLayout(null);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBounds(0, 0, 592, 73);
 		contentPane.add(panel);
 		
 		JLabel lblAlta = new JLabel("MODIFICAR DOCUMENTAL");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblAlta.setBackground(new Color(238, 238, 236));
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setBounds(30, 0, 488, 73);
+		lblAlta.setForeground(new Color(238, 238, 236));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 35));
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaModificarDocumental.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(506, 0, 60, 73);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
-		JLabel lblIntroducDatos = new JLabel("Introduce los nuevos datos");
+		JLabel lblIntroducDatos = new JLabel("Introdueix les noves dades");
+		lblIntroducDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroducDatos.setForeground(new Color(0, 0, 0));
-		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblIntroducDatos.setBounds(50, 25, 259, 31);
+		lblIntroducDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroducDatos.setBounds(0, 25, 592, 31);
 		panel_1.add(lblIntroducDatos);
-		
-		
+
 		JLabel lblProductora = new JLabel("Productora");
 		lblProductora.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblProductora.setBounds(12, 67, 79, 17);
+		lblProductora.setBounds(32, 90, 92, 17);
 		panel_1.add(lblProductora);
 		
 		//Proudctora
 		textFieldProductora = new JTextField();
-		textFieldProductora.setBounds(96, 67, 79, 20);
+		textFieldProductora.setBounds(126, 90, 149, 20);
 		panel_1.add(textFieldProductora);
 		textFieldProductora.setColumns(10);
-		
-		
+
 		JLabel lblPremios = new JLabel("Premios");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPremios.setBounds(12, 96, 79, 17);
+		lblPremios.setBounds(32, 132, 79, 17);
 		panel_1.add(lblPremios);
 		
 		//Premios
 		textFieldPremios = new JTextField();
 		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(96, 96, 79, 20);
+		textFieldPremios.setBounds(126, 132, 149, 20);
 		panel_1.add(textFieldPremios);
 		
 		JLabel lblDocumentalesRealcionados = new JLabel("Documentales realcionados");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDocumentalesRealcionados.setBounds(12, 126, 206, 17);
+		lblDocumentalesRealcionados.setBounds(89, 175, 229, 17);
 		panel_1.add(lblDocumentalesRealcionados);
 		
 		textFieldDocRelacionados = new JTextField();
 		textFieldDocRelacionados.setColumns(10);
-		textFieldDocRelacionados.setBounds(228, 126, 120, 20);
+		textFieldDocRelacionados.setBounds(308, 174, 149, 20);
 		panel_1.add(textFieldDocRelacionados);
 		
 		JLabel lblDuracion = new JLabel("Duración");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDuracion.setBounds(199, 67, 79, 17);
+		lblDuracion.setBounds(319, 90, 79, 17);
 		panel_1.add(lblDuracion);
 		
 		//Duracion
 		textFieldDuracion = new JTextField();
 		textFieldDuracion.setColumns(10);
-		textFieldDuracion.setBounds(276, 67, 74, 20);
+		textFieldDuracion.setBounds(396, 90, 149, 20);
 		panel_1.add(textFieldDuracion);
 		
 		JLabel lblFormato = new JLabel("Formato");
 		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblFormato.setBounds(199, 96, 79, 17);
+		lblFormato.setBounds(319, 132, 79, 17);
 		panel_1.add(lblFormato);
 		
 		//Formato
 		JComboBox<Object> formatoBox = new JComboBox<Object>();
 		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
-		formatoBox.setBounds(269, 95, 79, 22);
+		formatoBox.setBounds(396, 130, 149, 22);
 		panel_1.add(formatoBox);
 		
 		//Volver
@@ -139,16 +149,16 @@ public class VentanaModificarDocumental extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnVolver.setForeground(new Color(238, 238, 236));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 174, 168, 23);
+		btnVolver.setBounds(7, 270, 284, 23);
 		panel_1.add(btnVolver);
 		
 		//Aceptar
 		JButton btnNewButton = new JButton("Modificar");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBounds(190, 173, 158, 24);
+		btnNewButton.setBounds(308, 270, 279, 24);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,8 +186,8 @@ public class VentanaModificarDocumental extends JFrame {
 				}// if else
 			}//actionPerformed
 		});
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnNewButton.setForeground(new Color(238, 238, 236));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
 	}// VentanaModificarDocumental
 	

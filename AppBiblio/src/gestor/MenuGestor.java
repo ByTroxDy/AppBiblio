@@ -32,7 +32,7 @@ public class MenuGestor extends JFrame {
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 584, 70);
+		panel.setBounds(0, 0, 592, 70);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -55,7 +55,7 @@ public class MenuGestor extends JFrame {
 		panel_1.setForeground(new Color(0, 0, 0));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 		
 		//Ttitulo del panel de contenido
@@ -77,7 +77,7 @@ public class MenuGestor extends JFrame {
 		
 		//Boton para avanzar
 		JButton btnCerrarSesion = new JButton("Tancar Sesió");
-		btnCerrarSesion.setBounds(10, 255, 286, 26);
+		btnCerrarSesion.setBounds(8, 259, 286, 26);
 		panel_1.add(btnCerrarSesion);
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
@@ -95,7 +95,7 @@ public class MenuGestor extends JFrame {
 		
 		//Boton para avanzar
 		JButton btnNewButton = new JButton("Següent");
-		btnNewButton.setBounds(306, 255, 268, 26);
+		btnNewButton.setBounds(312, 259, 268, 26);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 

@@ -24,6 +24,8 @@ import javax.swing.border.TitledBorder;
 import app.Documento;
 import app.Libro;
 import db.DocumentoMaxDB;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class VentanaModificarLibro extends JFrame {
 
@@ -37,7 +39,7 @@ public class VentanaModificarLibro extends JFrame {
 
 	public VentanaModificarLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -47,61 +49,70 @@ public class VentanaModificarLibro extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panelTitle = new JPanel();
-		panelTitle.setBackground(SystemColor.window);
+		panelTitle.setLayout(null);
+		panelTitle.setBackground(new Color(0, 128, 192));
 		panelTitle.setForeground(new Color(0, 0, 0));
-		panelTitle.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panelTitle.setBounds(53, 14, 359, 44);
+		panelTitle.setBounds(0, 0, 592, 75);
 		contentPane.add(panelTitle);
-
-		JLabel lblAlta = new JLabel("MODIFICAR LIBRO");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		panelTitle.add(lblAlta);
+		
+				JLabel lblAlta = new JLabel("MODIFICAR LIBRO");
+				lblAlta.setBounds(94, 0, 385, 75);
+				panelTitle.add(lblAlta);
+				lblAlta.setForeground(new Color(238, 238, 236));
+				lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setForeground(new Color(238, 238, 236));
 		panel.setBackground(SystemColor.window);
-		panel.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)),
-				"Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(53, 70, 360, 208);
+		panel.setBounds(0, 70, 592, 297);
 		contentPane.add(panel);
 
 		JLabel lblIntroduceElIsbn = new JLabel("Introduce los nuevos datos");
+		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceElIsbn.setBounds(48, 29, 255, 28);
+		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceElIsbn.setBounds(0, 29, 592, 28);
 		panel.add(lblIntroduceElIsbn);
 
 		JLabel lblIsbn = new JLabel("Editorial");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(48, 68, 79, 17);
+		lblIsbn.setBounds(172, 85, 79, 17);
 		panel.add(lblIsbn);
 
 		textFieldEditorial = new JTextField();
-		textFieldEditorial.setBounds(123, 67, 155, 21);
+		textFieldEditorial.setBackground(new Color(0, 128, 192));
+		textFieldEditorial.setForeground(new Color(238, 238, 236));
+		textFieldEditorial.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldEditorial.setBounds(247, 84, 183, 21);
 		panel.add(textFieldEditorial);
 		textFieldEditorial.setColumns(10);
 
 		JLabel lblPginas = new JLabel("Páginas");
 		lblPginas.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPginas.setBounds(48, 94, 79, 17);
+		lblPginas.setBounds(172, 132, 79, 17);
 		panel.add(lblPginas);
 
 		textFieldPaginas = new JTextField();
+		textFieldPaginas.setBackground(new Color(0, 128, 192));
+		textFieldPaginas.setForeground(new Color(238, 238, 236));
+		textFieldPaginas.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldPaginas.setColumns(10);
-		textFieldPaginas.setBounds(123, 93, 155, 21);
+		textFieldPaginas.setBounds(247, 131, 183, 21);
 		panel.add(textFieldPaginas);
 
 		JLabel lblTemtica = new JLabel("Temática");
 		lblTemtica.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblTemtica.setBounds(48, 123, 79, 17);
+		lblTemtica.setBounds(172, 186, 79, 17);
 		panel.add(lblTemtica);
 
 		JComboBox<Object> comboBox = new JComboBox<Object>();
+		comboBox.setBackground(new Color(0, 128, 192));
+		comboBox.setForeground(new Color(238, 238, 236));
+		comboBox.setFont(new Font("Dialog", Font.BOLD, 14));
 		comboBox.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "Ciencias", "Historia", "Literatura", "Filosofía", "Técnicos", "Otros..." }));
-		comboBox.setBounds(123, 119, 155, 26);
+		comboBox.setBounds(247, 182, 183, 26);
 		panel.add(comboBox);
 
 		JButton btnVolver = new JButton("Volver");
@@ -114,16 +125,16 @@ public class VentanaModificarLibro extends JFrame {
 			}
 		});
 		
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 174, 171, 23);
+		btnVolver.setForeground(new Color(238, 238, 236));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 262, 291, 23);
 		panel.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
 		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(187, 173, 161, 24);
+		btnNewButton.setBounds(315, 261, 265, 24);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,9 +157,9 @@ public class VentanaModificarLibro extends JFrame {
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(238, 238, 236));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 	}
 	
 	public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class VentanaAltaDocumento extends JFrame {
 		principal.setBackground(new Color(0, 128, 192));
 		principal.setForeground(new Color(0, 0, 0));
 		principal.setBorder(null);
-		principal.setBounds(0, 0, 584, 69);
+		principal.setBounds(0, 0, 592, 69);
 		principal.setLayout(null);
 		contentPane.add(principal);
 
@@ -57,7 +57,7 @@ public class VentanaAltaDocumento extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 
 		// Titulo Introduce los datos
@@ -169,7 +169,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(15, 257, 282, 23);
+		btnVolver.setBounds(12, 262, 282, 23);
 		panel_1.add(btnVolver);
 
 		JButton btnAceptar = new JButton("Acceptar");
@@ -178,7 +178,7 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setFocusPainted(false);
 		btnAceptar.setBorderPainted(false);
 		btnAceptar.setBackground(new Color(0, 128, 192));
-		btnAceptar.setBounds(307, 257, 267, 23);
+		btnAceptar.setBounds(317, 262, 267, 23);
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {

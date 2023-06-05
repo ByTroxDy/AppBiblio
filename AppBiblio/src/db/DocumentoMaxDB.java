@@ -528,11 +528,12 @@ public class DocumentoMaxDB {
 	public boolean comprobarIsbn(int isbn) {
 		String query = ("SELECT COUNT(*) FROM documentos WHERE isbn = ?");
 		try(PreparedStatement statement = conn.prepareStatement(query)){
+			int varisbn;
 			
 			statement.setInt(1, isbn);			
 			ResultSet checkResult = statement.executeQuery();
 			checkResult.next();
-			int varisbn = checkResult.getInt(1);
+			varisbn = checkResult.getInt(1);
 			
 			if (varisbn > 0) {
 				return true;
@@ -543,6 +544,21 @@ public class DocumentoMaxDB {
 			return false;
 		}//try catch
 	}//comprobarIsbn
+	
+	public String getTipo(int isbn) {
+		String tipo  ="";
+		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
+		try  (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			ResultSet checkResult = statement.executeQuery();
+			checkResult.next();
+			tipo = checkResult.getString(1);
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return tipo;
+	}//getTipo
 	
 	public boolean updateDocLib(Documento doc, Libro lib) {
 		try {
@@ -744,8 +760,7 @@ public class DocumentoMaxDB {
 			return false;
 		}//try catch
 	}//bajaDocumento
-	
-	
+
 	// BAKUP
 	public void copiaSeguridad(String backupName) {
 		Process process;
@@ -771,9 +786,8 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}//try catch	
 	}//copiaSeguridad
-	
-	
-	// RESSTAURE
+
+	// RESTAURE
 	public void restaurarBackup(String backupName) {
 		Process process;
 		OutputStream os;

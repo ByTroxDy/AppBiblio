@@ -38,7 +38,7 @@ public class VentanaAltaLibro extends JFrame {
 		panelTitle.setBackground(new Color(0, 128, 192));
 		panelTitle.setForeground(new Color(0, 0, 0));
 		panelTitle.setBorder(null);
-		panelTitle.setBounds(0, 0, 584, 72);
+		panelTitle.setBounds(0, 0, 592, 72);
 		panelTitle.setLayout(null);
 		contentPane.add(panelTitle);
 		
@@ -60,7 +60,7 @@ public class VentanaAltaLibro extends JFrame {
 		panel.setForeground(new Color(238, 238, 236));
 		panel.setBackground(SystemColor.window);
 		panel.setBorder(null);
-		panel.setBounds(0, 70, 584, 291);
+		panel.setBounds(0, 70, 592, 297);
 		contentPane.add(panel);
 
 		JLabel lblIntroduceElIsbn = new JLabel("Introdueix les dades");
@@ -119,13 +119,13 @@ public class VentanaAltaLibro extends JFrame {
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(10, 257, 286, 23);
+		btnVolver.setBounds(12, 262, 286, 23);
 		panel.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
 		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(306, 256, 268, 24);
+		btnNewButton.setBounds(316, 261, 268, 24);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

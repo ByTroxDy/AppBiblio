@@ -32,7 +32,7 @@ public class VentanaCopiaSeguridad extends JFrame {
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 584, 71);
+		panel.setBounds(0, 0, 592, 71);
 		panel.setLayout(null);
 		contentPane.add(panel);
 		
@@ -56,7 +56,7 @@ public class VentanaCopiaSeguridad extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 		
 		//Titulo contenido
@@ -92,14 +92,14 @@ public class VentanaCopiaSeguridad extends JFrame {
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(10, 250, 280, 30);
+		btnVolver.setBounds(10, 255, 280, 30);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
 		//Aceptar
 		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(300, 250, 274, 30);
+		btnNewButton.setBounds(302, 255, 284, 30);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

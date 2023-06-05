@@ -5,10 +5,7 @@ import app.Documental;
 import app.Documento;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,7 +34,7 @@ public class VentanaAltaDocumental extends JFrame {
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 584, 70);
+		panel.setBounds(0, 0, 592, 70);
 		panel.setLayout(null);
 		contentPane.add(panel);
 		
@@ -59,7 +56,7 @@ public class VentanaAltaDocumental extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
 		JLabel lblIntroducDatos = new JLabel("Introdueix les dades");
@@ -101,7 +98,7 @@ public class VentanaAltaDocumental extends JFrame {
 		
 		JLabel lblDocumentalesRealcionados = new JLabel("Documentals relacionats");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDocumentalesRealcionados.setBounds(127, 177, 180, 17);
+		lblDocumentalesRealcionados.setBounds(105, 176, 195, 17);
 		panel_1.add(lblDocumentalesRealcionados);
 		
 		textFieldDocRelacionados = new JTextField();
@@ -136,7 +133,7 @@ public class VentanaAltaDocumental extends JFrame {
 		formatoBox.setForeground(new Color(255, 255, 255));
 		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
 		formatoBox.setBackground(new Color(0, 128, 192));
-		formatoBox.setModel(new DefaultComboBoxModel(new String[] {"Físic", "Digital"}));
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físic", "Digital"}));
 		formatoBox.setBounds(391, 126, 169, 22);
 		panel_1.add(formatoBox);
 		

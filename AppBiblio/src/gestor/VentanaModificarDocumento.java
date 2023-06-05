@@ -173,15 +173,16 @@ public class VentanaModificarDocumento extends JFrame {
 						| textFieldAutor.getText().isEmpty() |textFieldReplicas.getText().isEmpty() ) {
 					JOptionPane.showMessageDialog(panel_1, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
 					isbn = Integer.parseInt(textFieldIsbn.getText());
-					tipo = tipoBox.getSelectedItem().toString();
+					tipo = docDB.getTipo(isbn);
 					titulo = textFieldTitulo.getText();
 					autor = textFieldAutor.getText();
 					replicas = Integer.parseInt(textFieldReplicas.getText());
 					biblioteca = txtBenicarlo.getText().toString();
 					
 					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
-					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
 					if (!docDB.comprobarIsbn(isbn)) {
 						JOptionPane.showMessageDialog(panel_1, "El ISBN introducido no existe", "Error", JOptionPane.ERROR_MESSAGE);

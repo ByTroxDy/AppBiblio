@@ -33,7 +33,7 @@ public class VentanaBajaDocumento extends JFrame {
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 584, 71);
+		panel.setBounds(0, 0, 592, 71);
 		panel.setLayout(null);
 		contentPane.add(panel);
 		
@@ -54,7 +54,7 @@ public class VentanaBajaDocumento extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 				
 		JLabel lblIsbn = new JLabel("isbn");
@@ -92,14 +92,14 @@ public class VentanaBajaDocumento extends JFrame {
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(10, 252, 278, 28);
+		btnVolver.setBounds(12, 257, 278, 28);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		
 		//Baja
 		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(306, 252, 268, 28);
+		btnNewButton.setBounds(306, 257, 278, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
