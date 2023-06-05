@@ -1,8 +1,9 @@
-/gui/
-/app/
-/gui/
+/admin/
 /db/
 /gestor/
+<<<<<<< Updated upstream
 /backups/
 /Inicio.class
 /admin/
+=======
+>>>>>>> Stashed changes

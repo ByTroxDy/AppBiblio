@@ -210,6 +210,7 @@ public class UsuarioMaxDB {
         }
     }
     
+<<<<<<< Updated upstream
     public void bajaUsuario(String usuario) {
 		String query = ("DELETE * FROM documentos WHERE usuario = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -220,6 +221,20 @@ public class UsuarioMaxDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
+=======
+    public boolean bajaUsuario(int isbn) {
+		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setDate(1, new java.sql.Date(new Date().getTime()));
+			statement.setInt(2, isbn);
+			statement.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+>>>>>>> Stashed changes
 		}//try catch
 	}//bajaDocumento
 }//end
