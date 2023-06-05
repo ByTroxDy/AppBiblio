@@ -17,6 +17,13 @@ public class Prestamos {
 		this.fechaDevolucion = fechaDevolucion;
 		this.diasRetardo = diasRetardo;
 	}
+	
+	public Prestamos(int isbn, Date fechaPrestamo, Date fechaDevolucion, int diasRetardo) {
+		this.isbn = isbn;
+		this.fechaPrestamo = fechaPrestamo;
+		this.fechaDevolucion = fechaDevolucion;
+		this.diasRetardo = diasRetardo;
+	}
 
 	public int getISBN() {
 		return isbn;

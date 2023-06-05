@@ -1,10 +1,12 @@
 package socio;
 
 import app.Prestamos;
+import db.DocumentoMaxDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 public class VentanaDevolverDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JButton btnVolver, btnDevolver;
+	
+	private int filaSeleccionada, isbn;
+	static String usuario;
 
 	public VentanaDevolverDocumento(ArrayList<Prestamos> prestamos) {
 		setTitle("Devolver Documento");
@@ -25,32 +30,35 @@ public class VentanaDevolverDocumento extends JDialog {
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		// Crear un modelo de tabla para las reservas
-		DefaultTableModel modeloTabla = new DefaultTableModel() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false; // Desactivar la edición de todas las celdas
-			}
-		};
+		DefaultTableModel modeloTabla = new DefaultTableModel();
 
 		modeloTabla.addColumn("ISBN");
-		modeloTabla.addColumn("Usuario");
 		modeloTabla.addColumn("Fecha Prestamo");
 		modeloTabla.addColumn("Fecha Devolucion");
 		modeloTabla.addColumn("Dias Retardo");
 
 		// Llenar el modelo de tabla con los datos de los documentos
 		for (Prestamos prestamo : prestamos) {
-			Object[] fila = new Object[5];
+			Object[] fila = new Object[4];
 			fila[0] = prestamo.getISBN();
-			fila[1] = prestamo.getUsuario();
-			fila[2] = prestamo.getFechaPrestamo();
-			fila[3] = prestamo.getFechaDevolucion();
-			fila[4] = prestamo.getDiasRetardo();
+			fila[1] = prestamo.getFechaPrestamo();
+			fila[2] = prestamo.getFechaDevolucion();
+			fila[3] = prestamo.getDiasRetardo();
 
 			modeloTabla.addRow(fila);
 		}
+		
+		JTable tablaPrestamos = new JTable(modeloTabla);
+		tablaPrestamos.setDefaultEditor(Object.class, null); // Desactivar la edición de las celdas
+
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		tablaPrestamos.setDefaultRenderer(Object.class, centerRenderer); // Centrar el texto en las celdas
+
+		tablaPrestamos.getTableHeader().setEnabled(false); // Desactivar arrastrar y soltar
+		tablaPrestamos.getTableHeader().setResizingAllowed(false); // Desactivar la modificación de las columnas
+
+		JScrollPane scrollPane = new JScrollPane(tablaPrestamos);
 
 		btnVolver = new JButton("Volver");
 		btnDevolver = new JButton("Devolver");
@@ -60,9 +68,6 @@ public class VentanaDevolverDocumento extends JDialog {
 		panelBotones.setLayout(new FlowLayout());
 		panelBotones.add(btnVolver);
 		panelBotones.add(btnDevolver);
-
-		JTable tablaReservas = new JTable(modeloTabla);
-		JScrollPane scrollPane = new JScrollPane(tablaReservas);
 
 		panel.add(scrollPane, BorderLayout.CENTER);
 		panel.add(panelBotones, BorderLayout.SOUTH);
@@ -79,8 +84,23 @@ public class VentanaDevolverDocumento extends JDialog {
 		
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				JOptionPane.showMessageDialog(panel, "Funcionalidad en desarrollo", "En construcción",
-						JOptionPane.INFORMATION_MESSAGE);
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				
+				filaSeleccionada = tablaPrestamos.getSelectedRow();
+				if (filaSeleccionada == -1) {
+					JOptionPane.showMessageDialog(panel, "Selecciona un documento de la tabla.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					isbn = (int) tablaPrestamos.getValueAt(filaSeleccionada, 0);
+					if (docDB.deletePrestamo(usuario, isbn)) {
+						JOptionPane.showMessageDialog(panel, "La devolucion ha sido efectuada.", "Devolucion",
+								JOptionPane.INFORMATION_MESSAGE);
+						MenuSocio menu = new MenuSocio();
+						menu.setVisible(true);
+						dispose();
+					}
+				}
+				
 			}
 		});
 

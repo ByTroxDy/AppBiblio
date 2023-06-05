@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +24,7 @@ import app.Reservas;
 
 public class DocumentoMaxDB {
 	private int isbn, replicas, diasRetardo, diasPendientes;
-	private String nombre, autor, usuario;
+	private String nombre, autor;
 	private Date fechaPrestamo, fechaDevolucion, fechaReserva;
 
 	private Connection conn;
@@ -156,12 +157,11 @@ public class DocumentoMaxDB {
 			// Recorrer los resultados y crear objetos Reserva
 			while (resultSet.next()) {
 				isbn = resultSet.getInt("isbn");
-				usuario = resultSet.getString("usuario");
 				fechaPrestamo = resultSet.getDate("fecha_prestamo");
 				fechaDevolucion = resultSet.getDate("fecha_devolucion");
 				diasRetardo = resultSet.getInt("dias_retardo");
 
-				Prestamos prestamo = new Prestamos(isbn, usuario, fechaPrestamo, fechaDevolucion, diasRetardo);
+				Prestamos prestamo = new Prestamos(isbn, fechaPrestamo, fechaDevolucion, diasRetardo);
 				prestamos.add(prestamo);
 			}
 
@@ -184,11 +184,10 @@ public class DocumentoMaxDB {
 			// Recorrer los resultados y crear objetos Reserva
 			while (resultSet.next()) {
 				isbn = resultSet.getInt("isbn");
-				usuario = resultSet.getString("usuario");
 				fechaReserva = resultSet.getDate("fecha_reserva");
 				diasPendientes = resultSet.getInt("dias_pendientes");
 
-				Reservas reserva = new Reservas(isbn, usuario, fechaReserva, diasPendientes);
+				Reservas reserva = new Reservas(isbn, fechaReserva, diasPendientes);
 				reservas.add(reserva);
 			}
 
@@ -211,6 +210,7 @@ public class DocumentoMaxDB {
 
 			if (cantidadPrestamos >= 5) {
 				System.out.println("Has alcanzado el límite de préstamos permitidos.");
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -229,6 +229,7 @@ public class DocumentoMaxDB {
 
 			if (cantidadPrestamosDocumento > 0) {
 				System.out.println("Ya has pedido prestado este documento.");
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -270,7 +271,7 @@ public class DocumentoMaxDB {
 		System.out.println("Préstamo realizado con éxito.");
 	}
 
-	public void reservarDocumento(String usuario, int isbn) {
+	public boolean reservarDocumento(String usuario, int isbn) {
 		// Verificar si el usuario ya tiene reservado el documento seleccionado
 		String checkQuery = "SELECT COUNT(*) FROM reservas WHERE usuario = ? AND isbn = ?";
 		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
@@ -283,11 +284,11 @@ public class DocumentoMaxDB {
 
 			if (cantidadReservasDocumento > 0) {
 				System.out.println("Ya has reservado este documento.");
-				return;
+				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return;
+			return false;
 		}
 
 		// Insertar nueva reserva en la tabla 'reservas'
@@ -302,10 +303,39 @@ public class DocumentoMaxDB {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return;
+			return false;
 		}
+		
+		return true;
+	}
+	
+	public boolean deletePrestamo(String usuario, int isbn) {
+		// Eliminar un préstamo en la tabla 'prestamos'
+		String query = "DELETE FROM prestamos WHERE usuario = ? AND isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
-		System.out.println("Reserva realizada con éxito.");
+			statement.setString(1, usuario);
+			statement.setInt(2, isbn);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		// Actualizar la tabla 'replicas'
+		String updateQuery = "UPDATE documentos SET replicas = replicas + 1 WHERE isbn = ?";
+		try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
+
+			updateStatement.setInt(1, isbn);
+			updateStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public boolean insertDocLib(Documento doc, Libro lib) {

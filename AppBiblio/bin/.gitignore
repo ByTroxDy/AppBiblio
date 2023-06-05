@@ -1,13 +1,3 @@
-/gestor/
-/gui/
-/db/
-/admin/
-/app/
 /socio/
-/FileChooserExemple.class
-/FileChooserExample.class
-/FileChooserExample$1.class
-/DatabaseRestoreExample$1.class
-/DatabaseRestoreExample.class
-/RestoreBackupExample.class
-/RestoreBackupExample$1.class
+/app/
+/db/

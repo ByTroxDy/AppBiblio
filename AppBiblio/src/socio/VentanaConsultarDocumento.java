@@ -2,11 +2,13 @@ package socio;
 
 import app.Documento;
 import db.DocumentoMaxDB;
+import db.UsuarioMaxDB;
 import gestor.MenuGestor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +36,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitulo = new JTextField(20);
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel lblAutor = new JLabel("Autor");
 		lblAutor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtAutor = new JTextField(20);
@@ -81,7 +83,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
-	
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -93,6 +95,7 @@ public class VentanaConsultarDocumento extends JDialog {
 	public void consultarDocumentos(String titulo, String autor) {
 		ArrayList<Documento> documentos;
 		DocumentoMaxDB docDB = new DocumentoMaxDB();
+		UsuarioMaxDB usuDB = new UsuarioMaxDB();
 
 		if (!titulo.isEmpty() && autor.isEmpty()) {
 			documentos = docDB.consultarDocumentosPorNombre(titulo);
@@ -113,15 +116,8 @@ public class VentanaConsultarDocumento extends JDialog {
 			JFrame ventanaResultados = new JFrame("Resultados de la consulta");
 
 			// Crear un modelo de tabla para los documentos
-			DefaultTableModel modeloTabla = new DefaultTableModel() {
-				private static final long serialVersionUID = 1L;
+			DefaultTableModel modeloTabla = new DefaultTableModel();
 
-				@Override
-	            public boolean isCellEditable(int row, int column) {
-	                return false; // Desactivar la edición de todas las celdas
-	            }
-	        };
-	        
 			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Titulo");
 			modeloTabla.addColumn("Autor");
@@ -134,17 +130,26 @@ public class VentanaConsultarDocumento extends JDialog {
 				fila[1] = documento.getTitulo();
 				fila[2] = documento.getAutor();
 				fila[3] = documento.getReplicas();
-				
+
 				if (documento.getReplicas() != 0) {
-	                fila[3] = "Libre";
-	            } else {
-	            	fila[3] = "Reservado";
-	            }
+					fila[3] = "Libre";
+				} else {
+					fila[3] = "Reservado";
+				}
 
 				modeloTabla.addRow(fila);
 			}
 
 			JTable tablaDocumentos = new JTable(modeloTabla);
+			tablaDocumentos.setDefaultEditor(Object.class, null); // Desactivar la edición de las celdas
+
+			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+			tablaDocumentos.setDefaultRenderer(Object.class, centerRenderer); // Centrar el texto en las celdas
+
+			tablaDocumentos.getTableHeader().setEnabled(false); // Desactivar arrastrar y soltar
+			tablaDocumentos.getTableHeader().setResizingAllowed(false); // Desactivar la modificación de las columnas
+
 			JScrollPane scrollPane = new JScrollPane(tablaDocumentos);
 
 			btnVolverBuscar = new JButton("Volver a Buscar");
@@ -173,7 +178,7 @@ public class VentanaConsultarDocumento extends JDialog {
 			if (usuario == null) {
 				btnPedirReserva.setVisible(false);
 			}
-			
+
 			if (grupo == null) {
 				btnBajaDoc.setVisible(false);
 			} else if (grupo.equals("socio")) {
@@ -187,40 +192,50 @@ public class VentanaConsultarDocumento extends JDialog {
 					ventanaResultados.dispose();
 				}
 			});
-			
+
 			btnPedirReserva.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
 					filaSeleccionada = tablaDocumentos.getSelectedRow();
-					isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-					replicas = (String) tablaDocumentos.getValueAt(filaSeleccionada, 3);
-
 					if (filaSeleccionada == -1) {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
-					} else if (replicas == "Libre") {
-						docDB.prestamoDocumento(usuario, isbn);
-						ventanaResultados.dispose();
 					} else {
-						docDB.reservarDocumento(usuario, isbn);
-						ventanaResultados.dispose();
+						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
+						replicas = (String) tablaDocumentos.getValueAt(filaSeleccionada, 3);
+						if (usuDB.validarSancion(usuario)) {
+							JOptionPane.showMessageDialog(ventanaResultados,
+									"Estas baneado no podras solicitar ningun documento.", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						} else if (replicas == "Libre") {
+							docDB.prestamoDocumento(usuario, isbn);
+						} else {
+							if (docDB.reservarDocumento(usuario, isbn)) {
+								JOptionPane.showMessageDialog(ventanaResultados, "Reserva realizada con éxito.",
+										"Reserva", JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(ventanaResultados, "Ya has reservado este documento.",
+										"Error", JOptionPane.ERROR_MESSAGE);
+							}
+
+						}
 					}
 				}
 			});
-			
+
 			btnBajaDoc.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ex) {
 					filaSeleccionada = tablaDocumentos.getSelectedRow();
-					isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-
 					if (filaSeleccionada == -1) {
 						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
+						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 						docDB.bajaDocumento(isbn);
-						JOptionPane.showMessageDialog(ventanaResultados, "Se ha dado de baja correctamenete a isbn: " + isbn,
-								"Baja documento", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(ventanaResultados,
+								"Se ha dado de baja correctamenete al isbn: " + isbn, "Baja documento",
+								JOptionPane.INFORMATION_MESSAGE);
 					}
-					
+
 				}
 			});
 		}
