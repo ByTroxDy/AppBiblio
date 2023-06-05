@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -166,4 +167,59 @@ public class UsuarioMaxDB {
             e.printStackTrace();
         }
     }
-}
+    
+    public boolean guardarRegistro2(String usuario, String password, String clas) {
+        String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
+        try (PreparedStatement statementVerificacion = conn.prepareStatement(queryVerificacion)) {
+            statementVerificacion.setString(1, usuario);
+            try (ResultSet resultSet = statementVerificacion.executeQuery()) {
+                resultSet.next();
+                int count = resultSet.getInt(1);
+                if (count > 0) {
+                	JOptionPane.showMessageDialog(ventanaR, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        String query = "INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, usuario);
+            statement.setString(2, password);
+            statement.setString(3, clas);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+    
+    public void actualizarRol(String usuarioActual, String rol) {
+        String query = "UPDATE usuarios SET rol = ? WHERE usuario = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, rol);
+            statement.setString(2, usuarioActual);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void bajaUsuario(String usuario) {
+		String query = ("DELETE * FROM documentos WHERE usuario = ?");
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setString(1, usuario);
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}//try catch
+	}//bajaDocumento
+}//end
