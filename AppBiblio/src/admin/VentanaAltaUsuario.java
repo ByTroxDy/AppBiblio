@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -15,14 +16,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 
-public class VentanaAltaUsuario extends JFrame {
+@SuppressWarnings("serial")
+public class administradorAltaUsuario extends JFrame {
 
 	private JPanel panel;
 	private static VentanaAltaUsuario frame;
 	private JTextField usuarioText;
-	private JTextField contraText;
-	private JTextField ConfirmarContra;
-	private JComboBox select;
+	private JPasswordField contraText;
+	private JPasswordField ConfirmarContra;
+	private JComboBox<String> select;
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
 
@@ -78,7 +80,7 @@ public class VentanaAltaUsuario extends JFrame {
 		labelUsuario.setBounds(75, 71, 61, 16);
 		panel.add(labelUsuario);
 		
-		contraText = new JTextField();
+		contraText = new JPasswordField();
 		contraText.setBounds(176, 104, 130, 26);
 		panel.add(contraText);
 		contraText.setColumns(10);
@@ -87,7 +89,7 @@ public class VentanaAltaUsuario extends JFrame {
 		labelContra.setBounds(56, 109, 80, 16);
 		panel.add(labelContra);
 		
-		ConfirmarContra = new JTextField();
+		ConfirmarContra = new JPasswordField();
 		ConfirmarContra.setBounds(176, 144, 130, 26);
 		panel.add(ConfirmarContra);
 		ConfirmarContra.setColumns(10);
@@ -106,11 +108,11 @@ public class VentanaAltaUsuario extends JFrame {
 		lblNewLabel.setBounds(53, 165, 83, 16);
 		panel.add(lblNewLabel);
 		
-		select = new JComboBox();
+		select = new JComboBox<String>();
 		select.setBounds(186, 182, 100, 27);
-		select.addItem("Usuari");
-		select.addItem("Gestor");
-		select.addItem("Administrador");
+		select.addItem("socio");
+		select.addItem("gestor");
+		select.addItem("admin");
 		panel.add(select);
 	}//administradorAltaUsuario
 	private class Salir extends AbstractAction {
@@ -136,18 +138,12 @@ public class VentanaAltaUsuario extends JFrame {
 			String Select;
 			
 			usuario=usuarioText.getText();
-			contra= contraText.getText();
-			confirmaContra=ConfirmarContra.getText();
-			Select= select.getToolTipText();
+			contra= new String (contraText.getPassword());
+			confirmaContra= new String(ConfirmarContra.getPassword());
+			Select= select.getSelectedItem().toString();
 			if(contra.equals(confirmaContra)) {//Enviar usuario y contraseña
 				//comprobar si el usuario exite en la base de datos
-				if(Select.equals("Usuario")){
-					
-				} else if(Select.equals("Gestor")) {
-					
-				} else if(Select.equals("Administrador")) {
-					
-				}//Comprueba los Select
+				
 			} else {
 				System.out.println("Contraseña y confirmar contraseña no en coincidixen");
 			}

@@ -229,18 +229,16 @@ public class UsuarioMaxDB {
         }
     }
     
-    public boolean bajaUsuario(int isbn) {
-		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
+
+    public void bajaUsuario(String usuario) {
+		String query = ("DELETE * FROM documentos WHERE usuario = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setDate(1, new java.sql.Date(new Date().getTime()));
-			statement.setInt(2, isbn);
+			statement.setString(1, usuario);
 			statement.executeUpdate();
 			
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
-		}//try catch
-	}//bajaDocumento
+        }
+    }
 }//end
