@@ -1,10 +1,7 @@
 package gestor;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import app.Documento;
 import db.DocumentoMaxDB;
@@ -23,7 +20,7 @@ public class VentanaModificarDocumento extends JFrame {
 	
 	public VentanaModificarDocumento() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -33,118 +30,142 @@ public class VentanaModificarDocumento extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
+		panel.setBorder(null);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBounds(0, 0, 584, 70);
+		panel.setLayout(null);
 		contentPane.add(panel);
 		
-		JLabel lblAlta = new JLabel("MODIFICAR DOCUMENTO");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
+		JLabel lblAlta = new JLabel("MODIFICAR DOCUMENT");
+		lblAlta.setBounds(20, 0, 484, 70);
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaModificarDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(514, 0, 46, 70);
+		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Verificaci\u00F3n de la existencia", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 584, 291);
 		contentPane.add(panel_1);
-		
 
-		JLabel lblIntroduceElIsbn = new JLabel("ISBN documento");
+		JLabel lblIntroduceElIsbn = new JLabel("ISBN del document");
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblIntroduceElIsbn.setBounds(20, 21, 132, 28);
+		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblIntroduceElIsbn.setBounds(99, 28, 191, 20);
 		panel_1.add(lblIntroduceElIsbn);
 		
 		// Labels y textField para la introducción de datos
 		JLabel lblTitulo = new JLabel("Titulo");
-		lblTitulo.setBounds(40, 100, 60, 17);
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTitulo.setBounds(10, 112, 60, 17);
 		panel_1.add(lblTitulo);
 
 		// TITULO
 		textFieldTitulo = new JTextField();
-		textFieldTitulo.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldTitulo.setBackground(new Color(0, 128, 192));
+		textFieldTitulo.setForeground(new Color(255, 255, 255));
+		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(99, 98, 69, 21);
+		textFieldTitulo.setBounds(53, 110, 128, 21);
 		panel_1.add(textFieldTitulo);
 
 		// isbn
 		textFieldIsbn = new JTextField();
-		textFieldIsbn.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldIsbn.setBackground(new Color(0, 128, 192));
+		textFieldIsbn.setForeground(new Color(255, 255, 255));
+		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldIsbn.setColumns(10);
-		textFieldIsbn.setBounds(162, 28, 143, 21);
+		textFieldIsbn.setBounds(287, 28, 180, 21);
 		panel_1.add(textFieldIsbn);
 
 		JLabel lblAutor = new JLabel("Autor");
-		lblAutor.setBounds(195, 100, 60, 17);
+		lblAutor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAutor.setBounds(191, 114, 60, 17);
 		panel_1.add(lblAutor);
 
 		// AUTOR
 		textFieldAutor = new JTextField();
-		textFieldAutor.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldAutor.setBackground(new Color(0, 128, 192));
+		textFieldAutor.setForeground(new Color(255, 255, 255));
+		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldAutor.setColumns(10);
-		textFieldAutor.setBounds(236, 98, 69, 21);
+		textFieldAutor.setBounds(242, 112, 128, 21);
 		panel_1.add(textFieldAutor);
 
 		JLabel lblTipo = new JLabel("tipo");
-		lblTipo.setBounds(195, 127, 60, 17);
+		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTipo.setBounds(310, 178, 60, 17);
 		panel_1.add(lblTipo);
 		
 		JComboBox<Object> tipoBox = new JComboBox<Object>();
+		tipoBox.setForeground(new Color(255, 255, 255));
+		tipoBox.setBackground(new Color(0, 128, 192));
+		tipoBox.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tipoBox.setModel(
 				new DefaultComboBoxModel<Object>(new String[] { "Libro", "Pelicula", "Musica", "Documental" }));
-		tipoBox.setBounds(236, 122, 74, 26);
+		tipoBox.setBounds(361, 173, 180, 26);
 		panel_1.add(tipoBox);
 
-		
 		JLabel lblReplicas = new JLabel("Replicas");
-		lblReplicas.setBounds(40, 127, 60, 17);
+		lblReplicas.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblReplicas.setBounds(386, 114, 60, 17);
 		panel_1.add(lblReplicas);
 		
 		//replicas
 		textFieldReplicas = new JTextField();
-		textFieldReplicas.setFont(new Font("Dialog", Font.PLAIN, 10));
+		textFieldReplicas.setBackground(new Color(0, 128, 192));
+		textFieldReplicas.setForeground(new Color(255, 255, 255));
+		textFieldReplicas.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldReplicas.setColumns(10);
-		textFieldReplicas.setBounds(99, 124, 69, 21);
+		textFieldReplicas.setBounds(446, 112, 128, 21);
 		panel_1.add(textFieldReplicas);
-		
-		
+
 		JLabel lblBiblioteca = new JLabel("Biblio");
-		lblBiblioteca.setBounds(126, 175, 60, 17);
+		lblBiblioteca.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblBiblioteca.setBounds(27, 182, 60, 17);
 		panel_1.add(lblBiblioteca);
 		
 		//biblioteca
 		txtBenicarlo = new JTextField();
+		txtBenicarlo.setForeground(new Color(255, 255, 255));
+		txtBenicarlo.setBackground(new Color(0, 128, 192));
 		txtBenicarlo.setEditable(false);
 		txtBenicarlo.setText("Benicarlo");
-		txtBenicarlo.setFont(new Font("Dialog", Font.PLAIN, 10));
+		txtBenicarlo.setFont(new Font("Dialog", Font.BOLD, 14));
 		txtBenicarlo.setColumns(10);
-		txtBenicarlo.setBounds(162, 173, 69, 21);
+		txtBenicarlo.setBounds(79, 178, 180, 21);
 		panel_1.add(txtBenicarlo);
 		
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
-			}
+			}// actionPerformed
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 168, 79, 28);
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(10, 252, 280, 28);
 		panel_1.add(btnVolver);
 
 		//Modificar
-		JButton btnNewButton = new JButton("Modificar\n");
-		btnNewButton.setBounds(257, 168, 91, 28);
+		JButton btnNewButton = new JButton("Acceptar");
+		btnNewButton.setBounds(310, 252, 264, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,8 +181,8 @@ public class VentanaModificarDocumento extends JFrame {
 					biblioteca = txtBenicarlo.getText().toString();
 					
 					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
-
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
 					if (!docDB.comprobarIsbn(isbn)) {
 						JOptionPane.showMessageDialog(panel_1, "El ISBN introducido no existe", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
@@ -189,14 +210,14 @@ public class VentanaModificarDocumento extends JFrame {
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 		
-		JLabel lblNuevosDatos = new JLabel("Nuevos datos");
+		JLabel lblNuevosDatos = new JLabel("Noves dades");
 		lblNuevosDatos.setForeground(Color.BLACK);
-		lblNuevosDatos.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblNuevosDatos.setBounds(126, 61, 120, 28);
+		lblNuevosDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblNuevosDatos.setBounds(207, 61, 155, 28);
 		panel_1.add(lblNuevosDatos);
 	}// VentanaModificarDocumento
 

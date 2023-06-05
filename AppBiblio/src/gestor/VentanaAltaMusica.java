@@ -5,10 +5,7 @@ import app.Documento;
 import app.Musica;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,7 +27,7 @@ public class VentanaAltaMusica extends JFrame {
 
 	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -40,81 +37,97 @@ public class VentanaAltaMusica extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
+		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
+		panel.setBorder(null);
+		panel.setBounds(0, 0, 584, 71);
+		panel.setLayout(null);
 		contentPane.add(panel);
 		
 		JLabel lblAlta = new JLabel("ALTA MÚSCIA");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblAlta.setBounds(145, 11, 293, 49);
 		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaAltaMusica.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(441, 0, 74, 71);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 584, 291);
 		contentPane.add(panel_1);
 				
-		JLabel lblIntroduceDatos = new JLabel("Introduce los datos");
+		JLabel lblIntroduceDatos = new JLabel("Introdueix les dades");
+		lblIntroduceDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceDatos.setForeground(new Color(0, 0, 0));
-		lblIntroduceDatos.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceDatos.setBounds(66, 28, 212, 28);
+		lblIntroduceDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceDatos.setBounds(0, 28, 584, 28);
 		panel_1.add(lblIntroduceDatos);
-		
-		
-		JLabel lblLugar = new JLabel("Lugar");
-		lblLugar.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblLugar.setBounds(12, 67, 79, 17);
+
+		JLabel lblLugar = new JLabel("Lloc");
+		lblLugar.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblLugar.setBounds(129, 75, 79, 17);
 		panel_1.add(lblLugar);
 
 		//Lugar
 		textFieldLugar = new JTextField();
-		textFieldLugar.setBounds(87, 67, 86, 20);
+		textFieldLugar.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldLugar.setForeground(new Color(255, 255, 255));
+		textFieldLugar.setBackground(new Color(0, 128, 192));
+		textFieldLugar.setBounds(197, 75, 252, 20);
 		panel_1.add(textFieldLugar);
 		textFieldLugar.setColumns(10);
-		
-		
-		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblFecha.setBounds(185, 67, 79, 17);
+
+		JLabel lblFecha = new JLabel("Data");
+		lblFecha.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblFecha.setBounds(129, 198, 79, 17);
 		panel_1.add(lblFecha);
 		
 		//Fecha
 		dateChooser = new JDateChooser();
+		dateChooser.setBackground(new Color(0, 128, 192));
         dateChooser.setDateFormatString("yyyy-MM-dd");
-        dateChooser.setBounds(250, 67, 86, 20);
+        dateChooser.setBounds(197, 195, 252, 20);
         panel_1.add(dateChooser);
-		
-		
-		JLabel lblDuracion = new JLabel("Duración");
-		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDuracion.setBounds(12, 98, 79, 17);
+
+		JLabel lblDuracion = new JLabel("Duració");
+		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblDuracion.setBounds(129, 161, 79, 17);
 		panel_1.add(lblDuracion);
 		
 		//Duracion
 		textFieldDuracion = new JTextField();
+		textFieldDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDuracion.setForeground(new Color(255, 255, 255));
+		textFieldDuracion.setBackground(new Color(0, 128, 192));
 		textFieldDuracion.setColumns(10);
-		textFieldDuracion.setBounds(87, 95, 86, 20);
+		textFieldDuracion.setBounds(197, 158, 252, 20);
 		panel_1.add(textFieldDuracion);
-		
-		
-		JLabel lblIsbn_3 = new JLabel("Formato");
-		lblIsbn_3.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn_3.setBounds(185, 98, 79, 17);
+
+		JLabel lblIsbn_3 = new JLabel("Format");
+		lblIsbn_3.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblIsbn_3.setBounds(129, 118, 79, 17);
 		panel_1.add(lblIsbn_3);
 		
 		//Formato
 		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
+		formatoBox.setForeground(new Color(255, 255, 255));
+		formatoBox.setBackground(new Color(0, 128, 192));
 		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Fisico"}));
-		formatoBox.setBounds(250, 98, 86, 22);
+		formatoBox.setBounds(197, 113, 252, 22);
 		panel_1.add(formatoBox);
 		
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
@@ -123,18 +136,17 @@ public class VentanaAltaMusica extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 169, 79, 28);
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 252, 292, 28);
 		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
-		
 		//Alta
-		JButton btnNewButton = new JButton("Alta");
-		btnNewButton.setBounds(269, 168, 79, 28);
+		JButton btnNewButton = new JButton("Acceptar");
+		btnNewButton.setBounds(314, 252, 260, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -161,14 +173,14 @@ public class VentanaAltaMusica extends JFrame {
 		        } catch (NullPointerException ex) {
 		        	JOptionPane.showMessageDialog(panel_1, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
 		        	dateChooser.setDate(null);
-		        }
-			}
+		        }// try catch
+			}// actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 	}
 	
 	public static void main(String[] args) {
@@ -179,9 +191,8 @@ public class VentanaAltaMusica extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}// try catch
+			}// run
 		});
-	}
-
+	}// main
 }

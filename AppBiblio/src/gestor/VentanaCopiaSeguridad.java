@@ -1,10 +1,7 @@
 package gestor;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import db.DocumentoMaxDB;
 
@@ -18,10 +15,109 @@ public class VentanaCopiaSeguridad extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldName;
 	private String backupName;
+
+	public VentanaCopiaSeguridad() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 600, 400);
+		contentPane = new JPanel();
+		contentPane.setForeground(new Color(0, 0, 0));
+		contentPane.setBackground(SystemColor.window);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+
+		//Panel Principal
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 128, 192));
+		panel.setForeground(new Color(0, 0, 0));
+		panel.setBorder(null);
+		panel.setBounds(0, 0, 584, 71);
+		panel.setLayout(null);
+		contentPane.add(panel);
+		
+		//Titulo
+		JLabel lblAlta = new JLabel("CÒPIA DE SEGURETAT");
+		lblAlta.setBounds(10, 0, 470, 71);
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
+		panel.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaCopiaSeguridad.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(501, 0, 46, 71);
+		panel.add(lblNewLabel);
+		
+		//Panel contenido
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setForeground(new Color(238, 238, 236));
+		panel_1.setBackground(SystemColor.window);
+		panel_1.setBorder(null);
+		panel_1.setBounds(0, 70, 584, 291);
+		contentPane.add(panel_1);
+		
+		//Titulo contenido
+		JLabel lblIntroduceElNombre = new JLabel("Introdueix el nom");
+		lblIntroduceElNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIntroduceElNombre.setForeground(new Color(0, 0, 0));
+		lblIntroduceElNombre.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceElNombre.setBounds(0, 66, 584, 28);
+		panel_1.add(lblIntroduceElNombre);
+		
+		JLabel lblBackup = new JLabel("Nom backup");
+		lblBackup.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblBackup.setBounds(151, 117, 122, 17);
+		panel_1.add(lblBackup);
+				
+		textFieldName = new JTextField();
+		textFieldName.setForeground(new Color(255, 255, 255));
+		textFieldName.setBackground(new Color(0, 128, 192));
+		textFieldName.setFont(new Font("Tahoma", Font.BOLD, 14));
+		textFieldName.setBounds(252, 116, 183, 21);
+		panel_1.add(textFieldName);
+		textFieldName.setColumns(10);
+
+		//Volver
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuGestor frame = new MenuGestor();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(10, 250, 280, 30);
+		panel_1.add(btnVolver);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+
+		//Aceptar
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBounds(300, 250, 274, 30);
+		panel_1.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				backupName = textFieldName.getText().toString();
+				
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				docDB.copiaSeguridad(backupName);
+				
+				JOptionPane.showMessageDialog(panel_1, backupName +" Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
+			}//actionPerformed
+		});
+		btnNewButton.setFocusPainted(false);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
+	}// VentanaCopiaSeguridad
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -33,98 +129,5 @@ public class VentanaCopiaSeguridad extends JFrame {
 				}// try catch
 			}//run
 		});
-	}
-	/**
-	 * Create the frame.
-	 */
-	public VentanaCopiaSeguridad() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
-		contentPane = new JPanel();
-		contentPane.setForeground(new Color(0, 0, 0));
-		contentPane.setBackground(SystemColor.window);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setLocationRelativeTo(null);
-
-		//Panel Principal
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.window);
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panel.setBounds(53, 14, 359, 44);
-		contentPane.add(panel);
-		
-		//Titulo
-		JLabel lblAlta = new JLabel("COPIA DE SEGURIDAD");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 20));
-		panel.add(lblAlta);
-		
-		//Panel contenido
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setForeground(new Color(238, 238, 236));
-		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)), "Backup de base de dades", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(53, 70, 360, 208);
-		contentPane.add(panel_1);
-		
-		//Titulo contenido
-		JLabel lblIntroduceElNombre = new JLabel("Introdueix el nom");
-		lblIntroduceElNombre.setForeground(new Color(0, 0, 0));
-		lblIntroduceElNombre.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblIntroduceElNombre.setBounds(104, 55, 159, 28);
-		panel_1.add(lblIntroduceElNombre);
-		
-		JLabel lblBackup = new JLabel("Nom backup");
-		lblBackup.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblBackup.setBounds(75, 96, 122, 17);
-		panel_1.add(lblBackup);
-				
-		textFieldName = new JTextField();
-		textFieldName.setBounds(176, 95, 114, 21);
-		panel_1.add(textFieldName);
-		textFieldName.setColumns(10);
-		
-		
-		//Volver
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MenuGestor frame = new MenuGestor();
-				frame.setVisible(true);
-				dispose();
-			}
-		});
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 168, 159, 30);
-		panel_1.add(btnVolver);
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
-
-		//Aceptar
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(183, 166, 165, 30);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				backupName = textFieldName.getText().toString();
-				
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				docDB.copiaSeguridad(backupName);
-				
-				JOptionPane.showMessageDialog(panel_1, backupName +" Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
-
-			}//actionPerformed
-		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
-	}
-}
+	}// main
+}// VentanaCopiaSeguridad

@@ -25,7 +25,7 @@ public class VentanaAltaLibro extends JFrame {
 
 	public VentanaAltaLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 478, 329);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setForeground(UIManager.getColor("Panel.foreground"));
 		contentPane.setBackground(SystemColor.window);
@@ -35,64 +35,78 @@ public class VentanaAltaLibro extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panelTitle = new JPanel();
-		panelTitle.setBackground(SystemColor.window);
+		panelTitle.setBackground(new Color(0, 128, 192));
 		panelTitle.setForeground(new Color(0, 0, 0));
-		panelTitle.setBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3)));
-		panelTitle.setBounds(53, 14, 359, 44);
+		panelTitle.setBorder(null);
+		panelTitle.setBounds(0, 0, 584, 72);
+		panelTitle.setLayout(null);
 		contentPane.add(panelTitle);
-
-		JLabel lblAlta = new JLabel("LIBRO");
-		lblAlta.setForeground(new Color(0, 0, 0));
-		lblAlta.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
+		
+		JLabel lblAlta = new JLabel("ALTA LLIBRE");
+		lblAlta.setForeground(new Color(255, 255, 255));
+		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
+		lblAlta.setBounds(135, 11, 272, 50);
 		panelTitle.add(lblAlta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaAltaLibro.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(415, 0, 62, 72);
+		panelTitle.add(lblNewLabel);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setForeground(new Color(238, 238, 236));
 		panel.setBackground(SystemColor.window);
-		panel.setBorder(new TitledBorder(new CompoundBorder(null, new LineBorder(new Color(0, 0, 0), 3, true)),
-				"Bienvenido", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(53, 70, 360, 208);
+		panel.setBorder(null);
+		panel.setBounds(0, 70, 584, 291);
 		contentPane.add(panel);
 
-		JLabel lblIntroduceElIsbn = new JLabel("Introduce los datos");
+		JLabel lblIntroduceElIsbn = new JLabel("Introdueix les dades");
+		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Century Schoolbook L", Font.BOLD | Font.ITALIC, 20));
-		lblIntroduceElIsbn.setBounds(66, 28, 212, 28);
+		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblIntroduceElIsbn.setBounds(0, 28, 584, 28);
 		panel.add(lblIntroduceElIsbn);
 
 		JLabel lblIsbn = new JLabel("Editorial");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblIsbn.setBounds(48, 68, 79, 17);
+		lblIsbn.setBounds(119, 82, 79, 17);
 		panel.add(lblIsbn);
 
 		textField = new JTextField();
-		textField.setBounds(123, 67, 155, 21);
+		textField.setForeground(new Color(255, 255, 255));
+		textField.setBackground(new Color(0, 128, 192));
+		textField.setBounds(194, 81, 262, 21);
 		panel.add(textField);
 		textField.setColumns(10);
 
-		JLabel lblPginas = new JLabel("Páginas");
+		JLabel lblPginas = new JLabel("Pàgines");
 		lblPginas.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPginas.setBounds(48, 94, 79, 17);
+		lblPginas.setBounds(119, 122, 79, 17);
 		panel.add(lblPginas);
 
 		textField_1 = new JTextField();
+		textField_1.setForeground(new Color(255, 255, 255));
+		textField_1.setBackground(new Color(0, 128, 192));
 		textField_1.setColumns(10);
-		textField_1.setBounds(123, 93, 155, 21);
+		textField_1.setBounds(194, 121, 262, 21);
 		panel.add(textField_1);
 
-		JLabel lblTemtica = new JLabel("Temática");
+		JLabel lblTemtica = new JLabel("Temàtica");
 		lblTemtica.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblTemtica.setBounds(48, 123, 79, 17);
+		lblTemtica.setBounds(119, 163, 79, 17);
 		panel.add(lblTemtica);
 
 		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setModel(new DefaultComboBoxModel<Object>(
-				new String[] { "Ciencias", "Historia", "Literatura", "Filosofía", "Técnicos", "Otros..." }));
-		comboBox.setBounds(123, 119, 155, 26);
+		comboBox.setForeground(new Color(255, 255, 255));
+		comboBox.setBackground(new Color(0, 128, 192));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ciències", "Història", "Literatura", "Filosofia", "Tècnics", "Altres..."}));
+		comboBox.setBounds(194, 159, 262, 26);
 		panel.add(comboBox);
 
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			// función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {
@@ -102,16 +116,16 @@ public class VentanaAltaLibro extends JFrame {
 			}
 		});
 		
-		btnVolver.setForeground(Color.BLACK);
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
-		btnVolver.setBounds(12, 174, 171, 23);
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(10, 257, 286, 23);
 		panel.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(187, 173, 161, 24);
+		JButton btnNewButton = new JButton("Acceptar");
+		btnNewButton.setBounds(306, 256, 268, 24);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,9 +148,9 @@ public class VentanaAltaLibro extends JFrame {
 		});
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 12));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 	}
 	
 	public static void main(String[] args) {
