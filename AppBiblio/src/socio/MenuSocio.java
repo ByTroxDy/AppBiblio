@@ -74,7 +74,7 @@ public class MenuSocio extends JFrame {
 				prestamos = docDB.consultarMisPrestamos(usuario);
 
 				if (prestamos.isEmpty()) {
-					JOptionPane.showMessageDialog(mainPanel, "No tienes reservas almacenadas.", "Aviso",
+					JOptionPane.showMessageDialog(mainPanel, "No tienes prestamos almacenados.", "Aviso",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					VentanaDevolverDocumento ventana = new VentanaDevolverDocumento(prestamos);

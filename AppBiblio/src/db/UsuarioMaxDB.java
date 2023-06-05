@@ -84,6 +84,25 @@ public class UsuarioMaxDB {
 
         return null;
     }
+    
+    public boolean validarSancion(String usuario) {
+    	String query = "SELECT sancion FROM usuarios WHERE usuario = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, usuario);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    if (count != 0) {
+                    	return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
     public boolean validarCuenta(String usuarioActual, String contrasena) {
         String query = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND password = ?";

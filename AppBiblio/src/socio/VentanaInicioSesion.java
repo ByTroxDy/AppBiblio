@@ -24,6 +24,11 @@ public class VentanaInicioSesion extends JFrame {
 		super("Biblioteca App - Iniciar sesión");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		
+//		Image icon = new ImageIcon(getClass().getResource("/img/icono32.png")).getImage();
+//        setIconImage(icon);
+//        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icono32.png"));
+//        setIconImage(icon);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(3, 2, 10, 10));
@@ -83,6 +88,8 @@ public class VentanaInicioSesion extends JFrame {
 
 				if (usuDB.iniciarSesion(usuario, password)) {
 					VentanaConsultarDocumento.usuario = usuario;
+					VentanaDevolverDocumento.usuario = usuario;
+					VentanaAgregarComentario.usuario = usuario;
 					VentanaConsultarDocumento.grupo = grupo;
 					MenuSocio.usuario = usuario;
 

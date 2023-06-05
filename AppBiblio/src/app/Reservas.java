@@ -15,6 +15,12 @@ public class Reservas {
 		this.fechaReserva = fechaReserva;
 		this.diasPendientes = diasPendientes;
 	}
+	
+	public Reservas(int isbn, Date fechaReserva, int diasPendientes) {
+		this.isbn = isbn;
+		this.fechaReserva = fechaReserva;
+		this.diasPendientes = diasPendientes;
+	}
 
 	public int getISBN() {
 		return isbn;
