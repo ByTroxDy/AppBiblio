@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import gestor.VentanaAltaDocumento;
+import gestor.VentanaCopiaSeguridad;
+import gestor.VentanaRestauracion;
+import socio.VentanaConsultarDocumento;
 import socio.VentanaInicioSesion;
 
 import java.awt.Color;
@@ -16,6 +20,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
+@SuppressWarnings("serial")
 public class MenuAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel menuAdministrador;
@@ -26,8 +31,6 @@ public class MenuAdmin extends JFrame {
 	private final Action action_3 = new Notificar();
 	private final Action action_4 = new Asignar();
 	private final Action action_5 = new AltaDocu();
-	private final Action action_6 = new bajaDocu();
-	private final Action action_7 = new modificaDocu();
 	private final Action action_8 = new consultaDocu();
 	private final Action action_9 = new copiaDocu();
 	private final Action action_10 = new restauraDocu();
@@ -100,19 +103,9 @@ public class MenuAdmin extends JFrame {
 		buttonAltaDocumento.setBounds(333, 50, 117, 55);
 		menuAdministrador.add(buttonAltaDocumento);
 		
-		JButton buttonBajaDocumento = new JButton("Baixa");
-		buttonBajaDocumento.setAction(action_6);
-		buttonBajaDocumento.setBounds(333, 105, 117, 55);
-		menuAdministrador.add(buttonBajaDocumento);
-		
-		JButton buttonModicarDocumento = new JButton("Modificar");
-		buttonModicarDocumento.setAction(action_7);
-		buttonModicarDocumento.setBounds(333, 158, 117, 55);
-		menuAdministrador.add(buttonModicarDocumento);
-		
 		JButton buttonConsultaDocumento = new JButton("Consultar");
 		buttonConsultaDocumento.setAction(action_8);
-		buttonConsultaDocumento.setBounds(333, 212, 117, 54);
+		buttonConsultaDocumento.setBounds(333, 105, 117, 54);
 		menuAdministrador.add(buttonConsultaDocumento);
 		
 		JLabel labelAdministradorDocumento = new JLabel("Administrar Document");
@@ -121,7 +114,7 @@ public class MenuAdmin extends JFrame {
 		
 		JButton buttonCopiaDocumentos = new JButton("Copia Seguretat");
 		buttonCopiaDocumentos.setAction(action_9);
-		buttonCopiaDocumentos.setBounds(333, 265, 117, 55);
+		buttonCopiaDocumentos.setBounds(333, 158, 117, 55);
 		menuAdministrador.add(buttonCopiaDocumentos);
 		
 		JButton buttonAsignarUsuario = new JButton("Asignar Usuari");
@@ -131,7 +124,7 @@ public class MenuAdmin extends JFrame {
 		
 		JButton buttonRestauracionDocu = new JButton("Restauració ");
 		buttonRestauracionDocu.setAction(action_10);
-		buttonRestauracionDocu.setBounds(333, 317, 117, 55);
+		buttonRestauracionDocu.setBounds(333, 211, 117, 55);
 		menuAdministrador.add(buttonRestauracionDocu);
 		
 		JButton btnNewButton = new JButton("Eixir");
@@ -209,32 +202,20 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Abre la ventana de Alta de documentos");
 		}
 		public void actionPerformed(ActionEvent e) {
+			VentanaAltaDocumento altaDocu = new VentanaAltaDocumento();
+			altaDocu.setVisible(true);
 			dispose();
 		}
 	}//AltaDocu
-	private class bajaDocu extends AbstractAction {
-		public bajaDocu() {
-			putValue(NAME, "Baixa");
-			putValue(SHORT_DESCRIPTION, "Abre la ventana de Baja de documentos");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}//bajaDocu
-	private class modificaDocu extends AbstractAction {
-		public modificaDocu() {
-			putValue(NAME, "Modicació");
-			putValue(SHORT_DESCRIPTION, "Abre la ventana de Modificacio de documentos");
-		}
-		public void actionPerformed(ActionEvent e) {
-			dispose();
-		}
-	}//modificaDocu
+	
 	private class consultaDocu extends AbstractAction {
 		public consultaDocu() {
 			putValue(NAME, "Consulta");
 			putValue(SHORT_DESCRIPTION, "Abre la ventana de Consulta de documentos");
 		}
 		public void actionPerformed(ActionEvent e) {
+			VentanaConsultarDocumento consulDocu = new VentanaConsultarDocumento();
+			consulDocu.setVisible(true);
 			dispose();
 		}
 	}//consultaDocu
@@ -244,6 +225,9 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Abre la ventana de Copia de seguredad de documentos");
 		}
 		public void actionPerformed(ActionEvent e) {
+			VentanaCopiaSeguridad copiar = new VentanaCopiaSeguridad();
+			copiar.setVisible(true);
+			dispose();
 		}
 	}//copiaDocu
 	private class restauraDocu extends AbstractAction {
@@ -252,6 +236,8 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Abre la ventana de Restauració de documentos");
 		}
 		public void actionPerformed(ActionEvent e) {
+			VentanaRestauracion restaura = new VentanaRestauracion();
+			restaura.setVisible(true);
 			dispose();
 		}
 	}//restauraDocu

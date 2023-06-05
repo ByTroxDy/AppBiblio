@@ -6,7 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import db.UsuarioMaxDB;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -14,16 +18,20 @@ import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
+import javax.swing.JPasswordField;
 
+@SuppressWarnings("serial")
 public class VentanaAsigna extends JFrame {
 
 	private JPanel panel;
 	private JTextField usuariText;
-	private JComboBox select;
+	private JComboBox<String> select;
 	private JButton eixirButton;
 	private JButton asignarButton;
 	private final Action action = new Eixir();
 	private final Action action_1 = new Asignar();
+	private JLabel contraLabel;
+	private JPasswordField contraText;
 
 	/**
 	 * Launch the application.
@@ -71,15 +79,15 @@ public class VentanaAsigna extends JFrame {
 		panel.add(usuariText);
 		usuariText.setColumns(10);
 		
-		select = new JComboBox();
-		select.setBounds(197, 125, 130, 27);
-		select.addItem("Usuari");
-		select.addItem("Gestor");
-		select.addItem("Administrador");
+		select = new JComboBox<String>();
+		select.setBounds(197, 132, 130, 27);
+		select.addItem("socio");
+		select.addItem("gestor");
+		select.addItem("admin");
 		panel.add(select);
 		
 		JLabel asignarLabel = new JLabel("Asignar");
-		asignarLabel.setBounds(87, 129, 61, 16);
+		asignarLabel.setBounds(87, 136, 61, 16);
 		panel.add(asignarLabel);
 		
 		eixirButton = new JButton("Eixir");
@@ -91,6 +99,14 @@ public class VentanaAsigna extends JFrame {
 		asignarButton.setAction(action_1);
 		asignarButton.setBounds(327, 215, 117, 29);
 		panel.add(asignarButton);
+		
+		contraLabel = new JLabel("Contraseña");
+		contraLabel.setBounds(62, 106, 74, 16);
+		panel.add(contraLabel);
+		
+		contraText = new JPasswordField();
+		contraText.setBounds(197, 101, 130, 26);
+		panel.add(contraText);
 	}//administradorAsigna
 
 	private class Eixir extends AbstractAction {
@@ -110,9 +126,23 @@ public class VentanaAsigna extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Modifica la asignación");
 		}
 		public void actionPerformed(ActionEvent e) {
-			String usuari, asigna;
+			String usuari, contra, asigna;
 			usuari= usuariText.getText();
-			asigna= select.getToolTipText();
+			contra= new String(contraText.getPassword());
+			asigna= select.getSelectedItem().toString();
+			UsuarioMaxDB usuDB = new UsuarioMaxDB();
+			
+			if (!usuDB.validarCuenta(usuari, contra)) {
+				JOptionPane.showMessageDialog(panel, "El usuario actual y la contraseña no coinciden.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else {// Verificar si el nuevo usuario ya está en uso
+				usuDB.actualizarRol(usuari, asigna);
+				JOptionPane.showMessageDialog(panel, "El nombre de usuario se ha actualizado correctamente.",
+						"Éxito", JOptionPane.INFORMATION_MESSAGE);
+			}
+
+			usuariText.setText("");
+			contraText.setText("");
 		}
 	}//Asignar
 }//end
