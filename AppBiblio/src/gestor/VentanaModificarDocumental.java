@@ -91,6 +91,8 @@ public class VentanaModificarDocumental extends JFrame {
 		
 		//Proudctora
 		textFieldProductora = new JTextField();
+		textFieldProductora.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldProductora.setBackground(new Color(0, 128, 192));
 		textFieldProductora.setBounds(126, 90, 149, 20);
 		panel_1.add(textFieldProductora);
 		textFieldProductora.setColumns(10);
@@ -102,6 +104,8 @@ public class VentanaModificarDocumental extends JFrame {
 		
 		//Premios
 		textFieldPremios = new JTextField();
+		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldPremios.setBackground(new Color(0, 128, 192));
 		textFieldPremios.setColumns(10);
 		textFieldPremios.setBounds(126, 132, 149, 20);
 		panel_1.add(textFieldPremios);
@@ -112,6 +116,8 @@ public class VentanaModificarDocumental extends JFrame {
 		panel_1.add(lblDocumentalesRealcionados);
 		
 		textFieldDocRelacionados = new JTextField();
+		textFieldDocRelacionados.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDocRelacionados.setBackground(new Color(0, 128, 192));
 		textFieldDocRelacionados.setColumns(10);
 		textFieldDocRelacionados.setBounds(308, 174, 149, 20);
 		panel_1.add(textFieldDocRelacionados);
@@ -123,6 +129,8 @@ public class VentanaModificarDocumental extends JFrame {
 		
 		//Duracion
 		textFieldDuracion = new JTextField();
+		textFieldDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDuracion.setBackground(new Color(0, 128, 192));
 		textFieldDuracion.setColumns(10);
 		textFieldDuracion.setBounds(396, 90, 149, 20);
 		panel_1.add(textFieldDuracion);
@@ -134,8 +142,11 @@ public class VentanaModificarDocumental extends JFrame {
 		
 		//Formato
 		JComboBox<Object> formatoBox = new JComboBox<Object>();
+		formatoBox.setForeground(new Color(238, 238, 236));
+		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
 		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
 		formatoBox.setBounds(396, 130, 149, 22);
+		formatoBox.setBackground(new Color(0, 128, 192));
 		panel_1.add(formatoBox);
 		
 		//Volver
@@ -151,7 +162,7 @@ public class VentanaModificarDocumental extends JFrame {
 		});
 		btnVolver.setForeground(new Color(238, 238, 236));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnVolver.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnVolver.setBackground(new Color(0, 128, 192));
 		btnVolver.setBounds(7, 270, 284, 23);
 		panel_1.add(btnVolver);
 		
@@ -188,7 +199,7 @@ public class VentanaModificarDocumental extends JFrame {
 		});
 		btnNewButton.setForeground(new Color(238, 238, 236));
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnNewButton.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnNewButton.setBackground(new Color(0, 128, 192));
 	}// VentanaModificarDocumental
 	
 	public static void main(String[] args) {

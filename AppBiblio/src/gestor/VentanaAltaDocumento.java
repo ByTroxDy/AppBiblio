@@ -46,7 +46,7 @@ public class VentanaAltaDocumento extends JFrame {
 		principal.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("/home/ayoouh/Escriptori/AppBiblio/AppBiblio/img/icono32.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(480, 0, 60, 69);
 		principal.add(lblNewLabel);
