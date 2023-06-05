@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import gui.VentanaRegistro;
+import socio.VentanaRegistro;
 
 public class UsuarioMaxDB {
 	VentanaRegistro ventanaR = new VentanaRegistro();
