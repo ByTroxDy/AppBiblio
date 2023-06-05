@@ -2,12 +2,10 @@ package socio;
 
 import db.UsuarioMaxDB;
 import gestor.MenuGestor;
+import admin.MenuAdmin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import admin.MenuAdmin;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
