@@ -5,10 +5,8 @@ import app.Documento;
 import app.Libro;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,7 +48,7 @@ public class VentanaAltaLibro extends JFrame {
 		panelTitle.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaLibro.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(415, 0, 62, 72);
 		panelTitle.add(lblNewLabel);

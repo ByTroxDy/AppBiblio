@@ -806,59 +806,6 @@ public class DocumentoMaxDB {
 			return false;
 		}//try catch
 	}//bajaDocumento
-
-	// BAKUP
-	public void copiaSeguridad(String backupName) {
-		Process process;
-		InputStream is;
-		FileOutputStream fos;
-		byte[] buffer = new byte[1000];
-		int leido;
-		
-		try {
-			process = Runtime.getRuntime().exec("mysqldump -h 10.2.18.166 -u admins -padmins app_biblioteca");
-			is = process.getInputStream();
-			fos = new FileOutputStream("backups/" + backupName+".sql");
-			leido = is.read(buffer);
-			
-			while(leido > 0) {
-				fos.write(buffer, 0, leido);
-				leido = is.read(buffer);
-			}//while
-			
-			fos.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}//try catch	
-	}//copiaSeguridad
-
-	// RESTAURE
-	public void restaurarBackup(String backupName) {
-		Process process;
-		OutputStream os;
-		FileInputStream fis;
-		byte[] buffer = new byte[1000];
-		int leido;
-		
-		try {
-			process = Runtime.getRuntime().exec("mysql -h 192.168.50.112 -u phpmyadmin -pphpmyadmin test");
-			os = process.getOutputStream();
-			fis = new FileInputStream("backups/" + backupName+".sql");
-			leido = fis.read(buffer);
-			
-			while(leido > 0) {
-				os.write(buffer, 0, leido);
-				leido = fis.read(buffer);
-			}//while
-			os.flush();
-			os.close();
-			fis.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}//try catch	
-	}//restaurarBackup
 	
 	// CLOSE
 	public void cerrarConexion() {

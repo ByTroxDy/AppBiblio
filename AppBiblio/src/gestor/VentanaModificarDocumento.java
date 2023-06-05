@@ -33,7 +33,7 @@ public class VentanaModificarDocumento extends JFrame {
 		panel.setBorder(null);
 		panel.setBackground(new Color(0, 128, 192));
 		panel.setForeground(new Color(0, 0, 0));
-		panel.setBounds(0, 0, 584, 70);
+		panel.setBounds(0, 0, 592, 70);
 		panel.setLayout(null);
 		contentPane.add(panel);
 		
@@ -45,7 +45,7 @@ public class VentanaModificarDocumento extends JFrame {
 		panel.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaModificarDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(514, 0, 46, 70);
 		panel.add(lblNewLabel);
@@ -55,19 +55,19 @@ public class VentanaModificarDocumento extends JFrame {
 		panel_1.setForeground(new Color(238, 238, 236));
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 584, 291);
+		panel_1.setBounds(0, 70, 592, 297);
 		contentPane.add(panel_1);
 
 		JLabel lblIntroduceElIsbn = new JLabel("ISBN del document");
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
 		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblIntroduceElIsbn.setBounds(99, 28, 191, 20);
+		lblIntroduceElIsbn.setBounds(78, 26, 191, 20);
 		panel_1.add(lblIntroduceElIsbn);
 		
 		// Labels y textField para la introducción de datos
 		JLabel lblTitulo = new JLabel("Titulo");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTitulo.setBounds(10, 112, 60, 17);
+		lblTitulo.setBounds(88, 114, 60, 17);
 		panel_1.add(lblTitulo);
 
 		// TITULO
@@ -76,7 +76,7 @@ public class VentanaModificarDocumento extends JFrame {
 		textFieldTitulo.setForeground(new Color(255, 255, 255));
 		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(53, 110, 128, 21);
+		textFieldTitulo.setBounds(150, 111, 128, 21);
 		panel_1.add(textFieldTitulo);
 
 		// isbn
@@ -90,7 +90,7 @@ public class VentanaModificarDocumento extends JFrame {
 
 		JLabel lblAutor = new JLabel("Autor");
 		lblAutor.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAutor.setBounds(191, 114, 60, 17);
+		lblAutor.setBounds(288, 115, 60, 17);
 		panel_1.add(lblAutor);
 
 		// AUTOR
@@ -99,26 +99,12 @@ public class VentanaModificarDocumento extends JFrame {
 		textFieldAutor.setForeground(new Color(255, 255, 255));
 		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldAutor.setColumns(10);
-		textFieldAutor.setBounds(242, 112, 128, 21);
+		textFieldAutor.setBounds(339, 113, 149, 21);
 		panel_1.add(textFieldAutor);
-
-		JLabel lblTipo = new JLabel("tipo");
-		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTipo.setBounds(310, 178, 60, 17);
-		panel_1.add(lblTipo);
-		
-		JComboBox<Object> tipoBox = new JComboBox<Object>();
-		tipoBox.setForeground(new Color(255, 255, 255));
-		tipoBox.setBackground(new Color(0, 128, 192));
-		tipoBox.setFont(new Font("Tahoma", Font.BOLD, 14));
-		tipoBox.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Libro", "Pelicula", "Musica", "Documental" }));
-		tipoBox.setBounds(361, 173, 180, 26);
-		panel_1.add(tipoBox);
 
 		JLabel lblReplicas = new JLabel("Replicas");
 		lblReplicas.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblReplicas.setBounds(386, 114, 60, 17);
+		lblReplicas.setBounds(88, 177, 60, 17);
 		panel_1.add(lblReplicas);
 		
 		//replicas
@@ -127,12 +113,12 @@ public class VentanaModificarDocumento extends JFrame {
 		textFieldReplicas.setForeground(new Color(255, 255, 255));
 		textFieldReplicas.setFont(new Font("Dialog", Font.BOLD, 13));
 		textFieldReplicas.setColumns(10);
-		textFieldReplicas.setBounds(446, 112, 128, 21);
+		textFieldReplicas.setBounds(150, 174, 128, 21);
 		panel_1.add(textFieldReplicas);
 
 		JLabel lblBiblioteca = new JLabel("Biblio");
 		lblBiblioteca.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblBiblioteca.setBounds(27, 182, 60, 17);
+		lblBiblioteca.setBounds(287, 177, 60, 17);
 		panel_1.add(lblBiblioteca);
 		
 		//biblioteca
@@ -143,7 +129,7 @@ public class VentanaModificarDocumento extends JFrame {
 		txtBenicarlo.setText("Benicarlo");
 		txtBenicarlo.setFont(new Font("Dialog", Font.BOLD, 14));
 		txtBenicarlo.setColumns(10);
-		txtBenicarlo.setBounds(79, 178, 180, 21);
+		txtBenicarlo.setBounds(339, 174, 149, 21);
 		panel_1.add(txtBenicarlo);
 		
 		//Volver
@@ -160,12 +146,12 @@ public class VentanaModificarDocumento extends JFrame {
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(10, 252, 280, 28);
+		btnVolver.setBounds(10, 257, 280, 28);
 		panel_1.add(btnVolver);
 
 		//Modificar
 		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(310, 252, 264, 28);
+		btnNewButton.setBounds(316, 257, 264, 28);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,7 +204,7 @@ public class VentanaModificarDocumento extends JFrame {
 		JLabel lblNuevosDatos = new JLabel("Noves dades");
 		lblNuevosDatos.setForeground(Color.BLACK);
 		lblNuevosDatos.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblNuevosDatos.setBounds(207, 61, 155, 28);
+		lblNuevosDatos.setBounds(207, 61, 167, 28);
 		panel_1.add(lblNuevosDatos);
 	}// VentanaModificarDocumento
 
