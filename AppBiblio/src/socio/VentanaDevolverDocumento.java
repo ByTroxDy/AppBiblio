@@ -95,8 +95,9 @@ public class VentanaDevolverDocumento extends JDialog {
 					if (docDB.deletePrestamo(usuario, isbn)) {
 						JOptionPane.showMessageDialog(panel, "La devolucion ha sido efectuada.", "Devolucion",
 								JOptionPane.INFORMATION_MESSAGE);
-						MenuSocio menu = new MenuSocio();
-						menu.setVisible(true);
+						VentanaAgregarComentario.isbn = isbn;
+						VentanaAgregarComentario ventana = new VentanaAgregarComentario();
+						ventana.setVisible(true);
 						dispose();
 					}
 				}

@@ -338,6 +338,22 @@ public class DocumentoMaxDB {
 		return true;
 	}
 	
+    public void guardarComentario(int isbn, String usuario, String comentario) {
+    	// Insertar nuevo comentario en la tabla 'comentarios'
+		String query = "INSERT INTO comentarios (isbn, usuario, optinion) VALUES (?, ?, ?)";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+
+			statement.setInt(1, isbn);
+			statement.setString(2, usuario);
+			statement.setString(3, comentario);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return;
+		}
+    }
+	
 	public boolean insertDocLib(Documento doc, Libro lib) {
 		try {
 			conn.setAutoCommit(false);

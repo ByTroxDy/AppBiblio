@@ -86,6 +86,7 @@ public class VentanaInicioSesion extends JFrame {
 				if (usuDB.iniciarSesion(usuario, password)) {
 					VentanaConsultarDocumento.usuario = usuario;
 					VentanaDevolverDocumento.usuario = usuario;
+					VentanaAgregarComentario.usuario = usuario;
 					VentanaConsultarDocumento.grupo = grupo;
 					MenuSocio.usuario = usuario;
 
