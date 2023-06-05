@@ -107,7 +107,7 @@ public class Kiiii extends JFrame {
 		int leido;
 		
 		try {
-			process = Runtime.getRuntime().exec("mysql -h 192.168.50.112 -u phpmyadmin -pphpmyadmin test");
+			process = Runtime.getRuntime().exec("mysql -h 10.2.18.222 -u phpmyadmin -pphpmyadmin test");
 			os = process.getOutputStream();
 			fis = new FileInputStream(backupName);
 			leido = fis.read(buffer);
