@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import app.Usuario;
 import db.UsuarioMaxDB;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,8 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
 import javax.swing.Action;
 import javax.swing.JComboBox;
 
@@ -33,8 +30,6 @@ public class VentanaAltaUsuario extends JFrame {
 	private JComboBox<String> select;
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
-	private ArrayList<Usuario> usuarios;
-
 	/**
 	 * Launch the application.
 	 */
@@ -144,16 +139,14 @@ public class VentanaAltaUsuario extends JFrame {
 			String confirmaContra;
 			String Select;
 			
-			usuario=usuarioText.getText();
+			usuario=usuarioText.getText().toLowerCase();
 			contra= new String (contraText.getPassword());
 			confirmaContra= new String(ConfirmarContra.getPassword());
 			Select= select.getSelectedItem().toString();
 			
-			if(contra.equals(confirmaContra)) {//Enviar usuario y contraseña
-				//comprobar si el usuario exite en la base de datos
-				Usuario nuevoUsuario = new Usuario(usuario, contra, null, false);
-                usuarios.add(nuevoUsuario);
-                
+			
+			
+			if(contra.equals(confirmaContra)&&usuario.length()<6 && contra.length()<8) {//Enviar usuario y contraseña
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro2(usuario, contra, Select)) {
@@ -167,8 +160,10 @@ public class VentanaAltaUsuario extends JFrame {
                 usuarioText.setText("");
                 contraText.setText("");
                 ConfirmarContra.setText("");
+			} else if(usuario.length()>6 || contra.length()>8) {
+            	JOptionPane.showMessageDialog(panel, "Contraseña o usuario  demasiado largo", "Registro", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				System.out.println("Contraseña y confirmar contraseña no en coincidixen");
+            	JOptionPane.showMessageDialog(panel, "Contraseña y Confirmar contraseña no coinciden", "Registro", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}//actionPerformed
 	}//Registrar
