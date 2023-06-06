@@ -135,9 +135,9 @@ public class VentanaAsigna extends JFrame {
 			if (!usuDB.validarCuenta(usuari, contra)) {
 				JOptionPane.showMessageDialog(panel, "El usuario actual y la contraseña no coinciden.", "Error",
 						JOptionPane.ERROR_MESSAGE);
-			} else {// Verificar si el nuevo usuario ya está en uso
+			} else {
 				usuDB.actualizarRol(usuari, asigna);
-				JOptionPane.showMessageDialog(panel, "El nombre de usuario se ha actualizado correctamente.",
+				JOptionPane.showMessageDialog(panel, "El rol del usuario se ha actualizado correctamente.",
 						"Éxito", JOptionPane.INFORMATION_MESSAGE);
 			}
 
