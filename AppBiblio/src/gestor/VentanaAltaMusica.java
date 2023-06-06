@@ -3,27 +3,27 @@ package gestor;
 import db.DocumentoMaxDB;
 import app.Documento;
 import app.Musica;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaAltaMusica extends JFrame {
 	private static final long serialVersionUID = 1L;
+	static Documento documento;
+
 	private JPanel contentPane;
+	private JLabel lblAlta, lblImagen, lblTituloDatos, lblLugar, lblFecha, lblDuracion, lblFormato;
+	private JTextField textFieldLugar, textFieldDuracion;
+	private JButton btnVolver, btnAceptar;
+	private JDateChooser dateChooser;
+	
 	private String lugar, formato;
 	private Date fecha;
 	private int duracion;
-	private JTextField textFieldLugar, textFieldDuracion;
-	private JDateChooser dateChooser;
-
-	static Documento documento;
 
 	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,46 +36,46 @@ public class VentanaAltaMusica extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 192));
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(null);
-		panel.setBounds(0, 0, 592, 71);
-		panel.setLayout(null);
-		contentPane.add(panel);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(new Color(0, 128, 192));
+		panelPrincipal.setForeground(new Color(0, 0, 0));
+		panelPrincipal.setBorder(null);
+		panelPrincipal.setBounds(0, 0, 592, 71);
+		panelPrincipal.setLayout(null);
+		contentPane.add(panelPrincipal);
 		
-		JLabel lblAlta = new JLabel("ALTA MÚSCIA");
+		lblAlta = new JLabel("ALTA MÚSCIA");
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblAlta.setBounds(145, 11, 293, 49);
-		panel.add(lblAlta);
+		panelPrincipal.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaMusica.class.getResource("/imagenes/ImagenGestor.png")));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(441, 0, 74, 71);
-		panel.add(lblNewLabel);
+		lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(("img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(441, 0, 74, 71);
+		panelPrincipal.add(lblImagen);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setForeground(new Color(238, 238, 236));
-		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 592, 297);
-		contentPane.add(panel_1);
+		JPanel panelSecundario = new JPanel();
+		panelSecundario.setLayout(null);
+		panelSecundario.setForeground(new Color(238, 238, 236));
+		panelSecundario.setBackground(SystemColor.window);
+		panelSecundario.setBorder(null);
+		panelSecundario.setBounds(0, 70, 592, 297);
+		contentPane.add(panelSecundario);
 				
-		JLabel lblIntroduceDatos = new JLabel("Introdueix les dades");
-		lblIntroduceDatos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntroduceDatos.setForeground(new Color(0, 0, 0));
-		lblIntroduceDatos.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblIntroduceDatos.setBounds(0, 28, 584, 28);
-		panel_1.add(lblIntroduceDatos);
+		lblTituloDatos = new JLabel("Introdueix les dades");
+		lblTituloDatos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloDatos.setForeground(new Color(0, 0, 0));
+		lblTituloDatos.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblTituloDatos.setBounds(0, 28, 584, 28);
+		panelSecundario.add(lblTituloDatos);
 
-		JLabel lblLugar = new JLabel("Lloc");
+		lblLugar = new JLabel("Lloc");
 		lblLugar.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblLugar.setBounds(129, 75, 79, 17);
-		panel_1.add(lblLugar);
+		panelSecundario.add(lblLugar);
 
 		//Lugar
 		textFieldLugar = new JTextField();
@@ -83,25 +83,25 @@ public class VentanaAltaMusica extends JFrame {
 		textFieldLugar.setForeground(new Color(255, 255, 255));
 		textFieldLugar.setBackground(new Color(0, 128, 192));
 		textFieldLugar.setBounds(197, 75, 252, 20);
-		panel_1.add(textFieldLugar);
 		textFieldLugar.setColumns(10);
+		panelSecundario.add(textFieldLugar);
 
-		JLabel lblFecha = new JLabel("Data");
+		lblFecha = new JLabel("Data");
 		lblFecha.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblFecha.setBounds(129, 198, 79, 17);
-		panel_1.add(lblFecha);
+		panelSecundario.add(lblFecha);
 		
 		//Fecha
 		dateChooser = new JDateChooser();
 		dateChooser.setBackground(new Color(0, 128, 192));
         dateChooser.setDateFormatString("yyyy-MM-dd");
         dateChooser.setBounds(197, 195, 252, 20);
-        panel_1.add(dateChooser);
+        panelSecundario.add(dateChooser);
 
-		JLabel lblDuracion = new JLabel("Duració");
+		lblDuracion = new JLabel("Duració");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblDuracion.setBounds(129, 161, 79, 17);
-		panel_1.add(lblDuracion);
+		panelSecundario.add(lblDuracion);
 		
 		//Duracion
 		textFieldDuracion = new JTextField();
@@ -110,12 +110,12 @@ public class VentanaAltaMusica extends JFrame {
 		textFieldDuracion.setBackground(new Color(0, 128, 192));
 		textFieldDuracion.setColumns(10);
 		textFieldDuracion.setBounds(197, 158, 252, 20);
-		panel_1.add(textFieldDuracion);
+		panelSecundario.add(textFieldDuracion);
 
-		JLabel lblIsbn_3 = new JLabel("Format");
-		lblIsbn_3.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblIsbn_3.setBounds(129, 118, 79, 17);
-		panel_1.add(lblIsbn_3);
+		lblFormato = new JLabel("Format");
+		lblFormato.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblFormato.setBounds(129, 118, 79, 17);
+		panelSecundario.add(lblFormato);
 		
 		//Formato
 		JComboBox<Object> formatoBox = new JComboBox<Object>();
@@ -124,31 +124,31 @@ public class VentanaAltaMusica extends JFrame {
 		formatoBox.setBackground(new Color(0, 128, 192));
 		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Fisico"}));
 		formatoBox.setBounds(197, 113, 252, 22);
-		panel_1.add(formatoBox);
+		panelSecundario.add(formatoBox);
 		
 		//Volver
-		JButton btnVolver = new JButton("Tornar");
+		btnVolver = new JButton("Tornar");
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
 				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
-			}
+			}// actionPerformed
 		});
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
 		btnVolver.setBounds(10, 257, 292, 28);
-		panel_1.add(btnVolver);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
+		panelSecundario.add(btnVolver);
 
 		//Alta
-		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(314, 257, 270, 28);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnAceptar = new JButton("Acceptar");
+		btnAceptar.setBounds(314, 257, 270, 28);
+		panelSecundario.add(btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lugar = textFieldLugar.getText().toString();
 				fecha = dateChooser.getDate();
@@ -159,29 +159,31 @@ public class VentanaAltaMusica extends JFrame {
 				DocumentoMaxDB docDB = new DocumentoMaxDB();
 		        
 				try {
+					
 					if (docDB.insertDocMus(documento, musica)) {
-						JOptionPane.showMessageDialog(panel_1, "Registro exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panel_1, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-					}
+						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}//if else
 					textFieldLugar.setText("");
 					dateChooser.setDate(null);
 					textFieldDuracion.setText("");
+					
 		        } catch (NullPointerException ex) {
-		        	JOptionPane.showMessageDialog(panel_1, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
+		        	JOptionPane.showMessageDialog(panelSecundario, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
 		        	dateChooser.setDate(null);
 		        }// try catch
 			}// actionPerformed
 		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnNewButton.setBackground(new Color(0, 128, 192));
-	}
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
+		btnAceptar.setForeground(new Color(255, 255, 255));
+		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnAceptar.setBackground(new Color(0, 128, 192));
+	}// VentanaAltaMusica
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -195,4 +197,4 @@ public class VentanaAltaMusica extends JFrame {
 			}// run
 		});
 	}// main
-}
+}// VentanaAltaMusica
