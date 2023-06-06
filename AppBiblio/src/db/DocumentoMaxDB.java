@@ -8,12 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import app.Documental;
 import app.Documento;
 import app.Libro;
@@ -463,15 +457,16 @@ public class DocumentoMaxDB {
 	}
 
 	public void insertarDocumento(Documento documento) {
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, tipo, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documento.getISBN());
-			statement.setString(2, documento.getTitulo());
-			statement.setString(3, documento.getAutor());
-			statement.setInt(4, documento.getReplicas());
-			statement.setString(5, documento.getBiblioteca());
-			statement.setDate(6, new java.sql.Date(new Date().getTime()));
+			statement.setString(2, documento.getTipo());
+			statement.setString(3, documento.getTitulo());
+			statement.setString(4, documento.getAutor());
+			statement.setInt(5, documento.getReplicas());
+			statement.setString(6, documento.getBiblioteca());
+			statement.setDate(7, new java.sql.Date(new Date().getTime()));
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -485,7 +480,7 @@ public class DocumentoMaxDB {
 	}//insertarDocumento
 
 	public void insertarLibro(Libro libro) {
-		String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO libros (isbn, editorial, npaginas, tematica) VALUES (?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query);) {
 
 			statement.setInt(1, libro.getISBN());
@@ -596,6 +591,7 @@ public class DocumentoMaxDB {
 		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
 		try  (PreparedStatement statement = conn.prepareStatement(query)) {
 			
+			statement.setInt(1, isbn);
 			ResultSet checkResult = statement.executeQuery();
 			checkResult.next();
 			tipo = checkResult.getString(1);
@@ -683,13 +679,14 @@ public class DocumentoMaxDB {
 	}
 	
 	public void updateDocumento(Documento documento){
-		String query = "UPDATE documentos SET titulo = ?, autor = ?, replicas = ? WHERE isbn = ?";
+		String query = "UPDATE documentos SET tipo = ?, titulo = ?, autor = ?, replicas = ? WHERE isbn = ?";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setString(1, documento.getTitulo());
-			statement.setString(2, documento.getAutor());
-			statement.setInt(3, documento.getReplicas());	
-			statement.setInt(4, documento.getISBN());
+			statement.setString(1, documento.getTipo());
+			statement.setString(2, documento.getTitulo());
+			statement.setString(3, documento.getAutor());
+			statement.setInt(4, documento.getReplicas());	
+			statement.setInt(5, documento.getISBN());
 
 			statement.executeUpdate();
 			

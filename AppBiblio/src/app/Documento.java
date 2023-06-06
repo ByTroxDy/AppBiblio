@@ -2,32 +2,42 @@ package app;
 
 public class Documento {
 	protected int isbn;
+	protected String tipo;
 	protected String titulo;
 	protected String autor;
 	protected int replicas;
 	protected String biblioteca;
 	
-	public Documento(int isbn, String titulo, String autor, int replicas, String biblioteca) {
+	public Documento(int isbn, String tipo, String titulo, String autor, int replicas, String biblioteca) {
 		super();
 		this.isbn = isbn;
+		this.tipo = tipo;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.replicas = replicas;
 		this.biblioteca = biblioteca;
 	}
 	
-	public Documento(int isbn2, String titulo2, String autor2, int replicas2) {
+	public Documento(int isbn2, String titulo2, String autor2, int replicas2, String biblioteca2) {
 		super();
 		this.isbn = isbn2;
 		this.titulo = titulo2;
 		this.autor = autor2;
 		this.replicas = replicas2;
+		this.biblioteca = biblioteca2;
 	}
-
-	public Documento(int isbn3) {
+	
+	public Documento(int isbn3, String titulo3, String autor3, int replicas3) {
 		super();
 		this.isbn = isbn3;
+		this.titulo = titulo3;
+		this.autor = autor3;
+		this.replicas = replicas3;
+	}
 
+	public Documento(int isbn4) {
+		super();
+		this.isbn = isbn4;
 	}
 
 	public int getISBN() {
@@ -36,6 +46,14 @@ public class Documento {
 
 	public void setISBN(int isbn) {
 		this.isbn = isbn;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getTitulo() {
