@@ -140,5 +140,5 @@ public class MenuGestor extends JFrame {
 				}//try catch
 			}//run
 		});
-	}//main
+	}// main
 }// MenuGestor

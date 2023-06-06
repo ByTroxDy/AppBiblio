@@ -194,7 +194,7 @@ public class VentanaAltaDocumento extends JFrame {
 					replicas = Integer.parseInt(textField.getText());
 					biblioteca = txtBenicarlo.getText().toString();
 					
-					Documento doc = new Documento(isbn, titulo, autor, replicas, biblioteca);
+					Documento doc = new Documento(isbn, tipo, titulo, autor, replicas, biblioteca);
 					
 					if (tipo == "Llibre") {
 						VentanaAltaLibro.documento = doc;
