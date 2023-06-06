@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import db.UsuarioMaxDB;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -124,18 +123,9 @@ public class VentanaBaja extends JFrame {
 			String usuario, admin, contra, grupo;
 			
 			usuario= usuariText.getText();
-			admin= adminUser.getText();
-			contra= new String (contraText.getPassword());
-			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			grupo = usuDB.obtenerGrupo(admin);
 			
-			if (usuDB.iniciarSesion(admin, contra) && grupo.equals("admin")) {
-				usuDB.bajaUsuario(usuario);
-				JOptionPane.showMessageDialog(panel, "Borrado exitoso", "Borrar", JOptionPane.INFORMATION_MESSAGE);
-				MenuAdmin app = new MenuAdmin();
-				app.setVisible(true);
-				dispose();
-			}
+			UsuarioMaxDB usuDB = new UsuarioMaxDB();
+			usuDB.bajaUsuario(usuario);
 			
 		}//actionPerformed
 	}//Borrar

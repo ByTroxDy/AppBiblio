@@ -229,15 +229,15 @@ public class UsuarioMaxDB {
     }
     
 
-    public void bajaUsuario(String usuario) {
+    public boolean bajaUsuario(String usuario) {
 		String query = ("DELETE * FROM usuarios WHERE usuario = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
-			
 			statement.setString(1, usuario);
 			statement.executeUpdate();
-			
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
         }
+		return false;
     }
 }//end
