@@ -58,11 +58,11 @@ public class VentanaModificarLibro extends JFrame {
 		lblAlta.setForeground(new Color(238, 238, 236));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(492, 0, 60, 75);
-		panelTitle.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(492, 0, 60, 75);
+		panelTitle.add(lblImagen);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

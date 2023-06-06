@@ -45,20 +45,12 @@ public class VentanaAltaDocumento extends JFrame {
 		lblAlta.setBounds(95, 11, 375, 47);
 		panelPrincipal.add(lblAlta);
 		
-<<<<<<< HEAD
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(480, 0, 60, 69);
-		principal.add(lblNewLabel);
-=======
 		// Imagen del titulo
 		lblImagen = new JLabel("");
-		lblImagen.setIcon(new ImageIcon("img/icono64.png"));
+		lblImagen.setIcon(new ImageIcon(VentanaAltaDocumento.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(480, 0, 60, 69);
 		panelPrincipal.add(lblImagen);
->>>>>>> Ayoub
 
 		// panel de contenido
 		JPanel panelSecundario = new JPanel();

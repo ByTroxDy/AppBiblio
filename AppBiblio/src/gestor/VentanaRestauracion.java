@@ -43,11 +43,7 @@ public class VentanaRestauracion extends JFrame {
 		panel.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-<<<<<<< HEAD
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-=======
 		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
->>>>>>> Ayoub
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(457, 0, 46, 71);
 		panel.add(lblNewLabel);

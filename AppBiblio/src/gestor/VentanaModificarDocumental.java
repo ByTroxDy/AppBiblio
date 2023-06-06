@@ -61,15 +61,11 @@ public class VentanaModificarDocumental extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 35));
 		panel.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-<<<<<<< HEAD
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-=======
-		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
->>>>>>> Ayoub
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(506, 0, 60, 73);
-		panel.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(506, 0, 60, 73);
+		panel.add(lblImagen);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);

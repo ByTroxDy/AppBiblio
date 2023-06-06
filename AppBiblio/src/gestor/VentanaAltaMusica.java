@@ -50,20 +50,12 @@ public class VentanaAltaMusica extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblAlta.setBounds(145, 11, 293, 49);
 		panelPrincipal.add(lblAlta);
-		
-<<<<<<< HEAD
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(441, 0, 74, 71);
-		panel.add(lblNewLabel);
-=======
+
 		lblImagen = new JLabel("");
-		lblImagen.setIcon(new ImageIcon(("img/icono64.png")));
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(441, 0, 74, 71);
 		panelPrincipal.add(lblImagen);
->>>>>>> Ayoub
 
 		JPanel panelSecundario = new JPanel();
 		panelSecundario.setLayout(null);

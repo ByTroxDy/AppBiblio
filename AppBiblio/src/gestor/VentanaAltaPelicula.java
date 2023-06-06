@@ -46,11 +46,11 @@ public class VentanaAltaPelicula extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panelPrincipal.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(455, 0, 84, 70);
-		panelPrincipal.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(455, 0, 84, 70);
+		panelPrincipal.add(lblImagen);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

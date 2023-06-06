@@ -45,11 +45,11 @@ public class VentanaCopiaSeguridad extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(501, 0, 46, 71);
-		panel.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(501, 0, 46, 71);
+		panel.add(lblImagen);
 		
 		//Panel contenido
 		JPanel panel_1 = new JPanel();
