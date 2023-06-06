@@ -3,10 +3,8 @@ package gestor;
 import db.DocumentoMaxDB;
 import app.Documental;
 import app.Documento;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +14,7 @@ public class VentanaAltaDocumental extends JFrame {
 	static Documento documento;
 
 	private JPanel contentPane;
-	private JLabel lblAlta, lblNewLabel, lblIntroducDatos, lblProductora, lblPremios, lblDocumentalesRealcionados, lblDuracion, lblFormato;
+	private JLabel lblAlta, lblImagen, lblIntroducDatos, lblProductora, lblPremios, lblDocumentalesRealcionados, lblDuracion, lblFormato;
 	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
 	private JButton btnVolver, btnAceptar;
 	
@@ -49,11 +47,11 @@ public class VentanaAltaDocumental extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panelPrincipal.add(lblAlta);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(485, 0, 71, 73);
-		panelPrincipal.add(lblNewLabel);
+		lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(485, 0, 71, 73);
+		panelPrincipal.add(lblImagen);
 
 		JPanel panelSecundario = new JPanel();
 		panelSecundario.setLayout(null);
@@ -83,7 +81,6 @@ public class VentanaAltaDocumental extends JFrame {
 		textFieldProductora.setBounds(105, 77, 162, 20);
 		panelSecundario.add(textFieldProductora);
 		textFieldProductora.setColumns(10);
-		
 		
 		lblPremios = new JLabel("Premis");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));

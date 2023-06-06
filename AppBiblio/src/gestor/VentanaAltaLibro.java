@@ -48,21 +48,13 @@ public class VentanaAltaLibro extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblAlta.setBounds(135, 11, 272, 50);
 		panelPrincipal.add(lblAlta);
-		
-<<<<<<< HEAD
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(415, 0, 62, 72);
-		panelTitle.add(lblNewLabel);
-=======
+
 		// Imagen del panel principal
 		lblImagen = new JLabel("");
-		lblImagen.setIcon(new ImageIcon("img/icono64.png"));
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(415, 0, 62, 72);
 		panelPrincipal.add(lblImagen);
->>>>>>> Ayoub
 
 		JPanel panelSecundario = new JPanel();
 		panelSecundario.setLayout(null);

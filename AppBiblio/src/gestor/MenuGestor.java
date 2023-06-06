@@ -44,8 +44,8 @@ public class MenuGestor extends JFrame {
 		panelPrincipal.add(lblGestores);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(435, 0, 119, 65);
-		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
+		lblNewLabel.setBounds(452, 0, 89, 70);
+		lblNewLabel.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panelPrincipal.add(lblNewLabel);
 
