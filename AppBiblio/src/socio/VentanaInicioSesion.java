@@ -80,7 +80,7 @@ public class VentanaInicioSesion extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				usuario = txtUsuario.getText();
+				usuario = txtUsuario.getText().toLowerCase();
 				password = new String(txtPassword.getPassword());
 
 				UsuarioMaxDB usuDB = new UsuarioMaxDB();

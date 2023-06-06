@@ -76,19 +76,23 @@ public class VentanaRegistro extends JFrame {
         
         btnRegistro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nombre = txtUsuario.getText();
+                String nombre = txtUsuario.getText().toLowerCase();
                 String password = new String(txtPassword.getPassword());
-
-                Usuario nuevoUsuario = new Usuario(nombre, password, null, false);
-                usuarios.add(nuevoUsuario);
                 
-                UsuarioMaxDB usuDB = new UsuarioMaxDB();
-                
-                if (usuDB.guardarRegistro(nombre, password)) {
-                	JOptionPane.showMessageDialog(panel, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
-    		        VentanaInicioSesion app = new VentanaInicioSesion();
-    	            app.setVisible(true);
-    	            dispose();
+                if (nombre.length() < 6 | password.length() < 8) {
+                	JOptionPane.showMessageDialog(panel, "El usuario o la contraseña debe contener 8 caracteres.", "Registro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                	Usuario nuevoUsuario = new Usuario(nombre, password, null, false);
+                    usuarios.add(nuevoUsuario);
+                    
+                    UsuarioMaxDB usuDB = new UsuarioMaxDB();
+                    
+                    if (usuDB.guardarRegistro(nombre, password)) {
+                    	JOptionPane.showMessageDialog(panel, "Registro exitoso.", "Registro", JOptionPane.INFORMATION_MESSAGE);
+        		        VentanaInicioSesion app = new VentanaInicioSesion();
+        	            app.setVisible(true);
+        	            dispose();
+                    }
                 }
                 
 				// Limpiar los campos de texto después de intentar iniciar sesión
