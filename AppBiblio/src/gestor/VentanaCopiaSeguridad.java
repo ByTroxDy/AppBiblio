@@ -2,19 +2,20 @@ package gestor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import db.DocumentoMaxDB;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class VentanaCopiaSeguridad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldName;
-	private String backupName;
 
 	public VentanaCopiaSeguridad() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,12 +104,23 @@ public class VentanaCopiaSeguridad extends JFrame {
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				backupName = textFieldName.getText().toString();
-				
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				docDB.copiaSeguridad(backupName);
-				
-				JOptionPane.showMessageDialog(panel_1, backupName +" Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
+			    JFileChooser fileChooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de sql", "sql");
+		        fileChooser.setFileFilter(filter);
+		        fileChooser.setAcceptAllFileFilterUsed(false);
+		        int returnValue = fileChooser.showSaveDialog(null);
+		        
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		            // Seleccionó una ubicación para guardar el archivo
+		            java.io.File selectedFile = fileChooser.getSelectedFile();
+		            String file = selectedFile.getAbsolutePath();
+					if (copiaSeguridad(file)) {
+						JOptionPane.showMessageDialog(panel_1, "Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                    	JOptionPane.showMessageDialog(panel_1, "Algo ha salido mal", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+		        }
 			}//actionPerformed
 		});
 		btnNewButton.setFocusPainted(false);
@@ -117,6 +129,34 @@ public class VentanaCopiaSeguridad extends JFrame {
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnNewButton.setBackground(new Color(0, 128, 192));
 	}// VentanaCopiaSeguridad
+	
+	
+	public boolean copiaSeguridad(String backupName) {
+		Process process;
+		InputStream is;
+		FileOutputStream fos;
+		byte[] buffer = new byte[1000];
+		int leido;
+		
+		try {
+			process = Runtime.getRuntime().exec("mysqldump -h 10.2.18.222 -u phpmyadmin -pphpmyadmin app_biblioteca");
+			is = process.getInputStream();
+			fos = new FileOutputStream(backupName);
+			leido = is.read(buffer);
+			
+			while(leido > 0) {
+				fos.write(buffer, 0, leido);
+				leido = is.read(buffer);
+			}
+			
+			fos.close();
+			
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

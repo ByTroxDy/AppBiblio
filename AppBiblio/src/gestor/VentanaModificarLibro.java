@@ -16,10 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import app.Documento;
 import app.Libro;
@@ -54,12 +51,18 @@ public class VentanaModificarLibro extends JFrame {
 		panelTitle.setForeground(new Color(0, 0, 0));
 		panelTitle.setBounds(0, 0, 592, 75);
 		contentPane.add(panelTitle);
+
+		JLabel lblAlta = new JLabel("MODIFICAR LIBRO");
+		lblAlta.setBounds(94, 0, 385, 75);
+		panelTitle.add(lblAlta);
+		lblAlta.setForeground(new Color(238, 238, 236));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		
-				JLabel lblAlta = new JLabel("MODIFICAR LIBRO");
-				lblAlta.setBounds(94, 0, 385, 75);
-				panelTitle.add(lblAlta);
-				lblAlta.setForeground(new Color(238, 238, 236));
-				lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(492, 0, 60, 75);
+		panelTitle.add(lblNewLabel);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
