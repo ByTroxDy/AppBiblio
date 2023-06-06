@@ -52,7 +52,7 @@ public class VentanaAltaMusica extends JFrame {
 		panel.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaMusica.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(441, 0, 74, 71);
 		panel.add(lblNewLabel);

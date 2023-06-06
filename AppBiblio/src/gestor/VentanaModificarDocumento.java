@@ -45,7 +45,7 @@ public class VentanaModificarDocumento extends JFrame {
 		panel.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaModificarDocumento.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(514, 0, 46, 70);
 		panel.add(lblNewLabel);

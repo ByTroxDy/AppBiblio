@@ -50,7 +50,7 @@ public class VentanaAltaLibro extends JFrame {
 		panelTitle.add(lblAlta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaAltaLibro.class.getResource("/imagenes/ImagenGestor.png")));
+		lblNewLabel.setIcon(new ImageIcon("img/icono32.png"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(415, 0, 62, 72);
 		panelTitle.add(lblNewLabel);

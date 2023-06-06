@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 05-06-2023 a las 15:15:36
+-- Tiempo de generación: 05-06-2023 a las 20:40:44
 -- Versión del servidor: 8.0.33-0ubuntu0.22.04.2
 -- Versión de PHP: 8.1.2-1ubuntu2.11
 
@@ -82,7 +82,8 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`id_comentarios`, `isbn`, `usuario`, `optinion`) VALUES
-(1, 123, 'migrio', 'Test');
+(1, 123, 'migrio', 'Test'),
+(2, 123, 'migrio', 'Buen documento');
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,7 @@ CREATE TABLE `documentos` (
   `biblioteca` varchar(45) NOT NULL,
   `fecha_alta` date DEFAULT NULL,
   `fecha_baja` date DEFAULT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `documentos`
@@ -237,6 +238,13 @@ CREATE TABLE `prestamos` (
   `dias_retardo` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `prestamos`
+--
+
+INSERT INTO `prestamos` (`id_prestamo`, `usuario`, `isbn`, `fecha_prestamo`, `fecha_devolucion`, `dias_retardo`) VALUES
+(13, 'migrio', 123, '2023-05-19', '2023-06-03', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -272,7 +280,7 @@ CREATE TABLE `usuarios` (
   `rol` varchar(45) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `sancion` int DEFAULT '0'
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -280,10 +288,10 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `password`, `rol`, `email`, `sancion`) VALUES
 (1, 'socio', 'socio', 'socio', NULL, 5),
-(2, 'gestor', 'gestor', 'gestor', NULL, NULL),
-(3, 'admin', 'admin', 'admin', NULL, NULL),
-(4, 'socio1', 'socio1', 'socio', NULL, NULL),
-(5, 'migrio', 'admin', 'socio', NULL, 0);
+(2, 'gestor', 'gestor', 'gestor', NULL, 0),
+(3, 'admin', 'admin', 'admin', NULL, 0),
+(4, 'socio1', 'socio1', 'socio', NULL, 0),
+(5, 'migrio', 'admin', 'socio', NULL, 10);
 
 --
 -- Índices para tablas volcadas
@@ -394,7 +402,8 @@ ALTER TABLE `reservas`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`,`rol`),
+  ADD PRIMARY KEY (`id_usuario`,`usuario`,`rol`),
+  ADD KEY `usuario` (`usuario`),
   ADD KEY `fk_usuarios_grupos1_idx` (`rol`);
 
 --
@@ -417,13 +426,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_comentarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `documentos`
 --
 ALTER TABLE `documentos`
-  MODIFY `isbn` int NOT NULL AUTO_INCREMENT;
+  MODIFY `isbn` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=322;
 
 --
 -- AUTO_INCREMENT de la tabla `grupos`
@@ -435,7 +444,7 @@ ALTER TABLE `grupos`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id_prestamo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_prestamo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
@@ -447,7 +456,7 @@ ALTER TABLE `reservas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -516,20 +525,6 @@ DELIMITER $$
 --
 -- Eventos
 --
-CREATE DEFINER=`phpmyadmin`@`%` EVENT `actualizar_dias_retraso` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-05 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    -- Actualizar la tabla de préstamos para calcular los días de retraso y aplicar la penalización
-    UPDATE prestamos
-    SET dias_retardo = DATEDIFF(CURDATE(), fecha_devolucion)
-    WHERE fecha_devolucion < CURDATE() AND dias_retardo IS NULL;
-END$$
-
-CREATE DEFINER=`phpmyadmin`@`%` EVENT `aplicar_penalizacion` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-05 03:36:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    -- Aplicar la penalización a los usuarios con retraso
-    UPDATE usuarios
-    SET sancion = sancion + 5
-    WHERE usuario IN (SELECT DISTINCT usuario FROM prestamos WHERE dias_retardo > 0);
-END$$
-
 CREATE DEFINER=`phpmyadmin`@`%` EVENT `actualizar_dias_pendientes` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-05 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE reservas r
     SET r.dias_pendientes = (
         SELECT GREATEST(DATEDIFF(p.fecha_devolucion, CURDATE()), 0)
@@ -543,6 +538,24 @@ CREATE DEFINER=`phpmyadmin`@`%` EVENT `actualizar_sancion_diaria` ON SCHEDULE EV
   UPDATE usuarios
   SET sancion = sancion - 1
   WHERE sancion > 0;
+END$$
+
+CREATE DEFINER=`phpmyadmin`@`%` EVENT `aplicar_penalizacion` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-05 18:38:15' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+	DECLARE retardo INT;
+    
+    SELECT DATEDIFF(CURRENT_DATE, fecha_devolucion) INTO retardo FROM prestamos WHERE fecha_devolucion < CURRENT_DATE;
+
+    -- Aplicar la penalización a los usuarios con retraso
+    UPDATE usuarios
+    SET sancion = sancion + (retardo * 5)
+    WHERE usuario IN (SELECT DISTINCT usuario FROM prestamos WHERE dias_retardo > 0);
+END$$
+
+CREATE DEFINER=`phpmyadmin`@`%` EVENT `actualizar_dias_retraso` ON SCHEDULE EVERY 1 DAY STARTS '2023-06-05 18:38:15' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    -- Actualizar la tabla de préstamos para calcular los días de retraso y aplicar la penalización
+    UPDATE prestamos
+    SET dias_retardo = DATEDIFF(CURDATE(), fecha_devolucion)
+    WHERE fecha_devolucion < CURDATE() AND dias_retardo IS NULL;
 END$$
 
 DELIMITER ;
