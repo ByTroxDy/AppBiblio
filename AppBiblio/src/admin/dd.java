@@ -6,10 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import db.UsuarioMaxDB;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -19,7 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
 @SuppressWarnings("serial")
-public class VentanaBaja extends JFrame {
+public class dd extends JFrame {
 
 	private JPanel panel;
 	private JTextField usuariText;
@@ -38,7 +35,7 @@ public class VentanaBaja extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaBaja frame = new VentanaBaja();
+					dd frame = new dd();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +47,7 @@ public class VentanaBaja extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaBaja() {
+	public dd() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		panel = new JPanel();
@@ -121,21 +118,11 @@ public class VentanaBaja extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			String usuario, admin, contra, grupo;
+			String usuario;
+			String contra;
 			
 			usuario= usuariText.getText();
-			admin= adminUser.getText();
 			contra= new String (contraText.getPassword());
-			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			grupo = usuDB.obtenerGrupo(admin);
-			
-			if (usuDB.iniciarSesion(admin, contra) && grupo.equals("admin")) {
-				usuDB.bajaUsuario(usuario);
-				JOptionPane.showMessageDialog(panel, "Borrado exitoso", "Borrar", JOptionPane.INFORMATION_MESSAGE);
-				MenuAdmin app = new MenuAdmin();
-				app.setVisible(true);
-				dispose();
-			}
 			
 		}//actionPerformed
 	}//Borrar
