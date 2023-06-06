@@ -169,7 +169,7 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Abre la ventana de Modificar de Admin");
 		}
 		public void actionPerformed(ActionEvent e) {
-			VentanaModificacion modi = new VentanaModificacion();
+			VentanaSelectModificacion modi = new VentanaSelectModificacion();
 			modi.setVisible(true);
 			dispose();
 		}

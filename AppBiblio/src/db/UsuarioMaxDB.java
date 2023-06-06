@@ -230,7 +230,7 @@ public class UsuarioMaxDB {
     
 
     public boolean bajaUsuario(String usuario) {
-		String query = ("DELETE * FROM usuarios WHERE usuario = ?");
+		String query = ("DELETE FROM usuarios WHERE usuario = ?");
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			statement.setString(1, usuario);
 			statement.executeUpdate();
