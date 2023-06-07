@@ -115,8 +115,8 @@ public class VentanaAsigna extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Vuelve al menu de admin");
 		}
 		public void actionPerformed(ActionEvent e) {
-			MenuAdmin admin = new MenuAdmin();
-			admin.setVisible(true);
+			VentanaSelectModificacion frame = new VentanaSelectModificacion();
+			frame.setVisible(true);
 			dispose();
 		}
 	}//Eixir

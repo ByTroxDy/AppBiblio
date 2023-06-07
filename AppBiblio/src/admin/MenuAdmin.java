@@ -29,7 +29,6 @@ public class MenuAdmin extends JFrame {
 	private final Action action_1 = new Baixa();
 	private final Action action_2 = new Modificacio();
 	private final Action action_3 = new Notificar();
-	private final Action action_4 = new Asignar();
 	private final Action action_5 = new AltaDocu();
 	private final Action action_8 = new consultaDocu();
 	private final Action action_9 = new copiaDocu();
@@ -117,11 +116,6 @@ public class MenuAdmin extends JFrame {
 		buttonCopiaDocumentos.setBounds(333, 158, 117, 55);
 		menuAdministrador.add(buttonCopiaDocumentos);
 		
-		JButton buttonAsignarUsuario = new JButton("Asignar Usuari");
-		buttonAsignarUsuario.setAction(action_4);
-		buttonAsignarUsuario.setBounds(0, 265, 117, 55);
-		menuAdministrador.add(buttonAsignarUsuario);
-		
 		JButton buttonRestauracionDocu = new JButton("Restauració ");
 		buttonRestauracionDocu.setAction(action_10);
 		buttonRestauracionDocu.setBounds(333, 211, 117, 55);
@@ -185,17 +179,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//Notificar
-	private class Asignar extends AbstractAction {
-		public Asignar() {
-			putValue(NAME, "Asignar");
-			putValue(SHORT_DESCRIPTION, "Abre la ventana de Asignar de Admin");
-		}
-		public void actionPerformed(ActionEvent e) {
-			VentanaAsigna asig = new VentanaAsigna();
-			asig.setVisible(true);
-			dispose();
-		}
-	}//Asignar
+	
 	private class AltaDocu extends AbstractAction {
 		public AltaDocu() {
 			putValue(NAME, "Alta");

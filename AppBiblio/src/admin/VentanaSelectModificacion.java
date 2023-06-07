@@ -9,9 +9,6 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import db.UsuarioMaxDB;
-import gestor.MenuGestor;
-import socio.MenuSocio;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -133,18 +130,18 @@ public class VentanaSelectModificacion extends JFrame {
 			grupo = usuDB.obtenerGrupo(admin);
 			if (usuDB.iniciarSesion(admin, contra)&&grupo.equals("admin")) {
 				if (modi.equals("usuari")) {
-					MenuSocio menu = new MenuSocio();
-					menu.setVisible(true);
+					VentanaModiUsuario modiUser = new VentanaModiUsuario();
+					modiUser.setVisible(true);
 				} else if (modi.equals("contrasenya")) {
-					MenuGestor menu = new MenuGestor();
-					menu.setVisible(true);
+					VentanaModiContra modiContra = new VentanaModiContra();
+					modiContra.setVisible(true);
 				} else if (modi.equals("rol")) {
-					MenuAdmin menu = new MenuAdmin();
-					menu.setVisible(true);
+					VentanaAsigna modiRol = new VentanaAsigna();
+					modiRol.setVisible(true);
 				}
 				dispose();
 			}
 			
 		}
-	}
+	}//modifica
 }//exit
