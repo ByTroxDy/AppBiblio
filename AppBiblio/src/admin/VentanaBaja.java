@@ -133,13 +133,13 @@ public class VentanaBaja extends JFrame {
 					usuDB.bajaUsuario(usuario);
 					MenuAdmin admin1 = new MenuAdmin();
 					admin1.setVisible(true);
-	            	JOptionPane.showMessageDialog(panel, "Usuario esborrado correctament", "Registro", JOptionPane.INFORMATION_MESSAGE);
+	            	JOptionPane.showMessageDialog(panel, "Usuari esborrat correctament", "Registre", JOptionPane.INFORMATION_MESSAGE);
 					dispose();
 				} else {
-	            	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Registro", JOptionPane.INFORMATION_MESSAGE);
+	            	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Registre", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} else {
-            	JOptionPane.showMessageDialog(panel, "Admin o contrasenya incorrectes", "Registro", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Admin o contrasenya incorrectes", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}//actionPerformed

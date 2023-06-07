@@ -133,12 +133,12 @@ public class VentanaAsigna extends JFrame {
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			
 			if (!usuDB.validarCuenta(usuari, contra)) {
-				JOptionPane.showMessageDialog(panel, "El usuario actual y la contraseña no coinciden.", "Error",
+				JOptionPane.showMessageDialog(panel, "El usuari actual y la contraseña no coincidixen.", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			} else {
 				usuDB.actualizarRol(usuari, asigna);
-				JOptionPane.showMessageDialog(panel, "El rol del usuario se ha actualizado correctamente.",
-						"Éxito", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(panel, "El rol del usuari se ha actualizat correctament.",
+						"Éxit", JOptionPane.INFORMATION_MESSAGE);
 			}
 
 			usuariText.setText("");
