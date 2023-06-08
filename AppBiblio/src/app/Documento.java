@@ -27,11 +27,11 @@ public class Documento {
 		this.biblioteca = biblioteca2;
 	}
 	
-	public Documento(int isbn3, String titulo3, String autor3, int replicas3) {
+	public Documento(int isbn3, String titulo3, String tipo3, int replicas3) {
 		super();
 		this.isbn = isbn3;
 		this.titulo = titulo3;
-		this.autor = autor3;
+		this.tipo = tipo3;
 		this.replicas = replicas3;
 	}
 

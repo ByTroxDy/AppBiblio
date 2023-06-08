@@ -10,12 +10,6 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import app.Documental;
 import app.Documento;
 import app.Libro;
@@ -29,7 +23,7 @@ public class DocumentoMaxDB {
 	VentanaConsultarDocumento consultarDocumento = new VentanaConsultarDocumento();
 	
 	private int isbn, replicas, diasRetardo, diasPendientes;
-	private String nombre, autor;
+	private String nombre, type;
 	private Date fechaPrestamo, fechaDevolucion, fechaReserva;
 
 	private Connection conn;
@@ -42,8 +36,116 @@ public class DocumentoMaxDB {
 		}
 	}
 
+//	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND fecha_baja IS NULL";
+//
+//		try (PreparedStatement statement = conn.prepareStatement(query)) {
+//
+//			statement.setString(1, "%" + titulo + "%");
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				isbn = resultSet.getInt("isbn");
+//				nombre = resultSet.getString("titulo");
+//				autor = resultSet.getString("autor");
+//				replicas = resultSet.getInt("replicas");
+//
+//				Documento documento = new Documento(isbn, nombre, autor, replicas);
+//				documentos.add(documento);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarDocumentosPorAutor(String autor2) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//		String query = "SELECT * FROM documentos WHERE autor LIKE ? AND fecha_baja IS NULL";
+//
+//		try (PreparedStatement statement = conn.prepareStatement(query)) {
+//
+//			statement.setString(1, "%" + autor2 + "%");
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				isbn = resultSet.getInt("isbn");
+//				nombre = resultSet.getString("titulo");
+//				autor = resultSet.getString("autor");
+//				replicas = resultSet.getInt("replicas");
+//
+//				Documento documento = new Documento(isbn, nombre, autor, replicas);
+//				documentos.add(documento);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor2) {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ? AND fecha_baja IS NULL";
+//
+//		try (PreparedStatement statement = conn.prepareStatement(query)) {
+//
+//			statement.setString(1, "%" + titulo + "%");
+//			statement.setString(2, "%" + autor2 + "%");
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				isbn = resultSet.getInt("isbn");
+//				nombre = resultSet.getString("titulo");
+//				autor = resultSet.getString("autor");
+//				replicas = resultSet.getInt("replicas");
+//
+//				Documento documento = new Documento(isbn, nombre, autor, replicas);
+//				documentos.add(documento);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return documentos;
+//	}
+//
+//	public ArrayList<Documento> consultarTodosDocumentos() {
+//		ArrayList<Documento> documentos = new ArrayList<>();
+//		String query = "SELECT * FROM documentos WHERE fecha_baja IS NULL";
+//
+//		try (PreparedStatement statement = conn.prepareStatement(query)) {
+//
+//			ResultSet resultSet = statement.executeQuery();
+//
+//			// Recorrer los resultados y crear objetos Documento
+//			while (resultSet.next()) {
+//				isbn = resultSet.getInt("isbn");
+//				nombre = resultSet.getString("titulo");
+//				autor = resultSet.getString("autor");
+//				replicas = resultSet.getInt("replicas");
+//
+//				Documento documento = new Documento(isbn, nombre, autor, replicas);
+//				documentos.add(documento);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return documentos;
+//	}
+	
 	public ArrayList<Documento> consultarDocumentosPorNombre(String titulo) {
-		ArrayList<Documento> documentos = new ArrayList<>();
+	    ArrayList<Documento> documentos = new ArrayList<>();
 		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND fecha_baja IS NULL";
 
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -55,10 +157,10 @@ public class DocumentoMaxDB {
 			while (resultSet.next()) {
 				isbn = resultSet.getInt("isbn");
 				nombre = resultSet.getString("titulo");
-				autor = resultSet.getString("autor");
+				type = resultSet.getString("tipo");
 				replicas = resultSet.getInt("replicas");
 
-				Documento documento = new Documento(isbn, nombre, autor, replicas);
+				Documento documento = new Documento(isbn, nombre, type, replicas);
 				documentos.add(documento);
 			}
 
@@ -69,86 +171,108 @@ public class DocumentoMaxDB {
 		return documentos;
 	}
 
-	public ArrayList<Documento> consultarDocumentosPorAutor(String autor2) {
-		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE autor LIKE ? AND fecha_baja IS NULL";
+	public ArrayList<Documento> consultarDocumentosPorTipo(String tipo) {
+	    ArrayList<Documento> documentos = new ArrayList<>();
+	    
+	    try {
+	        // Establecer conexión a la base de datos
+	        Connection connection = obtenerConexion();
 
-		try (PreparedStatement statement = conn.prepareStatement(query)) {
+	        // Crear y ejecutar la consulta
+	        String query = "SELECT * FROM documentos WHERE tipo = ?";
+	        PreparedStatement statement = connection.prepareStatement(query);
+	        statement.setString(1, tipo);
+	        ResultSet resultSet = statement.executeQuery();
 
-			statement.setString(1, "%" + autor2 + "%");
-			ResultSet resultSet = statement.executeQuery();
+	        // Recorrer los resultados y crear objetos Documento
+	        while (resultSet.next()) {
+	            int idDocumento = resultSet.getInt("idDocumento");
+	            String tituloDocumento = resultSet.getString("titulo");
+	            String tipoDocumento = resultSet.getString("tipo");
 
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				isbn = resultSet.getInt("isbn");
-				nombre = resultSet.getString("titulo");
-				autor = resultSet.getString("autor");
-				replicas = resultSet.getInt("replicas");
+	            Documento documento = new Documento(idDocumento, tituloDocumento, tipoDocumento);
+	            documentos.add(documento);
+	        }
 
-				Documento documento = new Documento(isbn, nombre, autor, replicas);
-				documentos.add(documento);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return documentos;
+	        // Cerrar recursos
+	        resultSet.close();
+	        statement.close();
+	        connection.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return documentos;
 	}
 
-	public ArrayList<Documento> consultarDocumentosPorNombreYAutor(String titulo, String autor2) {
-		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND autor LIKE ? AND fecha_baja IS NULL";
+	public ArrayList<Documento> consultarDocumentosPorNombreYTipo(String titulo, String tipo) {
+	    ArrayList<Documento> documentos = new ArrayList<>();
+	    
+	    try {
+	        // Establecer conexión a la base de datos
+	        Connection connection = obtenerConexion();
 
-		try (PreparedStatement statement = conn.prepareStatement(query)) {
+	        // Crear y ejecutar la consulta
+	        String query = "SELECT * FROM documentos WHERE titulo LIKE ? AND tipo = ?";
+	        PreparedStatement statement = connection.prepareStatement(query);
+	        statement.setString(1, "%" + titulo + "%");
+	        statement.setString(2, tipo);
+	        ResultSet resultSet = statement.executeQuery();
 
-			statement.setString(1, "%" + titulo + "%");
-			statement.setString(2, "%" + autor2 + "%");
-			ResultSet resultSet = statement.executeQuery();
+	        // Recorrer los resultados y crear objetos Documento
+	        while (resultSet.next()) {
+	            int idDocumento = resultSet.getInt("idDocumento");
+	            String tituloDocumento = resultSet.getString("titulo");
+	            String tipoDocumento = resultSet.getString("tipo");
 
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				isbn = resultSet.getInt("isbn");
-				nombre = resultSet.getString("titulo");
-				autor = resultSet.getString("autor");
-				replicas = resultSet.getInt("replicas");
+	            Documento documento = new Documento(idDocumento, tituloDocumento, tipoDocumento);
+	            documentos.add(documento);
+	        }
 
-				Documento documento = new Documento(isbn, nombre, autor, replicas);
-				documentos.add(documento);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return documentos;
+	        // Cerrar recursos
+	        resultSet.close();
+	        statement.close();
+	        connection.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return documentos;
 	}
 
 	public ArrayList<Documento> consultarTodosDocumentos() {
-		ArrayList<Documento> documentos = new ArrayList<>();
-		String query = "SELECT * FROM documentos WHERE fecha_baja IS NULL";
+	    ArrayList<Documento> documentos = new ArrayList<>();
+	    
+	    try {
+	        // Establecer conexión a la base de datos
+	        Connection connection = obtenerConexion();
 
-		try (PreparedStatement statement = conn.prepareStatement(query)) {
+	        // Crear y ejecutar la consulta
+	        String query = "SELECT * FROM documentos";
+	        PreparedStatement statement = connection.prepareStatement(query);
+	        ResultSet resultSet = statement.executeQuery();
 
-			ResultSet resultSet = statement.executeQuery();
+	        // Recorrer los resultados y crear objetos Documento
+	        while (resultSet.next()) {
+	            int idDocumento = resultSet.getInt("idDocumento");
+	            String tituloDocumento = resultSet.getString("titulo");
+	            String tipoDocumento = resultSet.getString("tipo");
 
-			// Recorrer los resultados y crear objetos Documento
-			while (resultSet.next()) {
-				isbn = resultSet.getInt("isbn");
-				nombre = resultSet.getString("titulo");
-				autor = resultSet.getString("autor");
-				replicas = resultSet.getInt("replicas");
+	            Documento documento = new Documento(idDocumento, tituloDocumento, tipoDocumento);
+	            documentos.add(documento);
+	        }
 
-				Documento documento = new Documento(isbn, nombre, autor, replicas);
-				documentos.add(documento);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return documentos;
+	        // Cerrar recursos
+	        resultSet.close();
+	        statement.close();
+	        connection.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return documentos;
 	}
+
 	
 	public ArrayList<Prestamos> consultarMisPrestamos(String myUser) {
 		ArrayList<Prestamos> prestamos = new ArrayList<>();
