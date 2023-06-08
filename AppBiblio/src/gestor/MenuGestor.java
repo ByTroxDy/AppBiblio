@@ -14,6 +14,7 @@ public class MenuGestor extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblGestores, lblNewLabel, lblSelecciona;
 	private JButton btnCerrarSesion, btnAceptar;
+	private JComboBox<Object> comboBox;
 	
 	public MenuGestor() {
 		setTitle("Gestor");
@@ -33,7 +34,6 @@ public class MenuGestor extends JFrame {
 		panelPrincipal.setForeground(new Color(0, 0, 0));
 		panelPrincipal.setBorder(null);
 		panelPrincipal.setBounds(0, 0, 592, 70);
-		contentPane.add(panelPrincipal);
 		panelPrincipal.setLayout(null);
 
 		//Titulo en el panel
@@ -41,14 +41,16 @@ public class MenuGestor extends JFrame {
 		lblGestores.setForeground(new Color(255, 255, 255));
 		lblGestores.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblGestores.setBounds(143, 11, 319, 43);
-		panelPrincipal.add(lblGestores);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(452, 0, 89, 70);
 		lblNewLabel.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panelPrincipal.add(lblNewLabel);
 
+		panelPrincipal.add(lblGestores);
+		panelPrincipal.add(lblNewLabel);
+		contentPane.add(panelPrincipal);
+		
 		//Panel de contenido
 		JPanel panelSecundario = new JPanel();
 		panelSecundario.setLayout(null);
@@ -56,7 +58,6 @@ public class MenuGestor extends JFrame {
 		panelSecundario.setBackground(SystemColor.window);
 		panelSecundario.setBorder(null);
 		panelSecundario.setBounds(0, 70, 592, 297);
-		contentPane.add(panelSecundario);
 		
 		//Ttitulo del panel de contenido
 		lblSelecciona = new JLabel("SELECCIONA UNA FUNCIÓ");
@@ -64,29 +65,18 @@ public class MenuGestor extends JFrame {
 		lblSelecciona.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblSelecciona.setForeground(new Color(0, 0, 0));
 		lblSelecciona.setBounds(130, 70, 333, 36);
-		panelSecundario.add(lblSelecciona);
 		
 		//Selección de la función a realizar
-		JComboBox<Object> comboBox = new JComboBox<Object>();
+		String[] funcion = {"Alta Document", "Modificar Document", "Consultar Document", "Còpia de seguretat", "Restauració"};
+		comboBox = new JComboBox<>(funcion);
 		comboBox.setForeground(new Color(238, 238, 236));
 		comboBox.setBackground(new Color(0, 128, 192));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Alta Document", "Modificar Document", "Consultar Document", "Còpia de seguretat", "Restauració"}));
 		comboBox.setToolTipText("");
 		comboBox.setBounds(128, 118, 333, 26);
-		panelSecundario.add(comboBox);
 		
 		//Boton para avanzar
 		btnCerrarSesion = new JButton("Tancar Sesió");
 		btnCerrarSesion.setBounds(8, 259, 286, 26);
-		panelSecundario.add(btnCerrarSesion);
-		btnCerrarSesion.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ex) {
-				VentanaInicioSesion app = new VentanaInicioSesion();
-				app.setVisible(true);
-				dispose();
-			}//actionPerformed
-		});
 		btnCerrarSesion.setFocusPainted(false);
 		btnCerrarSesion.setBorderPainted(false);
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
@@ -96,9 +86,29 @@ public class MenuGestor extends JFrame {
 		//Boton para avanzar
 		btnAceptar = new JButton("Següent");
 		btnAceptar.setBounds(312, 259, 268, 26);
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
+		btnAceptar.setForeground(new Color(255, 255, 255));
+		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnAceptar.setBackground(new Color(0, 128, 192));
+		
+		panelSecundario.add(lblSelecciona);
+		panelSecundario.add(comboBox);
+		panelSecundario.add(btnCerrarSesion);
 		panelSecundario.add(btnAceptar);
-		btnAceptar.addActionListener(new ActionListener() {
+		contentPane.add(panelSecundario);
 
+		//Funciones
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ex) {
+				VentanaInicioSesion app = new VentanaInicioSesion();
+				app.setVisible(true);
+				dispose();
+			}//actionPerformed
+		});
+		
+		btnAceptar.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
 				//extracción de la funcion seleccionada
@@ -122,11 +132,6 @@ public class MenuGestor extends JFrame {
 				dispose();
 			}//actionPerformed
 		});
-		btnAceptar.setFocusPainted(false);
-		btnAceptar.setBorderPainted(false);
-		btnAceptar.setForeground(new Color(255, 255, 255));
-		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 16));
-		btnAceptar.setBackground(new Color(0, 128, 192));
 	}// MenuGestor
 	
 	public static void main(String[] args) {

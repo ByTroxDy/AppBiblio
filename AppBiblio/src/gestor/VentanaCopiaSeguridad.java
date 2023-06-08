@@ -15,7 +15,6 @@ public class VentanaCopiaSeguridad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldName;
 
 	public VentanaCopiaSeguridad() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,25 +60,12 @@ public class VentanaCopiaSeguridad extends JFrame {
 		contentPane.add(panel_1);
 		
 		//Titulo contenido
-		JLabel lblIntroduceElNombre = new JLabel("Introdueix el nom");
+		JLabel lblIntroduceElNombre = new JLabel("Crea la teúa copia");
 		lblIntroduceElNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElNombre.setForeground(new Color(0, 0, 0));
 		lblIntroduceElNombre.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblIntroduceElNombre.setBounds(0, 66, 584, 28);
 		panel_1.add(lblIntroduceElNombre);
-		
-		JLabel lblBackup = new JLabel("Nom backup");
-		lblBackup.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblBackup.setBounds(151, 117, 122, 17);
-		panel_1.add(lblBackup);
-				
-		textFieldName = new JTextField();
-		textFieldName.setForeground(new Color(255, 255, 255));
-		textFieldName.setBackground(new Color(0, 128, 192));
-		textFieldName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		textFieldName.setBounds(252, 116, 183, 21);
-		panel_1.add(textFieldName);
-		textFieldName.setColumns(10);
 
 		//Volver
 		JButton btnVolver = new JButton("Volver");

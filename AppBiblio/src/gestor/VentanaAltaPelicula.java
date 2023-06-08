@@ -77,7 +77,7 @@ public class VentanaAltaPelicula extends JFrame {
 		textFieldDirector.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldDirector.setForeground(new Color(255, 255, 255));
 		textFieldDirector.setBackground(new Color(0, 128, 192));
-		textFieldDirector.setBounds(97, 79, 158, 20);
+		textFieldDirector.setBounds(109, 79, 158, 20);
 		panel.add(textFieldDirector);
 		textFieldDirector.setColumns(10);
 
@@ -92,7 +92,7 @@ public class VentanaAltaPelicula extends JFrame {
 		textFieldActores.setForeground(new Color(255, 255, 255));
 		textFieldActores.setBackground(new Color(0, 128, 192));
 		textFieldActores.setColumns(10);
-		textFieldActores.setBounds(380, 79, 158, 20);
+		textFieldActores.setBounds(390, 79, 158, 20);
 		panel.add(textFieldActores);
 
 		JLabel lblPremios = new JLabel("Premis");
@@ -106,7 +106,7 @@ public class VentanaAltaPelicula extends JFrame {
 		textFieldPremios.setForeground(new Color(255, 255, 255));
 		textFieldPremios.setBackground(new Color(0, 128, 192));
 		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(97, 126, 158, 20);
+		textFieldPremios.setBounds(109, 126, 158, 20);
 		panel.add(textFieldPremios);
 
 		JLabel lblDuracion = new JLabel("Duració");
@@ -120,7 +120,7 @@ public class VentanaAltaPelicula extends JFrame {
 		textFieldDureacion.setForeground(new Color(255, 255, 255));
 		textFieldDureacion.setBackground(new Color(0, 128, 192));
 		textFieldDureacion.setColumns(10);
-		textFieldDureacion.setBounds(380, 123, 158, 20);
+		textFieldDureacion.setBounds(390, 123, 158, 20);
 		panel.add(textFieldDureacion);
 
 		JLabel lblFormato = new JLabel("Formato");
@@ -134,7 +134,7 @@ public class VentanaAltaPelicula extends JFrame {
 		formatoBox.setForeground(new Color(255, 255, 255));
 		formatoBox.setBackground(new Color(0, 128, 192));
 		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físic", "Digital"}));
-		formatoBox.setBounds(222, 175, 158, 22);
+		formatoBox.setBounds(238, 174, 158, 22);
 		panel.add(formatoBox);
 		
 		//Volver

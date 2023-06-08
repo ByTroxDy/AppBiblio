@@ -74,14 +74,14 @@ public class VentanaAltaDocumental extends JFrame {
 		
 		lblProductora = new JLabel("Productora");
 		lblProductora.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblProductora.setBounds(21, 77, 79, 17);
+		lblProductora.setBounds(21, 77, 91, 17);
 		
 		//Proudctora
 		textFieldProductora = new JTextField();
 		textFieldProductora.setForeground(new Color(255, 255, 255));
 		textFieldProductora.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldProductora.setBackground(new Color(0, 128, 192));
-		textFieldProductora.setBounds(105, 77, 162, 20);
+		textFieldProductora.setBounds(108, 77, 162, 20);
 		textFieldProductora.setColumns(10);
 		
 		lblPremios = new JLabel("Premis");
@@ -94,7 +94,7 @@ public class VentanaAltaDocumental extends JFrame {
 		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldPremios.setBackground(new Color(0, 128, 192));
 		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(105, 128, 162, 20);
+		textFieldPremios.setBounds(108, 128, 162, 20);
 		
 		lblDocumentalesRealcionados = new JLabel("Documentals relacionats");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));

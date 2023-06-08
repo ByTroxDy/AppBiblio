@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class VentanaRestauracion extends JFrame {
-
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
+	private JLabel lblAlta, lblImagen, lblDataBase, lblSeleccionaElArchivo;
+	private JButton btnVolver, btnRestaurar;
 	
 	public VentanaRestauracion() {
 		setTitle("Restauració");
@@ -28,42 +30,70 @@ public class VentanaRestauracion extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 192));
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBounds(0, 0, 592, 71);
-		panel.setLayout(null);
-		contentPane.add(panel);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(new Color(0, 128, 192));
+		panelPrincipal.setForeground(new Color(0, 0, 0));
+		panelPrincipal.setBounds(0, 0, 592, 71);
+		panelPrincipal.setLayout(null);
 		
-		JLabel lblAlta = new JLabel("RESTAURACIÓ");
+		lblAlta = new JLabel("RESTAURACIÓ");
 		lblAlta.setBounds(112, 0, 370, 71);
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
-		panel.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("img/icono64.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(457, 0, 46, 71);
-		panel.add(lblNewLabel);
+		lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon("img/icono64.png"));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(457, 0, 46, 71);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setForeground(new Color(238, 238, 236));
-		panel_1.setBackground(SystemColor.window);
-		panel_1.setBounds(0, 70, 592, 291);
-		contentPane.add(panel_1);
+		panelPrincipal.add(lblAlta);
+		panelPrincipal.add(lblImagen);
+		contentPane.add(panelPrincipal);
+		
+		JPanel panelSecundario = new JPanel();
+		panelSecundario.setLayout(null);
+		panelSecundario.setForeground(new Color(238, 238, 236));
+		panelSecundario.setBackground(SystemColor.window);
+		panelSecundario.setBounds(0, 70, 592, 291);
 
-		JLabel lblIntroduceElIsbn = new JLabel("Data Base");
-		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblIntroduceElIsbn.setBounds(0, 52, 584, 28);
-		panel_1.add(lblIntroduceElIsbn);
+		lblDataBase = new JLabel("Data Base");
+		lblDataBase.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDataBase.setForeground(new Color(0, 0, 0));
+		lblDataBase.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblDataBase.setBounds(0, 52, 584, 28);
 
+		lblSeleccionaElArchivo = new JLabel("Selecciona l'arxiu sql a restaurar");
+		lblSeleccionaElArchivo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeleccionaElArchivo.setForeground(Color.BLACK);
+		lblSeleccionaElArchivo.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblSeleccionaElArchivo.setBounds(0, 110, 584, 28);
+		
 		//Volver
-		JButton btnVolver = new JButton("Tornar");
+		btnVolver = new JButton("Tornar");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 261, 268, 30);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+		
+		//Aceptar
+		btnRestaurar = new JButton("Restaura");
+		btnRestaurar.setBounds(316, 261, 268, 30);
+		btnRestaurar.setFocusPainted(false);
+		btnRestaurar.setBorderPainted(false);
+		btnRestaurar.setForeground(new Color(255, 255, 255));
+		btnRestaurar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnRestaurar.setBackground(new Color(0, 128, 192));
+		
+		contentPane.add(panelSecundario);
+		panelSecundario.add(lblDataBase);
+		panelSecundario.add(lblSeleccionaElArchivo);
+		panelSecundario.add(btnVolver);
+		panelSecundario.add(btnRestaurar);
+		
+		//Funciones
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuGestor frame = new MenuGestor();
@@ -71,19 +101,8 @@ public class VentanaRestauracion extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(new Color(255, 255, 255));
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(12, 261, 268, 30);
-		panel_1.add(btnVolver);
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
 		
-		//Aceptar
-		JButton btnNewButton = new JButton("Restaura");
-		btnNewButton.setBounds(316, 261, 268, 30);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnRestaurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de sql", "sql");
@@ -95,25 +114,13 @@ public class VentanaRestauracion extends JFrame {
                     java.io.File selectedFile = fileChooser.getSelectedFile();
                     String file = selectedFile.getAbsolutePath();
                     if (restaurarBackup(file)) {
-                    	JOptionPane.showMessageDialog(panel_1, "Restaurado correctamene", "Restauración", JOptionPane.INFORMATION_MESSAGE);
+                    	JOptionPane.showMessageDialog(panelSecundario, "Restaurado correctamene", "Restauración", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                    	JOptionPane.showMessageDialog(panel_1, "Algo ha salido mal", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
+                    	JOptionPane.showMessageDialog(panelSecundario, "Algo ha salido mal", "Error", JOptionPane.ERROR_MESSAGE);
+                    }// if else
+                }// if
 			}//actionPerformed
 		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnNewButton.setBackground(new Color(0, 128, 192));
-		
-		JLabel lblSeleccionaElArchivo = new JLabel("Selecciona el archivo sql a restaurar");
-		lblSeleccionaElArchivo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccionaElArchivo.setForeground(Color.BLACK);
-		lblSeleccionaElArchivo.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblSeleccionaElArchivo.setBounds(0, 110, 584, 28);
-		panel_1.add(lblSeleccionaElArchivo);
 	}// VentanaRestauracion
 	
 	public boolean restaurarBackup(String backupName) {
@@ -132,7 +139,7 @@ public class VentanaRestauracion extends JFrame {
 			while(leido > 0) {
 				os.write(buffer, 0, leido);
 				leido = fis.read(buffer);
-			}
+			}// while
 			os.flush();
 			os.close();
 			fis.close();
@@ -140,9 +147,9 @@ public class VentanaRestauracion extends JFrame {
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}// try catch
 		return false;
-	}
+	}//restaurarBackup
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

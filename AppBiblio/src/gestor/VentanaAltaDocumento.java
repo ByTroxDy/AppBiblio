@@ -10,9 +10,10 @@ import app.Documento;
 public class VentanaAltaDocumento extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblAlta, lblImagen, lblTituloDatos, lblIsbn, lblAutor, lblTipo, lblReplicas, lblBiblioteca;
+	private JLabel lblAlta, lblImagen, lblTituloDatos, lblTitulo, lblIsbn, lblAutor, lblTipo, lblReplicas, lblBiblioteca;
 	private JTextField textFieldTitulo, textFieldIsbn, textFieldAutor, textField, txtBenicarlo;
 	private JButton btnVolver, btnAceptar;
+	private JComboBox<Object> tipoBox;
 	
 	private int isbn, replicas;
 	private String titulo, autor, tipo, biblioteca;
@@ -36,22 +37,23 @@ public class VentanaAltaDocumento extends JFrame {
 		panelPrincipal.setBorder(null);
 		panelPrincipal.setBounds(0, 0, 592, 69);
 		panelPrincipal.setLayout(null);
-		contentPane.add(panelPrincipal);
 
 		// Titulo del panel Princial
 		lblAlta = new JLabel("ALTA DOCUMENT");
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblAlta.setBounds(95, 11, 375, 47);
-		panelPrincipal.add(lblAlta);
 		
 		// Imagen del titulo
 		lblImagen = new JLabel("");
 		lblImagen.setIcon(new ImageIcon(VentanaAltaDocumento.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(480, 0, 60, 69);
-		panelPrincipal.add(lblImagen);
 
+		panelPrincipal.add(lblAlta);
+		panelPrincipal.add(lblImagen);
+		contentPane.add(panelPrincipal);
+		
 		// panel de contenido
 		JPanel panelSecundario = new JPanel();
 		panelSecundario.setLayout(null);
@@ -59,7 +61,6 @@ public class VentanaAltaDocumento extends JFrame {
 		panelSecundario.setBackground(SystemColor.window);
 		panelSecundario.setBorder(null);
 		panelSecundario.setBounds(0, 70, 592, 297);
-		contentPane.add(panelSecundario);
 
 		// Titulo Introduce los datos
 		lblTituloDatos = new JLabel("Introdueix les dades");
@@ -67,13 +68,11 @@ public class VentanaAltaDocumento extends JFrame {
 		lblTituloDatos.setForeground(Color.BLACK);
 		lblTituloDatos.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblTituloDatos.setBounds(0, 26, 584, 28);
-		panelSecundario.add(lblTituloDatos);
 
 		// Labels y textField para la introducción de datos
-		JLabel lblTitulo = new JLabel("Títol");
+		lblTitulo = new JLabel("Títol");
 		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblTitulo.setBounds(53, 117, 36, 17);
-		panelSecundario.add(lblTitulo);
 
 		// TITULO
 		textFieldTitulo = new JTextField();
@@ -82,12 +81,10 @@ public class VentanaAltaDocumento extends JFrame {
 		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldTitulo.setColumns(10);
 		textFieldTitulo.setBounds(99, 115, 173, 21);
-		panelSecundario.add(textFieldTitulo);
 
 		lblIsbn = new JLabel("ISBN");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblIsbn.setBounds(53, 67, 36, 17);
-		panelSecundario.add(lblIsbn);
 
 		// isbn
 		textFieldIsbn = new JTextField();
@@ -96,12 +93,10 @@ public class VentanaAltaDocumento extends JFrame {
 		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldIsbn.setColumns(10);
 		textFieldIsbn.setBounds(99, 65, 173, 21);
-		panelSecundario.add(textFieldIsbn);
 
 		lblAutor = new JLabel("Autor");
 		lblAutor.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblAutor.setBounds(307, 66, 60, 17);
-		panelSecundario.add(lblAutor);
 
 		// AUTOR
 		textFieldAutor = new JTextField();
@@ -110,26 +105,21 @@ public class VentanaAltaDocumento extends JFrame {
 		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 12));
 		textFieldAutor.setColumns(10);
 		textFieldAutor.setBounds(357, 65, 192, 21);
-		panelSecundario.add(textFieldAutor);
 
 		lblTipo = new JLabel("Tipus");
 		lblTipo.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblTipo.setBounds(307, 115, 60, 17);
-		panelSecundario.add(lblTipo);
 		
-		JComboBox<Object> tipoBox = new JComboBox<Object>();
+		tipoBox = new JComboBox<Object>();
 		tipoBox.setFont(new Font("Dialog", Font.BOLD, 12));
 		tipoBox.setForeground(new Color(255, 255, 255));
 		tipoBox.setBackground(new Color(0, 128, 192));
-		tipoBox.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pel·lícula", "Documental", "Música" }));
+		tipoBox.setModel(new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pel·lícula", "Documental", "Música" }));
 		tipoBox.setBounds(357, 110, 192, 26);
-		panelSecundario.add(tipoBox);
 
 		lblReplicas = new JLabel("Repliques");
 		lblReplicas.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblReplicas.setBounds(15, 166, 71, 17);
-		panelSecundario.add(lblReplicas);
 		
 		//replicas
 		textField = new JTextField();
@@ -138,12 +128,10 @@ public class VentanaAltaDocumento extends JFrame {
 		textField.setFont(new Font("Dialog", Font.BOLD, 12));
 		textField.setColumns(10);
 		textField.setBounds(99, 164, 173, 21);
-		panelSecundario.add(textField);
 
 		lblBiblioteca = new JLabel("Biblio");
 		lblBiblioteca.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblBiblioteca.setBounds(307, 168, 60, 17);
-		panelSecundario.add(lblBiblioteca);
 		
 		//biblioteca
 		txtBenicarlo = new JTextField();
@@ -154,24 +142,14 @@ public class VentanaAltaDocumento extends JFrame {
 		txtBenicarlo.setFont(new Font("Dialog", Font.BOLD, 12));
 		txtBenicarlo.setColumns(10);
 		txtBenicarlo.setBounds(357, 165, 192, 21);
-		panelSecundario.add(txtBenicarlo);
 		
 		btnVolver = new JButton("Tornar");
-		btnVolver.addActionListener(new ActionListener() {
-			// función para cambiar de ventana haciendo click en el boton
-			public void actionPerformed(ActionEvent e) {
-				MenuGestor frame = new MenuGestor();
-				frame.setVisible(true);
-				dispose();
-			}// actionPerformed
-		});
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setBackground(new Color(0, 128, 192));
 		btnVolver.setBounds(12, 262, 282, 23);
-		panelSecundario.add(btnVolver);
 
 		btnAceptar = new JButton("Acceptar");
 		btnAceptar.setForeground(new Color(255, 255, 255));
@@ -180,6 +158,35 @@ public class VentanaAltaDocumento extends JFrame {
 		btnAceptar.setBorderPainted(false);
 		btnAceptar.setBackground(new Color(0, 128, 192));
 		btnAceptar.setBounds(317, 262, 267, 23);
+		
+		
+		panelSecundario.add(lblTituloDatos);
+		panelSecundario.add(lblTitulo);
+		panelSecundario.add(textFieldTitulo);
+		panelSecundario.add(lblIsbn);
+		panelSecundario.add(textFieldIsbn);
+		panelSecundario.add(lblAutor);
+		panelSecundario.add(textFieldAutor);
+		panelSecundario.add(lblTipo);
+		panelSecundario.add(tipoBox);
+		panelSecundario.add(lblReplicas);
+		panelSecundario.add(textField);
+		panelSecundario.add(lblBiblioteca);
+		panelSecundario.add(txtBenicarlo);
+		panelSecundario.add(btnVolver);
+		panelSecundario.add(btnAceptar);
+		contentPane.add(panelSecundario);
+
+		//Funciones
+		btnVolver.addActionListener(new ActionListener() {
+			// función para cambiar de ventana haciendo click en el boton
+			public void actionPerformed(ActionEvent e) {
+				MenuGestor frame = new MenuGestor();
+				frame.setVisible(true);
+				dispose();
+			}// actionPerformed
+		});
+		
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {
@@ -200,11 +207,11 @@ public class VentanaAltaDocumento extends JFrame {
 						VentanaAltaLibro.documento = doc;
 						VentanaAltaLibro frame = new VentanaAltaLibro();
 						frame.setVisible(true);
-					} else if (tipo == "Pelicula") {
+					} else if (tipo == "Pel·lícula") {
 						VentanaAltaPelicula.documento = doc;
 						VentanaAltaPelicula frame = new VentanaAltaPelicula();
 						frame.setVisible(true);
-					} else if (tipo == "Musica") {
+					} else if (tipo == "Música") {
 						VentanaAltaMusica.documento = doc;
 						VentanaAltaMusica frame = new VentanaAltaMusica();
 						frame.setVisible(true);
@@ -217,7 +224,6 @@ public class VentanaAltaDocumento extends JFrame {
 				}//if else
 			}//actionPerformed
 		});
-		panelSecundario.add(btnAceptar);
 	}//VentanaAltaDocumento
 	
 	public static void main(String[] args) {
