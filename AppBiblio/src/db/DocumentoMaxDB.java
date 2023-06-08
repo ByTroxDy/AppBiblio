@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,8 +23,11 @@ import app.Musica;
 import app.Pelicula;
 import app.Prestamos;
 import app.Reservas;
+import socio.VentanaConsultarDocumento;
 
 public class DocumentoMaxDB {
+	VentanaConsultarDocumento consultarDocumento = new VentanaConsultarDocumento();
+	
 	private int isbn, replicas, diasRetardo, diasPendientes;
 	private String nombre, autor;
 	private Date fechaPrestamo, fechaDevolucion, fechaReserva;
@@ -209,7 +214,8 @@ public class DocumentoMaxDB {
 			int cantidadPrestamos = countResult.getInt(1);
 
 			if (cantidadPrestamos >= 5) {
-				System.out.println("Has alcanzado el límite de préstamos permitidos.");
+				JOptionPane.showMessageDialog(consultarDocumento, "Has aconseguit el límit de préstecs permesos.",
+						"Avís", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
 		} catch (SQLException e) {
@@ -228,7 +234,8 @@ public class DocumentoMaxDB {
 			int cantidadPrestamosDocumento = checkResult.getInt(1);
 
 			if (cantidadPrestamosDocumento > 0) {
-				System.out.println("Ya has pedido prestado este documento.");
+				JOptionPane.showMessageDialog(consultarDocumento, "Ja has demanat aquest document.",
+						"Avís", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
 		} catch (SQLException e) {
@@ -268,7 +275,8 @@ public class DocumentoMaxDB {
 			return;
 		}
 
-		System.out.println("Préstamo realizado con éxito.");
+		JOptionPane.showMessageDialog(consultarDocumento, "Préstec realitzat amb èxit.",
+				"Préstec", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public boolean reservarDocumento(String usuario, int isbn) {
@@ -283,7 +291,6 @@ public class DocumentoMaxDB {
 			int cantidadReservasDocumento = checkResult.getInt(1);
 
 			if (cantidadReservasDocumento > 0) {
-				System.out.println("Ya has reservado este documento.");
 				return false;
 			}
 		} catch (SQLException e) {

@@ -20,7 +20,7 @@ public class VentanaDevolverDocumento extends JDialog {
 	static String usuario;
 
 	public VentanaDevolverDocumento(ArrayList<Prestamos> prestamos) {
-		setTitle("Devolver Documento");
+		setTitle("Tornar Document");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 
@@ -33,9 +33,9 @@ public class VentanaDevolverDocumento extends JDialog {
 		DefaultTableModel modeloTabla = new DefaultTableModel();
 
 		modeloTabla.addColumn("ISBN");
-		modeloTabla.addColumn("Fecha Prestamo");
-		modeloTabla.addColumn("Fecha Devolucion");
-		modeloTabla.addColumn("Dias Retardo");
+		modeloTabla.addColumn("Data Préstec");
+		modeloTabla.addColumn("Data Devolució");
+		modeloTabla.addColumn("Dies Retard");
 
 		// Llenar el modelo de tabla con los datos de los documentos
 		for (Prestamos prestamo : prestamos) {
@@ -60,8 +60,8 @@ public class VentanaDevolverDocumento extends JDialog {
 
 		JScrollPane scrollPane = new JScrollPane(tablaPrestamos);
 
-		btnVolver = new JButton("Volver");
-		btnDevolver = new JButton("Devolver");
+		btnVolver = new JButton("Enrere");
+		btnDevolver = new JButton("Tornar Document");
 
 		// Configurar el panel de botones
 		JPanel panelBotones = new JPanel();
@@ -88,12 +88,12 @@ public class VentanaDevolverDocumento extends JDialog {
 				
 				filaSeleccionada = tablaPrestamos.getSelectedRow();
 				if (filaSeleccionada == -1) {
-					JOptionPane.showMessageDialog(panel, "Selecciona un documento de la tabla.",
+					JOptionPane.showMessageDialog(panel, "Seleccioneu un document de la taula.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					isbn = (int) tablaPrestamos.getValueAt(filaSeleccionada, 0);
 					if (docDB.deletePrestamo(usuario, isbn)) {
-						JOptionPane.showMessageDialog(panel, "La devolucion ha sido efectuada.", "Devolucion",
+						JOptionPane.showMessageDialog(panel, "La devolució ha estat efectuada.", "Devolució",
 								JOptionPane.INFORMATION_MESSAGE);
 						VentanaAgregarComentario.isbn = isbn;
 						VentanaAgregarComentario ventana = new VentanaAgregarComentario();

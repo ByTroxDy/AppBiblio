@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 public class VentanaAgregarComentario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario, txtComentario;
-    private JButton btnGuardar;
+    private JButton btnOpcion, btnEnviar;
     
     static int isbn;
     static String usuario;
 
     public VentanaAgregarComentario() {
-        setTitle("Agregar Comentario");
+        setTitle("Afegir Comentari - Opcional");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
@@ -29,20 +29,30 @@ public class VentanaAgregarComentario extends JFrame {
         txtUsuario.setEditable(false);
         txtUsuario.setText(usuario);
 
-        JLabel lblComentario = new JLabel("Comentario:");
+        JLabel lblComentario = new JLabel("Comentari:");
         txtComentario = new JTextField(20);
         
-        btnGuardar = new JButton("Guardar");
+        btnOpcion = new JButton("No gràcies");
+        btnEnviar = new JButton("Enviar");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
         panel.add(lblComentario);
         panel.add(txtComentario);
-        panel.add(btnGuardar);
+        panel.add(btnOpcion);
+        panel.add(btnEnviar);
 
         getContentPane().add(panel);
+        
+        btnOpcion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ex) {
+                MenuSocio menu = new MenuSocio();
+                menu.setVisible(true);
+                dispose();
+            }
+        });
 
-        btnGuardar.addActionListener(new ActionListener() {
+        btnEnviar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
                 String comentario = txtComentario.getText();
                 DocumentoMaxDB docDB = new DocumentoMaxDB();
@@ -50,7 +60,7 @@ public class VentanaAgregarComentario extends JFrame {
                 docDB.guardarComentario(isbn, usuario, comentario);
 
                 JOptionPane.showMessageDialog(panel,
-                        "Comentario guardado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        "Comentari desat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 

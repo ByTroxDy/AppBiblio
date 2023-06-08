@@ -21,7 +21,7 @@ public class VentanaRegistro extends JFrame {
     private ArrayList<Usuario> usuarios;
 
 	public VentanaRegistro() {
-		super("Biblioteca App - Registrarse");
+		super("Biblioteca App - Registrar-se");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         
@@ -31,14 +31,14 @@ public class VentanaRegistro extends JFrame {
         panel.setLayout(new GridLayout(3, 2, 10, 10));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        JLabel lblUsuario = new JLabel("Nombre de usuario:");
+        JLabel lblUsuario = new JLabel("Nom d'usuari:");
         txtUsuario = new JTextField(20);
         
-        JLabel lblPassword = new JLabel("Contraseña:");
+        JLabel lblPassword = new JLabel("Contrasenya:");
         txtPassword = new JPasswordField(20);
         
-        btnVolver = new JButton("Volver");
-        btnRegistro = new JButton("Registrarse");
+        btnVolver = new JButton("Enrere");
+        btnRegistro = new JButton("Registrar-se");
         
         panel.add(lblUsuario);
 		panel.add(txtUsuario);
@@ -85,7 +85,7 @@ public class VentanaRegistro extends JFrame {
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro(nombre, password)) {
-                	JOptionPane.showMessageDialog(panel, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "Registre exitós", "Registre", JOptionPane.INFORMATION_MESSAGE);
     		        VentanaInicioSesion app = new VentanaInicioSesion();
     	            app.setVisible(true);
     	            dispose();

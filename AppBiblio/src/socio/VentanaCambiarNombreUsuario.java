@@ -17,7 +17,7 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 	private String usuarioActual, nuevoUsuario, contrasena;
 
 	public VentanaCambiarNombreUsuario() {
-		setTitle("Cambiar Nombre de Usuario");
+		setTitle("Canvia nom d'usuari");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 
@@ -25,17 +25,17 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		panel.setLayout(new GridLayout(4, 2, 10, 10));
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		JLabel lblUsuarioActual = new JLabel("Usuario actual:");
+		JLabel lblUsuarioActual = new JLabel("Usuari actual:");
 		txtUsuarioActual = new JTextField();
 
-		JLabel lblNuevoUsuario = new JLabel("Nuevo usuario:");
+		JLabel lblNuevoUsuario = new JLabel("Nou usuari:");
 		txtNuevoUsuario = new JTextField();
 
-		JLabel lblContrasena = new JLabel("Contraseña:");
+		JLabel lblContrasena = new JLabel("Contrasenya:");
 		txtContrasena = new JPasswordField();
 
-		btnCancelar = new JButton("Cancelar");
-		btnGuardarCambios = new JButton("Guardar Cambios");
+		btnCancelar = new JButton("Cancel·la");
+		btnGuardarCambios = new JButton("Desa Canvis");
 
 		panel.add(lblUsuarioActual);
 		panel.add(txtUsuarioActual);
@@ -66,17 +66,17 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 
 				// Validar la cuenta del usuario actual
 				if (!usuDB.validarCuenta(usuarioActual, contrasena)) {
-					JOptionPane.showMessageDialog(panel, "El usuario actual y la contraseña no coinciden.", "Error",
+					JOptionPane.showMessageDialog(panel, "L'usuari actual i la contrasenya no coincideixen.", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else // Verificar si el nuevo usuario ya está en uso
 				if (usuDB.nombreUsuarioEnUso(nuevoUsuario)) {
 					JOptionPane.showMessageDialog(panel,
-							"El nuevo nombre de usuario ya está en uso. Por favor, elija otro.", "Error",
+							"El nom d'usuari nou ja està en ús. Si us plau, escolliu un altre.", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else { // Actualizar el usuario en la base de datos
 					usuDB.actualizarNombreUsuario(usuarioActual, nuevoUsuario);
-					JOptionPane.showMessageDialog(panel, "El nombre de usuario se ha actualizado correctamente.",
-							"Éxito", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(panel, "S'ha actualitzat correctament el nom d'usuari.",
+							"Èxit", JOptionPane.INFORMATION_MESSAGE);
 				}
 
 				txtUsuarioActual.setText("");

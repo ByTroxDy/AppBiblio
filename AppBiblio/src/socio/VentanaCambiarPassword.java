@@ -17,7 +17,7 @@ public class VentanaCambiarPassword extends JFrame {
     String usuario, contrasenaActual, nuevaContrasena;
 
     public VentanaCambiarPassword() {
-        setTitle("Cambiar Contraseña");
+        setTitle("Canviar Contrasenya");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
@@ -25,17 +25,17 @@ public class VentanaCambiarPassword extends JFrame {
         panel.setLayout(new GridLayout(4, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblUsuario = new JLabel("Nombre de Usuario:");
+        JLabel lblUsuario = new JLabel("Nom d'usuari:");
         txtUsuario = new JTextField();
 
-        JLabel lblContrasenaActual = new JLabel("Contraseña Actual:");
+        JLabel lblContrasenaActual = new JLabel("Contrasenya Actual:");
         txtContrasenaActual = new JPasswordField();
 
-        JLabel lblNuevaContrasena = new JLabel("Nueva Contraseña:");
+        JLabel lblNuevaContrasena = new JLabel("Nova Contrasenya:");
         txtNuevaContrasena = new JPasswordField();
         
-        btnCancelar = new JButton("Cancelar");
-        btnGuardarCambios = new JButton("Cambiar Contraseña");
+        btnCancelar = new JButton("Cancel·la");
+        btnGuardarCambios = new JButton("Canviar Contrasenya");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
@@ -64,9 +64,9 @@ public class VentanaCambiarPassword extends JFrame {
                 
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 if (!usuDB.validarCuenta(usuario, contrasenaActual)) {
-                	JOptionPane.showMessageDialog(panel, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "La contrasenya actual és incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (usuDB.cambiarContrasena(usuario, nuevaContrasena)) {
-                	JOptionPane.showMessageDialog(panel, "Contraseña actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "Contrasenya actualitzada correctament.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
                 txtUsuario.setText("");
