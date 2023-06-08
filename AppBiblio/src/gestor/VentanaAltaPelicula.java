@@ -31,26 +31,26 @@ public class VentanaAltaPelicula extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		JPanel panelTitle = new JPanel();
-		panelTitle.setBackground(new Color(0, 128, 192));
-		panelTitle.setForeground(new Color(0, 0, 0));
-		panelTitle.setBorder(null);
-		panelTitle.setBounds(0, 0, 592, 70);
-		panelTitle.setLayout(null);
-		contentPane.add(panelTitle);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(new Color(0, 128, 192));
+		panelPrincipal.setForeground(new Color(0, 0, 0));
+		panelPrincipal.setBorder(null);
+		panelPrincipal.setBounds(0, 0, 592, 70);
+		panelPrincipal.setLayout(null);
+		contentPane.add(panelPrincipal);
 		
 		JLabel lblAlta = new JLabel("ALTA PELÍCULA");
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setBounds(125, 11, 320, 48);
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
-		panelTitle.add(lblAlta);
+		panelPrincipal.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(455, 0, 84, 70);
-		panelTitle.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(455, 0, 84, 70);
+		panelPrincipal.add(lblImagen);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

@@ -17,10 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import app.Documental;
 import app.Documento;
@@ -64,11 +61,11 @@ public class VentanaModificarDocumental extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 35));
 		panel.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(506, 0, 60, 73);
-		panel.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(506, 0, 60, 73);
+		panel.add(lblImagen);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -97,7 +94,7 @@ public class VentanaModificarDocumental extends JFrame {
 		panel_1.add(textFieldProductora);
 		textFieldProductora.setColumns(10);
 
-		JLabel lblPremios = new JLabel("Premios");
+		JLabel lblPremios = new JLabel("Premis");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblPremios.setBounds(32, 132, 79, 17);
 		panel_1.add(lblPremios);
@@ -122,7 +119,7 @@ public class VentanaModificarDocumental extends JFrame {
 		textFieldDocRelacionados.setBounds(308, 174, 149, 20);
 		panel_1.add(textFieldDocRelacionados);
 		
-		JLabel lblDuracion = new JLabel("Duración");
+		JLabel lblDuracion = new JLabel("Duració");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDuracion.setBounds(319, 90, 79, 17);
 		panel_1.add(lblDuracion);
@@ -135,7 +132,7 @@ public class VentanaModificarDocumental extends JFrame {
 		textFieldDuracion.setBounds(396, 90, 149, 20);
 		panel_1.add(textFieldDuracion);
 		
-		JLabel lblFormato = new JLabel("Formato");
+		JLabel lblFormato = new JLabel("Format");
 		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblFormato.setBounds(319, 132, 79, 17);
 		panel_1.add(lblFormato);

@@ -44,10 +44,10 @@ public class VentanaBajaDocumento extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		panel.add(lblAlta);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/img/icono32.png"));
-		lblNewLabel.setBounds(491, 0, 55, 70);
-		panel.add(lblNewLabel);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setBounds(491, 0, 55, 70);
+		panel.add(lblImagen);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);

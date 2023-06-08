@@ -470,15 +470,16 @@ public class DocumentoMaxDB {
 	}
 
 	public void insertarDocumento(Documento documento) {
-		String query = "INSERT INTO documentos (isbn, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO documentos (isbn, tipo, titulo, autor, replicas, biblioteca, fecha_alta) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
 			statement.setInt(1, documento.getISBN());
-			statement.setString(2, documento.getTitulo());
-			statement.setString(3, documento.getAutor());
-			statement.setInt(4, documento.getReplicas());
-			statement.setString(5, documento.getBiblioteca());
-			statement.setDate(6, new java.sql.Date(new Date().getTime()));
+			statement.setString(2, documento.getTipo());
+			statement.setString(3, documento.getTitulo());
+			statement.setString(4, documento.getAutor());
+			statement.setInt(5, documento.getReplicas());
+			statement.setString(6, documento.getBiblioteca());
+			statement.setDate(7, new java.sql.Date(new Date().getTime()));
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -492,7 +493,7 @@ public class DocumentoMaxDB {
 	}//insertarDocumento
 
 	public void insertarLibro(Libro libro) {
-		String query = "INSERT INTO libros (isbn, editorial, npaginas , tematica) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO libros (isbn, editorial, npaginas, tematica) VALUES (?, ?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query);) {
 
 			statement.setInt(1, libro.getISBN());
@@ -603,6 +604,7 @@ public class DocumentoMaxDB {
 		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
 		try  (PreparedStatement statement = conn.prepareStatement(query)) {
 			
+			statement.setInt(1, isbn);
 			ResultSet checkResult = statement.executeQuery();
 			checkResult.next();
 			tipo = checkResult.getString(1);
@@ -690,13 +692,14 @@ public class DocumentoMaxDB {
 	}
 	
 	public void updateDocumento(Documento documento){
-		String query = "UPDATE documentos SET titulo = ?, autor = ?, replicas = ? WHERE isbn = ?";
+		String query = "UPDATE documentos SET tipo = ?, titulo = ?, autor = ?, replicas = ? WHERE isbn = ?";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 			
-			statement.setString(1, documento.getTitulo());
-			statement.setString(2, documento.getAutor());
-			statement.setInt(3, documento.getReplicas());	
-			statement.setInt(4, documento.getISBN());
+			statement.setString(1, documento.getTipo());
+			statement.setString(2, documento.getTitulo());
+			statement.setString(3, documento.getAutor());
+			statement.setInt(4, documento.getReplicas());	
+			statement.setInt(5, documento.getISBN());
 
 			statement.executeUpdate();
 			
@@ -813,59 +816,6 @@ public class DocumentoMaxDB {
 			return false;
 		}//try catch
 	}//bajaDocumento
-
-	// BAKUP
-	public void copiaSeguridad(String backupName) {
-		Process process;
-		InputStream is;
-		FileOutputStream fos;
-		byte[] buffer = new byte[1000];
-		int leido;
-		
-		try {
-			process = Runtime.getRuntime().exec("mysqldump -h 10.2.18.166 -u admins -padmins app_biblioteca");
-			is = process.getInputStream();
-			fos = new FileOutputStream("backups/" + backupName+".sql");
-			leido = is.read(buffer);
-			
-			while(leido > 0) {
-				fos.write(buffer, 0, leido);
-				leido = is.read(buffer);
-			}//while
-			
-			fos.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}//try catch	
-	}//copiaSeguridad
-
-	// RESTAURE
-	public void restaurarBackup(String backupName) {
-		Process process;
-		OutputStream os;
-		FileInputStream fis;
-		byte[] buffer = new byte[1000];
-		int leido;
-		
-		try {
-			process = Runtime.getRuntime().exec("mysql -h 192.168.50.112 -u phpmyadmin -pphpmyadmin test");
-			os = process.getOutputStream();
-			fis = new FileInputStream("backups/" + backupName+".sql");
-			leido = fis.read(buffer);
-			
-			while(leido > 0) {
-				os.write(buffer, 0, leido);
-				leido = fis.read(buffer);
-			}//while
-			os.flush();
-			os.close();
-			fis.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}//try catch	
-	}//restaurarBackup
 	
 	// CLOSE
 	public void cerrarConexion() {

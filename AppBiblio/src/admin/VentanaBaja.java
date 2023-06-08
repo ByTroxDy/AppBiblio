@@ -6,7 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import db.UsuarioMaxDB;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -15,15 +18,18 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
+@SuppressWarnings("serial")
 public class VentanaBaja extends JFrame {
 
 	private JPanel panel;
 	private JTextField usuariText;
-	private JPasswordField passwordText;
+	private JPasswordField contraText;
 	private JButton btnNewButton;
 	private JButton BorrarButton;
 	private final Action action = new Eixir();
 	private final Action action_1 = new Borrar();
+	private JTextField adminUser;
+	private JLabel adminLabel;
 
 	/**
 	 * Launch the application.
@@ -63,17 +69,17 @@ public class VentanaBaja extends JFrame {
 		panel.add(Titulo);
 		
 		JLabel usuarioLabel = new JLabel("Usuari");
-		usuarioLabel.setBounds(38, 79, 61, 16);
+		usuarioLabel.setBounds(31, 63, 61, 16);
 		panel.add(usuarioLabel);
 		
 		usuariText = new JTextField();
-		usuariText.setBounds(135, 74, 187, 26);
+		usuariText.setBounds(135, 58, 187, 26);
 		panel.add(usuariText);
 		usuariText.setColumns(10);
 		
-		passwordText = new JPasswordField();
-		passwordText.setBounds(135, 126, 187, 26);
-		panel.add(passwordText);
+		contraText = new JPasswordField();
+		contraText.setBounds(135, 126, 187, 26);
+		panel.add(contraText);
 		
 		JLabel contraLabel = new JLabel("Contrasenya");
 		contraLabel.setBounds(21, 131, 78, 16);
@@ -88,6 +94,15 @@ public class VentanaBaja extends JFrame {
 		BorrarButton.setAction(action);
 		BorrarButton.setBounds(31, 198, 117, 29);
 		panel.add(BorrarButton);
+		
+		adminUser = new JTextField();
+		adminUser.setBounds(135, 96, 187, 26);
+		panel.add(adminUser);
+		adminUser.setColumns(10);
+		
+		adminLabel = new JLabel("Admin");
+		adminLabel.setBounds(31, 101, 61, 16);
+		panel.add(adminLabel);
 	}//admniistradorBaja
 	private class Eixir extends AbstractAction {
 		public Eixir() {
@@ -106,11 +121,26 @@ public class VentanaBaja extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			String usuario;
-			String contra;
-			
+			String usuario, admin, contra, grupo;
+			admin= adminUser.getText();
 			usuario= usuariText.getText();
-			contra= new String (passwordText.getPassword());
+			contra= new String(contraText.getPassword());
+			
+			UsuarioMaxDB usuDB = new UsuarioMaxDB();
+			grupo = usuDB.obtenerGrupo(admin);
+			if (usuDB.iniciarSesion(admin, contra)&&grupo.equals("admin")) {
+				if (usuDB.nombreUsuarioEnUso(usuario)) {
+					usuDB.bajaUsuario(usuario);
+					MenuAdmin admin1 = new MenuAdmin();
+					admin1.setVisible(true);
+	            	JOptionPane.showMessageDialog(panel, "Usuari esborrat correctament", "Registre", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+				} else {
+	            	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Registre", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+            	JOptionPane.showMessageDialog(panel, "Admin o contrasenya incorrectes", "Registre", JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 		}//actionPerformed
 	}//Borrar

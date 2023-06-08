@@ -14,6 +14,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
+@SuppressWarnings("serial")
 public class VentanaNotifi extends JFrame {
 
 	private JPanel panel;
