@@ -122,7 +122,7 @@ public class VentanaAltaDocumento extends JFrame {
 		tipoBox.setForeground(new Color(255, 255, 255));
 		tipoBox.setBackground(new Color(0, 128, 192));
 		tipoBox.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pelicula", "Musica", "Documental" }));
+				new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pel·lícula", "Documental", "Música" }));
 		tipoBox.setBounds(357, 110, 192, 26);
 		panelSecundario.add(tipoBox);
 

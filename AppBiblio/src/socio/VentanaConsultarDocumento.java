@@ -16,7 +16,8 @@ import java.util.ArrayList;
 
 public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtTitulo, txtTipo;
+	private JTextField txtTitulo;
+	private JComboBox<Object> cmbTipo;
 	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc;
 
 	private int filaSeleccionada, isbn;
@@ -37,10 +38,10 @@ public class VentanaConsultarDocumento extends JDialog {
 		txtTitulo = new JTextField(20);
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTipo = new JTextField(20);
-		txtTipo.setHorizontalAlignment(SwingConstants.CENTER);
+	 	JLabel lblTipo = new JLabel("Tipus");
+        lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+        String[] tiposDocumento = {"Tots", "Llibre", "Pel·lícula", "Documental", "Música"};
+        cmbTipo = new JComboBox<>(tiposDocumento);
 
 		btnVolver = new JButton("Enrere");
 		btnBuscar = new JButton("Cerca");
@@ -48,7 +49,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		panel.add(lblTitulo);
 		panel.add(txtTitulo);
 		panel.add(lblTipo);
-		panel.add(txtTipo);
+		panel.add(cmbTipo);
 		panel.add(btnVolver);
 		panel.add(btnBuscar);
 
@@ -73,7 +74,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
 				titulo = txtTitulo.getText();
-				tipo = txtTipo.getText();
+				tipo = (String) cmbTipo.getSelectedItem();
 
 				consultarDocumentos(titulo, tipo);
 				dispose();
@@ -96,16 +97,16 @@ public class VentanaConsultarDocumento extends JDialog {
 		ArrayList<Documento> documentos;
 		DocumentoMaxDB docDB = new DocumentoMaxDB();
 		UsuarioMaxDB usuDB = new UsuarioMaxDB();
-
-		if (!titulo.isEmpty() && tipo.isEmpty()) {
-			documentos = docDB.consultarDocumentosPorNombre(titulo);
-		} else if (titulo.isEmpty() && !tipo.isEmpty()) {
-			documentos = docDB.consultarDocumentosPorTipo(tipo);
-		} else if (!titulo.isEmpty() && !tipo.isEmpty()) {
-			documentos = docDB.consultarDocumentosPorNombreYTipo(titulo, tipo);
-		} else {
-			documentos = docDB.consultarTodosDocumentos();
-		}
+		
+		if (!titulo.isEmpty() && tipo.equals("Tots")) {
+	        documentos = docDB.consultarDocumentosPorNombre(titulo);
+	    } else if (titulo.isEmpty() && !tipo.equals("Tots")) {
+	        documentos = docDB.consultarDocumentosPorTipo(tipo);
+	    } else if (!titulo.isEmpty() && !tipo.equals("Tots")) {
+	        documentos = docDB.consultarDocumentosPorNombreYTipo(titulo, tipo);
+	    } else {
+	        documentos = docDB.consultarTodosDocumentos();
+	    }
 
 		if (documentos.isEmpty()) {
 			JOptionPane.showMessageDialog(this,
@@ -120,7 +121,7 @@ public class VentanaConsultarDocumento extends JDialog {
 
 			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Títol");
-			modeloTabla.addColumn("Tipo");
+			modeloTabla.addColumn("Tipus");
 			modeloTabla.addColumn("Estat");
 
 			// Llenar el modelo de tabla con los datos de los documentos
@@ -171,9 +172,6 @@ public class VentanaConsultarDocumento extends JDialog {
 			panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
 
 			ventanaResultados.getContentPane().add(panelPrincipal);
-			ventanaResultados.pack();
-			ventanaResultados.setLocationRelativeTo(null);
-			ventanaResultados.setVisible(true);
 			
 			if (usuario == null) {
 				btnPedirReserva.setVisible(false);
@@ -238,15 +236,19 @@ public class VentanaConsultarDocumento extends JDialog {
 
 				}
 			});
+			
+			ventanaResultados.pack();
+			ventanaResultados.setVisible(true);
+			ventanaResultados.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 		}
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
-				ventana.setVisible(true);
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
+//				ventana.setVisible(true);
+//			}
+//		});
+//	}
 }

@@ -130,14 +130,13 @@ public class VentanaInicioSesion extends JFrame {
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				VentanaInicioSesion app = new VentanaInicioSesion();
-				app.setVisible(true);
-			}
-		});
-	}
-
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				VentanaInicioSesion app = new VentanaInicioSesion();
+//				app.setVisible(true);
+//			}
+//		});
+//	}
 }

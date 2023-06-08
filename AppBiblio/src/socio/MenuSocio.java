@@ -116,13 +116,13 @@ public class MenuSocio extends JFrame {
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				MenuSocio menu = new MenuSocio();
-				menu.setVisible(true);
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				MenuSocio menu = new MenuSocio();
+//				menu.setVisible(true);
+//			}
+//		});
+//	}
 }

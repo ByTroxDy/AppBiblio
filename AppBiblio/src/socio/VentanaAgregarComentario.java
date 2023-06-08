@@ -12,6 +12,8 @@ public class VentanaAgregarComentario extends JFrame {
 	private JTextField txtUsuario, txtComentario;
     private JButton btnOpcion, btnEnviar;
     
+    MenuSocio menu = new MenuSocio();
+    
     static int isbn;
     static String usuario;
 
@@ -46,7 +48,6 @@ public class VentanaAgregarComentario extends JFrame {
         
         btnOpcion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
-                MenuSocio menu = new MenuSocio();
                 menu.setVisible(true);
                 dispose();
             }
@@ -61,6 +62,9 @@ public class VentanaAgregarComentario extends JFrame {
 
                 JOptionPane.showMessageDialog(panel,
                         "Comentari desat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
+                
+                menu.setVisible(true);
+                dispose();
             }
         });
 
@@ -68,12 +72,12 @@ public class VentanaAgregarComentario extends JFrame {
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                VentanaAgregarComentario ventana = new VentanaAgregarComentario();
-                ventana.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                VentanaAgregarComentario ventana = new VentanaAgregarComentario();
+//                ventana.setVisible(true);
+//            }
+//        });
+//    }
 }
