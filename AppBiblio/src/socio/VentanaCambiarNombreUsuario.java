@@ -14,7 +14,8 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 	private JPasswordField txtContrasena;
 	private JButton btnCancelar, btnGuardarCambios;
 
-	private String usuarioActual, nuevoUsuario, contrasena;
+	private String nuevoUsuario, contrasena;
+	static String usuarioActual;
 
 	public VentanaCambiarNombreUsuario() {
 		setTitle("Canvia nom d'usuari");
@@ -25,14 +26,16 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		panel.setLayout(new GridLayout(4, 2, 10, 10));
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		JLabel lblUsuarioActual = new JLabel("Usuari actual:");
-		txtUsuarioActual = new JTextField();
+        JLabel lblUsuarioActual = new JLabel("Usuari actual:");
+        txtUsuarioActual = new JTextField(20);
+        txtUsuarioActual.setEditable(false);
+        txtUsuarioActual.setText(usuarioActual);
 
 		JLabel lblNuevoUsuario = new JLabel("Nou usuari:");
-		txtNuevoUsuario = new JTextField();
+		txtNuevoUsuario = new JTextField(20);
 
 		JLabel lblContrasena = new JLabel("Contrasenya:");
-		txtContrasena = new JPasswordField();
+		txtContrasena = new JPasswordField(20);
 
 		btnCancelar = new JButton("Cancel·la");
 		btnGuardarCambios = new JButton("Desa");
