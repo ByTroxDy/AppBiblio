@@ -150,7 +150,7 @@ public class VentanaAltaUsuario extends JFrame {
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro2(usuario, contra, Select)) {
-                	JOptionPane.showMessageDialog(panel, "Registro exitoso", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "Registre exitos", "Registre", JOptionPane.INFORMATION_MESSAGE);
                 	MenuAdmin app = new MenuAdmin();
     	            app.setVisible(true);
     	            dispose();
@@ -161,9 +161,9 @@ public class VentanaAltaUsuario extends JFrame {
                 contraText.setText("");
                 ConfirmarContra.setText("");
 			} else if(usuario.length()>6 || contra.length()>8) {
-            	JOptionPane.showMessageDialog(panel, "Contraseña o usuario  demasiado largo", "Registro", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Contrasenya o usuari masa llargs", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-            	JOptionPane.showMessageDialog(panel, "Contraseña y Confirmar contraseña no coinciden", "Registro", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Contrasenya y Confirmar contrasenya no coincidixen", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}//actionPerformed
 	}//Registrar

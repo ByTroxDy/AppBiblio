@@ -29,8 +29,8 @@ public class VentanaConsultarReservas extends JDialog {
 		DefaultTableModel modeloTabla = new DefaultTableModel();
 
 		modeloTabla.addColumn("ISBN");
-		modeloTabla.addColumn("Fecha Reserva");
-		modeloTabla.addColumn("Dias Pendientes");
+		modeloTabla.addColumn("Data Reserva");
+		modeloTabla.addColumn("Dies Pendents");
 
 		// Llenar el modelo de tabla con los datos de los documentos
 		for (Reservas reserva : reservas) {
@@ -54,7 +54,7 @@ public class VentanaConsultarReservas extends JDialog {
 
 		JScrollPane scrollPane = new JScrollPane(tablaReservas);
 
-		btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Enrere");
 
 		// Configurar el panel de botones
 		JPanel panelBotones = new JPanel();

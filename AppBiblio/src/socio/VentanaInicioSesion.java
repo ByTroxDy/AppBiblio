@@ -21,28 +21,22 @@ public class VentanaInicioSesion extends JFrame {
 	public String usuario, password, grupo;
 
 	public VentanaInicioSesion() {
-		super("Biblioteca App - Iniciar sesión");
+		super("Biblioteca App - Iniciar sessió");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
-//		Image icon = new ImageIcon(getClass().getResource("/img/icono32.png")).getImage();
-//        setIconImage(icon);
-//        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icono32.png"));
-//        setIconImage(icon);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(3, 2, 10, 10));
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JLabel lblUsuario = new JLabel("Nombre de usuario:");
+		JLabel lblUsuario = new JLabel("Nom d'usuari:");
 		txtUsuario = new JTextField(20);
 
-		JLabel lblPassword = new JLabel("Contraseña:");
+		JLabel lblPassword = new JLabel("Contrasenya:");
 		txtPassword = new JPasswordField(20);
 
-		btnLogin = new JButton("Iniciar sesión");
-		btnRegistro = new JButton("Registrarse");
-		btnConsultarDocumento = new JButton("Consultar Documento");
+		btnLogin = new JButton("Iniciar sessió");
+		btnRegistro = new JButton("Registrar-se");
 
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);

@@ -24,7 +24,7 @@ public class VentanaConsultarDocumento extends JDialog {
 	static String usuario, grupo;
 
 	public VentanaConsultarDocumento() {
-		setTitle("Consultar Documento");
+		setTitle("Consultar Document");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 
@@ -32,7 +32,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		panel.setLayout(new GridLayout(3, 2, 10, 10));
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JLabel lblTitulo = new JLabel("Título");
+		JLabel lblTitulo = new JLabel("Títol");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTitulo = new JTextField(20);
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -42,8 +42,8 @@ public class VentanaConsultarDocumento extends JDialog {
 		txtAutor = new JTextField(20);
 		txtAutor.setHorizontalAlignment(SwingConstants.CENTER);
 
-		btnVolver = new JButton("Volver");
-		btnBuscar = new JButton("Buscar");
+		btnVolver = new JButton("Enrere");
+		btnBuscar = new JButton("Cerca");
 
 		panel.add(lblTitulo);
 		panel.add(txtTitulo);
@@ -109,19 +109,19 @@ public class VentanaConsultarDocumento extends JDialog {
 
 		if (documentos.isEmpty()) {
 			JOptionPane.showMessageDialog(this,
-					"No se encontraron documentos que coincidan con los criterios de búsqueda.", "Aviso",
+					"No s'han trobat documents que coincideixin amb els criteris de cerca.", "Avís",
 					JOptionPane.INFORMATION_MESSAGE);
 		} else {
 
-			JFrame ventanaResultados = new JFrame("Resultados de la consulta");
+			JFrame ventanaResultados = new JFrame("Resultats de la consulta");
 
 			// Crear un modelo de tabla para los documentos
 			DefaultTableModel modeloTabla = new DefaultTableModel();
 
 			modeloTabla.addColumn("ISBN");
-			modeloTabla.addColumn("Titulo");
+			modeloTabla.addColumn("Títol");
 			modeloTabla.addColumn("Autor");
-			modeloTabla.addColumn("Estado");
+			modeloTabla.addColumn("Estat");
 
 			// Llenar el modelo de tabla con los datos de los documentos
 			for (Documento documento : documentos) {
@@ -132,9 +132,9 @@ public class VentanaConsultarDocumento extends JDialog {
 				fila[3] = documento.getReplicas();
 
 				if (documento.getReplicas() != 0) {
-					fila[3] = "Libre";
+					fila[3] = "Lliure";
 				} else {
-					fila[3] = "Reservado";
+					fila[3] = "Reservat";
 				}
 
 				modeloTabla.addRow(fila);
@@ -152,9 +152,9 @@ public class VentanaConsultarDocumento extends JDialog {
 
 			JScrollPane scrollPane = new JScrollPane(tablaDocumentos);
 
-			btnVolverBuscar = new JButton("Volver a Buscar");
-			btnPedirReserva = new JButton("Pedir Reserva");
-			btnBajaDoc = new JButton("Dar de baja");
+			btnVolverBuscar = new JButton("Tornar a Cerca");
+			btnPedirReserva = new JButton("Demanar Reserva");
+			btnBajaDoc = new JButton("Donar de baixa");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
@@ -197,23 +197,23 @@ public class VentanaConsultarDocumento extends JDialog {
 				public void actionPerformed(ActionEvent ex) {
 					filaSeleccionada = tablaDocumentos.getSelectedRow();
 					if (filaSeleccionada == -1) {
-						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+						JOptionPane.showMessageDialog(ventanaResultados, "Seleccioneu un document de la taula.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 						replicas = (String) tablaDocumentos.getValueAt(filaSeleccionada, 3);
 						if (usuDB.validarSancion(usuario)) {
 							JOptionPane.showMessageDialog(ventanaResultados,
-									"Estas baneado no podras solicitar ningun documento.", "Error",
+									"Aquestes banejades no podràs sol·licitar cap document.", "Error",
 									JOptionPane.ERROR_MESSAGE);
-						} else if (replicas == "Libre") {
+						} else if (replicas == "Lliure") {
 							docDB.prestamoDocumento(usuario, isbn);
 						} else {
 							if (docDB.reservarDocumento(usuario, isbn)) {
-								JOptionPane.showMessageDialog(ventanaResultados, "Reserva realizada con éxito.",
+								JOptionPane.showMessageDialog(ventanaResultados, "Reserva feta amb èxit.",
 										"Reserva", JOptionPane.INFORMATION_MESSAGE);
 							} else {
-								JOptionPane.showMessageDialog(ventanaResultados, "Ya has reservado este documento.",
+								JOptionPane.showMessageDialog(ventanaResultados, "Ja heu reservat aquest document.",
 										"Error", JOptionPane.ERROR_MESSAGE);
 							}
 
@@ -226,13 +226,13 @@ public class VentanaConsultarDocumento extends JDialog {
 				public void actionPerformed(ActionEvent ex) {
 					filaSeleccionada = tablaDocumentos.getSelectedRow();
 					if (filaSeleccionada == -1) {
-						JOptionPane.showMessageDialog(ventanaResultados, "Selecciona un documento de la tabla.",
+						JOptionPane.showMessageDialog(ventanaResultados, "Seleccioneu un document de la taula.",
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
 						docDB.bajaDocumento(isbn);
 						JOptionPane.showMessageDialog(ventanaResultados,
-								"Se ha dado de baja correctamenete al isbn: " + isbn, "Baja documento",
+								"S'ha donat de baixa correctament a l'isbn: " + isbn, "Baixa document",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 

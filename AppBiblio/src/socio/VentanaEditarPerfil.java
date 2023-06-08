@@ -13,7 +13,7 @@ public class VentanaEditarPerfil extends JFrame {
     private JButton btnVolver;
 
     public VentanaEditarPerfil() {
-        setTitle("Cuenta");
+        setTitle("Compte");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
@@ -25,10 +25,10 @@ public class VentanaEditarPerfil extends JFrame {
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        btnCambiarUsuario = new JButton("Cambiar Nombre de Usuario");
-        btnCambiarContrasena = new JButton("Cambiar Contraseña");
-        btnCambiarEmail = new JButton("Cambiar Email");
-        btnVolver = new JButton("Volver");
+        btnCambiarUsuario = new JButton("Canvia Nom d'usuari");
+        btnCambiarContrasena = new JButton("Canviar Contrasenya");
+        btnCambiarEmail = new JButton("Canviar Email");
+        btnVolver = new JButton("Enrere");
 
         panel.add(lblTitulo);
         panel.add(btnCambiarUsuario);

@@ -17,7 +17,7 @@ public class VentanaCambiarEmail extends JFrame {
     private String usuario, contrasena, email;
 
     public VentanaCambiarEmail() {
-        setTitle("Cambiar Email");
+        setTitle("Canviar Email");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 
@@ -25,17 +25,17 @@ public class VentanaCambiarEmail extends JFrame {
         panel.setLayout(new GridLayout(4, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblUsuario = new JLabel("Nombre de Usuario:");
+        JLabel lblUsuario = new JLabel("Nom d'usuari:");
         txtUsuario = new JTextField();
 
-        JLabel lblContrasena = new JLabel("Contraseña:");
+        JLabel lblContrasena = new JLabel("Contrasenya:");
         txtContrasena = new JPasswordField();
 
         JLabel lblEmail = new JLabel("Email:");
         txtEmail = new JTextField();
         
-        btnCancelar = new JButton("Cancelar");
-        btnGuardarCambios = new JButton("Guardar Cambios");
+        btnCancelar = new JButton("Cancel·la");
+        btnGuardarCambios = new JButton("Desa Canvis");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
@@ -64,9 +64,9 @@ public class VentanaCambiarEmail extends JFrame {
                 
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 if (!usuDB.validarCuenta(usuario, contrasena)) {
-                	JOptionPane.showMessageDialog(panel, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "La contrasenya actual és incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (usuDB.cambiarEmail(usuario, email)) {
-                	JOptionPane.showMessageDialog(panel, "Email actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "Email actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
                 txtUsuario.setText("");

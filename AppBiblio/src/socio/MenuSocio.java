@@ -19,7 +19,7 @@ public class MenuSocio extends JFrame {
 	static String usuario;
 
 	public MenuSocio() {
-		setTitle("Menu Socio");
+		setTitle("Menu Soci");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
@@ -27,15 +27,15 @@ public class MenuSocio extends JFrame {
 		mainPanel.setLayout(new GridLayout(6, 2, 10, 10));
 		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JLabel lblTitulo = new JLabel("Bienvenido a la Biblioteca App");
+		JLabel lblTitulo = new JLabel("Benvingut a la Biblioteca App");
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
 		btnEditarPerfil = new JButton("Editar Perfil");
-		btnConsultarDocumentos = new JButton("Consultar Documentos");
-		btnDevolverDocumento = new JButton("Devolver Documento");
-		btnConsultarReservas = new JButton("Consultar Mis Reservas");
-		btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnConsultarDocumentos = new JButton("Consultar Documents");
+		btnDevolverDocumento = new JButton("Tornar Document");
+		btnConsultarReservas = new JButton("Consultar les meves Reserves");
+		btnCerrarSesion = new JButton("Tancar Sessió");
 
 		mainPanel.add(lblTitulo);
 		mainPanel.add(btnEditarPerfil);
@@ -74,7 +74,7 @@ public class MenuSocio extends JFrame {
 				prestamos = docDB.consultarMisPrestamos(usuario);
 
 				if (prestamos.isEmpty()) {
-					JOptionPane.showMessageDialog(mainPanel, "No tienes prestamos almacenados.", "Aviso",
+					JOptionPane.showMessageDialog(mainPanel, "No tens préstecs emmagatzemats.", "Avís",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					VentanaDevolverDocumento ventana = new VentanaDevolverDocumento(prestamos);
@@ -93,7 +93,7 @@ public class MenuSocio extends JFrame {
 				reservas = docDB.consultarMisReservas(usuario);
 
 				if (reservas.isEmpty()) {
-					JOptionPane.showMessageDialog(mainPanel, "No tienes reservas almacenadas.", "Aviso",
+					JOptionPane.showMessageDialog(mainPanel, "No tens reserves emmagatzemades.", "Avís",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					VentanaConsultarReservas ventana = new VentanaConsultarReservas(reservas);

@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings({ "serial", "unused" })
 public class VentanaLogin extends JFrame {
 
 	private static VentanaLogin frame;

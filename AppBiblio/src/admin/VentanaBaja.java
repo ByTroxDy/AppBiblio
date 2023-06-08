@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import db.UsuarioMaxDB;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -121,11 +122,25 @@ public class VentanaBaja extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String usuario, admin, contra, grupo;
-			
+			admin= adminUser.getText();
 			usuario= usuariText.getText();
+			contra= new String(contraText.getPassword());
 			
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			usuDB.bajaUsuario(usuario);
+			grupo = usuDB.obtenerGrupo(admin);
+			if (usuDB.iniciarSesion(admin, contra)&&grupo.equals("admin")) {
+				if (usuDB.nombreUsuarioEnUso(usuario)) {
+					usuDB.bajaUsuario(usuario);
+					MenuAdmin admin1 = new MenuAdmin();
+					admin1.setVisible(true);
+	            	JOptionPane.showMessageDialog(panel, "Usuari esborrat correctament", "Registre", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+				} else {
+	            	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Registre", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+            	JOptionPane.showMessageDialog(panel, "Admin o contrasenya incorrectes", "Registre", JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 		}//actionPerformed
 	}//Borrar
