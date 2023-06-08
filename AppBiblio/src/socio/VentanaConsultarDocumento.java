@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private JTextField txtTitulo, txtAutor;
+	private JTextField txtTitulo, txtTipo;
 	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc;
 
 	private int filaSeleccionada, isbn;
-	private String titulo, autor, replicas;
+	private String titulo, tipo, replicas;
 	static String usuario, grupo;
 
 	public VentanaConsultarDocumento() {
@@ -37,18 +37,18 @@ public class VentanaConsultarDocumento extends JDialog {
 		txtTitulo = new JTextField(20);
 		txtTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel lblAutor = new JLabel("Autor");
-		lblAutor.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAutor = new JTextField(20);
-		txtAutor.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTipo = new JTextField(20);
+		txtTipo.setHorizontalAlignment(SwingConstants.CENTER);
 
 		btnVolver = new JButton("Enrere");
 		btnBuscar = new JButton("Cerca");
 
 		panel.add(lblTitulo);
 		panel.add(txtTitulo);
-		panel.add(lblAutor);
-		panel.add(txtAutor);
+		panel.add(lblTipo);
+		panel.add(txtTipo);
 		panel.add(btnVolver);
 		panel.add(btnBuscar);
 
@@ -73,9 +73,9 @@ public class VentanaConsultarDocumento extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
 				titulo = txtTitulo.getText();
-				autor = txtAutor.getText();
+				tipo = txtTipo.getText();
 
-				consultarDocumentos(titulo, autor);
+				consultarDocumentos(titulo, tipo);
 				dispose();
 			}
 		});
@@ -88,21 +88,21 @@ public class VentanaConsultarDocumento extends JDialog {
 		return titulo;
 	}
 
-	public String getAutor() {
-		return autor;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void consultarDocumentos(String titulo, String autor) {
+	public void consultarDocumentos(String titulo, String tipo) {
 		ArrayList<Documento> documentos;
 		DocumentoMaxDB docDB = new DocumentoMaxDB();
 		UsuarioMaxDB usuDB = new UsuarioMaxDB();
 
-		if (!titulo.isEmpty() && autor.isEmpty()) {
+		if (!titulo.isEmpty() && tipo.isEmpty()) {
 			documentos = docDB.consultarDocumentosPorNombre(titulo);
-		} else if (titulo.isEmpty() && !autor.isEmpty()) {
-			documentos = docDB.consultarDocumentosPorAutor(autor);
-		} else if (!titulo.isEmpty() && !autor.isEmpty()) {
-			documentos = docDB.consultarDocumentosPorNombreYAutor(titulo, autor);
+		} else if (titulo.isEmpty() && !tipo.isEmpty()) {
+			documentos = docDB.consultarDocumentosPorTipo(tipo);
+		} else if (!titulo.isEmpty() && !tipo.isEmpty()) {
+			documentos = docDB.consultarDocumentosPorNombreYTipo(titulo, tipo);
 		} else {
 			documentos = docDB.consultarTodosDocumentos();
 		}
@@ -120,7 +120,7 @@ public class VentanaConsultarDocumento extends JDialog {
 
 			modeloTabla.addColumn("ISBN");
 			modeloTabla.addColumn("Títol");
-			modeloTabla.addColumn("Autor");
+			modeloTabla.addColumn("Tipo");
 			modeloTabla.addColumn("Estat");
 
 			// Llenar el modelo de tabla con los datos de los documentos
@@ -128,7 +128,7 @@ public class VentanaConsultarDocumento extends JDialog {
 				Object[] fila = new Object[4];
 				fila[0] = documento.getISBN();
 				fila[1] = documento.getTitulo();
-				fila[2] = documento.getAutor();
+				fila[2] = documento.getTipo();
 				fila[3] = documento.getReplicas();
 
 				if (documento.getReplicas() != 0) {

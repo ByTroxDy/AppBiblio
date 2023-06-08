@@ -25,9 +25,9 @@ public class VentanaEditarPerfil extends JFrame {
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        btnCambiarUsuario = new JButton("Canvia Nom d'usuari");
-        btnCambiarContrasena = new JButton("Canviar Contrasenya");
-        btnCambiarEmail = new JButton("Canviar Email");
+        btnCambiarUsuario = new JButton("Canvia nom d'usuari");
+        btnCambiarContrasena = new JButton("Canviar contrasenya");
+        btnCambiarEmail = new JButton("Canviar email");
         btnVolver = new JButton("Enrere");
 
         panel.add(lblTitulo);

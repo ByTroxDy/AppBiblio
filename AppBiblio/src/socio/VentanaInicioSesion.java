@@ -37,6 +37,7 @@ public class VentanaInicioSesion extends JFrame {
 
 		btnLogin = new JButton("Iniciar sessió");
 		btnRegistro = new JButton("Registrar-se");
+		btnConsultarDocumento = new JButton("Consultar Document");
 
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);
@@ -51,8 +52,8 @@ public class VentanaInicioSesion extends JFrame {
 		docPanel.setLayout(new BorderLayout(0, 0));
 		docPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
 
-		getContentPane().add(docPanel, BorderLayout.SOUTH);
 		docPanel.add(btnConsultarDocumento);
+		getContentPane().add(docPanel, BorderLayout.SOUTH);
 
 		txtPassword.addKeyListener(new KeyListener() {
 			@Override

@@ -35,7 +35,7 @@ public class VentanaCambiarEmail extends JFrame {
         txtEmail = new JTextField();
         
         btnCancelar = new JButton("Cancel·la");
-        btnGuardarCambios = new JButton("Desa Canvis");
+        btnGuardarCambios = new JButton("Desa");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);

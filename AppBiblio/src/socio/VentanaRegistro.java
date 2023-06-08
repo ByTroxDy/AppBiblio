@@ -80,7 +80,7 @@ public class VentanaRegistro extends JFrame {
                 String password = new String(txtPassword.getPassword());
                 
                 if (nombre.length() < 6 | password.length() < 8) {
-                	JOptionPane.showMessageDialog(panel, "El usuario o la contraseña debe contener 8 caracteres.", "Registro", JOptionPane.WARNING_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "L'usuari o contrasenya ha de contenir 8 caràcters.", "Registre", JOptionPane.WARNING_MESSAGE);
                 } else {
                 	Usuario nuevoUsuario = new Usuario(nombre, password, null, false);
                     usuarios.add(nuevoUsuario);
@@ -88,7 +88,7 @@ public class VentanaRegistro extends JFrame {
                     UsuarioMaxDB usuDB = new UsuarioMaxDB();
                     
                     if (usuDB.guardarRegistro(nombre, password)) {
-                    	JOptionPane.showMessageDialog(panel, "Registro exitoso.", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                    	JOptionPane.showMessageDialog(panel, "Registre exitós.", "Registre", JOptionPane.INFORMATION_MESSAGE);
         		        VentanaInicioSesion app = new VentanaInicioSesion();
         	            app.setVisible(true);
         	            dispose();

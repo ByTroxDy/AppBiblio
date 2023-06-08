@@ -35,7 +35,7 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		txtContrasena = new JPasswordField();
 
 		btnCancelar = new JButton("Cancel·la");
-		btnGuardarCambios = new JButton("Desa Canvis");
+		btnGuardarCambios = new JButton("Desa");
 
 		panel.add(lblUsuarioActual);
 		panel.add(txtUsuarioActual);

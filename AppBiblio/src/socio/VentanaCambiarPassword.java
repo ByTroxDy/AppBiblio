@@ -35,7 +35,7 @@ public class VentanaCambiarPassword extends JFrame {
         txtNuevaContrasena = new JPasswordField();
         
         btnCancelar = new JButton("Cancel·la");
-        btnGuardarCambios = new JButton("Canviar Contrasenya");
+        btnGuardarCambios = new JButton("Desa");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
@@ -63,16 +63,16 @@ public class VentanaCambiarPassword extends JFrame {
                 nuevaContrasena = new String(txtNuevaContrasena.getPassword());
                 
                 if (nuevaContrasena.length() < 8) {
-                	JOptionPane.showMessageDialog(panel, "La contraseña debe contener 8 caracteres.", "Registro", JOptionPane.WARNING_MESSAGE);
+                	JOptionPane.showMessageDialog(panel, "La contrasenya ha de contenir 8 caràcters.", "Registre", JOptionPane.WARNING_MESSAGE);
                 	txtContrasenaActual.setText("");
                 	txtNuevaContrasena.setText("");
                 } else {
                 
 	                UsuarioMaxDB usuDB = new UsuarioMaxDB();
 	                if (!usuDB.validarCuenta(usuario, contrasenaActual)) {
-	                	JOptionPane.showMessageDialog(panel, "La contraseña actual es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+	                	JOptionPane.showMessageDialog(panel, "La contrasenya actual és incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
 	                } else if (usuDB.cambiarContrasena(usuario, nuevaContrasena)) {
-	                	JOptionPane.showMessageDialog(panel, "Contraseña actualizada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+	                	JOptionPane.showMessageDialog(panel, "Contrasenya actualitzada correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
 	                }
 	                
 	                txtUsuario.setText("");
