@@ -61,7 +61,7 @@ public class VentanaDevolverDocumento extends JDialog {
 		JScrollPane scrollPane = new JScrollPane(tablaPrestamos);
 
 		btnVolver = new JButton("Enrere");
-		btnDevolver = new JButton("Tornar Document");
+		btnDevolver = new JButton("Tornar document");
 
 		// Configurar el panel de botones
 		JPanel panelBotones = new JPanel();

@@ -35,7 +35,7 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		txtContrasena = new JPasswordField();
 
 		btnCancelar = new JButton("Cancel·la");
-		btnGuardarCambios = new JButton("Desa Canvis");
+		btnGuardarCambios = new JButton("Desa");
 
 		panel.add(lblUsuarioActual);
 		panel.add(txtUsuarioActual);
@@ -89,12 +89,12 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				VentanaCambiarNombreUsuario ventana = new VentanaCambiarNombreUsuario();
-				ventana.setVisible(true);
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				VentanaCambiarNombreUsuario ventana = new VentanaCambiarNombreUsuario();
+//				ventana.setVisible(true);
+//			}
+//		});
+//	}
 }
