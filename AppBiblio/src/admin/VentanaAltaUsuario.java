@@ -30,10 +30,7 @@ public class VentanaAltaUsuario extends JFrame {
 	private JComboBox<String> select;
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
-<<<<<<< Updated upstream
 	private JTextField correoText;
-=======
->>>>>>> Stashed changes
 	/**
 	 * Launch the application.
 	 */
@@ -167,7 +164,7 @@ public class VentanaAltaUsuario extends JFrame {
 			
 			
 			
-			if(contra.equals(confirmaContra)&&usuario.length()<6 && contra.length()<8) {//Enviar usuario y contraseña
+			if(contra.equals(confirmaContra)&& contra.length()>8) {//Enviar usuario y contraseña
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro2(usuario, contra, Select, correo)) {
@@ -181,16 +178,10 @@ public class VentanaAltaUsuario extends JFrame {
                 usuarioText.setText("");
                 contraText.setText("");
                 ConfirmarContra.setText("");
-			} else if(usuario.length()>6 || contra.length()>8) {
-<<<<<<< Updated upstream
-            	JOptionPane.showMessageDialog(panel, "Contrasenya o usuari masa llargs", "Registre", JOptionPane.INFORMATION_MESSAGE);
+			} else if(contra.length()<8) {
+            	JOptionPane.showMessageDialog(panel, "Contrasenya masa curt", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			} else {
             	JOptionPane.showMessageDialog(panel, "Contrasenya y Confirmar contrasenya no coincidixen", "Registre", JOptionPane.INFORMATION_MESSAGE);
-=======
-            	JOptionPane.showMessageDialog(panel, "Contraseña o usuario  demasiado largo", "Registro", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-            	JOptionPane.showMessageDialog(panel, "Contraseña y Confirmar contraseña no coinciden", "Registro", JOptionPane.INFORMATION_MESSAGE);
->>>>>>> Stashed changes
 			}
 		}//actionPerformed
 	}//Registrar

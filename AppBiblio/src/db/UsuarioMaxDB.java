@@ -262,44 +262,4 @@ public class UsuarioMaxDB {
         return null;
     }
     
-    public void enviarCorreo(String mail) {
-    	String host = "smtp.live.com";
-        String port = "587";
-        String username = "";
-        String password = "";
-
-        // Propiedades de la sesión
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", port);
-
-        // Autenticación del usuario y contraseña
-        Authenticator authenticator = new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        };
-
-        // Creación de la sesión
-        Session session = Session.getInstance(props, authenticator);
-
-        try {
-            // Creación del mensaje de correo
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(""));
-            message.setSubject("Ejemplo de correo electrónico");
-            message.setText("¡Hola! Este es un ejemplo de correo electrónico enviado desde Java.");
-
-            // Envío del mensaje
-            Transport.send(message);
-
-            System.out.println("El correo electrónico ha sido enviado correctamente.");
-        } catch (MessagingException e) {
-            System.out.println("Error al enviar el correo electrónico: " + e.getMessage());
-        }
-    }
-    
 }//end
