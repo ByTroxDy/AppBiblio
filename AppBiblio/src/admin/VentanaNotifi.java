@@ -131,7 +131,6 @@ public class VentanaNotifi extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			@SuppressWarnings("unused")
 			String usuari, noti, mail, asunto;
 			usuari= usuariText.getText();
 			noti= notificarText.getText();
