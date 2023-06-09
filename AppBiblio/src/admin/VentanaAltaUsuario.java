@@ -30,6 +30,7 @@ public class VentanaAltaUsuario extends JFrame {
 	private JComboBox<String> select;
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
+	private JTextField correoText;
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +52,7 @@ public class VentanaAltaUsuario extends JFrame {
 	 */
 	public VentanaAltaUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		panel = new JPanel();
 		panel.setBackground(new Color(186, 255, 248));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,8 +62,8 @@ public class VentanaAltaUsuario extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JLabel contra = new JLabel("Confirmar");
-		contra.setHorizontalAlignment(SwingConstants.CENTER);
-		contra.setBounds(43, 149, 81, 16);
+		contra.setHorizontalAlignment(SwingConstants.RIGHT);
+		contra.setBounds(43, 149, 93, 16);
 		panel.add(contra);
 		
 		JLabel titulo = new JLabel("Alta Usuari");
@@ -98,12 +99,12 @@ public class VentanaAltaUsuario extends JFrame {
 		
 		JButton buttonRegistrar = new JButton("Registrar");
 		buttonRegistrar.setAction(action_1);
-		buttonRegistrar.setBounds(298, 226, 117, 29);
+		buttonRegistrar.setBounds(302, 269, 117, 29);
 		panel.add(buttonRegistrar);
 		
 		JButton buttonSalir = new JButton("Eixir");
 		buttonSalir.setAction(action);
-		buttonSalir.setBounds(19, 226, 117, 29);
+		buttonSalir.setBounds(19, 269, 117, 29);
 		panel.add(buttonSalir);
 		
 		JLabel lblNewLabel = new JLabel("Contrasenya");
@@ -111,11 +112,26 @@ public class VentanaAltaUsuario extends JFrame {
 		panel.add(lblNewLabel);
 		
 		select = new JComboBox<String>();
-		select.setBounds(186, 182, 100, 27);
+		select.setBounds(185, 230, 100, 27);
 		select.addItem("socio");
 		select.addItem("gestor");
 		select.addItem("admin");
 		panel.add(select);
+		
+		correoText = new JTextField();
+		correoText.setBounds(176, 192, 130, 26);
+		panel.add(correoText);
+		correoText.setColumns(10);
+		
+		JLabel correoLabel = new JLabel("Correu");
+		correoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		correoLabel.setBounds(75, 197, 61, 16);
+		panel.add(correoLabel);
+		
+		JLabel rolLabel = new JLabel("Rol");
+		rolLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		rolLabel.setBounds(75, 234, 61, 16);
+		panel.add(rolLabel);
 	}//administradorAltaUsuario
 	private class Salir extends AbstractAction {
 		public Salir() {

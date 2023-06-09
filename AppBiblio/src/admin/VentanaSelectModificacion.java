@@ -67,7 +67,8 @@ public class VentanaSelectModificacion extends JFrame {
 		modiBox = new JComboBox<String>();
 		modiBox.setBounds(162, 134, 141, 27);
 		modiBox.addItem("usuari");
-		modiBox.addItem("contrsenya");
+		modiBox.addItem("contrasenya");
+		modiBox.addItem("correu");
 		modiBox.addItem("rol");
 		panel.add(modiBox);
 		
@@ -135,7 +136,10 @@ public class VentanaSelectModificacion extends JFrame {
 				} else if (modi.equals("contrasenya")) {
 					VentanaModiContra modiContra = new VentanaModiContra();
 					modiContra.setVisible(true);
-				} else if (modi.equals("rol")) {
+				} else if (modi.equals("correu")) {
+					VentanaModiCorreo modiCorreo = new VentanaModiCorreo();
+					modiCorreo.setVisible(true);
+				}else if (modi.equals("rol")) {
 					VentanaAsigna modiRol = new VentanaAsigna();
 					modiRol.setVisible(true);
 				}
