@@ -121,8 +121,7 @@ public class VentanaRegistro extends JFrame {
 	
 	public boolean validarEmail(String email) {
 		// Patrón para validar el email
-//        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
-        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@gmail.com");
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
  
         Matcher mather = pattern.matcher(email);
  
