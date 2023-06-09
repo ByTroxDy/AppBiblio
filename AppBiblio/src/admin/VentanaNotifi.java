@@ -6,12 +6,24 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import db.UsuarioMaxDB;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.util.Properties;
+
 import javax.swing.Action;
 
 @SuppressWarnings("serial")
@@ -109,6 +121,27 @@ public class VentanaNotifi extends JFrame {
 			String usuari, noti;
 			usuari= usuariText.getText();
 			noti= notificarText.getText();
+			sendSimpleMail();
 		}
 	}//Notificar
+	public void sendSimpleMail() {
+        // [START simple_example]
+        Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+
+        try {
+          Message msg = new MimeMessage(session);
+          msg.setFrom(new InternetAddress("paoventmar@gmail.com"));
+          msg.addRecipient(Message.RecipientType.TO,
+                           new InternetAddress("migayz.iesjc@gmail.com"));
+          msg.setSubject("Your Example.com account has been activated");
+          msg.setText("This is a test");
+          Transport.send(msg);
+        } catch (AddressException e) {
+          // ...
+        } catch (MessagingException e) {
+          // ..
+        } 
+        // [END simple_example]
+      }
 }//end
