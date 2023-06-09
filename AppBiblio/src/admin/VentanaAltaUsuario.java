@@ -30,7 +30,10 @@ public class VentanaAltaUsuario extends JFrame {
 	private JComboBox<String> select;
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
+<<<<<<< Updated upstream
 	private JTextField correoText;
+=======
+>>>>>>> Stashed changes
 	/**
 	 * Launch the application.
 	 */
@@ -179,9 +182,15 @@ public class VentanaAltaUsuario extends JFrame {
                 contraText.setText("");
                 ConfirmarContra.setText("");
 			} else if(usuario.length()>6 || contra.length()>8) {
+<<<<<<< Updated upstream
             	JOptionPane.showMessageDialog(panel, "Contrasenya o usuari masa llargs", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			} else {
             	JOptionPane.showMessageDialog(panel, "Contrasenya y Confirmar contrasenya no coincidixen", "Registre", JOptionPane.INFORMATION_MESSAGE);
+=======
+            	JOptionPane.showMessageDialog(panel, "Contraseña o usuario  demasiado largo", "Registro", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+            	JOptionPane.showMessageDialog(panel, "Contraseña y Confirmar contraseña no coinciden", "Registro", JOptionPane.INFORMATION_MESSAGE);
+>>>>>>> Stashed changes
 			}
 		}//actionPerformed
 	}//Registrar
