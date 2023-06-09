@@ -20,8 +20,7 @@ public class EmailApp extends JFrame {
     private void initComponents() {
 		
         JLabel recipientLabel = new JLabel("Destinatario:");
-        recipientField = new JTextField("sim@padye.com");
-        recipientField.setEditable(false);
+        recipientField = new JTextField(20);
         
         JLabel subjectLabel = new JLabel("Asunto:");
         subjectField = new JTextField(20);
