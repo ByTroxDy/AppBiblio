@@ -154,10 +154,12 @@ public class VentanaAltaUsuario extends JFrame {
 			String contra;
 			String confirmaContra;
 			String Select;
+			String correo;
 			
 			usuario=usuarioText.getText().toLowerCase();
 			contra= new String (contraText.getPassword());
 			confirmaContra= new String(ConfirmarContra.getPassword());
+			correo= correoText.getText();
 			Select= select.getSelectedItem().toString();
 			
 			
@@ -165,7 +167,7 @@ public class VentanaAltaUsuario extends JFrame {
 			if(contra.equals(confirmaContra)&&usuario.length()<6 && contra.length()<8) {//Enviar usuario y contraseña
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
-                if (usuDB.guardarRegistro2(usuario, contra, Select)) {
+                if (usuDB.guardarRegistro2(usuario, contra, Select, correo)) {
                 	JOptionPane.showMessageDialog(panel, "Registre exitos", "Registre", JOptionPane.INFORMATION_MESSAGE);
                 	MenuAdmin app = new MenuAdmin();
     	            app.setVisible(true);

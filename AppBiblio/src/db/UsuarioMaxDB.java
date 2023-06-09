@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 
 import socio.VentanaRegistro;
@@ -186,7 +189,7 @@ public class UsuarioMaxDB {
         }
     }
     
-    public boolean guardarRegistro2(String usuario, String password, String clas) {
+    public boolean guardarRegistro2(String usuario, String password, String clas, String correo) {
         String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
         try (PreparedStatement statementVerificacion = conn.prepareStatement(queryVerificacion)) {
             statementVerificacion.setString(1, usuario);
@@ -203,11 +206,12 @@ public class UsuarioMaxDB {
             return false;
         }
 
-        String query = "INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)";
+        String query = "INSERT INTO usuarios (usuario, password, rol, email) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, usuario);
             statement.setString(2, password);
             statement.setString(3, clas);
+            statement.setString(4, correo);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -239,6 +243,62 @@ public class UsuarioMaxDB {
 			e.printStackTrace();
         }
 		return false;
+    }
+    
+    public String obtenerMail(String usuario) {
+        String query = "SELECT email FROM usuarios WHERE usuario = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, usuario);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("email");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    
+    public void enviarCorreo(String mail) {
+    	String host = "smtp.live.com";
+        String port = "587";
+        String username = "";
+        String password = "";
+
+        // Propiedades de la sesión
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
+
+        // Autenticación del usuario y contraseña
+        Authenticator authenticator = new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        };
+
+        // Creación de la sesión
+        Session session = Session.getInstance(props, authenticator);
+
+        try {
+            // Creación del mensaje de correo
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(""));
+            message.setSubject("Ejemplo de correo electrónico");
+            message.setText("¡Hola! Este es un ejemplo de correo electrónico enviado desde Java.");
+
+            // Envío del mensaje
+            Transport.send(message);
+
+            System.out.println("El correo electrónico ha sido enviado correctamente.");
+        } catch (MessagingException e) {
+            System.out.println("Error al enviar el correo electrónico: " + e.getMessage());
+        }
     }
     
 }//end

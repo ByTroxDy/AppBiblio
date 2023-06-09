@@ -6,7 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import db.UsuarioMaxDB;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -109,6 +113,13 @@ public class VentanaModiCorreo extends JFrame {
 			String usuari, correo;
 			usuari= usuariText.getText();
 			correo= correoText.getText();
-		}
+			UsuarioMaxDB usuDB = new UsuarioMaxDB();
+
+			if (usuDB.cambiarEmail(usuari, correo)) {
+            	JOptionPane.showMessageDialog(panel, "Email actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+            	JOptionPane.showMessageDialog(panel, "Ho sentim el usuari posat no existeix", "Error", JOptionPane.INFORMATION_MESSAGE);
+            }//else
+		}//actionPerformed
 	}//mopdificar
 }//end
