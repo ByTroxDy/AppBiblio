@@ -85,6 +85,9 @@ public class VentanaInicioSesion extends JFrame {
 					VentanaConsultarDocumento.usuario = usuario;
 					VentanaDevolverDocumento.usuario = usuario;
 					VentanaAgregarComentario.usuario = usuario;
+					VentanaCambiarNombreUsuario.usuarioActual = usuario;
+					VentanaCambiarPassword.usuario = usuario;
+					VentanaCambiarEmail.usuario = usuario;
 					VentanaConsultarDocumento.grupo = grupo;
 					MenuSocio.usuario = usuario;
 

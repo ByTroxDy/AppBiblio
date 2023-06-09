@@ -14,7 +14,8 @@ public class VentanaCambiarPassword extends JFrame {
     private JPasswordField txtContrasenaActual, txtNuevaContrasena;
     private JButton btnCancelar, btnGuardarCambios;
     
-    String usuario, contrasenaActual, nuevaContrasena;
+    private String contrasenaActual, nuevaContrasena;
+    static String usuario;
 
     public VentanaCambiarPassword() {
         setTitle("Canviar Contrasenya");
@@ -26,13 +27,15 @@ public class VentanaCambiarPassword extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel lblUsuario = new JLabel("Nom d'usuari:");
-        txtUsuario = new JTextField();
+        txtUsuario = new JTextField(20);
+        txtUsuario.setEditable(false);
+        txtUsuario.setText(usuario);
 
         JLabel lblContrasenaActual = new JLabel("Contrasenya Actual:");
-        txtContrasenaActual = new JPasswordField();
+        txtContrasenaActual = new JPasswordField(20);
 
         JLabel lblNuevaContrasena = new JLabel("Nova Contrasenya:");
-        txtNuevaContrasena = new JPasswordField();
+        txtNuevaContrasena = new JPasswordField(20);
         
         btnCancelar = new JButton("Cancel·la");
         btnGuardarCambios = new JButton("Desa");

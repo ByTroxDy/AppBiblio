@@ -26,7 +26,7 @@ public class VentanaAgregarComentario extends JFrame {
         panel.setLayout(new GridLayout(3, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblUsuario = new JLabel("Usuario:");
+        JLabel lblUsuario = new JLabel("Usuari:");
         txtUsuario = new JTextField(20);
         txtUsuario.setEditable(false);
         txtUsuario.setText(usuario);

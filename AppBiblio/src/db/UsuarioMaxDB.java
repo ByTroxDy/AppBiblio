@@ -25,7 +25,7 @@ public class UsuarioMaxDB {
 		}
     }
 
-    public boolean guardarRegistro(String usuario, String password) {
+    public boolean guardarRegistro(String usuario, String password, String email) {
         String queryVerificacion = "SELECT COUNT(*) FROM usuarios WHERE usuario = ?";
         try (PreparedStatement statementVerificacion = conn.prepareStatement(queryVerificacion)) {
             statementVerificacion.setString(1, usuario);
@@ -42,11 +42,12 @@ public class UsuarioMaxDB {
             return false;
         }
 
-        String query = "INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)";
+        String query = "INSERT INTO usuarios (usuario, password, rol, email) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, usuario);
             statement.setString(2, password);
             statement.setString(3, "socio");
+            statement.setString(4, email);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
