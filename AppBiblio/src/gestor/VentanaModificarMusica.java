@@ -166,7 +166,6 @@ public class VentanaModificarMusica extends JFrame {
 		contentPane.add(panelSecundario);
 		
 		//Funciones
-		
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
@@ -222,4 +221,4 @@ public class VentanaModificarMusica extends JFrame {
 			}// run
 		});
 	}// main
-}
+}// VentanaModificarMusica

@@ -174,23 +174,28 @@ public class VentanaAltaDocumental extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				productora = textFieldProductora.getText().toString();
-				premios = textFieldPremios.getText().toString();
-				documentalesRealcionados = textFieldDocRelacionados.getText().toString();
-				duracion = Integer.parseInt(textFieldDuracion.getText());
-				formato = formatoBox.getSelectedItem().toString();
-				
-				Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				
-				if (docDB.insertDocDocl(documento, documental)) {
-					JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
-					MenuGestor menu = new MenuGestor();
-					menu.setVisible(true);
-					dispose();
+				if (textFieldProductora.getText().isEmpty() | textFieldPremios.getText().isEmpty() | textFieldPremios.getText().isEmpty() | 
+						textFieldDocRelacionados.getText().isEmpty() | textFieldDuracion.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}//if else
+					productora = textFieldProductora.getText().toString();
+					premios = textFieldPremios.getText().toString();
+					documentalesRealcionados = textFieldDocRelacionados.getText().toString();
+					duracion = Integer.parseInt(textFieldDuracion.getText());
+					formato = formatoBox.getSelectedItem().toString();
+					
+					Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
+					if (docDB.insertDocDocl(documento, documental)) {
+						JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}//if else
+				}// if else
 			}//actionPerformed
 		});
 	}// VentanaAltaDocumental

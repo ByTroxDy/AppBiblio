@@ -128,8 +128,7 @@ public class VentanaModificarLibro extends JFrame {
 		btnAceptar.setForeground(new Color(238, 238, 236));
 		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnAceptar.setBackground(new Color(0, 128, 192));
-		
-		
+
 		panelSecundario.add(lblTituloDatos);
 		panelSecundario.add(lblEditorial);
 		panelSecundario.add(textFieldEditorial);
@@ -153,20 +152,24 @@ public class VentanaModificarLibro extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editorial = textFieldEditorial.getText().toString();
-				numpaginas = Integer.parseInt(textFieldPaginas.getText());
-				tematica = tematicaBox.getSelectedItem().toString();
-
-				Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-
-				if (docDB.updateDocLib(documento, libro)) {
-					JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
-					MenuGestor menu = new MenuGestor();
-					menu.setVisible(true);
-					dispose();
+				if(textFieldEditorial.getText().isEmpty() | textFieldPaginas.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(panelSecundario, "Error al intentar actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					editorial = textFieldEditorial.getText().toString();
+					numpaginas = Integer.parseInt(textFieldPaginas.getText());
+					tematica = tematicaBox.getSelectedItem().toString();
+
+					Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+
+					if (docDB.updateDocLib(documento, libro)) {
+						JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(panelSecundario, "Error al intentar actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}// if else	
 				}// if else
 			}//actionPerformed
 		});

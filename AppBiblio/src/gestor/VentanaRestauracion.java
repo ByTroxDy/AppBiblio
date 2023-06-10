@@ -15,7 +15,7 @@ public class VentanaRestauracion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private JLabel lblAlta, lblImagen, lblDataBase, lblSeleccionaElArchivo;
+	private JLabel lblAlta, lblImagen, lblSeleccionaElArchivo;
 	private JButton btnVolver, btnRestaurar;
 	
 	public VentanaRestauracion() {
@@ -57,38 +57,31 @@ public class VentanaRestauracion extends JFrame {
 		panelSecundario.setBackground(SystemColor.window);
 		panelSecundario.setBounds(0, 70, 592, 291);
 
-		lblDataBase = new JLabel("Data Base");
-		lblDataBase.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDataBase.setForeground(new Color(0, 0, 0));
-		lblDataBase.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblDataBase.setBounds(0, 52, 584, 28);
-
 		lblSeleccionaElArchivo = new JLabel("Selecciona l'arxiu sql a restaurar");
 		lblSeleccionaElArchivo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeleccionaElArchivo.setForeground(Color.BLACK);
-		lblSeleccionaElArchivo.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblSeleccionaElArchivo.setBounds(0, 110, 584, 28);
+		lblSeleccionaElArchivo.setFont(new Font("Dialog", Font.BOLD, 30));
+		lblSeleccionaElArchivo.setBounds(0, 76, 584, 28);
 		
 		//Volver
 		btnVolver = new JButton("Tornar");
 		btnVolver.setForeground(new Color(255, 255, 255));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(12, 261, 268, 30);
+		btnVolver.setBounds(164, 184, 268, 30);
 		btnVolver.setFocusPainted(false);
 		btnVolver.setBorderPainted(false);
 		
 		//Aceptar
 		btnRestaurar = new JButton("Restaura");
-		btnRestaurar.setBounds(316, 261, 268, 30);
+		btnRestaurar.setBounds(164, 136, 268, 30);
 		btnRestaurar.setFocusPainted(false);
 		btnRestaurar.setBorderPainted(false);
 		btnRestaurar.setForeground(new Color(255, 255, 255));
 		btnRestaurar.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnRestaurar.setBackground(new Color(0, 128, 192));
+		btnRestaurar.setBackground(new Color(0, 0, 0));
 		
 		contentPane.add(panelSecundario);
-		panelSecundario.add(lblDataBase);
 		panelSecundario.add(lblSeleccionaElArchivo);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnRestaurar);
