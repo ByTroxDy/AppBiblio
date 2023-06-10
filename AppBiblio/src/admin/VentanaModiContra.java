@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,25 +28,6 @@ public class VentanaModiContra extends JFrame {
 	private final Action action = new Eixir();
 	private final Action action_1 = new Modificar();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModiContra frame = new VentanaModiContra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaModiContra() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -114,6 +94,7 @@ public class VentanaModiContra extends JFrame {
 			dispose();
 		}
 	}//Eixir
+	
 	private class Modificar extends AbstractAction {
 		public Modificar() {
 			putValue(NAME, "Modificar");
@@ -121,19 +102,19 @@ public class VentanaModiContra extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String usuario, nou, antic;
-			usuario= usuari.getText();
-			nou= new String(newContra.getPassword());
-			antic= new String(contra.getPassword());
+			usuario = usuari.getText();
+			nou = new String(newContra.getPassword());
+			antic = new String(contra.getPassword());
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			if (usuDB.nombreUsuarioEnUso(usuario)&&usuDB.iniciarSesion(usuario, antic)&&antic.length()<8) {
+			if (usuDB.nombreUsuarioEnUso(usuario) && usuDB.iniciarSesion(usuario, antic) && antic.length() < 8) {
 				usuDB.cambiarContrasena(usuario, nou);
             	JOptionPane.showMessageDialog(panel, "Ha cambiat la contrasenya del Usuari correctament", "Modificació", JOptionPane.INFORMATION_MESSAGE);
             	MenuAdmin admin1 = new MenuAdmin();
 				admin1.setVisible(true);
             	dispose();
-			}else if (usuDB.nombreUsuarioEnUso(usuario)&&usuDB.iniciarSesion(usuario, antic)==false) {
+			} else if (usuDB.nombreUsuarioEnUso(usuario) && usuDB.iniciarSesion(usuario, antic) == false) {
             	JOptionPane.showMessageDialog(panel, "Contrasenya Incorrecta", "Modificació", JOptionPane.INFORMATION_MESSAGE);
-			}else if (antic.length()>8) {
+			} else if (antic.length() > 8) {
             	JOptionPane.showMessageDialog(panel, "Contrasenya Incorrecta", "Modificació", JOptionPane.INFORMATION_MESSAGE);
 			} else {
             	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Modificació", JOptionPane.INFORMATION_MESSAGE);

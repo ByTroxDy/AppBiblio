@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,25 +32,6 @@ public class VentanaAsigna extends JFrame {
 	private JLabel contraLabel;
 	private JPasswordField contraText;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAsigna frame = new VentanaAsigna();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}//run
-		});
-	}//main
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaAsigna() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -120,6 +100,7 @@ public class VentanaAsigna extends JFrame {
 			dispose();
 		}
 	}//Eixir
+	
 	private class Asignar extends AbstractAction {
 		public Asignar() {
 			putValue(NAME, "Asignar");
@@ -127,9 +108,9 @@ public class VentanaAsigna extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String usuari, contra, asigna;
-			usuari= usuariText.getText();
-			contra= new String(contraText.getPassword());
-			asigna= select.getSelectedItem().toString();
+			usuari = usuariText.getText();
+			contra = new String(contraText.getPassword());
+			asigna = select.getSelectedItem().toString();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			
 			if (!usuDB.validarCuenta(usuari, contra)) {

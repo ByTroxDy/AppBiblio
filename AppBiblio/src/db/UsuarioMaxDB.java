@@ -5,10 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
-
 
 import socio.VentanaRegistro;
 
@@ -198,7 +194,6 @@ public class UsuarioMaxDB {
                 resultSet.next();
                 int count = resultSet.getInt(1);
                 if (count > 0) {
-                	JOptionPane.showMessageDialog(ventanaR, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }

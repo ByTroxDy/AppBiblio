@@ -1,7 +1,5 @@
 package admin;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +22,6 @@ import javax.swing.Action;
 public class MenuAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel menuAdministrador;
-	private static MenuAdmin frame;
 	private final Action action = new alta();
 	private final Action action_1 = new Baixa();
 	private final Action action_2 = new Modificacio();
@@ -35,25 +32,6 @@ public class MenuAdmin extends JFrame {
 	private final Action action_10 = new restauraDocu();
 	private final Action action_11 = new Eixir();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new MenuAdmin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public MenuAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 420);
@@ -146,6 +124,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//alta
+	
 	private class Baixa extends AbstractAction {
 		public Baixa() {
 			putValue(NAME, "Baixa");
@@ -157,6 +136,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//Baixa
+	
 	private class Modificacio extends AbstractAction {
 		public Modificacio() {
 			putValue(NAME, "Modificació");
@@ -168,6 +148,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//Modificacio
+	
 	private class Notificar extends AbstractAction {
 		public Notificar() {
 			putValue(NAME, "Notificar");
@@ -203,6 +184,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//consultaDocu
+	
 	private class copiaDocu extends AbstractAction {
 		public copiaDocu() {
 			putValue(NAME, "Copia seguretat");
@@ -214,6 +196,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//copiaDocu
+	
 	private class restauraDocu extends AbstractAction {
 		public restauraDocu() {
 			putValue(NAME, "Restauració");
@@ -225,6 +208,7 @@ public class MenuAdmin extends JFrame {
 			dispose();
 		}
 	}//restauraDocu
+	
 	private class Eixir extends AbstractAction {
 		public Eixir() {
 			putValue(NAME, "Eixir");

@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,25 +26,6 @@ public class VentanaModiUsuario extends JFrame {
 	private final Action action = new eixir();
 	private final Action action_1 = new Modificar();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModiUsuario frame = new VentanaModiUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaModiUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -103,6 +83,7 @@ public class VentanaModiUsuario extends JFrame {
 			dispose();
 		}
 	}//Eixir
+	
 	private class Modificar extends AbstractAction {
 		public Modificar() {
 			putValue(NAME, "Modificar");
@@ -110,13 +91,13 @@ public class VentanaModiUsuario extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String nou, antic;
-			nou= nouText.getText();
-			antic= anticText.getText();
+			nou = nouText.getText();
+			antic = anticText.getText();
 			
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			if (usuDB.nombreUsuarioEnUso(nou)) {
             	JOptionPane.showMessageDialog(panel, "El nou nom d'usuari ya esta escogit agafa un altre", "Modificació", JOptionPane.INFORMATION_MESSAGE);
-			}else if(usuDB.nombreUsuarioEnUso(antic)) {
+			} else if(usuDB.nombreUsuarioEnUso(antic)) {
 				usuDB.actualizarNombreUsuario(antic, nou);
             	JOptionPane.showMessageDialog(panel, "Ha cambiat el nom del Usuari correctament", "Modificació", JOptionPane.INFORMATION_MESSAGE);
             	MenuAdmin admin1 = new MenuAdmin();

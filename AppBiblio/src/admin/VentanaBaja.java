@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,25 +30,6 @@ public class VentanaBaja extends JFrame {
 	private JTextField adminUser;
 	private JLabel adminLabel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaBaja frame = new VentanaBaja();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}//exception
-			}//run
-		});
-	}//main
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaBaja() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -104,6 +84,7 @@ public class VentanaBaja extends JFrame {
 		adminLabel.setBounds(31, 101, 61, 16);
 		panel.add(adminLabel);
 	}//admniistradorBaja
+	
 	private class Eixir extends AbstractAction {
 		public Eixir() {
 			putValue(NAME, "Eixir");
@@ -115,6 +96,7 @@ public class VentanaBaja extends JFrame {
 			dispose();
 		}//ActionPerformed
 	}//Eixir
+	
 	private class Borrar extends AbstractAction {
 		public Borrar() {
 			putValue(NAME, "Borrar");
@@ -122,9 +104,9 @@ public class VentanaBaja extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String usuario, admin, contra, grupo;
-			admin= adminUser.getText();
-			usuario= usuariText.getText();
-			contra= new String(contraText.getPassword());
+			admin = adminUser.getText();
+			usuario = usuariText.getText();
+			contra = new String(contraText.getPassword());
 			
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			grupo = usuDB.obtenerGrupo(admin);

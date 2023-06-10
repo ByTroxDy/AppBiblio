@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,7 +22,6 @@ import javax.swing.JComboBox;
 public class VentanaAltaUsuario extends JFrame {
 
 	private JPanel panel;
-	private static VentanaAltaUsuario frame;
 	private JTextField usuarioText;
 	private JPasswordField contraText;
 	private JPasswordField ConfirmarContra;
@@ -31,25 +29,7 @@ public class VentanaAltaUsuario extends JFrame {
 	private final Action action = new Salir();
 	private final Action action_1 = new Registrar();
 	private JTextField correoText;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new VentanaAltaUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}//exception
-			}//run
-		});
-	}//main
 
-	/**
-	 * Create the frame.
-	 */
 	public VentanaAltaUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
@@ -133,6 +113,7 @@ public class VentanaAltaUsuario extends JFrame {
 		rolLabel.setBounds(75, 234, 61, 16);
 		panel.add(rolLabel);
 	}//administradorAltaUsuario
+	
 	private class Salir extends AbstractAction {
 		public Salir() {
 			putValue(NAME, "Eixir");
@@ -144,6 +125,7 @@ public class VentanaAltaUsuario extends JFrame {
 			dispose();
 		}//actionPerformed
 	}//Salir
+	
 	private class Registrar extends AbstractAction {
 		public Registrar() {
 			putValue(NAME, "Registrar");
@@ -156,15 +138,13 @@ public class VentanaAltaUsuario extends JFrame {
 			String Select;
 			String correo;
 			
-			usuario=usuarioText.getText().toLowerCase();
-			contra= new String (contraText.getPassword());
-			confirmaContra= new String(ConfirmarContra.getPassword());
-			correo= correoText.getText();
-			Select= select.getSelectedItem().toString();
-			
-			
-			
-			if(contra.equals(confirmaContra)&& contra.length()>8) {//Enviar usuario y contraseña
+			usuario = usuarioText.getText().toLowerCase();
+			contra = new String (contraText.getPassword());
+			confirmaContra = new String(ConfirmarContra.getPassword());
+			correo = correoText.getText();
+			Select = select.getSelectedItem().toString();
+
+			if (contra.equals(confirmaContra) && contra.length() > 8) {//Enviar usuario y contraseña
                 UsuarioMaxDB usuDB = new UsuarioMaxDB();
                 
                 if (usuDB.guardarRegistro2(usuario, contra, Select, correo)) {
@@ -172,13 +152,15 @@ public class VentanaAltaUsuario extends JFrame {
                 	MenuAdmin app = new MenuAdmin();
     	            app.setVisible(true);
     	            dispose();
+                } else {
+                	JOptionPane.showMessageDialog(panel, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
                 }
                 
 				// Limpiar los campos de texto después de intentar iniciar sesión
                 usuarioText.setText("");
                 contraText.setText("");
                 ConfirmarContra.setText("");
-			} else if(contra.length()<8) {
+			} else if (contra.length() < 8) {
             	JOptionPane.showMessageDialog(panel, "Contrasenya masa curt", "Registre", JOptionPane.INFORMATION_MESSAGE);
 			} else {
             	JOptionPane.showMessageDialog(panel, "Contrasenya y Confirmar contrasenya no coincidixen", "Registre", JOptionPane.INFORMATION_MESSAGE);

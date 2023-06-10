@@ -28,25 +28,6 @@ public class VentanaSelectModificacion extends JFrame {
 	private final Action action = new Eixir();
 	private final Action action_1 = new modifica();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaSelectModificacion frame = new VentanaSelectModificacion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaSelectModificacion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -106,6 +87,7 @@ public class VentanaSelectModificacion extends JFrame {
 		setLocationRelativeTo(null);
 		
 	}//ventanaSelectModificacion
+	
 	private class Eixir extends AbstractAction {
 		public Eixir() {
 			putValue(NAME, "Eixir");
@@ -117,6 +99,7 @@ public class VentanaSelectModificacion extends JFrame {
 			dispose();
 		}
 	}//Eixir
+	
 	private class modifica extends AbstractAction {
 		public modifica() {
 			putValue(NAME, "Modifica");
@@ -124,9 +107,9 @@ public class VentanaSelectModificacion extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String admin, contra, modi, grupo; 
-			admin= adminText.getText();
-			contra= new String(contraText.getPassword());
-			modi= modiBox.getSelectedItem().toString();
+			admin = adminText.getText();
+			contra = new String(contraText.getPassword());
+			modi = modiBox.getSelectedItem().toString();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			grupo = usuDB.obtenerGrupo(admin);
 			if (usuDB.iniciarSesion(admin, contra)&&grupo.equals("admin")) {
@@ -139,7 +122,7 @@ public class VentanaSelectModificacion extends JFrame {
 				} else if (modi.equals("correu")) {
 					VentanaModiCorreo modiCorreo = new VentanaModiCorreo();
 					modiCorreo.setVisible(true);
-				}else if (modi.equals("rol")) {
+				} else if (modi.equals("rol")) {
 					VentanaAsigna modiRol = new VentanaAsigna();
 					modiRol.setVisible(true);
 				}

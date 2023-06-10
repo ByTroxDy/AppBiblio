@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 @SuppressWarnings({ "serial", "unused" })
 public class VentanaLogin extends JFrame {
 
-	private static VentanaLogin frame;
 	private JPanel ventanaLoginAdministrador;
 	private JLabel usuarioLogin;
 	private JPasswordField passwordLogin;
@@ -33,31 +32,7 @@ public class VentanaLogin extends JFrame {
 	private final Action action = new entrarAdmin();
 	private final Action action_1 = new SwingAction_1();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new VentanaLogin();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaLogin() {
-		// DEclaracióVariables --> locals
-		
-		
-		// Codi
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		ventanaLoginAdministrador = new JPanel();
@@ -118,15 +93,14 @@ public class VentanaLogin extends JFrame {
 			String usuario;
 			String password;
 			
-			usuario=usuarioText.getText();
-			password= new String (passwordLogin.getPassword());
+			usuario = usuarioText.getText();
+			password = new String (passwordLogin.getPassword());
 			
-			if(usuario.equals("Olopa") && password.equals("12345")) {
+			if (usuario.equals("Olopa") && password.equals("12345")) {
 				System.out.println("Entrando...");
 				MenuAdmin panelAdministrador = new MenuAdmin();
 				panelAdministrador.setVisible(true);
-				frame.dispose();
-				
+				dispose();
 			} else {
 				System.out.println("Intrduzca un usuario o contraseña valido ");
 			}

@@ -1,7 +1,6 @@
 package admin;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,26 +36,7 @@ public class VentanaNotifi extends JFrame {
 	private final Action action = new Eixir();
 	private final Action action_1 = new Notificar();
 	private JTextField asuntoText;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaNotifi frame = new VentanaNotifi();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}//run
-		});
-	}//main
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public VentanaNotifi() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
@@ -125,6 +105,7 @@ public class VentanaNotifi extends JFrame {
 			dispose();
 		}//actionPerformed
 	}//Eixir
+	
 	private class Notificar extends AbstractAction {
 		public Notificar() {
 			putValue(NAME, "Notificar");
