@@ -188,22 +188,27 @@ public class VentanaModificarPelicula extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				director = textFieldDirector.getText().toString();
-				actoresPrincipales = textFieldActores.getText().toString();
-				premios = textFieldPremios.getText().toString();
-				duracion = Integer.parseInt(textFieldDureacion.getText());
-				formato = formatoBox.getSelectedItem().toString();
-				
-				Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				
-				if (docDB.updateDocPel(documento, pelicula)) {
-					JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
-					MenuGestor menu = new MenuGestor();
-					menu.setVisible(true);
-					dispose();
+				if (textFieldDirector.getText().isEmpty() | textFieldActores.getText().isEmpty() | textFieldPremios.getText().isEmpty()
+						| textFieldPremios.getText().isEmpty() | textFieldDureacion.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					director = textFieldDirector.getText().toString();
+					actoresPrincipales = textFieldActores.getText().toString();
+					premios = textFieldPremios.getText().toString();
+					duracion = Integer.parseInt(textFieldDureacion.getText());
+					formato = formatoBox.getSelectedItem().toString();
+					
+					Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
+					if (docDB.updateDocPel(documento, pelicula)) {
+						JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
+						MenuGestor menu = new MenuGestor();
+						menu.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}// if else
 				}// if else
 			}// actionPerformed
 		});

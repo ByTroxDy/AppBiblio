@@ -15,7 +15,9 @@ public class VentanaCopiaSeguridad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private JLabel lblAlta, lblImagen, lblTitulo;
+	private JButton btnVolver, btnAceptar;
+	
 	public VentanaCopiaSeguridad() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -28,47 +30,67 @@ public class VentanaCopiaSeguridad extends JFrame {
 		setLocationRelativeTo(null);
 
 		//Panel Principal
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 192));
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(null);
-		panel.setBounds(0, 0, 592, 71);
-		panel.setLayout(null);
-		contentPane.add(panel);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(new Color(0, 128, 192));
+		panelPrincipal.setForeground(new Color(0, 0, 0));
+		panelPrincipal.setBorder(null);
+		panelPrincipal.setBounds(0, 0, 592, 71);
+		panelPrincipal.setLayout(null);
 		
 		//Titulo
-		JLabel lblAlta = new JLabel("CÒPIA DE SEGURETAT");
+		lblAlta = new JLabel("CÒPIA DE SEGURETAT");
 		lblAlta.setBounds(10, 0, 470, 71);
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
-		panel.add(lblAlta);
 		
-		JLabel lblImagen = new JLabel("");
+		lblImagen = new JLabel("");
 		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(501, 0, 46, 71);
-		panel.add(lblImagen);
 		
+		panelPrincipal.add(lblAlta);
+		panelPrincipal.add(lblImagen);
+		contentPane.add(panelPrincipal);
+
 		//Panel contenido
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setForeground(new Color(238, 238, 236));
-		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 592, 297);
-		contentPane.add(panel_1);
+		JPanel panelSecundario = new JPanel();
+		panelSecundario.setLayout(null);
+		panelSecundario.setForeground(new Color(238, 238, 236));
+		panelSecundario.setBackground(SystemColor.window);
+		panelSecundario.setBorder(null);
+		panelSecundario.setBounds(0, 70, 592, 297);
 		
 		//Titulo contenido
-		JLabel lblIntroduceElNombre = new JLabel("Crea la teúa copia");
-		lblIntroduceElNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntroduceElNombre.setForeground(new Color(0, 0, 0));
-		lblIntroduceElNombre.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblIntroduceElNombre.setBounds(0, 66, 584, 28);
-		panel_1.add(lblIntroduceElNombre);
+		lblTitulo = new JLabel("Crea la teúa còpia de seguretat");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setForeground(new Color(0, 0, 0));
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 30));
+		lblTitulo.setBounds(0, 81, 584, 28);
 
 		//Volver
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Tornar");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(151, 190, 284, 30);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+
+		//Aceptar
+		btnAceptar = new JButton("Backup\r\n");
+		btnAceptar.setBounds(151, 138, 284, 30);
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
+		btnAceptar.setForeground(new Color(255, 255, 255));
+		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnAceptar.setBackground(new Color(0, 0, 0));
+		
+		panelSecundario.add(lblTitulo);
+		panelSecundario.add(btnVolver);
+		panelSecundario.add(btnAceptar);
+		contentPane.add(panelSecundario);
+
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuGestor frame = new MenuGestor();
@@ -76,19 +98,8 @@ public class VentanaCopiaSeguridad extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(new Color(255, 255, 255));
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(10, 255, 280, 30);
-		panel_1.add(btnVolver);
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
-
-		//Aceptar
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(302, 255, 284, 30);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    JFileChooser fileChooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de sql", "sql");
@@ -101,22 +112,15 @@ public class VentanaCopiaSeguridad extends JFrame {
 		            java.io.File selectedFile = fileChooser.getSelectedFile();
 		            String file = selectedFile.getAbsolutePath();
 					if (copiaSeguridad(file)) {
-						JOptionPane.showMessageDialog(panel_1, "Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Backup realizat correctament", "Backup", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                    	JOptionPane.showMessageDialog(panel_1, "Algo ha salido mal", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
-		        }
+                    	JOptionPane.showMessageDialog(panelSecundario, "Algo ha salido mal", "Error", JOptionPane.ERROR_MESSAGE);
+                    }// if else
+		        }// if
 			}//actionPerformed
 		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnNewButton.setBackground(new Color(0, 128, 192));
 	}// VentanaCopiaSeguridad
-	
-	
+
 	public boolean copiaSeguridad(String backupName) {
 		Process process;
 		InputStream is;

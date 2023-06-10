@@ -12,6 +12,8 @@ import db.DocumentoMaxDB;
 public class VentanaBajaDocumento extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel lblAlta, lblImagen, lblIsbn, lblIntroduceElIsbn;
+	private JButton btnVolver, btnAceptar;
 	private JTextField textFieldIsbn;
 	private int isbn; 
 
@@ -26,46 +28,43 @@ public class VentanaBajaDocumento extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 128, 192));
-		panel.setForeground(new Color(0, 0, 0));
-		panel.setBorder(null);
-		panel.setBounds(0, 0, 592, 71);
-		panel.setLayout(null);
-		contentPane.add(panel);
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(new Color(0, 128, 192));
+		panelPrincipal.setForeground(new Color(0, 0, 0));
+		panelPrincipal.setBorder(null);
+		panelPrincipal.setBounds(0, 0, 592, 71);
+		panelPrincipal.setLayout(null);
 		
-		JLabel lblAlta = new JLabel("BAIXA DOCUMENT");
+		lblAlta = new JLabel("BAIXA DOCUMENT");
 		lblAlta.setBounds(71, 0, 410, 70);
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setForeground(new Color(255, 255, 255));
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
-		panel.add(lblAlta);
 		
-		JLabel lblImagen = new JLabel("");
+		lblImagen = new JLabel("");
 		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
 		lblImagen.setBounds(491, 0, 55, 70);
-		panel.add(lblImagen);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setForeground(new Color(238, 238, 236));
-		panel_1.setBackground(SystemColor.window);
-		panel_1.setBorder(null);
-		panel_1.setBounds(0, 70, 592, 297);
-		contentPane.add(panel_1);
+		panelPrincipal.add(lblAlta);
+		panelPrincipal.add(lblImagen);
+		contentPane.add(panelPrincipal);
+
+		JPanel panelSecundario = new JPanel();
+		panelSecundario.setLayout(null);
+		panelSecundario.setForeground(new Color(238, 238, 236));
+		panelSecundario.setBackground(SystemColor.window);
+		panelSecundario.setBorder(null);
+		panelSecundario.setBounds(0, 70, 592, 297);
 				
-		JLabel lblIsbn = new JLabel("isbn");
+		lblIsbn = new JLabel("isbn");
 		lblIsbn.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblIsbn.setBounds(177, 120, 38, 17);
-		panel_1.add(lblIsbn);
 
-		
-		JLabel lblIntroduceElIsbn = new JLabel("Introdueix el ISBN");
+		lblIntroduceElIsbn = new JLabel("Introdueix el ISBN");
 		lblIntroduceElIsbn.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
 		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblIntroduceElIsbn.setBounds(0, 57, 584, 28);
-		panel_1.add(lblIntroduceElIsbn);
 		
 		//isbn
 		textFieldIsbn = new JTextField();
@@ -73,50 +72,59 @@ public class VentanaBajaDocumento extends JFrame {
 		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldIsbn.setBackground(new Color(0, 128, 192));
 		textFieldIsbn.setBounds(214, 119, 197, 21);
-		panel_1.add(textFieldIsbn);
 		textFieldIsbn.setColumns(10);
 		
 		//Volver
-		JButton btnVolver = new JButton("Tornar");
+		btnVolver = new JButton("Tornar");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnVolver.setBackground(new Color(0, 128, 192));
+		btnVolver.setBounds(12, 257, 278, 28);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+		
+		//Baja
+		btnAceptar = new JButton("Acceptar");
+		btnAceptar.setBounds(306, 257, 278, 28);
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
+		btnAceptar.setForeground(new Color(255, 255, 255));
+		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnAceptar.setBackground(new Color(0, 128, 192));
+		
+		panelSecundario.add(lblIsbn);
+		panelSecundario.add(lblIntroduceElIsbn);
+		panelSecundario.add(textFieldIsbn);
+		panelSecundario.add(btnVolver);
+		panelSecundario.add(btnAceptar);
+		contentPane.add(panelSecundario);
+		
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
 				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
-			}
+			}// actionPerformed
 		});
-		btnVolver.setForeground(new Color(255, 255, 255));
-		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(12, 257, 278, 28);
-		panel_1.add(btnVolver);
-		btnVolver.setFocusPainted(false);
-		btnVolver.setBorderPainted(false);
-		
-		//Baja
-		JButton btnNewButton = new JButton("Acceptar");
-		btnNewButton.setBounds(306, 257, 278, 28);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				isbn = Integer.parseInt(textFieldIsbn.getText());
-				
-				DocumentoMaxDB docDB = new DocumentoMaxDB();
-				if (docDB.bajaDocumento(isbn)) {
-					JOptionPane.showMessageDialog(panel_1, "Sa donat de baixa correctament", "Donar de Baixa", JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(panel_1, "Error al introduir dades en la DB", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnNewButton.setBackground(new Color(0, 128, 192));
 
-	}
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textFieldIsbn.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					isbn = Integer.parseInt(textFieldIsbn.getText());
+					DocumentoMaxDB docDB = new DocumentoMaxDB();
+					
+					if (docDB.bajaDocumento(isbn)) {
+						JOptionPane.showMessageDialog(panelSecundario, "Sa donat de baixa correctament", "Donar de Baixa", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(panelSecundario, "Error al introduir dades en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+					}// if else
+				}// if else
+			}// actionPerformed
+		});
+	}// VentanaBajaDocumento
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -126,11 +134,10 @@ public class VentanaBajaDocumento extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}// try catch
+			}// run
 		});
-	}
-	
-}
+	}// main
+}// VentanaBajaDocumentos
 
 
