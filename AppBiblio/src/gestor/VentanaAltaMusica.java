@@ -13,10 +13,8 @@ import java.util.Date;
 
 import com.toedter.calendar.JDateChooser;
 
+@SuppressWarnings("serial")
 public class VentanaAltaMusica extends JFrame {
-	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblLugar, lblFecha, lblDuracion, lblFormato;
 	private JTextField textFieldLugar, textFieldDuracion;
@@ -27,6 +25,7 @@ public class VentanaAltaMusica extends JFrame {
 	private String lugar, formato;
 	private Date fecha;
 	private int duracion;
+	static Documento documento;
 
 	public VentanaAltaMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

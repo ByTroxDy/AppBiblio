@@ -1,7 +1,7 @@
 package gestor;
 
+import a.Inicio;
 import socio.VentanaConsultarDocumento;
-import socio.VentanaInicioSesion;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,8 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class MenuGestor extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblGestores, lblNewLabel, lblSelecciona;
 	private JButton btnCerrarSesion, btnAceptar;
@@ -102,7 +102,7 @@ public class MenuGestor extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				VentanaInicioSesion app = new VentanaInicioSesion();
+				Inicio app = new Inicio();
 				app.setVisible(true);
 				dispose();
 			}//actionPerformed
@@ -114,7 +114,7 @@ public class MenuGestor extends JFrame {
 				//extracción de la funcion seleccionada
 				String seleccion = comboBox.getSelectedItem().toString();
 				if (seleccion == "Alta Document") {
-					VentanaAltaDocumento frame = new VentanaAltaDocumento();
+					VentanaActivarDoc frame = new VentanaActivarDoc();
 					frame.setVisible(true);
 				} else if (seleccion == "Consultar Document") {
 					VentanaConsultarDocumento frame = new VentanaConsultarDocumento();

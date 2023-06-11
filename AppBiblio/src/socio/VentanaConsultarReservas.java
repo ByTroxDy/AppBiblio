@@ -11,8 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class VentanaConsultarReservas extends JDialog {
-	private static final long serialVersionUID = 1L;
 	private JButton btnVolver;
 
 	public VentanaConsultarReservas(ArrayList<Reservas> reservas) {

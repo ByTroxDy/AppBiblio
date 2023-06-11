@@ -7,12 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaAgregarComentario extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario, txtComentario;
     private JButton btnOpcion, btnEnviar;
-    
-    MenuSocio menu = new MenuSocio();
     
     static int isbn;
     static String usuario;
@@ -45,6 +43,8 @@ public class VentanaAgregarComentario extends JFrame {
         panel.add(btnEnviar);
 
         getContentPane().add(panel);
+        
+        MenuSocio menu = new MenuSocio();
         
         btnOpcion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {

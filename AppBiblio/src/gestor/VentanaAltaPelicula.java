@@ -10,8 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaAltaPelicula extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblDirector, lblActores,lblPremis, lblDuracion, lblFormato;
 	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;
@@ -20,7 +20,6 @@ public class VentanaAltaPelicula extends JFrame {
 	
 	private String director, actoresPrincipales, premios, formato;
 	private int duracion;
-	
 	static Documento documento;
 	
 	public VentanaAltaPelicula() {

@@ -1,10 +1,12 @@
 package socio;
 
 import db.UsuarioMaxDB;
+import a.Inicio;
 import gestor.MenuGestor;
-import gestor.VentanaAltaDocumento;
+import gestor.VentanaActivarDoc;
+import gestor.VentanaAltaDoc;
+import gestor.VentanaModiDoc;
 import gestor.VentanaRespaldo;
-import gestor.VentanaModificarDocumento;
 import admin.MenuAdmin;
 
 import javax.swing.*;
@@ -15,11 +17,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+@SuppressWarnings("serial")
 public class VentanaInicioSesion extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
 	private JPasswordField txtPassword;
-	private JButton btnRegistro, btnLogin, btnConsultarDocumento;
+	private JButton btnVolver, btnLogin, btnRecuperar;
 
 	public String usuario, password, grupo;
 
@@ -39,14 +41,14 @@ public class VentanaInicioSesion extends JFrame {
 		txtPassword = new JPasswordField(20);
 
 		btnLogin = new JButton("Iniciar sessió");
-		btnRegistro = new JButton("Registrar-se");
-		btnConsultarDocumento = new JButton("Consultar Document");
+		btnVolver = new JButton("Tornar");
+		btnRecuperar = new JButton("He oblidat la meva contrasenya");
 
 		mainPanel.add(lblUsuario);
 		mainPanel.add(txtUsuario);
 		mainPanel.add(lblPassword);
 		mainPanel.add(txtPassword);
-		mainPanel.add(btnRegistro);
+		mainPanel.add(btnVolver);
 		mainPanel.add(btnLogin);
 
 		getContentPane().add(mainPanel);
@@ -55,7 +57,7 @@ public class VentanaInicioSesion extends JFrame {
 		docPanel.setLayout(new BorderLayout(0, 0));
 		docPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
 
-		docPanel.add(btnConsultarDocumento);
+		docPanel.add(btnRecuperar);
 		getContentPane().add(docPanel, BorderLayout.SOUTH);
 
 		txtPassword.addKeyListener(new KeyListener() {
@@ -108,19 +110,17 @@ public class VentanaInicioSesion extends JFrame {
 			}
 		});
 
-		btnRegistro.addActionListener(new ActionListener() {
+		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				VentanaRegistro ventana = new VentanaRegistro();
-				ventana.setVisible(true);
+				Inicio app = new Inicio();
+				app.setVisible(true);
 				dispose();
 			}
 		});
 
-		btnConsultarDocumento.addActionListener(new ActionListener() {
+		btnRecuperar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				VentanaConsultarDocumento.usuario = null;
-				VentanaConsultarDocumento.grupo = null;
-				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
+				VentanaRecuperar ventana = new VentanaRecuperar();
 				ventana.setVisible(true);
 				dispose();
 			}
@@ -139,8 +139,9 @@ public class VentanaInicioSesion extends JFrame {
 		VentanaCambiarPassword.usuario = usuario;
 		VentanaCambiarEmail.usuario = usuario;
 		VentanaConsultarDocumento.grupo = grupo;
-		VentanaAltaDocumento.grupo = grupo;
-		VentanaModificarDocumento.grupo = grupo;
+		VentanaActivarDoc.grupo = grupo;
+		VentanaAltaDoc.grupo = grupo;
+		VentanaModiDoc.grupo = grupo;
 		VentanaRespaldo.grupo = grupo;
 	}
 }

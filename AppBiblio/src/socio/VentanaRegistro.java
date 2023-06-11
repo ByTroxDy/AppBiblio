@@ -1,5 +1,6 @@
 package socio;
 
+import a.Inicio;
 import app.Usuario;
 import db.UsuarioMaxDB;
 
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("serial")
 public class VentanaRegistro extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario, txtEmail;
     private JPasswordField txtPassword;
     private JButton btnVolver, btnRegistro;
@@ -78,7 +79,7 @@ public class VentanaRegistro extends JFrame {
 		
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
-				VentanaInicioSesion app = new VentanaInicioSesion();
+				Inicio app = new Inicio();
 				app.setVisible(true);
 				dispose();
 			}
@@ -90,14 +91,16 @@ public class VentanaRegistro extends JFrame {
                 password = new String(txtPassword.getPassword());
                 email = txtEmail.getText();
                 
-                if (password.length() < 6) {
+                if (nombre.isEmpty()) {
+                	JOptionPane.showMessageDialog(panel, "El camp de l'usuari està buit. Si us plau, introdueix un usuari.", "Registre", JOptionPane.WARNING_MESSAGE);
+                } else if (password.length() < 6) {
                 	JOptionPane.showMessageDialog(panel, "La contrasenya ha de contenir 6 caràcters.", "Registre", JOptionPane.WARNING_MESSAGE);
                 	txtPassword.setText("");
                 } else if (!validarEmail(email)) {
                 	JOptionPane.showMessageDialog(panel, "El correu electrònic ingressat és invàlid.", "Registre", JOptionPane.WARNING_MESSAGE);
                 	txtEmail.setText("");
                 } else {
-                	Usuario nuevoUsuario = new Usuario(nombre, password, email, false);
+                	Usuario nuevoUsuario = new Usuario(nombre, password, email);
                     usuarios.add(nuevoUsuario);
                     
                     UsuarioMaxDB usuDB = new UsuarioMaxDB();

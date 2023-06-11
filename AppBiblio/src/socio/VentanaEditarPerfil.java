@@ -5,12 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaEditarPerfil extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private JButton btnCambiarUsuario;
-    private JButton btnCambiarContrasena;
-    private JButton btnCambiarEmail;
-    private JButton btnVolver;
+	private JButton btnCambiarUsuario, btnCambiarContrasena, btnCambiarEmail, btnVolver;
 
     public VentanaEditarPerfil() {
         setTitle("Compte");

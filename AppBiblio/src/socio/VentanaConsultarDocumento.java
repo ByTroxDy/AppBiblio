@@ -1,10 +1,11 @@
 package socio;
 
+import a.Inicio;
 import app.Documento;
 import db.DocumentoMaxDB;
 import db.UsuarioMaxDB;
 import gestor.MenuGestor;
-import gestor.VentanaModificarDocumento;
+import gestor.VentanaModiDoc;
 import admin.MenuAdmin;
 
 import javax.swing.*;
@@ -16,15 +17,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class VentanaConsultarDocumento extends JDialog {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo;
 	private JComboBox<Object> cmbTipo;
 	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc, btnModDoc;
 
 	private int filaSeleccionada, isbn;
 	private String titulo, tipo, replicas;
-	static String usuario, grupo;
+	public static String usuario, grupo;
 
 	public VentanaConsultarDocumento() {
 		setTitle("Consultar Document");
@@ -60,7 +61,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ex) {
 				if (usuario == null) {
-					VentanaInicioSesion app = new VentanaInicioSesion();
+					Inicio app = new Inicio();
 					app.setVisible(true);
 				} else if (grupo.equals("socio")) {
 					MenuSocio menu = new MenuSocio();
@@ -186,8 +187,10 @@ public class VentanaConsultarDocumento extends JDialog {
 
 			if (grupo == null) {
 				btnBajaDoc.setVisible(false);
+				btnModDoc.setVisible(false);
 			} else if (grupo.equals("socio")) {
 				btnBajaDoc.setVisible(false);
+				btnModDoc.setVisible(false);
 			}
 
 			btnVolverBuscar.addActionListener(new ActionListener() {
@@ -250,8 +253,8 @@ public class VentanaConsultarDocumento extends JDialog {
 								"Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
-						VentanaModificarDocumento.isbn = isbn;
-						VentanaModificarDocumento ventana = new VentanaModificarDocumento();
+						VentanaModiDoc.isbn = isbn;
+						VentanaModiDoc ventana = new VentanaModiDoc();
 						ventana.setVisible(true);
 						ventanaResultados.dispose();
 					}

@@ -24,6 +24,7 @@ public class VentanaNotificar extends JFrame {
 	private String usuario, mail, asunto, cuerpo;
 	
 	public VentanaNotificar() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		panel = new JPanel();

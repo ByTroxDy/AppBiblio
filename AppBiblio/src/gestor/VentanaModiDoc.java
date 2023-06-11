@@ -10,20 +10,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaModificarDocumento extends JFrame {
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class VentanaModiDoc extends JFrame {
 	private JPanel contentPane;
-	private JTextField textFieldIsbn, textFieldTitulo, textFieldAutor, textFieldReplicas, txtBenicarlo;
-	private JLabel lblAlta, lblImagen, lblIntroduceElIsbn, lblTitulo, lblNuevosDatos, lblAutor, lblReplicas, lblBiblioteca;
+	private JTextField textFieldTitulo, textFieldAutor, textFieldReplicas, txtBenicarlo;
+	private JLabel lblAlta, lblImagen, lblTitulo, lblNuevosDatos, lblAutor, lblReplicas, lblBiblioteca;
 	private JButton btnVolver, btnAceptar;
 	
 	private String tipo, titulo, autor, biblioteca;
 	private int replicas;
-	
 	public static String grupo;
 	public static int isbn;
 	
-	public VentanaModificarDocumento() {
+	public VentanaModiDoc() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -231,20 +230,20 @@ public class VentanaModificarDocumento extends JFrame {
 					Documento doc = new Documento(isbn, tipo, titulo, autor, replicas, biblioteca);
 				
 					if (tipo.equals("Llibre")) {
-						VentanaModificarLibro.documento = doc;
-						VentanaModificarLibro frame = new VentanaModificarLibro();
+						VentanaModiLibro.documento = doc;
+						VentanaModiLibro frame = new VentanaModiLibro();
 						frame.setVisible(true);
 					} else if (tipo.equals("Pel·lícula")) {
-						VentanaModificarPelicula.documento = doc;
-						VentanaModificarPelicula frame = new VentanaModificarPelicula();
+						VentanaModiPelicula.documento = doc;
+						VentanaModiPelicula frame = new VentanaModiPelicula();
 						frame.setVisible(true);
 					} else if (tipo.equals("Música")) {
-						VentanaModificarMusica.documento = doc;
-						VentanaModificarMusica frame = new VentanaModificarMusica();
+						VentanaModiMusica.documento = doc;
+						VentanaModiMusica frame = new VentanaModiMusica();
 						frame.setVisible(true);
 					} else if (tipo.equals("Documental")) {
-						VentanaModificarDocumental.documento = doc;
-						VentanaModificarDocumental frame = new VentanaModificarDocumental();
+						VentanaModiDocumental.documento = doc;
+						VentanaModiDocumental frame = new VentanaModiDocumental();
 						frame.setVisible(true);
 					}// if					
 					dispose();

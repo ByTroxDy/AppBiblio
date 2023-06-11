@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+@SuppressWarnings("serial")
 public class VentanaRespaldo extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblBackup, lblImagen;
 	private JButton btnVolver, btnExportar, btnImportar;

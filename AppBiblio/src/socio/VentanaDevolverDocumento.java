@@ -12,8 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class VentanaDevolverDocumento extends JDialog {
-	private static final long serialVersionUID = 1L;
 	private JButton btnVolver, btnDevolver;
 	
 	private int filaSeleccionada, isbn;

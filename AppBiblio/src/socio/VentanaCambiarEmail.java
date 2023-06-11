@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("serial")
 public class VentanaCambiarEmail extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario, txtEmail;
     private JPasswordField txtContrasena;
     private JButton btnCancelar, btnGuardarCambios;
@@ -78,7 +78,6 @@ public class VentanaCambiarEmail extends JFrame {
                 	JOptionPane.showMessageDialog(panel, "Email actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
-                txtUsuario.setText("");
                 txtContrasena.setText("");
                 txtEmail.setText("");
             }

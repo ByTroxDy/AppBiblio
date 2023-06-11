@@ -13,8 +13,8 @@ import java.util.Date;
 
 import com.toedter.calendar.JDateChooser;
 
-public class VentanaModificarMusica extends JFrame {
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class VentanaModiMusica extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblLugar, lblFecha, lblDuracion, lblFormat;
 	private JTextField textFieldLloc, textFieldDuracio;
@@ -28,7 +28,7 @@ public class VentanaModificarMusica extends JFrame {
 	
 	static Documento documento;
 	
-	public VentanaModificarMusica() {
+	public VentanaModiMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -53,7 +53,7 @@ public class VentanaModificarMusica extends JFrame {
 		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		
 		lblImagen = new JLabel("");
-		lblImagen.setIcon(new ImageIcon(VentanaModificarMusica.class.getResource("/img/icono64.png")));
+		lblImagen.setIcon(new ImageIcon(VentanaModiMusica.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(475, 0, 60, 68);
 

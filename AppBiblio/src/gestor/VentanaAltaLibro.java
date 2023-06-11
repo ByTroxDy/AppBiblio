@@ -10,8 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaAltaLibro extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloIsbn, lblEditorial, lblPginas, lblTemtica;
 	private JTextField textEditorial, textPaginas;
@@ -20,7 +20,6 @@ public class VentanaAltaLibro extends JFrame {
 	
 	private String editorial, tematica;
 	private int numpaginas;
-	
 	static Documento documento;
 	
 	public VentanaAltaLibro() {

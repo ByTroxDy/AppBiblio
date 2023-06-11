@@ -13,7 +13,7 @@ public class VentanaModiGrupo extends JFrame {
 	private JPanel panel;
 	private JTextField txtUsuario;
 	private JPasswordField txtContra;
-	private JComboBox<String> cmbSelectRol;
+	private JComboBox<String> cmbSelectGrup;
 	private JButton btnEixir, btnAasignar;
 	private final Action actionEixir = new Eixir();
 	private final Action actionAsignar = new Asignar();
@@ -54,11 +54,11 @@ public class VentanaModiGrupo extends JFrame {
 		lblRol.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRol.setBounds(106, 145, 71, 18);
 		
-		cmbSelectRol = new JComboBox<String>();
-		cmbSelectRol.setBounds(187, 141, 130, 27);
-		cmbSelectRol.addItem("socio");
-		cmbSelectRol.addItem("gestor");
-		cmbSelectRol.addItem("admin");
+		cmbSelectGrup = new JComboBox<String>();
+		cmbSelectGrup.setBounds(187, 141, 130, 27);
+		cmbSelectGrup.addItem("socio");
+		cmbSelectGrup.addItem("gestor");
+		cmbSelectGrup.addItem("admin");
 		
 		btnAasignar = new JButton("Asignar");
 		btnAasignar.setAction(actionAsignar);
@@ -74,7 +74,7 @@ public class VentanaModiGrupo extends JFrame {
 		panel.add(lblContra);
 		panel.add(txtContra);
 		panel.add(lblRol);
-		panel.add(cmbSelectRol);
+		panel.add(cmbSelectGrup);
 		panel.add(btnAasignar);
 		panel.add(btnEixir);
 		
@@ -102,7 +102,7 @@ public class VentanaModiGrupo extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			usuari = txtUsuario.getText();
 			contra = new String(txtContra.getPassword());
-			asigna = cmbSelectRol.getSelectedItem().toString();
+			asigna = cmbSelectGrup.getSelectedItem().toString();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			
 			if (!usuDB.validarCuenta(usuari, contra)) {

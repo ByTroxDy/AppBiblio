@@ -4,13 +4,19 @@ public class Usuario {
 	private String usuario;
 	private String password;
 	private String email;
-	private boolean ban;
+	private int sancion;
 
-	public Usuario(String usuario, String password, String email, boolean ban) {
+	public Usuario(String usuario, String password, String email, int sancion) {
 		this.usuario = usuario;
 		this.password = password;
 		this.email = email;
-		this.ban = ban;
+		this.sancion = sancion;
+	}
+	
+	public Usuario(String usuario, String password, String email) {
+		this.usuario = usuario;
+		this.password = password;
+		this.email = email;
 	}
 	
 	public Usuario(String usuario2, String password2) {
@@ -30,12 +36,12 @@ public class Usuario {
 		return email;
 	}
 	
-	public boolean getBan() {
-		return ban;
+	public int getSancion() {
+		return sancion;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario: " + usuario + "\n" + "Password: " + password + "\n" + "Email: " + email + "\n" + "Ban: " + ban + "\n";
+		return "Usuario: " + usuario + "\n" + "Password: " + password + "\n" + "Email: " + email + "\n" + "Sancion: " + sancion + "\n";
 	}
 }

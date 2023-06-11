@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaCambiarPassword extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
     private JPasswordField txtContrasenaActual, txtNuevaContrasena;
     private JButton btnCancelar, btnGuardarCambios;
@@ -78,7 +78,6 @@ public class VentanaCambiarPassword extends JFrame {
 	                	JOptionPane.showMessageDialog(panel, "Contrasenya actualitzada correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
 	                }
 	                
-	                txtUsuario.setText("");
 	                txtContrasenaActual.setText("");
 	                txtNuevaContrasena.setText("");
                 }

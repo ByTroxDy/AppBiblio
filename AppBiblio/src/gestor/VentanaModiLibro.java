@@ -10,20 +10,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaModificarLibro extends JFrame {
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class VentanaModiLibro extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldEditorial, textFieldPaginas;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblEditorial, lblPginas, lblTemtica;
 	private JButton btnVolver, btnAceptar;
 	private JComboBox<Object> tematicaBox;
 	
-	private String editorial, tematica;
 	private int numpaginas;
-	
+	private String editorial, tematica;
 	static Documento documento;
 
-	public VentanaModificarLibro() {
+	public VentanaModiLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

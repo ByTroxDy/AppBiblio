@@ -294,13 +294,12 @@ public class DocumentoMaxDB {
 		}
 
 		// Insertar nueva reserva en la tabla 'reservas'
-		String query = "INSERT INTO reservas (usuario, isbn, fecha_reserva, dias_pendientes) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO reservas (usuario, isbn, fecha_reserva) VALUES (?, ?, ?)";
 		try (PreparedStatement statement = conn.prepareStatement(query)) {
 
 			statement.setString(1, usuario);
 			statement.setInt(2, isbn);
 			statement.setDate(3, new java.sql.Date(new Date().getTime())); // Fecha actual
-			statement.setDate(4, null);
 			statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -355,8 +354,44 @@ public class DocumentoMaxDB {
 			return;
 		}
     }
+    
+	// OBTENER	
+	public boolean comprobarIsbn(int isbn) {
+		String query = ("SELECT COUNT(*) FROM documentos WHERE isbn = ?");
+		try(PreparedStatement statement = conn.prepareStatement(query)){
+			int varisbn;
+			
+			statement.setInt(1, isbn);			
+			ResultSet checkResult = statement.executeQuery();
+			checkResult.next();
+			varisbn = checkResult.getInt(1);
+			
+			if (varisbn > 0) {
+				return true;
+			}//if
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}//try catch
+	}//comprobarIsbn
 	
-	// INSERTS
+	public String getTipo(int isbn) {
+		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
+		try  (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setInt(1, isbn);
+			ResultSet checkResult = statement.executeQuery();
+			checkResult.next();
+			type = checkResult.getString(1);
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return type;
+	}//getTipo
+	
+	// UPDATE
 	public boolean checkDocumento(int isbn) {
 		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
 		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
@@ -367,7 +402,7 @@ public class DocumentoMaxDB {
 			int varisbn = checkResult.getInt(1);
 			
 			if (varisbn > 0) {
-				String updateQuery = "UPDATE documentos SET fecha_baja = NULL AND fecha_alta = ? WHERE isbn = ?";
+				String updateQuery = "UPDATE documentos SET fecha_alta = ?, fecha_baja = NULL WHERE isbn = ?";
 				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
 					
 					updateStatement.setDate(1, new java.sql.Date(new Date().getTime()));
@@ -377,6 +412,7 @@ public class DocumentoMaxDB {
 					return true;
 				} catch (SQLException e) {
 					e.printStackTrace();
+					return true;
 				}
 			} else {
 				return false;
@@ -386,6 +422,21 @@ public class DocumentoMaxDB {
 		}//try catch
 		return false;
 	}//checkDocumento
+	
+	public boolean bajaDocumento(int isbn) {
+		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+			
+			statement.setDate(1, new java.sql.Date(new Date().getTime()));
+			statement.setInt(2, isbn);
+			statement.executeUpdate();
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}//try catch
+	}//bajaDocumento
 	
 	//INSERTS
 	public boolean insertDocLib(Documento doc, Libro lib) {
@@ -572,44 +623,7 @@ public class DocumentoMaxDB {
 		}//try catch
 	}//insertarMusica
 	
-	
-	// UPDATES	
-	public boolean comprobarIsbn(int isbn) {
-		String query = ("SELECT COUNT(*) FROM documentos WHERE isbn = ?");
-		try(PreparedStatement statement = conn.prepareStatement(query)){
-			int varisbn;
-			
-			statement.setInt(1, isbn);			
-			ResultSet checkResult = statement.executeQuery();
-			checkResult.next();
-			varisbn = checkResult.getInt(1);
-			
-			if (varisbn > 0) {
-				return true;
-			}//if
-			return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}//try catch
-	}//comprobarIsbn
-	
-	public String getTipo(int isbn) {
-		String tipo  ="";
-		String query = ("SELECT tipo FROM documentos WHERE isbn = ?");
-		try  (PreparedStatement statement = conn.prepareStatement(query)) {
-			
-			statement.setInt(1, isbn);
-			ResultSet checkResult = statement.executeQuery();
-			checkResult.next();
-			tipo = checkResult.getString(1);
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}//try catch
-		return tipo;
-	}//getTipo
-	
+	// UPDATES
 	public boolean updateDocLib(Documento doc, Libro lib) {
 		try {
 			conn.setAutoCommit(false);
@@ -791,23 +805,6 @@ public class DocumentoMaxDB {
 			e.printStackTrace();
 		}// try catch
 	}// updateDocumental
-	
-	
-	// BAJAS
-	public boolean bajaDocumento(int isbn) {
-		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");
-		try (PreparedStatement statement = conn.prepareStatement(query)) {
-			
-			statement.setDate(1, new java.sql.Date(new Date().getTime()));
-			statement.setInt(2, isbn);
-			statement.executeUpdate();
-			
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}//try catch
-	}//bajaDocumento
 	
 	// CLOSE
 	public void cerrarConexion() {

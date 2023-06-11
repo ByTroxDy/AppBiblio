@@ -1,12 +1,14 @@
 package admin;
 
-import gestor.VentanaAltaDocumento;
+import gestor.VentanaActivarDoc;
 import gestor.VentanaRespaldo;
 import socio.VentanaConsultarDocumento;
-import socio.VentanaInicioSesion;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import a.Inicio;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -149,7 +151,7 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Obre la finestra alta documents.");
 		}
 		public void actionPerformed(ActionEvent e) {
-			VentanaAltaDocumento altaDocu = new VentanaAltaDocumento();
+			VentanaActivarDoc altaDocu = new VentanaActivarDoc();
 			altaDocu.setVisible(true);
 			dispose();
 		}
@@ -185,8 +187,8 @@ public class MenuAdmin extends JFrame {
 			putValue(SHORT_DESCRIPTION, "Surt del menú d'administrador.");
 		}
 		public void actionPerformed(ActionEvent e) {
-			VentanaInicioSesion ventana = new VentanaInicioSesion();
-			ventana.setVisible(true);
+			Inicio app = new Inicio();
+			app.setVisible(true);
 			dispose();
 		}
 	}//Eixir

@@ -2,7 +2,7 @@ package gestor;
 
 import db.DocumentoMaxDB;
 import app.Documento;
-import app.Documental;
+import app.Pelicula;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,20 +10,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaModificarDocumental extends JFrame {
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class VentanaModiPelicula extends JFrame {
 	private JPanel contentPane;
-	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
-	private JLabel lblAlta, lblImagen, lblTituloDatos, lblProductora, lblPremios, lblDocumentalesRealcionados, lblDuracion, lblFormato;
+	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;
+	private JLabel lblAlta, lblImagen, lblTituloDatos, lblDirector, lblActores, lblPremios, lblDuracion, lblFormato;
 	private JButton btnVolver, btnAceptar;
 	private JComboBox<Object> formatoBox;
 	
-	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
-	
+	private String director, actoresPrincipales, premios, formato;
 	static Documento documento;
-	
-	public VentanaModificarDocumental() {
+
+	public VentanaModiPelicula() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -35,23 +34,22 @@ public class VentanaModificarDocumental extends JFrame {
 		setLocationRelativeTo(null);
 
 		JPanel panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(SystemColor.window);
 		panelPrincipal.setLayout(null);
 		panelPrincipal.setBackground(new Color(0, 128, 192));
 		panelPrincipal.setForeground(new Color(0, 0, 0));
-		panelPrincipal.setBounds(0, 0, 592, 73);
+		panelPrincipal.setBorder(null);
+		panelPrincipal.setBounds(0, 0, 592, 74);
 		
-		lblAlta = new JLabel("MODIFICAR DOCUMENTAL");
-		lblAlta.setBackground(new Color(238, 238, 236));
+		lblAlta = new JLabel("MODIFICAR PELÍCULA");
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlta.setBounds(30, 0, 488, 73);
+		lblAlta.setBounds(36, 0, 444, 74);
 		lblAlta.setForeground(new Color(238, 238, 236));
-		lblAlta.setFont(new Font("Dialog", Font.BOLD, 35));
+		lblAlta.setFont(new Font("Dialog", Font.BOLD, 40));
 		
 		lblImagen = new JLabel("");
-		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setIcon(new ImageIcon(VentanaModiPelicula.class.getResource("/img/icono64.png")));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setBounds(506, 0, 60, 73);
+		lblImagen.setBounds(492, 0, 60, 74);
 
 		panelPrincipal.add(lblAlta);
 		panelPrincipal.add(lblImagen);
@@ -67,128 +65,136 @@ public class VentanaModificarDocumental extends JFrame {
 		lblTituloDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTituloDatos.setForeground(new Color(0, 0, 0));
 		lblTituloDatos.setFont(new Font("Dialog", Font.BOLD, 25));
-		lblTituloDatos.setBounds(0, 25, 592, 31);
+		lblTituloDatos.setBounds(0, 28, 592, 28);
 
-		lblProductora = new JLabel("Productora");
-		lblProductora.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblProductora.setBounds(32, 90, 92, 17);
+		lblDirector = new JLabel("Director");
+		lblDirector.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblDirector.setBounds(65, 82, 79, 17);
+
+		//Director
+		textFieldDirector = new JTextField();
+		textFieldDirector.setBackground(new Color(0, 128, 192));
+		textFieldDirector.setForeground(new Color(238, 238, 236));
+		textFieldDirector.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDirector.setBounds(141, 82, 129, 20);
+		textFieldDirector.setColumns(10);
+
+		lblActores = new JLabel("Actors");
+		lblActores.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblActores.setBounds(311, 82, 79, 17);
 		
-		//Proudctora
-		textFieldProductora = new JTextField();
-		textFieldProductora.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldProductora.setBackground(new Color(0, 128, 192));
-		textFieldProductora.setBounds(126, 90, 149, 20);
-		textFieldProductora.setColumns(10);
+		//Actores
+		textFieldActores = new JTextField();
+		textFieldActores.setBackground(new Color(0, 128, 192));
+		textFieldActores.setForeground(new Color(238, 238, 236));
+		textFieldActores.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldActores.setColumns(10);
+		textFieldActores.setBounds(387, 82, 129, 20);
 
 		lblPremios = new JLabel("Premis");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblPremios.setBounds(32, 132, 79, 17);
+		lblPremios.setBounds(65, 131, 79, 17);
 		
 		//Premios
 		textFieldPremios = new JTextField();
-		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldPremios.setBackground(new Color(0, 128, 192));
+		textFieldPremios.setForeground(new Color(238, 238, 236));
+		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
 		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(126, 132, 149, 20);
-		
-		lblDocumentalesRealcionados = new JLabel("Documentals relacionats");
-		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDocumentalesRealcionados.setBounds(89, 175, 229, 17);
-		
-		textFieldDocRelacionados = new JTextField();
-		textFieldDocRelacionados.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldDocRelacionados.setBackground(new Color(0, 128, 192));
-		textFieldDocRelacionados.setColumns(10);
-		textFieldDocRelacionados.setBounds(308, 174, 149, 20);
-		
+		textFieldPremios.setBounds(141, 131, 129, 20);
+
 		lblDuracion = new JLabel("Duració");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblDuracion.setBounds(319, 90, 79, 17);
+		lblDuracion.setBounds(311, 128, 79, 17);
 		
 		//Duracion
-		textFieldDuracion = new JTextField();
-		textFieldDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldDuracion.setBackground(new Color(0, 128, 192));
-		textFieldDuracion.setColumns(10);
-		textFieldDuracion.setBounds(396, 90, 149, 20);
-		
+		textFieldDureacion = new JTextField();
+		textFieldDureacion.setBackground(new Color(0, 128, 192));
+		textFieldDureacion.setForeground(new Color(238, 238, 236));
+		textFieldDureacion.setFont(new Font("Dialog", Font.BOLD, 14));
+		textFieldDureacion.setColumns(10);
+		textFieldDureacion.setBounds(387, 128, 129, 20);
+
 		lblFormato = new JLabel("Format");
 		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblFormato.setBounds(319, 132, 79, 17);
+		lblFormato.setBounds(182, 185, 79, 17);
 		
 		//Formato
 		formatoBox = new JComboBox<Object>();
+		formatoBox.setBackground(new Color(0, 128, 192));
 		formatoBox.setForeground(new Color(238, 238, 236));
 		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
-		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Físico", "Digital"}));
-		formatoBox.setBounds(396, 130, 149, 22);
-		formatoBox.setBackground(new Color(0, 128, 192));
+		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físic"}));
+		formatoBox.setBounds(255, 183, 129, 22);
 		
 		//Volver
 		btnVolver = new JButton("Tornar");
-		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setForeground(new Color(238, 238, 236));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnVolver.setBackground(new Color(0, 128, 192));
-		btnVolver.setBounds(7, 270, 284, 23);
-		
-		//Aceptar
-		btnAceptar = new JButton("Modificar");
-		btnAceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAceptar.setBounds(308, 270, 279, 24);
+		btnVolver.setBounds(12, 257, 282, 28);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setBorderPainted(false);
+
+		//Alta
+		btnAceptar = new JButton("Acceptar");
+		btnAceptar.setBounds(311, 257, 269, 28);
+		btnAceptar.setFocusPainted(false);
+		btnAceptar.setBorderPainted(false);
 		btnAceptar.setForeground(new Color(238, 238, 236));
 		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnAceptar.setBackground(new Color(0, 128, 192));
 		
 		panelSecundario.add(lblTituloDatos);
-		panelSecundario.add(textFieldProductora);
-		panelSecundario.add(lblProductora);
+		panelSecundario.add(lblDirector);
+		panelSecundario.add(textFieldDirector);
+		panelSecundario.add(lblActores);
+		panelSecundario.add(textFieldActores);
 		panelSecundario.add(lblPremios);
 		panelSecundario.add(textFieldPremios);
-		panelSecundario.add(lblDocumentalesRealcionados);
-		panelSecundario.add(textFieldDocRelacionados);
 		panelSecundario.add(lblDuracion);
-		panelSecundario.add(textFieldDuracion);
+		panelSecundario.add(textFieldDureacion);
 		panelSecundario.add(lblFormato);
 		panelSecundario.add(formatoBox);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
 
+		//Funciones
 		btnVolver.addActionListener(new ActionListener() {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
 				MenuGestor frame = new MenuGestor();
 				frame.setVisible(true);
 				dispose();
-			}// actionPerformed
+			}//actionPerformed
 		});
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldProductora.getText().isEmpty() | textFieldPremios.getText().isEmpty() | textFieldDocRelacionados.getText().isEmpty()
-						| textFieldDuracion.getText().isEmpty()) {
+				if (textFieldDirector.getText().isEmpty() | textFieldActores.getText().isEmpty() | textFieldPremios.getText().isEmpty()
+						| textFieldPremios.getText().isEmpty() | textFieldDureacion.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					productora = textFieldProductora.getText().toString();
+					director = textFieldDirector.getText().toString();
+					actoresPrincipales = textFieldActores.getText().toString();
 					premios = textFieldPremios.getText().toString();
-					documentalesRealcionados = textFieldDocRelacionados.getText().toString();
-					duracion = Integer.parseInt(textFieldDuracion.getText());
+					duracion = Integer.parseInt(textFieldDureacion.getText());
 					formato = formatoBox.getSelectedItem().toString();
 					
-					Documental documental = new Documental(documento.getISBN(), productora, premios, documentalesRealcionados, duracion, formato);
+					Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
-					if (docDB.updateDocDocl(documento, documental)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Documental", JOptionPane.INFORMATION_MESSAGE);
+					if (docDB.updateDocPel(documento, pelicula)) {
+						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Pel·lícula", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
-					}//if else
+					}// if else
 				}// if else
-			}//actionPerformed
+			}// actionPerformed
 		});
 	}
-}// VentanaModificarDocumental
+}// VentanaModificarPelicula

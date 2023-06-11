@@ -1,19 +1,19 @@
 package socio;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
+import a.Inicio;
+import db.DocumentoMaxDB;
 import app.Prestamos;
 import app.Reservas;
-import db.DocumentoMaxDB;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class MenuSocio extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JButton btnEditarPerfil, btnConsultarDocumentos, btnDevolverDocumento, btnConsultarReservas, btnCerrarSesion;
 
 	static String usuario;
@@ -106,7 +106,7 @@ public class MenuSocio extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ex) {
-				VentanaInicioSesion app = new VentanaInicioSesion();
+				Inicio app = new Inicio();
 				app.setVisible(true);
 				dispose();
 			}

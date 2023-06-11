@@ -1,15 +1,15 @@
 package socio;
 
 import db.UsuarioMaxDB;
+import a.Inicio;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class VentanaCambiarNombreUsuario extends JFrame {
-	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuarioActual, txtNuevoUsuario;
 	private JPasswordField txtContrasena;
 	private JButton btnCancelar, btnGuardarCambios;
@@ -80,6 +80,10 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 					usuDB.actualizarNombreUsuario(usuarioActual, nuevoUsuario);
 					JOptionPane.showMessageDialog(panel, "S'ha actualitzat correctament el nom d'usuari.",
 							"Èxit", JOptionPane.INFORMATION_MESSAGE);
+					
+					Inicio app = new Inicio();
+					app.setVisible(true);
+					dispose();
 				}
 
 				txtUsuarioActual.setText("");

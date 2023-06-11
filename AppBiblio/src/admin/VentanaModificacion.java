@@ -21,6 +21,7 @@ public class VentanaModificacion extends JFrame {
 	private String admin, contra, modi, grupo;
 
 	public VentanaModificacion() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		panel = new JPanel();
@@ -58,7 +59,7 @@ public class VentanaModificacion extends JFrame {
 		cmbModi.addItem("Usuari");
 		cmbModi.addItem("Contrasenya");
 		cmbModi.addItem("Correu");
-		cmbModi.addItem("Rol");
+		cmbModi.addItem("Grup");
 		
 		btnModifica = new JButton();
 		btnModifica.setAction(actionModifica);
@@ -117,9 +118,9 @@ public class VentanaModificacion extends JFrame {
 				} else if (modi.equals("Correu")) {
 					VentanaModiCorreo modiCorreo = new VentanaModiCorreo();
 					modiCorreo.setVisible(true);
-				} else if (modi.equals("Rol")) {
-					VentanaModiGrupo modiRol = new VentanaModiGrupo();
-					modiRol.setVisible(true);
+				} else if (modi.equals("Grup")) {
+					VentanaModiGrupo modiGrup = new VentanaModiGrupo();
+					modiGrup.setVisible(true);
 				}
 				dispose();
 			} else {
