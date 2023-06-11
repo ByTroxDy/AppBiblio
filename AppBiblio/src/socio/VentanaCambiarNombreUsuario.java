@@ -91,13 +91,4 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
-
-//	public static void main(String[] args) {
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				VentanaCambiarNombreUsuario ventana = new VentanaCambiarNombreUsuario();
-//				ventana.setVisible(true);
-//			}
-//		});
-//	}
 }

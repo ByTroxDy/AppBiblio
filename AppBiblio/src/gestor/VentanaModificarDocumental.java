@@ -1,34 +1,17 @@
 package gestor;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
+import db.DocumentoMaxDB;
+import app.Documento;
+import app.Documental;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
-import app.Documental;
-import app.Documento;
-import db.DocumentoMaxDB;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-
 public class VentanaModificarDocumental extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblProductora, lblPremios, lblDocumentalesRealcionados, lblDuracion, lblFormato;
@@ -37,6 +20,8 @@ public class VentanaModificarDocumental extends JFrame {
 	
 	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
+	
+	static Documento documento;
 	
 	public VentanaModificarDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,7 +91,7 @@ public class VentanaModificarDocumental extends JFrame {
 		textFieldPremios.setColumns(10);
 		textFieldPremios.setBounds(126, 132, 149, 20);
 		
-		lblDocumentalesRealcionados = new JLabel("Documentales realcionados");
+		lblDocumentalesRealcionados = new JLabel("Documentals relacionats");
 		lblDocumentalesRealcionados.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDocumentalesRealcionados.setBounds(89, 175, 229, 17);
 		
@@ -140,7 +125,7 @@ public class VentanaModificarDocumental extends JFrame {
 		formatoBox.setBackground(new Color(0, 128, 192));
 		
 		//Volver
-		btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Tornar");
 		btnVolver.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVolver.setForeground(new Color(238, 238, 236));
 		btnVolver.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -183,7 +168,7 @@ public class VentanaModificarDocumental extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldProductora.getText().isEmpty() | textFieldPremios.getText().isEmpty() | textFieldDocRelacionados.getText().isEmpty()
 						| textFieldDuracion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					productora = textFieldProductora.getText().toString();
 					premios = textFieldPremios.getText().toString();
@@ -195,28 +180,15 @@ public class VentanaModificarDocumental extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
 					if (docDB.updateDocDocl(documento, documental)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Documental", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Documental", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}//if else
 				}// if else
 			}//actionPerformed
 		});
-	}// VentanaModificarDocumental
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModificarDocumental frame = new VentanaModificarDocumental();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaModificarDocumental

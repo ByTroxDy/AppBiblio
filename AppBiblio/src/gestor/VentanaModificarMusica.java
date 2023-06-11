@@ -1,36 +1,20 @@
 package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
+import db.DocumentoMaxDB;
+import app.Documento;
+import app.Musica;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
 import com.toedter.calendar.JDateChooser;
-
-import app.Documento;
-import app.Musica;
-import db.DocumentoMaxDB;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
 
 public class VentanaModificarMusica extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblLugar, lblFecha, lblDuracion, lblFormat;
 	private JTextField textFieldLloc, textFieldDuracio;
@@ -42,6 +26,7 @@ public class VentanaModificarMusica extends JFrame {
 	private Date fecha;
 	private int duracion;
 	
+	static Documento documento;
 	
 	public VentanaModificarMusica() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +74,7 @@ public class VentanaModificarMusica extends JFrame {
 		lblTituloDatos.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblTituloDatos.setBounds(0, 28, 592, 28);
 		
-		lblLugar = new JLabel("Llloc");
+		lblLugar = new JLabel("Lloc");
 		lblLugar.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblLugar.setBounds(83, 102, 79, 17);
 
@@ -178,7 +163,7 @@ public class VentanaModificarMusica extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldLloc.getText().isEmpty() | textFieldDuracio.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					lugar = textFieldLloc.getText().toString();
 					fecha = dateChooser.getDate();
@@ -190,35 +175,22 @@ public class VentanaModificarMusica extends JFrame {
 			        
 					try {
 						if (docDB.updateDocMus(documento, musica)) {
-							JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Música", JOptionPane.INFORMATION_MESSAGE);
 							MenuGestor menu = new MenuGestor();
 							menu.setVisible(true);
 							dispose();
 						} else {
-							JOptionPane.showMessageDialog(panelSecundario, "Error al actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 						}//if else
 						textFieldLloc.setText("");
 						dateChooser.setDate(null);
 						textFieldDuracio.setText("");
 			        } catch (NullPointerException ex) {
-			        	JOptionPane.showMessageDialog(panelSecundario, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
+			        	JOptionPane.showMessageDialog(panelSecundario, "La data no té sentit.", "Data incorrecta", JOptionPane.ERROR_MESSAGE);
 			        	dateChooser.setDate(null);
 			        }// try catch
 				}// if else
 			}// actionPerformed
 		});
-	}// VentanaModificarMusica
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModificarMusica frame = new VentanaModificarMusica();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaModificarMusica

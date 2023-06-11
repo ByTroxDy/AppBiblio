@@ -73,13 +73,4 @@ public class VentanaEditarPerfil extends JFrame {
         pack();
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
     }
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//                VentanaEditarPerfil ventana = new VentanaEditarPerfil();
-//                ventana.setVisible(true);
-//            }
-//        });
-//    }
 }

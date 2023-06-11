@@ -1,15 +1,15 @@
 package gestor;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import socio.VentanaConsultarDocumento;
 import socio.VentanaInicioSesion;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuGestor extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblGestores, lblNewLabel, lblSelecciona;
@@ -67,7 +67,7 @@ public class MenuGestor extends JFrame {
 		lblSelecciona.setBounds(130, 70, 333, 36);
 		
 		//Selección de la función a realizar
-		String[] funcion = {"Alta Document", "Modificar Document", "Consultar Document", "Còpia de seguretat", "Restauració"};
+		String[] funcion = {"Alta Document", "Consultar Document", "Suport"};
 		comboBox = new JComboBox<>(funcion);
 		comboBox.setForeground(new Color(238, 238, 236));
 		comboBox.setBackground(new Color(0, 128, 192));
@@ -116,34 +116,15 @@ public class MenuGestor extends JFrame {
 				if (seleccion == "Alta Document") {
 					VentanaAltaDocumento frame = new VentanaAltaDocumento();
 					frame.setVisible(true);
-				}else if (seleccion == "Modificar Document") {
-					VentanaModificarDocumento frame = new VentanaModificarDocumento();
-					frame.setVisible(true);
-				}else if(seleccion == "Consultar Document"){
+				} else if (seleccion == "Consultar Document") {
 					VentanaConsultarDocumento frame = new VentanaConsultarDocumento();
 					frame.setVisible(true);
-				} else if(seleccion == "Còpia de seguretat"){
-					VentanaCopiaSeguridad frame = new VentanaCopiaSeguridad();
-					frame.setVisible(true);
 				} else {
-					VentanaRestauracion frame = new VentanaRestauracion();
+					VentanaRespaldo frame = new VentanaRespaldo();
 					frame.setVisible(true);
 				}//if
 				dispose();
 			}//actionPerformed
 		});
-	}// MenuGestor
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuGestor frame = new MenuGestor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}//try catch
-			}//run
-		});
-	}// main
+	}
 }// MenuGestor

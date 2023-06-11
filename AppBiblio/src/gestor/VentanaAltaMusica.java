@@ -3,12 +3,14 @@ package gestor;
 import db.DocumentoMaxDB;
 import app.Documento;
 import app.Musica;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaAltaMusica extends JFrame {
@@ -161,7 +163,7 @@ public class VentanaAltaMusica extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldLugar.getText().isEmpty() | textFieldDuracion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					lugar = textFieldLugar.getText().toString();
 					fecha = dateChooser.getDate();
@@ -173,36 +175,23 @@ public class VentanaAltaMusica extends JFrame {
 			        
 					try {
 						if (docDB.insertDocMus(documento, musica)) {
-							JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Música", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Música", JOptionPane.INFORMATION_MESSAGE);
 							MenuGestor menu = new MenuGestor();
 							menu.setVisible(true);
 							dispose();
 						} else {
-							JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 						}//if else
 						textFieldLugar.setText("");
 						dateChooser.setDate(null);
 						textFieldDuracion.setText("");
 						
 			        } catch (NullPointerException ex) {
-			        	JOptionPane.showMessageDialog(panelSecundario, "La fecha no tiene sentido", "Fecha incorrecta", JOptionPane.ERROR_MESSAGE);
+			        	JOptionPane.showMessageDialog(panelSecundario, "La data no té sentit.", "Data incorrecta", JOptionPane.ERROR_MESSAGE);
 			        	dateChooser.setDate(null);
 			        }// try catch
 				}// if else
 			}// actionPerformed
 		});
-	}// VentanaAltaMusica
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaMusica frame = new VentanaAltaMusica();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaAltaMusica

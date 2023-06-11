@@ -3,6 +3,7 @@ package gestor;
 import db.DocumentoMaxDB;
 import app.Documental;
 import app.Documento;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,8 +12,6 @@ import java.awt.event.ActionListener;
 
 public class VentanaAltaDocumental extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JLabel lblTituloAlta, lblImagen, lblIntroducDatos, lblProductora, lblPremios, lblDocumentalesRealcionados, lblDuracion, lblFormato;
 	private JTextField textFieldProductora, textFieldPremios, textFieldDocRelacionados, textFieldDuracion;
@@ -21,6 +20,8 @@ public class VentanaAltaDocumental extends JFrame {
 	
 	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
+	
+	static Documento documento;
 
 	public VentanaAltaDocumental() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,7 +177,7 @@ public class VentanaAltaDocumental extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldProductora.getText().isEmpty() | textFieldPremios.getText().isEmpty() | textFieldPremios.getText().isEmpty() | 
 						textFieldDocRelacionados.getText().isEmpty() | textFieldDuracion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					productora = textFieldProductora.getText().toString();
 					premios = textFieldPremios.getText().toString();
@@ -188,28 +189,15 @@ public class VentanaAltaDocumental extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
 					if (docDB.insertDocDocl(documento, documental)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Documental", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}//if else
 				}// if else
 			}//actionPerformed
 		});
-	}// VentanaAltaDocumental
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaDocumental frame = new VentanaAltaDocumental();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaAltaDocumental

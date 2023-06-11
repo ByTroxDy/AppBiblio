@@ -2,6 +2,9 @@ package socio;
 
 import db.UsuarioMaxDB;
 import gestor.MenuGestor;
+import gestor.VentanaAltaDocumento;
+import gestor.VentanaRespaldo;
+import gestor.VentanaModificarDocumento;
 import admin.MenuAdmin;
 
 import javax.swing.*;
@@ -82,14 +85,8 @@ public class VentanaInicioSesion extends JFrame {
 				grupo = usuDB.obtenerGrupo(usuario);
 
 				if (usuDB.iniciarSesion(usuario, password)) {
-					VentanaConsultarDocumento.usuario = usuario;
-					VentanaDevolverDocumento.usuario = usuario;
-					VentanaAgregarComentario.usuario = usuario;
-					VentanaCambiarNombreUsuario.usuarioActual = usuario;
-					VentanaCambiarPassword.usuario = usuario;
-					VentanaCambiarEmail.usuario = usuario;
-					VentanaConsultarDocumento.grupo = grupo;
-					MenuSocio.usuario = usuario;
+					
+					saveUserAndGroup();
 
 					if (grupo.equals("socio")) {
 						MenuSocio menu = new MenuSocio();
@@ -132,14 +129,18 @@ public class VentanaInicioSesion extends JFrame {
 		pack();
 		setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	}
-
-//	public static void main(String[] args) {
-//		SwingUtilities.invokeLater(new Runnable() {
-//			@Override
-//			public void run() {
-//				VentanaInicioSesion app = new VentanaInicioSesion();
-//				app.setVisible(true);
-//			}
-//		});
-//	}
+	
+	public void saveUserAndGroup() {
+		MenuSocio.usuario = usuario;
+		VentanaConsultarDocumento.usuario = usuario;
+		VentanaDevolverDocumento.usuario = usuario;
+		VentanaAgregarComentario.usuario = usuario;
+		VentanaCambiarNombreUsuario.usuarioActual = usuario;
+		VentanaCambiarPassword.usuario = usuario;
+		VentanaCambiarEmail.usuario = usuario;
+		VentanaConsultarDocumento.grupo = grupo;
+		VentanaAltaDocumento.grupo = grupo;
+		VentanaModificarDocumento.grupo = grupo;
+		VentanaRespaldo.grupo = grupo;
+	}
 }

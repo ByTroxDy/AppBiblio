@@ -1,84 +1,78 @@
 package admin;
 
-import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-
 import db.UsuarioMaxDB;
 
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
 
 @SuppressWarnings("serial")
 public class VentanaModiUsuario extends JFrame {
 
 	private JPanel panel;
-	private JTextField anticText;
-	private JTextField nouText;
-	private final Action action = new eixir();
-	private final Action action_1 = new Modificar();
+	private JTextField txtOldUsuario, txtNewUsuario;
+	private JButton btnEixir, btnModificar;
+	private final Action actionEixir = new Eixir();
+	private final Action actionModificar = new Modificar();
+	
+	private String nou, antic;
 
 	public VentanaModiUsuario() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 250);
 		panel = new JPanel();
 		panel.setBackground(new Color(186, 255, 248));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(panel);
 		panel.setLayout(null);
+		setLocationRelativeTo(null);
 		
-		JLabel titulo = new JLabel("Modificació Usuari");
-		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		titulo.setOpaque(true);
-		titulo.setBackground(new Color(255, 150, 49));
-		titulo.setBounds(6, 6, 438, 16);
-		panel.add(titulo);
+		JLabel lblTitulo = new JLabel("Modificació Usuari");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setOpaque(true);
+		lblTitulo.setBackground(new Color(255, 150, 49));
+		lblTitulo.setBounds(0, 6, 388, 26);
 		
-		anticText = new JTextField();
-		anticText.setBounds(158, 66, 130, 26);
-		panel.add(anticText);
-		anticText.setColumns(10);
+		JLabel lblOldUsuario = new JLabel("Antic Usuari");
+		lblOldUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblOldUsuario.setBounds(65, 78, 85, 18);
 		
-		nouText = new JTextField();
-		nouText.setBounds(158, 104, 130, 26);
-		panel.add(nouText);
-		nouText.setColumns(10);
+		txtOldUsuario = new JTextField(10);
+		txtOldUsuario.setBounds(160, 74, 130, 26);
 		
-		JLabel aUsuariLabel = new JLabel("Antic Usuari");
-		aUsuariLabel.setBounds(52, 71, 77, 16);
-		panel.add(aUsuariLabel);
+		JLabel lblNewUsuario = new JLabel("Nou Usuari");
+		lblNewUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewUsuario.setBounds(65, 115, 85, 18);
+
+		txtNewUsuario = new JPasswordField();
+		txtNewUsuario.setBounds(160, 111, 130, 26);
 		
-		JLabel nUsuariLabel = new JLabel("Nou Usuari");
-		nUsuariLabel.setBounds(52, 109, 77, 16);
-		panel.add(nUsuariLabel);
+		btnModificar = new JButton();
+		btnModificar.setAction(actionModificar);
+		btnModificar.setBounds(261, 175, 117, 29);
 		
-		JButton eixirButton = new JButton("Eixir");
-		eixirButton.setAction(action);
-		eixirButton.setBounds(12, 225, 117, 29);
-		panel.add(eixirButton);
+		btnEixir = new JButton();
+		btnEixir.setAction(actionEixir);
+		btnEixir.setBounds(10, 175, 117, 29);
 		
-		JButton modiButton = new JButton("Modificar");
-		modiButton.setAction(action_1);
-		modiButton.setBounds(313, 225, 117, 29);
-		panel.add(modiButton);
+		panel.add(lblTitulo);
+		panel.add(lblOldUsuario);
+		panel.add(txtOldUsuario);
+		panel.add(lblNewUsuario);
+		panel.add(txtNewUsuario);
+		panel.add(btnModificar);
+		panel.add(btnEixir);
+		
+		setContentPane(panel);
 	}//VentanaModiUsuario
 
-	private class eixir extends AbstractAction {
-		public eixir() {
+	private class Eixir extends AbstractAction {
+		public Eixir() {
 			putValue(NAME, "Eixir");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			VentanaSelectModificacion frame = new VentanaSelectModificacion();
+			VentanaModificacion frame = new VentanaModificacion();
 			frame.setVisible(true);
 			dispose();
 		}
@@ -87,25 +81,26 @@ public class VentanaModiUsuario extends JFrame {
 	private class Modificar extends AbstractAction {
 		public Modificar() {
 			putValue(NAME, "Modificar");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			String nou, antic;
-			nou = nouText.getText();
-			antic = anticText.getText();
+			antic = txtOldUsuario.getText();
+			nou = txtNewUsuario.getText();
 			
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			if (usuDB.nombreUsuarioEnUso(nou)) {
-            	JOptionPane.showMessageDialog(panel, "El nou nom d'usuari ya esta escogit agafa un altre", "Modificació", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "El nou nom d'usuari ja està en ús. Si us plau, tria un altre.", "Modificació", JOptionPane.INFORMATION_MESSAGE);
 			} else if(usuDB.nombreUsuarioEnUso(antic)) {
 				usuDB.actualizarNombreUsuario(antic, nou);
-            	JOptionPane.showMessageDialog(panel, "Ha cambiat el nom del Usuari correctament", "Modificació", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "S'ha canviat el nom de l'usuari correctament.", "Modificació", JOptionPane.INFORMATION_MESSAGE);
             	MenuAdmin admin1 = new MenuAdmin();
 				admin1.setVisible(true);
             	dispose();
 			} else {
-            	JOptionPane.showMessageDialog(panel, "Usuari no encontrat", "Modificació", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Usuari no trobat.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
+			
+			txtOldUsuario.setText("");
+			txtNewUsuario.setText("");
 		}
 	}//Modificar
 }//end

@@ -1,34 +1,23 @@
 package admin;
 
-import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
-
 import db.UsuarioMaxDB;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
-import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class VentanaAltaUsuario extends JFrame {
-
 	private JPanel panel;
-	private JTextField usuarioText;
-	private JPasswordField contraText;
-	private JPasswordField ConfirmarContra;
-	private JComboBox<String> select;
-	private final Action action = new Salir();
-	private final Action action_1 = new Registrar();
-	private JTextField correoText;
+	private JTextField txtUsuario, txtCorreo;
+	private JPasswordField txtContra;
+	private JComboBox<String> cmbSelectRol;
+	private JButton btnEixir, btnRegistrar;
+	private final Action actionSalir = new Salir();
+	private final Action actionRegistrar = new Registrar();
+	
+	private String usuario, contra, select, correo;
 
 	public VentanaAltaUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,88 +25,76 @@ public class VentanaAltaUsuario extends JFrame {
 		panel = new JPanel();
 		panel.setBackground(new Color(186, 255, 248));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(panel);
 		panel.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel contra = new JLabel("Confirmar");
-		contra.setHorizontalAlignment(SwingConstants.RIGHT);
-		contra.setBounds(43, 149, 93, 16);
-		panel.add(contra);
+		JLabel lblTitulo = new JLabel("Alta Usuari");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setOpaque(true);
+		lblTitulo.setBackground(new Color(255, 150, 49));
+		lblTitulo.setBounds(0, 6, 444, 26);
 		
-		JLabel titulo = new JLabel("Alta Usuari");
-		titulo.setOpaque(true);
-		titulo.setBackground(new Color(255, 150, 49));
-		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		titulo.setBounds(6, 0, 438, 26);
-		panel.add(titulo);
+		JLabel lblUsuario = new JLabel("Usuari");
+		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUsuario.setBounds(90, 78, 80, 18);
 		
-		usuarioText = new JTextField();
-		usuarioText.setBounds(176, 66, 130, 26);
-		panel.add(usuarioText);
-		usuarioText.setColumns(10);
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(180, 73, 130, 26);
+		txtUsuario.setColumns(10);
 		
-		JLabel labelUsuario = new JLabel("Usuari");
-		labelUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		labelUsuario.setBounds(75, 71, 61, 16);
-		panel.add(labelUsuario);
+		JLabel lblContra = new JLabel("Contrasenya");
+		lblContra.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblContra.setBounds(90, 116, 80, 18);
 		
-		contraText = new JPasswordField();
-		contraText.setBounds(176, 104, 130, 26);
-		panel.add(contraText);
-		contraText.setColumns(10);
+		txtContra = new JPasswordField();
+		txtContra.setBounds(180, 111, 130, 26);
+		txtContra.setColumns(10);
 		
-		JLabel labelContra = new JLabel("Contrasenya");
-		labelContra.setBounds(56, 109, 80, 16);
-		panel.add(labelContra);
+		JLabel lblCorreo = new JLabel("Correu");
+		lblCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCorreo.setBounds(90, 152, 80, 18);
 		
-		ConfirmarContra = new JPasswordField();
-		ConfirmarContra.setBounds(176, 144, 130, 26);
-		panel.add(ConfirmarContra);
-		ConfirmarContra.setColumns(10);
+		txtCorreo = new JTextField();
+		txtCorreo.setBounds(180, 148, 130, 26);
+		txtCorreo.setColumns(10);
 		
-		JButton buttonRegistrar = new JButton("Registrar");
-		buttonRegistrar.setAction(action_1);
-		buttonRegistrar.setBounds(302, 269, 117, 29);
-		panel.add(buttonRegistrar);
+		JLabel lblRol = new JLabel("Rol");
+		lblRol.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRol.setBounds(90, 190, 80, 18);
+
+		cmbSelectRol = new JComboBox<String>();
+		cmbSelectRol.setBounds(180, 185, 130, 27);
+		cmbSelectRol.addItem("socio");
+		cmbSelectRol.addItem("gestor");
+		cmbSelectRol.addItem("admin");
 		
-		JButton buttonSalir = new JButton("Eixir");
-		buttonSalir.setAction(action);
-		buttonSalir.setBounds(19, 269, 117, 29);
-		panel.add(buttonSalir);
+		btnRegistrar = new JButton();
+		btnRegistrar.setAction(actionRegistrar);
+		btnRegistrar.setBounds(302, 269, 117, 29);
+
+		btnEixir = new JButton();
+		btnEixir.setAction(actionSalir);
+		btnEixir.setBounds(19, 269, 117, 29);
 		
-		JLabel lblNewLabel = new JLabel("Contrasenya");
-		lblNewLabel.setBounds(53, 165, 83, 16);
-		panel.add(lblNewLabel);
+		panel.add(lblTitulo);
+		panel.add(lblUsuario);
+		panel.add(txtUsuario);
+		panel.add(lblContra);
+		panel.add(txtContra);
+		panel.add(lblCorreo);
+		panel.add(txtCorreo);
+		panel.add(lblRol);
+		panel.add(cmbSelectRol);
+		panel.add(btnRegistrar);
+		panel.add(btnEixir);
 		
-		select = new JComboBox<String>();
-		select.setBounds(185, 230, 100, 27);
-		select.addItem("socio");
-		select.addItem("gestor");
-		select.addItem("admin");
-		panel.add(select);
+		setContentPane(panel);
 		
-		correoText = new JTextField();
-		correoText.setBounds(176, 192, 130, 26);
-		panel.add(correoText);
-		correoText.setColumns(10);
-		
-		JLabel correoLabel = new JLabel("Correu");
-		correoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		correoLabel.setBounds(75, 197, 61, 16);
-		panel.add(correoLabel);
-		
-		JLabel rolLabel = new JLabel("Rol");
-		rolLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		rolLabel.setBounds(75, 234, 61, 16);
-		panel.add(rolLabel);
 	}//administradorAltaUsuario
 	
 	private class Salir extends AbstractAction {
 		public Salir() {
 			putValue(NAME, "Eixir");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
 			MenuAdmin admin = new MenuAdmin();
@@ -129,42 +106,28 @@ public class VentanaAltaUsuario extends JFrame {
 	private class Registrar extends AbstractAction {
 		public Registrar() {
 			putValue(NAME, "Registrar");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
-		public void actionPerformed(ActionEvent e) {
-			String usuario;
-			String contra;
-			String confirmaContra;
-			String Select;
-			String correo;
-			
-			usuario = usuarioText.getText().toLowerCase();
-			contra = new String (contraText.getPassword());
-			confirmaContra = new String(ConfirmarContra.getPassword());
-			correo = correoText.getText();
-			Select = select.getSelectedItem().toString();
+		public void actionPerformed(ActionEvent e) {		
+			usuario = txtUsuario.getText().toLowerCase();
+			contra = new String(txtContra.getPassword());
+			correo = txtCorreo.getText();
+			select = cmbSelectRol.getSelectedItem().toString();
 
-			if (contra.equals(confirmaContra) && contra.length() > 8) {//Enviar usuario y contraseña
-                UsuarioMaxDB usuDB = new UsuarioMaxDB();
-                
-                if (usuDB.guardarRegistro2(usuario, contra, Select, correo)) {
-                	JOptionPane.showMessageDialog(panel, "Registre exitos", "Registre", JOptionPane.INFORMATION_MESSAGE);
-                	MenuAdmin app = new MenuAdmin();
-    	            app.setVisible(true);
-    	            dispose();
-                } else {
-                	JOptionPane.showMessageDialog(panel, "El nombre de usuario ya está registrado", "Registro", JOptionPane.ERROR_MESSAGE);
-                }
-                
-				// Limpiar los campos de texto después de intentar iniciar sesión
-                usuarioText.setText("");
-                contraText.setText("");
-                ConfirmarContra.setText("");
-			} else if (contra.length() < 8) {
-            	JOptionPane.showMessageDialog(panel, "Contrasenya masa curt", "Registre", JOptionPane.INFORMATION_MESSAGE);
-			} else {
-            	JOptionPane.showMessageDialog(panel, "Contrasenya y Confirmar contrasenya no coincidixen", "Registre", JOptionPane.INFORMATION_MESSAGE);
-			}
+            UsuarioMaxDB usuDB = new UsuarioMaxDB();
+            if (usuDB.guardarRegistro2(usuario, contra, select, correo)) {
+            	JOptionPane.showMessageDialog(panel, "Registre exitos.", "Registre", JOptionPane.INFORMATION_MESSAGE);
+            	MenuAdmin app = new MenuAdmin();
+	            app.setVisible(true);
+	            dispose();
+            } else {
+            	JOptionPane.showMessageDialog(panel, "El nom d'usuari ja està registrat.", "Registre", JOptionPane.ERROR_MESSAGE);
+            }
+            
+			// Limpiar los campos de texto después de intentar iniciar sesión
+            txtUsuario.setText("");
+            txtContra.setText("");
+            txtCorreo.setText("");
+
 		}//actionPerformed
 	}//Registrar
 }//end

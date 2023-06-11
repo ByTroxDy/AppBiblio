@@ -131,14 +131,4 @@ public class VentanaRegistro extends JFrame {
             return false;
         }
 	}
-	
-//	public static void main(String[] args) {
-//		SwingUtilities.invokeLater(new Runnable() {
-//			@Override
-//			public void run() {
-//				VentanaRegistro registro = new VentanaRegistro();
-//				registro.setVisible(true);
-//			}
-//		});
-//	}
 }

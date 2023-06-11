@@ -4,6 +4,8 @@ import app.Documento;
 import db.DocumentoMaxDB;
 import db.UsuarioMaxDB;
 import gestor.MenuGestor;
+import gestor.VentanaModificarDocumento;
+import admin.MenuAdmin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,7 +20,7 @@ public class VentanaConsultarDocumento extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTitulo;
 	private JComboBox<Object> cmbTipo;
-	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc;
+	private JButton btnVolver, btnBuscar, btnVolverBuscar, btnPedirReserva, btnBajaDoc, btnModDoc;
 
 	private int filaSeleccionada, isbn;
 	private String titulo, tipo, replicas;
@@ -65,6 +67,9 @@ public class VentanaConsultarDocumento extends JDialog {
 					menu.setVisible(true);
 				} else if (grupo.equals("gestor")) {
 					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+				} else if (grupo.equals("admin")) {
+					MenuAdmin menu = new MenuAdmin();
 					menu.setVisible(true);
 				}
 				dispose();
@@ -156,6 +161,7 @@ public class VentanaConsultarDocumento extends JDialog {
 			btnVolverBuscar = new JButton("Tornar a Cerca");
 			btnPedirReserva = new JButton("Demanar Reserva");
 			btnBajaDoc = new JButton("Donar de baixa");
+			btnModDoc = new JButton("Modificar Doc");
 
 			// Configurar el panel de botones
 			JPanel panelBotones = new JPanel();
@@ -163,6 +169,7 @@ public class VentanaConsultarDocumento extends JDialog {
 			panelBotones.add(btnVolverBuscar);
 			panelBotones.add(btnPedirReserva);
 			panelBotones.add(btnBajaDoc);
+			panelBotones.add(btnModDoc);
 
 			// Configurar el panel principal
 			JPanel panelPrincipal = new JPanel();
@@ -214,7 +221,6 @@ public class VentanaConsultarDocumento extends JDialog {
 								JOptionPane.showMessageDialog(ventanaResultados, "Ja heu reservat aquest document.",
 										"Error", JOptionPane.ERROR_MESSAGE);
 							}
-
 						}
 					}
 				}
@@ -233,7 +239,22 @@ public class VentanaConsultarDocumento extends JDialog {
 								"S'ha donat de baixa correctament a l'isbn: " + isbn, "Baixa document",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
-
+				}
+			});
+			
+			btnModDoc.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ex) {
+					filaSeleccionada = tablaDocumentos.getSelectedRow();
+					if (filaSeleccionada == -1) {
+						JOptionPane.showMessageDialog(ventanaResultados, "Seleccioneu un document de la taula.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						isbn = (int) tablaDocumentos.getValueAt(filaSeleccionada, 0);
+						VentanaModificarDocumento.isbn = isbn;
+						VentanaModificarDocumento ventana = new VentanaModificarDocumento();
+						ventana.setVisible(true);
+						ventanaResultados.dispose();
+					}
 				}
 			});
 			
@@ -242,13 +263,4 @@ public class VentanaConsultarDocumento extends JDialog {
 			ventanaResultados.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 		}
 	}
-
-//	public static void main(String[] args) {
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
-//				ventana.setVisible(true);
-//			}
-//		});
-//	}
 }

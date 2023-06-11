@@ -1,125 +1,102 @@
 package admin;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import db.UsuarioMaxDB;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
 
 @SuppressWarnings("serial")
 public class VentanaModiCorreo extends JFrame {
 
 	private JPanel panel;
-	private JTextField usuariText;
-	private JTextField correoText;
-	private final Action action = new Eixir();
-	private final Action action_1 = new modificar();
+	private JTextField txtUsuario, txtCorreo;
+	private JButton btnEixir, btnModificar;
+	private final Action actionEixir = new Eixir();
+	private final Action actionModificar = new Modificar();
+	
+	private String usuari, correo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModiCorreo frame = new VentanaModiCorreo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VentanaModiCorreo() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 400, 250);
 		panel = new JPanel();
 		panel.setBackground(new Color(186, 255, 248));
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(panel);
 		panel.setLayout(null);
+		setLocationRelativeTo(null);
 		
-		JLabel titulo = new JLabel("Modificació Correu");
-		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		titulo.setOpaque(true);
-		titulo.setBackground(new Color(255, 150, 49));
-		titulo.setBounds(0, 0, 450, 27);
-		panel.add(titulo);
+		JLabel lblTitulo = new JLabel("Modificació Correu");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setOpaque(true);
+		lblTitulo.setBackground(new Color(255, 150, 49));
+		lblTitulo.setBounds(0, 6, 388, 26);
 		
-		usuariText = new JTextField();
-		usuariText.setBounds(152, 74, 130, 26);
-		panel.add(usuariText);
-		usuariText.setColumns(10);
+		JLabel lblUsuario = new JLabel("Usuari");
+		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUsuario.setBounds(65, 78, 70, 18);
 		
-		JLabel usuariLabel = new JLabel("Usuari");
-		usuariLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		usuariLabel.setBounds(33, 79, 85, 16);
-		panel.add(usuariLabel);
+		txtUsuario = new JTextField(10);
+		txtUsuario.setBounds(145, 74, 130, 26);
 		
-		correoText = new JTextField();
-		correoText.setBounds(152, 132, 130, 26);
-		panel.add(correoText);
-		correoText.setColumns(10);
+		JLabel lblCorreo = new JLabel("Correu");
+		lblCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCorreo.setBounds(65, 115, 70, 18);
+
+		txtCorreo = new JPasswordField();
+		txtCorreo.setBounds(145, 111, 130, 26);
 		
-		JLabel correoLabel = new JLabel("Nou Correu");
-		correoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		correoLabel.setBounds(27, 137, 91, 16);
-		panel.add(correoLabel);
+		btnModificar = new JButton();
+		btnModificar.setAction(actionModificar);
+		btnModificar.setBounds(261, 175, 117, 29);
 		
-		JButton EixirButton = new JButton("Eixir");
-		EixirButton.setAction(action);
-		EixirButton.setBounds(16, 221, 117, 29);
-		panel.add(EixirButton);
+		btnEixir = new JButton();
+		btnEixir.setAction(actionEixir);
+		btnEixir.setBounds(10, 175, 117, 29);
 		
-		JButton ModificarButton = new JButton("Modificar");
-		ModificarButton.setAction(action_1);
-		ModificarButton.setBounds(304, 221, 117, 29);
-		panel.add(ModificarButton);
+		panel.add(lblTitulo);
+		panel.add(lblUsuario);
+		panel.add(txtUsuario);
+		panel.add(lblCorreo);
+		panel.add(txtCorreo);
+		panel.add(btnModificar);
+		panel.add(btnEixir);
+		
+		setContentPane(panel);
+		
 	}//VentanaModiCorreo
 
 	private class Eixir extends AbstractAction {
 		public Eixir() {
 			putValue(NAME, "Eixir");
-			putValue(SHORT_DESCRIPTION, "Vuelve hacia la ventana VentanaSelectModificacion");
+			putValue(SHORT_DESCRIPTION, "Torna a la finestra selecció de modificació.");
 		}
 		public void actionPerformed(ActionEvent e) {
-			VentanaSelectModificacion modiSelect = new VentanaSelectModificacion();
+			VentanaModificacion modiSelect = new VentanaModificacion();
 			modiSelect.setVisible(true);
 		}
 	}//Eixir
-	private class modificar extends AbstractAction {
-		public modificar() {
+	
+	private class Modificar extends AbstractAction {
+		public Modificar() {
 			putValue(NAME, "Modificar");
-			putValue(SHORT_DESCRIPTION, "Modifica el correo del usuario");
+			putValue(SHORT_DESCRIPTION, "Modifica el correu de l'usuari.");
 		}
 		public void actionPerformed(ActionEvent e) {
-			String usuari, correo;
-			usuari= usuariText.getText();
-			correo= correoText.getText();
+			usuari = txtUsuario.getText();
+			correo = txtCorreo.getText();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 
 			if (usuDB.cambiarEmail(usuari, correo)) {
-            	JOptionPane.showMessageDialog(panel, "Email actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Correu electrònic actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
             } else {
-            	JOptionPane.showMessageDialog(panel, "Ho sentim el usuari posat no existeix", "Error", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Ho sentim, l'usuari introduït no existeix.", "Error", JOptionPane.ERROR_MESSAGE);
             }//else
+			
+			txtUsuario.setText("");
+			txtCorreo.setText("");
 		}//actionPerformed
 	}//mopdificar
 }//end

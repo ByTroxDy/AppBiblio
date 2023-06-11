@@ -6,15 +6,12 @@ import app.Pelicula;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaAltaPelicula extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblDirector, lblActores,lblPremis, lblDuracion, lblFormato;
 	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;
@@ -24,6 +21,7 @@ public class VentanaAltaPelicula extends JFrame {
 	private String director, actoresPrincipales, premios, formato;
 	private int duracion;
 	
+	static Documento documento;
 	
 	public VentanaAltaPelicula() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +41,7 @@ public class VentanaAltaPelicula extends JFrame {
 		panelPrincipal.setBounds(0, 0, 592, 70);
 		panelPrincipal.setLayout(null);
 		
-		lblAlta = new JLabel("ALTA PELÍCULA");
+		lblAlta = new JLabel("ALTA PEL·LÍCULA");
 		lblAlta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlta.setBounds(125, 11, 320, 48);
 		lblAlta.setForeground(new Color(255, 255, 255));
@@ -177,7 +175,7 @@ public class VentanaAltaPelicula extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldDirector.getText().isEmpty() | textFieldActores.getText().isEmpty() | textFieldPremios.getText().isEmpty()
 						| textFieldDureacion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					director = textFieldDirector.getText().toString();
 					actoresPrincipales = textFieldActores.getText().toString();
@@ -189,12 +187,12 @@ public class VentanaAltaPelicula extends JFrame {
 
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					if (docDB.insertDocPel(documento, pelicula)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Pel·lícula", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}//if else
 				}// if else
 			}//actionPerformed

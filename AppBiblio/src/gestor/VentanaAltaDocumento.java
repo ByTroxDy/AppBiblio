@@ -1,11 +1,13 @@
 package gestor;
 
+import app.Documento;
+import admin.MenuAdmin;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import app.Documento;
 
 public class VentanaAltaDocumento extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +19,8 @@ public class VentanaAltaDocumento extends JFrame {
 	
 	private int isbn, replicas;
 	private String titulo, autor, tipo, biblioteca;
+	
+	public static String grupo;
 	
 	public VentanaAltaDocumento() {
 		setTitle("Alta Documento");
@@ -181,8 +185,13 @@ public class VentanaAltaDocumento extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			// función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {
-				MenuGestor frame = new MenuGestor();
-				frame.setVisible(true);
+				if (grupo.equals("gestor")) {
+					MenuGestor menu = new MenuGestor();
+					menu.setVisible(true);
+				} else if (grupo.equals("admin")) {
+					MenuAdmin menu = new MenuAdmin();
+					menu.setVisible(true);
+				}
 				dispose();
 			}// actionPerformed
 		});
@@ -192,7 +201,7 @@ public class VentanaAltaDocumento extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldIsbn.getText().isEmpty() | textFieldTitulo.getText().isEmpty()
 						| textFieldAutor.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					isbn = Integer.parseInt(textFieldIsbn.getText());
 					titulo = textFieldTitulo.getText();
@@ -224,18 +233,6 @@ public class VentanaAltaDocumento extends JFrame {
 				}//if else
 			}//actionPerformed
 		});
-	}//VentanaAltaDocumento
+	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaDocumento frame = new VentanaAltaDocumento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}//try catch
-			}//run
-		});
-	}//main
 }//VentanaAltaDocumento

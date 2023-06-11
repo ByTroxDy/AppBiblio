@@ -3,6 +3,7 @@ package gestor;
 import db.DocumentoMaxDB;
 import app.Documento;
 import app.Libro;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,8 +12,6 @@ import java.awt.event.ActionListener;
 
 public class VentanaAltaLibro extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloIsbn, lblEditorial, lblPginas, lblTemtica;
 	private JTextField textEditorial, textPaginas;
@@ -21,6 +20,8 @@ public class VentanaAltaLibro extends JFrame {
 	
 	private String editorial, tematica;
 	private int numpaginas;
+	
+	static Documento documento;
 	
 	public VentanaAltaLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +106,7 @@ public class VentanaAltaLibro extends JFrame {
 		comboBox.setFont(new Font("Dialog", Font.BOLD, 14));
 		comboBox.setForeground(new Color(255, 255, 255));
 		comboBox.setBackground(new Color(0, 128, 192));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciències", "Història", "Literatura", "Filosofia", "Tècnics", "Altres..."}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciències", "Història", "Literatura", "Filosofia", "Tècnics", "Altres"}));
 		comboBox.setBounds(194, 159, 262, 26);
 
 		btnVolver = new JButton("Tornar");
@@ -147,7 +148,7 @@ public class VentanaAltaLibro extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textEditorial.getText().isEmpty() | textPaginas.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					editorial = textEditorial.getText().toString();
 					numpaginas = Integer.parseInt(textPaginas.getText());
@@ -157,28 +158,15 @@ public class VentanaAltaLibro extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 
 					if (docDB.insertDocLib(documento, libro)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Registro exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Llibre", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}// if else
 				}// if else
 			}// actionPerformed
 		});
-	}// VentanaAltaLibro
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaLibro frame = new VentanaAltaLibro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaAltaLibro

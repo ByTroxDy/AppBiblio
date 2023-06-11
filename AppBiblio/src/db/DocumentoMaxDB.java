@@ -695,7 +695,6 @@ public class DocumentoMaxDB {
 			statement.setString(3, documento.getAutor());
 			statement.setInt(4, documento.getReplicas());	
 			statement.setInt(5, documento.getISBN());
-
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -716,8 +715,6 @@ public class DocumentoMaxDB {
 			statement.setInt(2, libro.getNumeroPaginas());
 			statement.setString(3, libro.getTematica());
 			statement.setInt(4, libro.getISBN());
-			statement.executeUpdate();
-
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {

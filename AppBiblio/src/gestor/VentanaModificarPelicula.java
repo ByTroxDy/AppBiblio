@@ -1,28 +1,14 @@
 package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
+import db.DocumentoMaxDB;
 import app.Documento;
 import app.Pelicula;
-import db.DocumentoMaxDB;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaModificarPelicula extends JFrame {
 
@@ -190,7 +176,7 @@ public class VentanaModificarPelicula extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (textFieldDirector.getText().isEmpty() | textFieldActores.getText().isEmpty() | textFieldPremios.getText().isEmpty()
 						| textFieldPremios.getText().isEmpty() | textFieldDureacion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					director = textFieldDirector.getText().toString();
 					actoresPrincipales = textFieldActores.getText().toString();
@@ -202,28 +188,15 @@ public class VentanaModificarPelicula extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
 					if (docDB.updateDocPel(documento, pelicula)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Pelicula", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Pel·lícula", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al introducir datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}// if else
 				}// if else
 			}// actionPerformed
 		});
-	}// VentanaModificarPelicula
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModificarPelicula frame = new VentanaModificarPelicula();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaModificarPelicula

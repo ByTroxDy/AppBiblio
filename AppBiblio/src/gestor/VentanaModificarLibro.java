@@ -1,33 +1,17 @@
 package gestor;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.SystemColor;
+import db.DocumentoMaxDB;
+import app.Documento;
+import app.Libro;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
-import app.Documento;
-import app.Libro;
-import db.DocumentoMaxDB;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-
 public class VentanaModificarLibro extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static Documento documento;
-
 	private JPanel contentPane;
 	private JTextField textFieldEditorial, textFieldPaginas;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblEditorial, lblPginas, lblTemtica;
@@ -36,6 +20,8 @@ public class VentanaModificarLibro extends JFrame {
 	
 	private String editorial, tematica;
 	private int numpaginas;
+	
+	static Documento documento;
 
 	public VentanaModificarLibro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,7 +96,7 @@ public class VentanaModificarLibro extends JFrame {
 		tematicaBox.setBackground(new Color(0, 128, 192));
 		tematicaBox.setForeground(new Color(238, 238, 236));
 		tematicaBox.setFont(new Font("Dialog", Font.BOLD, 14));
-		tematicaBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciencies", "Historia", "Lliteratura", "Filosofía", "Técnics", "Altres..."}));
+		tematicaBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciencies", "Historia", "Lliteratura", "Filosofía", "Técnics", "Altres"}));
 		tematicaBox.setBounds(247, 182, 183, 26);
 
 		btnVolver = new JButton("Tornar");
@@ -153,7 +139,7 @@ public class VentanaModificarLibro extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(textFieldEditorial.getText().isEmpty() | textFieldPaginas.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					editorial = textFieldEditorial.getText().toString();
 					numpaginas = Integer.parseInt(textFieldPaginas.getText());
@@ -163,28 +149,15 @@ public class VentanaModificarLibro extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 
 					if (docDB.updateDocLib(documento, libro)) {
-						JOptionPane.showMessageDialog(panelSecundario, "Actualización exitoso", "Libro", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Llibre", JOptionPane.INFORMATION_MESSAGE);
 						MenuGestor menu = new MenuGestor();
 						menu.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(panelSecundario, "Error al intentar actualizar datos en la DB", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}// if else	
 				}// if else
 			}//actionPerformed
 		});
-	}// VentanaModificarLibro
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaModificarLibro frame = new VentanaModificarLibro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}// try catch
-			}// run
-		});
-	}// main
+	}
 }// VentanaModificarLibro

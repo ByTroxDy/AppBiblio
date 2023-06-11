@@ -100,13 +100,4 @@ public class VentanaCambiarEmail extends JFrame {
             return false;
         }
 	}
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//                VentanaCambiarEmail ventana = new VentanaCambiarEmail();
-//                ventana.setVisible(true);
-//            }
-//        });
-//    }
 }
