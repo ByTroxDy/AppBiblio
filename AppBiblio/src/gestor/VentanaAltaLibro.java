@@ -23,6 +23,7 @@ public class VentanaAltaLibro extends JFrame {
 	static Documento documento;
 	
 	public VentanaAltaLibro() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaLibro.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

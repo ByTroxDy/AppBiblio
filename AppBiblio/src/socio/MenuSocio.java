@@ -19,7 +19,8 @@ public class MenuSocio extends JFrame {
 	static String usuario;
 
 	public MenuSocio() {
-		setTitle("Menu Soci");
+		super("Biblioteca App - Menu Soci");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuSocio.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 

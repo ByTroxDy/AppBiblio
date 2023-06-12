@@ -20,6 +20,7 @@ public class VentanaAltaUsuario extends JFrame {
 	private String usuario, contra, select, correo;
 
 	public VentanaAltaUsuario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		panel = new JPanel();

@@ -22,6 +22,7 @@ public class VentanaModiGrupo extends JFrame {
 
 	public VentanaModiGrupo() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiGrupo.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		panel = new JPanel();

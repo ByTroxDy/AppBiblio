@@ -16,7 +16,8 @@ public class VentanaConsultarReservas extends JDialog {
 	private JButton btnVolver;
 
 	public VentanaConsultarReservas(ArrayList<Reservas> reservas) {
-		setTitle("Resultados de la consulta");
+		setTitle("Biblioteca App - Resultats de la consulta");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaConsultarReservas.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 

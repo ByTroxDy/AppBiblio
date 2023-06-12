@@ -25,7 +25,8 @@ public class VentanaRecuperar extends JFrame {
 	private JButton btnVolver, btnEnviar;
 
 	public VentanaRecuperar() {
-		super("Biblioteca App");
+		super("Biblioteca App - Recuperar");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRecuperar.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		

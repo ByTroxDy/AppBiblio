@@ -28,7 +28,8 @@ public class VentanaConsultarDocumento extends JDialog {
 	public static String usuario, grupo;
 
 	public VentanaConsultarDocumento() {
-		setTitle("Consultar Document");
+		setTitle("Biblioteca App - Consultar Document");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaConsultarDocumento.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 
@@ -121,7 +122,7 @@ public class VentanaConsultarDocumento extends JDialog {
 		} else {
 
 			JFrame ventanaResultados = new JFrame("Resultats de la consulta");
-
+			
 			// Crear un modelo de tabla para los documentos
 			DefaultTableModel modeloTabla = new DefaultTableModel();
 

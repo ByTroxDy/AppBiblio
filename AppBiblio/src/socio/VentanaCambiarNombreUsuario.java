@@ -18,7 +18,8 @@ public class VentanaCambiarNombreUsuario extends JFrame {
 	static String usuarioActual;
 
 	public VentanaCambiarNombreUsuario() {
-		setTitle("Canvia nom d'usuari");
+		super("Biblioteca App - Canvia nom d'usuari");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCambiarNombreUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 

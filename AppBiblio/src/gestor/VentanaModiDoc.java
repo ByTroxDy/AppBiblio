@@ -23,6 +23,7 @@ public class VentanaModiDoc extends JFrame {
 	public static int isbn;
 	
 	public VentanaModiDoc() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

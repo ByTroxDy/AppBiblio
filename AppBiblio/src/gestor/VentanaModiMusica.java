@@ -29,6 +29,7 @@ public class VentanaModiMusica extends JFrame {
 	static Documento documento;
 	
 	public VentanaModiMusica() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiMusica.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

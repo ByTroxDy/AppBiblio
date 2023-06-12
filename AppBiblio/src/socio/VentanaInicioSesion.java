@@ -27,6 +27,7 @@ public class VentanaInicioSesion extends JFrame {
 
 	public VentanaInicioSesion() {
 		super("Biblioteca App - Iniciar sessió");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicioSesion.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 

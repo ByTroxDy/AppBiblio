@@ -10,7 +10,8 @@ public class VentanaEditarPerfil extends JFrame {
 	private JButton btnCambiarUsuario, btnCambiarContrasena, btnCambiarEmail, btnVolver;
 
     public VentanaEditarPerfil() {
-        setTitle("Compte");
+    	super("Biblioteca App - Compte");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaEditarPerfil.class.getResource("/img/icono32.png")));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 

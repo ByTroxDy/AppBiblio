@@ -21,6 +21,7 @@ public class VentanaActivarDoc extends JFrame {
 	
 	public VentanaActivarDoc() {
 		setTitle("Activar Document");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActivarDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 300);
 		contentPane = new JPanel();

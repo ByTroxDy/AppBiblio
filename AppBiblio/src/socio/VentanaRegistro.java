@@ -28,6 +28,7 @@ public class VentanaRegistro extends JFrame {
 
 	public VentanaRegistro() {
 		super("Biblioteca App - Registrar-se");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaRegistro.class.getResource("/img/icono32.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         

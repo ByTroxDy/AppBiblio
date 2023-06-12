@@ -20,6 +20,7 @@ public class VentanaModiCorreo extends JFrame {
 
 	public VentanaModiCorreo() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiCorreo.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 250);
 		panel = new JPanel();

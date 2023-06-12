@@ -16,7 +16,8 @@ public class VentanaAgregarComentario extends JFrame {
     static String usuario;
 
     public VentanaAgregarComentario() {
-        setTitle("Afegir Comentari - Opcional");
+    	super("Biblioteca App - Afegir Comentari Opcional");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAgregarComentario.class.getResource("/img/icono32.png")));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 

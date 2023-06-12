@@ -27,6 +27,7 @@ public class MenuAdmin extends JFrame {
 
 	public MenuAdmin() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuAdmin.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 440, 370);
 		menuAdmin = new JPanel();

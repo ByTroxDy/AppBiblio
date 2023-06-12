@@ -20,7 +20,8 @@ public class VentanaDevolverDocumento extends JDialog {
 	static String usuario;
 
 	public VentanaDevolverDocumento(ArrayList<Prestamos> prestamos) {
-		setTitle("Tornar Document");
+		setTitle("Biblioteca App - Tornar Document");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaDevolverDocumento.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 

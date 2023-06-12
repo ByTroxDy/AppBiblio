@@ -18,7 +18,8 @@ public class VentanaCambiarPassword extends JFrame {
     static String usuario;
 
     public VentanaCambiarPassword() {
-        setTitle("Canviar Contrasenya");
+    	super("Biblioteca App - Canviar Contrasenya");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCambiarPassword.class.getResource("/img/icono32.png")));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 

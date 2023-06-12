@@ -20,7 +20,8 @@ public class VentanaCambiarEmail extends JFrame {
     static String usuario;
 
     public VentanaCambiarEmail() {
-        setTitle("Canviar Email");
+    	super("Biblioteca App - Canviar Email");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaCambiarEmail.class.getResource("/img/icono32.png")));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
 

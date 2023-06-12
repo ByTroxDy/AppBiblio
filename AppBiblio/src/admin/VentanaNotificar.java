@@ -25,6 +25,7 @@ public class VentanaNotificar extends JFrame {
 	
 	public VentanaNotificar() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaNotificar.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
 		panel = new JPanel();

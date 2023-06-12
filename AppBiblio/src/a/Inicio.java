@@ -14,6 +14,7 @@ public class Inicio extends JFrame {
 	private JButton btnLogin, btnSignIn, btnConsulta;
 
     public Inicio() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/img/icono32.png")));
         setTitle("App Biblioteca - Miguel | Ayoub | Paolo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
@@ -52,7 +53,6 @@ public class Inicio extends JFrame {
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir la nueva ventana
             	VentanaInicioSesion ventana = new VentanaInicioSesion();
                 ventana.setVisible(true);
                 dispose();
@@ -62,7 +62,6 @@ public class Inicio extends JFrame {
         btnSignIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir la nueva ventana
             	VentanaRegistro ventana = new VentanaRegistro();
                 ventana.setVisible(true);
                 dispose();
@@ -72,7 +71,6 @@ public class Inicio extends JFrame {
         btnConsulta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir la nueva ventana
             	VentanaConsultarDocumento.usuario = null;
 				VentanaConsultarDocumento.grupo = null;
             	VentanaConsultarDocumento ventana = new VentanaConsultarDocumento();
@@ -84,7 +82,6 @@ public class Inicio extends JFrame {
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
-        getRootPane().setDefaultButton(null);
     }
 
     public static void main(String[] args) {

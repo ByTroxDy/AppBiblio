@@ -23,6 +23,7 @@ public class VentanaAltaDocumental extends JFrame {
 	static Documento documento;
 
 	public VentanaAltaDocumental() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaDocumental.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

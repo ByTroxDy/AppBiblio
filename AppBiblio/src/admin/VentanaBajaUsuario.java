@@ -22,6 +22,7 @@ public class VentanaBajaUsuario extends JFrame {
 
 	public VentanaBajaUsuario() {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaBajaUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 280);
 		panel = new JPanel();

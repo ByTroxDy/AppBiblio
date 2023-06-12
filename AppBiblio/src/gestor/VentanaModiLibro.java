@@ -23,6 +23,7 @@ public class VentanaModiLibro extends JFrame {
 	static Documento documento;
 
 	public VentanaModiLibro() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiLibro.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();

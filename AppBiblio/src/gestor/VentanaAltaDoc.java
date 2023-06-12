@@ -24,6 +24,7 @@ public class VentanaAltaDoc extends JFrame {
 
 	public VentanaAltaDoc() {
 		setTitle("Alta Document");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
