@@ -1,6 +1,7 @@
 package socio;
 
 import app.Reservas;
+import db.DocumentoMaxDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class VentanaConsultarReservas extends JDialog {
-	private JButton btnVolver;
+	private JButton btnVolver, btnCancelar;
+	
+	private int filaSeleccionada, isbn;
+	static String usuario;
 
 	public VentanaConsultarReservas(ArrayList<Reservas> reservas) {
 		setTitle("Biblioteca App - Resultats de la consulta");
@@ -56,11 +60,13 @@ public class VentanaConsultarReservas extends JDialog {
 		JScrollPane scrollPane = new JScrollPane(tablaReservas);
 
 		btnVolver = new JButton("Enrere");
+		btnCancelar = new JButton("Cancel·lar");
 
 		// Configurar el panel de botones
 		JPanel panelBotones = new JPanel();
 		panelBotones.setLayout(new FlowLayout());
 		panelBotones.add(btnVolver);
+		panelBotones.add(btnCancelar);
 
 		panel.add(scrollPane, BorderLayout.CENTER);
 		panel.add(panelBotones, BorderLayout.SOUTH);
@@ -72,6 +78,24 @@ public class VentanaConsultarReservas extends JDialog {
 				MenuSocio menu = new MenuSocio();
 				menu.setVisible(true);
 				dispose();
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ex) {
+				DocumentoMaxDB docDB = new DocumentoMaxDB();
+				
+				filaSeleccionada = tablaReservas.getSelectedRow();
+				if (filaSeleccionada == -1) {
+					JOptionPane.showMessageDialog(panel, "Seleccioneu un document de la taula.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					isbn = (int) tablaReservas.getValueAt(filaSeleccionada, 0);
+					if (docDB.deleteReserva(usuario, isbn)) {
+						JOptionPane.showMessageDialog(panel, "S'ha cancel·lat la reserva correctament", "Reserva",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
 			}
 		});
 

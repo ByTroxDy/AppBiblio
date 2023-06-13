@@ -196,7 +196,7 @@ public class VentanaRespaldo extends JFrame {
 		int leido;
 		
 		try {
-			process = Runtime.getRuntime().exec("mysql -h 10.2.18.222 -u phpmyadmin -pphpmyadmin app_biblioteca");
+			process = Runtime.getRuntime().exec("mysql -h 10.2.18.222 -u phpmyadmin -pphpmyadmin test");
 			os = process.getOutputStream();
 			fis = new FileInputStream(backupName);
 			leido = fis.read(buffer);

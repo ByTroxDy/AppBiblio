@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("serial")
 public class VentanaAltaUsuario extends JFrame {
@@ -117,7 +119,10 @@ public class VentanaAltaUsuario extends JFrame {
 
 			if (usuario.isEmpty() && contra.isEmpty()) {
 				JOptionPane.showMessageDialog(panel, "Si us plau, introdueix tots els camps.", "Registre", JOptionPane.WARNING_MESSAGE);
-			} else {
+			} else if (!validarEmail(correo)) {
+            	JOptionPane.showMessageDialog(panel, "El correu electrònic ingressat és invàlid.", "Registre", JOptionPane.WARNING_MESSAGE);
+            	txtCorreo.setText("");
+            } else {
 				if (correo.isEmpty()) {
 	            	correo = null;
 	            }
@@ -137,4 +142,17 @@ public class VentanaAltaUsuario extends JFrame {
 
 		}//actionPerformed
 	}//Registrar
+	
+	public boolean validarEmail(String email) {
+		// Patrón para validar el email
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
+ 
+        Matcher mather = pattern.matcher(email);
+ 
+        if (mather.find() == true) {
+            return true;
+        } else {
+            return false;
+        }
+	}
 }//end

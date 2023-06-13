@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("serial")
 public class VentanaModiCorreo extends JFrame {
@@ -47,7 +49,7 @@ public class VentanaModiCorreo extends JFrame {
 		lblCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCorreo.setBounds(65, 115, 70, 18);
 
-		txtCorreo = new JPasswordField();
+		txtCorreo = new JTextField();
 		txtCorreo.setBounds(145, 111, 130, 26);
 		
 		btnModificar = new JButton();
@@ -90,15 +92,33 @@ public class VentanaModiCorreo extends JFrame {
 			usuari = txtUsuario.getText();
 			correo = txtCorreo.getText();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-
-			if (usuDB.cambiarEmail(usuari, correo)) {
-            	JOptionPane.showMessageDialog(panel, "Correu electrònic actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-            	JOptionPane.showMessageDialog(panel, "Ho sentim, l'usuari introduït no existeix.", "Error", JOptionPane.ERROR_MESSAGE);
-            }//else
+			
+			if (!validarEmail(correo)) {
+	        	JOptionPane.showMessageDialog(panel, "El correu electrònic ingressat és invàlid.", "Registre", JOptionPane.WARNING_MESSAGE);
+	        	txtCorreo.setText("");
+	        } else {
+				if (usuDB.cambiarEmail(usuari, correo)) {
+	            	JOptionPane.showMessageDialog(panel, "Correu electrònic actualitzat correctament.", "Èxit", JOptionPane.INFORMATION_MESSAGE);
+	            } else {
+	            	JOptionPane.showMessageDialog(panel, "Ho sentim, l'usuari introduït no existeix.", "Error", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
 			
 			txtUsuario.setText("");
 			txtCorreo.setText("");
 		}//actionPerformed
 	}//mopdificar
+	
+	public boolean validarEmail(String email) {
+		// Patrón para validar el email
+        Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
+ 
+        Matcher mather = pattern.matcher(email);
+ 
+        if (mather.find() == true) {
+            return true;
+        } else {
+            return false;
+        }
+	}
 }//end

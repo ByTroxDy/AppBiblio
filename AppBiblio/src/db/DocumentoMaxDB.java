@@ -339,6 +339,23 @@ public class DocumentoMaxDB {
 		return true;
 	}
 	
+	public boolean deleteReserva(String usuario, int isbn) {
+		// Eliminar un reserva en la tabla 'reservas'
+		String query = "DELETE FROM reservas WHERE usuario = ? AND isbn = ?";
+		try (PreparedStatement statement = conn.prepareStatement(query)) {
+
+			statement.setString(1, usuario);
+			statement.setInt(2, isbn);
+			statement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
     public void guardarComentario(int isbn, String usuario, String comentario) {
     	// Insertar nuevo comentario en la tabla 'comentarios'
 		String query = "INSERT INTO comentarios (isbn, usuario, optinion) VALUES (?, ?, ?)";

@@ -71,7 +71,7 @@ public class VentanaRecuperar extends JFrame {
 				UsuarioMaxDB usuDB = new UsuarioMaxDB();
 				String email = usuDB.obtenerMail(usuario);
 				if (email == null) {
-					JOptionPane.showMessageDialog(mainPanel, "L'usuari no existeix.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(mainPanel, "L'usuari no té un correu electrònic associat.", "Avís", JOptionPane.WARNING_MESSAGE);
 				} else {
 					// Generar una contraseña aleatoria de 8 caracteres
 					String password = generatePassword(8);

@@ -47,7 +47,7 @@ public class VentanaModiUsuario extends JFrame {
 		lblNewUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewUsuario.setBounds(65, 115, 85, 18);
 
-		txtNewUsuario = new JPasswordField();
+		txtNewUsuario = new JTextField();
 		txtNewUsuario.setBounds(160, 111, 130, 26);
 		
 		btnModificar = new JButton();
