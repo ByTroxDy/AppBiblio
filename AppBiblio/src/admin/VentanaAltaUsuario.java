@@ -20,6 +20,7 @@ public class VentanaAltaUsuario extends JFrame {
 	private String usuario, contra, select, correo;
 
 	public VentanaAltaUsuario() {
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
@@ -59,7 +60,7 @@ public class VentanaAltaUsuario extends JFrame {
 		txtCorreo.setBounds(180, 148, 130, 26);
 		txtCorreo.setColumns(10);
 		
-		JLabel lblRol = new JLabel("Rol");
+		JLabel lblRol = new JLabel("Grup");
 		lblRol.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRol.setBounds(90, 190, 80, 18);
 
@@ -114,20 +115,25 @@ public class VentanaAltaUsuario extends JFrame {
 			correo = txtCorreo.getText();
 			select = cmbSelectRol.getSelectedItem().toString();
 
-            UsuarioMaxDB usuDB = new UsuarioMaxDB();
-            if (usuDB.guardarRegistro2(usuario, contra, select, correo)) {
-            	JOptionPane.showMessageDialog(panel, "Registre exitos.", "Registre", JOptionPane.INFORMATION_MESSAGE);
-            	MenuAdmin app = new MenuAdmin();
-	            app.setVisible(true);
-	            dispose();
-            } else {
-            	JOptionPane.showMessageDialog(panel, "El nom d'usuari ja està registrat.", "Registre", JOptionPane.ERROR_MESSAGE);
-            }
-            
-			// Limpiar los campos de texto después de intentar iniciar sesión
-            txtUsuario.setText("");
-            txtContra.setText("");
-            txtCorreo.setText("");
+			if (usuario.isEmpty() && contra.isEmpty()) {
+				JOptionPane.showMessageDialog(panel, "Si us plau, introdueix tots els camps.", "Registre", JOptionPane.WARNING_MESSAGE);
+			} else {
+				if (correo.isEmpty()) {
+	            	correo = null;
+	            }
+	            UsuarioMaxDB usuDB = new UsuarioMaxDB();
+	            if (usuDB.guardarRegistro2(usuario, contra, select, correo)) {
+	            	JOptionPane.showMessageDialog(panel, "Registre exitos.", "Registre", JOptionPane.INFORMATION_MESSAGE);
+	            	MenuAdmin app = new MenuAdmin();
+		            app.setVisible(true);
+		            dispose();
+	            } else {
+	            	JOptionPane.showMessageDialog(panel, "El nom d'usuari ja està registrat.", "Registre", JOptionPane.ERROR_MESSAGE);
+	                txtUsuario.setText("");
+	                txtContra.setText("");
+	                txtCorreo.setText("");
+	            }
+			}
 
 		}//actionPerformed
 	}//Registrar

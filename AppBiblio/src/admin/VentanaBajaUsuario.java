@@ -1,6 +1,7 @@
 package admin;
 
 import db.UsuarioMaxDB;
+import a.Inicio;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,16 +13,17 @@ import java.awt.event.ActionListener;
 public class VentanaBajaUsuario extends JFrame {
 
 	private JPanel panel;
-	private JTextField txtUsuario, txtAdminUser;
-	private JPasswordField txtCantra;
+	private JTextField txtUsuario;
 	private JButton btnEixir, btnBorrar;
 	private final Action actionEixir = new Eixir();
 	private final Action actionBorrar = new Borrar();
 	
-	private String usuario, admin, contra, grupo;
+	private String usuario;
+	public static String usuarioActual;
 
 	public VentanaBajaUsuario() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaBajaUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 280);
@@ -39,26 +41,11 @@ public class VentanaBajaUsuario extends JFrame {
 		
 		JLabel lblUsuario = new JLabel("Usuari");
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsuario.setBounds(83, 71, 78, 18);
+		lblUsuario.setBounds(82, 107, 78, 18);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(171, 67, 150, 26);
+		txtUsuario.setBounds(170, 103, 150, 26);
 		txtUsuario.setColumns(10);
-		
-		JLabel lblAdmin = new JLabel("Admin");
-		lblAdmin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAdmin.setBounds(83, 108, 78, 18);
-		
-		txtAdminUser = new JTextField();
-		txtAdminUser.setBounds(171, 104, 150, 26);
-		txtAdminUser.setColumns(10);
-		
-		JLabel lblContra = new JLabel("Contrasenya");
-		lblContra.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblContra.setBounds(83, 145, 78, 18);
-		
-		txtCantra = new JPasswordField();
-		txtCantra.setBounds(171, 141, 150, 26);
 		
 		btnBorrar = new JButton();
 		btnBorrar.addActionListener(new ActionListener() {
@@ -75,10 +62,6 @@ public class VentanaBajaUsuario extends JFrame {
 		panel.add(lblTitulo);
 		panel.add(lblUsuario);
 		panel.add(txtUsuario);
-		panel.add(lblAdmin);
-		panel.add(txtAdminUser);
-		panel.add(lblContra);
-		panel.add(txtCantra);
 		panel.add(btnBorrar);
 		panel.add(btnEixir);
 		
@@ -103,23 +86,23 @@ public class VentanaBajaUsuario extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			usuario = txtUsuario.getText();
-			admin = txtAdminUser.getText();
-			contra = new String(txtCantra.getPassword());
-			
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			grupo = usuDB.obtenerGrupo(admin);
-			if (usuDB.iniciarSesion(admin, contra) && grupo.equals("admin")) {
-				if (usuDB.nombreUsuarioEnUso(usuario)) {
-					usuDB.bajaUsuario(usuario);
-					MenuAdmin admin1 = new MenuAdmin();
-					admin1.setVisible(true);
+			
+			if (usuDB.nombreUsuarioEnUso(usuario)) {
+				usuDB.bajaUsuario(usuario);
+				JOptionPane.showMessageDialog(panel, "Usuari esborrat correctament.", "Baixa", JOptionPane.INFORMATION_MESSAGE);
+				if (usuarioActual.equals(usuario)) {
+					Inicio inicio = new Inicio();
+					inicio.setVisible(true);
 					dispose();
-					JOptionPane.showMessageDialog(panel, "Usuari esborrat correctament.", "Registre", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-	            	JOptionPane.showMessageDialog(panel, "Usuari no s'ha trobat.", "Registre", JOptionPane.INFORMATION_MESSAGE);
+					MenuAdmin admin = new MenuAdmin();
+					admin.setVisible(true);
+					dispose();
 				}
+				
 			} else {
-            	JOptionPane.showMessageDialog(panel, "Usuari admin o contrasenya incorrectes.", "Error", JOptionPane.ERROR_MESSAGE);
+            	JOptionPane.showMessageDialog(panel, "Usuari no s'ha trobat.", "Baixa", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}//actionPerformed

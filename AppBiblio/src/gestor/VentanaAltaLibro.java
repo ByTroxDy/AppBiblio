@@ -6,6 +6,9 @@ import app.Libro;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import admin.MenuAdmin;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,15 +17,17 @@ import java.awt.event.ActionListener;
 public class VentanaAltaLibro extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloIsbn, lblEditorial, lblPginas, lblTemtica;
-	private JTextField textEditorial, textPaginas;
+	private JTextField txtEditorial, txtPaginas;
 	private JButton btnVolver, btnAceptar;
-	private JComboBox<Object> comboBox;
+	private JComboBox<Object> cmbTematica;
 	
 	private String editorial, tematica;
 	private int numpaginas;
 	static Documento documento;
+	public static String grupo;
 	
 	public VentanaAltaLibro() {
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaLibro.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -78,36 +83,36 @@ public class VentanaAltaLibro extends JFrame {
 		lblEditorial.setBounds(119, 82, 79, 17);
 
 		// campo Editorial
-		textEditorial = new JTextField();
-		textEditorial.setFont(new Font("Dialog", Font.BOLD, 14));
-		textEditorial.setForeground(new Color(255, 255, 255));
-		textEditorial.setBackground(new Color(0, 128, 192));
-		textEditorial.setBounds(194, 81, 262, 21);
-		textEditorial.setColumns(10);
+		txtEditorial = new JTextField();
+		txtEditorial.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtEditorial.setForeground(new Color(255, 255, 255));
+		txtEditorial.setBackground(new Color(0, 128, 192));
+		txtEditorial.setBounds(194, 81, 262, 21);
+		txtEditorial.setColumns(10);
 
 		lblPginas = new JLabel("Pàgines");
 		lblPginas.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblPginas.setBounds(119, 122, 79, 17);
 
 		// campo numero de paginas
-		textPaginas = new JTextField();
-		textPaginas.setFont(new Font("Dialog", Font.BOLD, 14));
-		textPaginas.setForeground(new Color(255, 255, 255));
-		textPaginas.setBackground(new Color(0, 128, 192));
-		textPaginas.setColumns(10);
-		textPaginas.setBounds(194, 121, 262, 21);
+		txtPaginas = new JTextField();
+		txtPaginas.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtPaginas.setForeground(new Color(255, 255, 255));
+		txtPaginas.setBackground(new Color(0, 128, 192));
+		txtPaginas.setColumns(10);
+		txtPaginas.setBounds(194, 121, 262, 21);
 
 		lblTemtica = new JLabel("Temàtica");
 		lblTemtica.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblTemtica.setBounds(119, 163, 79, 17);
 
 		// campo Temática
-		comboBox = new JComboBox<Object>();
-		comboBox.setFont(new Font("Dialog", Font.BOLD, 14));
-		comboBox.setForeground(new Color(255, 255, 255));
-		comboBox.setBackground(new Color(0, 128, 192));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciències", "Història", "Literatura", "Filosofia", "Tècnics", "Altres"}));
-		comboBox.setBounds(194, 159, 262, 26);
+		cmbTematica = new JComboBox<Object>();
+		cmbTematica.setFont(new Font("Dialog", Font.BOLD, 14));
+		cmbTematica.setForeground(new Color(255, 255, 255));
+		cmbTematica.setBackground(new Color(0, 128, 192));
+		cmbTematica.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ciències", "Història", "Literatura", "Filosofia", "Tècnics", "Altres"}));
+		cmbTematica.setBounds(194, 159, 262, 26);
 
 		btnVolver = new JButton("Tornar");
 		btnVolver.setForeground(new Color(255, 255, 255));
@@ -127,11 +132,11 @@ public class VentanaAltaLibro extends JFrame {
 		
 		panelSecundario.add(lblTituloIsbn);
 		panelSecundario.add(lblEditorial);
-		panelSecundario.add(textEditorial);
+		panelSecundario.add(txtEditorial);
 		panelSecundario.add(lblPginas);
-		panelSecundario.add(textPaginas);
+		panelSecundario.add(txtPaginas);
 		panelSecundario.add(lblTemtica);
-		panelSecundario.add(comboBox);
+		panelSecundario.add(cmbTematica);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
@@ -147,21 +152,25 @@ public class VentanaAltaLibro extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textEditorial.getText().isEmpty() | textPaginas.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
+				if (txtEditorial.getText().isEmpty() | txtPaginas.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
-					editorial = textEditorial.getText().toString();
-					numpaginas = Integer.parseInt(textPaginas.getText());
-					tematica = comboBox.getSelectedItem().toString();
+					editorial = txtEditorial.getText();
+					numpaginas = Integer.parseInt(txtPaginas.getText());
+					tematica = (String) cmbTematica.getSelectedItem();
 
 					Libro libro = new Libro(documento.getISBN(), editorial, numpaginas, tematica);
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 
 					if (docDB.insertDocLib(documento, libro)) {
 						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Llibre", JOptionPane.INFORMATION_MESSAGE);
-						MenuGestor menu = new MenuGestor();
-						menu.setVisible(true);
-						dispose();
+						if (grupo.equals("gestor")) {
+							MenuGestor menu = new MenuGestor();
+							menu.setVisible(true);
+						} else if (grupo.equals("admin")) {
+							MenuAdmin menu = new MenuAdmin();
+							menu.setVisible(true);
+						}
 					} else {
 						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}// if else

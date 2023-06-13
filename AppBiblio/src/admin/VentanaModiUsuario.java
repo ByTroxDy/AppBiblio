@@ -20,6 +20,7 @@ public class VentanaModiUsuario extends JFrame {
 
 	public VentanaModiUsuario() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiUsuario.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 250);

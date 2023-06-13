@@ -1,7 +1,5 @@
 package admin;
 
-import db.UsuarioMaxDB;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,17 +9,16 @@ import java.awt.event.ActionEvent;
 public class VentanaModificacion extends JFrame {
 
 	private JPanel panel;
-	private JTextField txtAdmin;
-	private JPasswordField txtContra;
 	private JComboBox<String> cmbModi;
 	private JButton btnEixir, btnModifica;
 	private final Action actionEixir = new Eixir();
 	private final Action actionModifica = new Modifica();
 	
-	private String admin, contra, modi, grupo;
+	private String modi;
 
 	public VentanaModificacion() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModificacion.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -37,26 +34,12 @@ public class VentanaModificacion extends JFrame {
 		lblTitulo.setBackground(new Color(255, 150, 49));
 		lblTitulo.setBounds(0, 6, 444, 26);
 
-		JLabel lblAdmin = new JLabel("Admin");
-		lblAdmin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAdmin.setBounds(88, 81, 92, 16);
-
-		txtAdmin = new JTextField();
-		txtAdmin.setBounds(190, 76, 141, 26);
-
-		JLabel lblContra = new JLabel("Contrasenya");
-		lblContra.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblContra.setBounds(88, 119, 90, 16);
-		
-		txtContra = new JPasswordField();
-		txtContra.setBounds(190, 114, 141, 26);
-
 		JLabel lblModi = new JLabel("Modificar");
 		lblModi.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblModi.setBounds(88, 156, 90, 16);
+		lblModi.setBounds(79, 113, 90, 16);
 		
 		cmbModi = new JComboBox<String>();
-		cmbModi.setBounds(190, 152, 141, 27);
+		cmbModi.setBounds(181, 109, 141, 27);
 		cmbModi.addItem("Usuari");
 		cmbModi.addItem("Contrasenya");
 		cmbModi.addItem("Correu");
@@ -71,10 +54,6 @@ public class VentanaModificacion extends JFrame {
 		btnEixir.setBounds(10, 225, 117, 29);	
 		
 		panel.add(lblTitulo);
-		panel.add(lblAdmin);
-		panel.add(txtAdmin);
-		panel.add(lblContra);
-		panel.add(txtContra);
 		panel.add(lblModi);
 		panel.add(cmbModi);
 		panel.add(btnModifica);
@@ -104,32 +83,21 @@ public class VentanaModificacion extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			admin = txtAdmin.getText();
-			contra = new String(txtContra.getPassword());
 			modi = cmbModi.getSelectedItem().toString();
-			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			grupo = usuDB.obtenerGrupo(admin);
-			if (usuDB.iniciarSesion(admin, contra) && grupo.equals("admin")) {
-				if (modi.equals("Usuari")) {
-					VentanaModiUsuario modiUser = new VentanaModiUsuario();
-					modiUser.setVisible(true);
-				} else if (modi.equals("Contrasenya")) {
-					VentanaModiContra modiContra = new VentanaModiContra();
-					modiContra.setVisible(true);
-				} else if (modi.equals("Correu")) {
-					VentanaModiCorreo modiCorreo = new VentanaModiCorreo();
-					modiCorreo.setVisible(true);
-				} else if (modi.equals("Grup")) {
-					VentanaModiGrupo modiGrup = new VentanaModiGrupo();
-					modiGrup.setVisible(true);
-				}
-				dispose();
-			} else {
-				JOptionPane.showMessageDialog(panel, "No s'ha trobat l'usuari.", "Error", JOptionPane.ERROR_MESSAGE);
+			if (modi.equals("Usuari")) {
+				VentanaModiUsuario modiUser = new VentanaModiUsuario();
+				modiUser.setVisible(true);
+			} else if (modi.equals("Contrasenya")) {
+				VentanaModiContra modiContra = new VentanaModiContra();
+				modiContra.setVisible(true);
+			} else if (modi.equals("Correu")) {
+				VentanaModiCorreo modiCorreo = new VentanaModiCorreo();
+				modiCorreo.setVisible(true);
+			} else if (modi.equals("Grup")) {
+				VentanaModiGrupo modiGrup = new VentanaModiGrupo();
+				modiGrup.setVisible(true);
 			}
-			
-			txtAdmin.setText("");
-			txtContra.setText("");
+			dispose();
 		}
 	}// modifica
 }// exit

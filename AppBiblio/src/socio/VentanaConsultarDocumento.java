@@ -84,7 +84,6 @@ public class VentanaConsultarDocumento extends JDialog {
 				tipo = (String) cmbTipo.getSelectedItem();
 
 				consultarDocumentos(titulo, tipo);
-				dispose();
 			}
 		});
 
@@ -119,9 +118,11 @@ public class VentanaConsultarDocumento extends JDialog {
 			JOptionPane.showMessageDialog(this,
 					"No s'han trobat documents que coincideixin amb els criteris de cerca.", "Avís",
 					JOptionPane.INFORMATION_MESSAGE);
+			txtTitulo.setText("");
 		} else {
-
+			dispose();
 			JFrame ventanaResultados = new JFrame("Resultats de la consulta");
+			ventanaResultados.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaConsultarDocumento.class.getResource("/img/icono32.png")));
 			
 			// Crear un modelo de tabla para los documentos
 			DefaultTableModel modeloTabla = new DefaultTableModel();

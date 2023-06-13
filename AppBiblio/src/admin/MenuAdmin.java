@@ -27,6 +27,7 @@ public class MenuAdmin extends JFrame {
 
 	public MenuAdmin() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuAdmin.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 440, 370);
@@ -48,7 +49,6 @@ public class MenuAdmin extends JFrame {
 		
 		JButton buttonAltaUsuario = new JButton("Alta");
 		buttonAltaUsuario.setAction(actionAlta);
-		buttonAltaUsuario.setBackground(new Color(253, 180, 105));
 		buttonAltaUsuario.setBounds(50, 77, 117, 55);
 		
 		JButton buttonBajaUsuario = new JButton("Baixa");

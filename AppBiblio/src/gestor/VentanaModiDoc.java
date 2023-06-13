@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 @SuppressWarnings("serial")
 public class VentanaModiDoc extends JFrame {
 	private JPanel contentPane;
-	private JTextField textFieldTitulo, textFieldAutor, textFieldReplicas, txtBenicarlo;
 	private JLabel lblAlta, lblImagen, lblTitulo, lblNuevosDatos, lblAutor, lblReplicas, lblBiblioteca;
+	private JTextField txtTitulo, txtAutor, txtReplicas, txtBenicarlo;
 	private JButton btnVolver, btnAceptar;
 	
 	private String tipo, titulo, autor, biblioteca;
@@ -23,6 +23,7 @@ public class VentanaModiDoc extends JFrame {
 	public static int isbn;
 	
 	public VentanaModiDoc() {
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -62,11 +63,6 @@ public class VentanaModiDoc extends JFrame {
 		panelSecundario.setBackground(SystemColor.window);
 		panelSecundario.setBorder(null);
 		panelSecundario.setBounds(0, 70, 592, 297);
-
-//		lblIntroduceElIsbn = new JLabel("ISBN del document");
-//		lblIntroduceElIsbn.setForeground(new Color(0, 0, 0));
-//		lblIntroduceElIsbn.setFont(new Font("Dialog", Font.BOLD, 20));
-//		lblIntroduceElIsbn.setBounds(78, 26, 191, 20);
 		
 		lblTitulo = new JLabel("Títol");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -78,44 +74,36 @@ public class VentanaModiDoc extends JFrame {
 		lblNuevosDatos.setBounds(207, 61, 167, 28);
 		
 		// TITULO
-		textFieldTitulo = new JTextField();
-		textFieldTitulo.setBackground(new Color(0, 128, 192));
-		textFieldTitulo.setForeground(new Color(255, 255, 255));
-		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 13));
-		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(159, 111, 128, 21);
-
-		// isbn
-//		textFieldIsbn = new JTextField();
-//		textFieldIsbn.setBackground(new Color(0, 128, 192));
-//		textFieldIsbn.setForeground(new Color(255, 255, 255));
-//		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 13));
-//		textFieldIsbn.setColumns(10);
-//		textFieldIsbn.setBounds(287, 28, 180, 21);
+		txtTitulo = new JTextField();
+		txtTitulo.setBackground(new Color(0, 128, 192));
+		txtTitulo.setForeground(new Color(255, 255, 255));
+		txtTitulo.setFont(new Font("Dialog", Font.BOLD, 13));
+		txtTitulo.setColumns(10);
+		txtTitulo.setBounds(159, 111, 128, 21);
 
 		lblAutor = new JLabel("Autor");
 		lblAutor.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAutor.setBounds(305, 115, 60, 17);
 
 		// AUTOR
-		textFieldAutor = new JTextField();
-		textFieldAutor.setBackground(new Color(0, 128, 192));
-		textFieldAutor.setForeground(new Color(255, 255, 255));
-		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 13));
-		textFieldAutor.setColumns(10);
-		textFieldAutor.setBounds(356, 113, 149, 21);
+		txtAutor = new JTextField();
+		txtAutor.setBackground(new Color(0, 128, 192));
+		txtAutor.setForeground(new Color(255, 255, 255));
+		txtAutor.setFont(new Font("Dialog", Font.BOLD, 13));
+		txtAutor.setColumns(10);
+		txtAutor.setBounds(356, 113, 149, 21);
 
 		lblReplicas = new JLabel("Repliques");
 		lblReplicas.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblReplicas.setBounds(78, 178, 76, 17);
 		
 		//replicas
-		textFieldReplicas = new JTextField();
-		textFieldReplicas.setBackground(new Color(0, 128, 192));
-		textFieldReplicas.setForeground(new Color(255, 255, 255));
-		textFieldReplicas.setFont(new Font("Dialog", Font.BOLD, 13));
-		textFieldReplicas.setColumns(10);
-		textFieldReplicas.setBounds(159, 174, 128, 21);
+		txtReplicas = new JTextField();
+		txtReplicas.setBackground(new Color(0, 128, 192));
+		txtReplicas.setForeground(new Color(255, 255, 255));
+		txtReplicas.setFont(new Font("Dialog", Font.BOLD, 13));
+		txtReplicas.setColumns(10);
+		txtReplicas.setBounds(159, 174, 128, 21);
 
 		lblBiblioteca = new JLabel("Biblio");
 		lblBiblioteca.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -149,15 +137,13 @@ public class VentanaModiDoc extends JFrame {
 		btnAceptar.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnAceptar.setBackground(new Color(0, 128, 192));
 
-//		panelSecundario.add(lblIntroduceElIsbn);
 		panelSecundario.add(lblTitulo);
 		panelSecundario.add(lblNuevosDatos);
-		panelSecundario.add(textFieldTitulo);
-//		panelSecundario.add(textFieldIsbn);
+		panelSecundario.add(txtTitulo);
 		panelSecundario.add(lblAutor);
-		panelSecundario.add(textFieldAutor);
+		panelSecundario.add(txtAutor);
 		panelSecundario.add(lblReplicas);
-		panelSecundario.add(textFieldReplicas);
+		panelSecundario.add(txtReplicas);
 		panelSecundario.add(lblBiblioteca);
 		panelSecundario.add(txtBenicarlo);
 		panelSecundario.add(btnVolver);
@@ -180,53 +166,19 @@ public class VentanaModiDoc extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if (textFieldIsbn.getText().isEmpty() | textFieldTitulo.getText().isEmpty()
-//						| textFieldAutor.getText().isEmpty() |textFieldReplicas.getText().isEmpty() ) {
-//					JOptionPane.showMessageDialog(panelSecundario, "Introduce todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-//				} else {
-//					isbn = Integer.parseInt(textFieldIsbn.getText());
-//					DocumentoMaxDB docDB = new DocumentoMaxDB();
-//					if (!docDB.comprobarIsbn(isbn)) {
-//						JOptionPane.showMessageDialog(panelSecundario, "El ISBN introducido no existe", "Error", JOptionPane.ERROR_MESSAGE);
-//					} else {
-//						tipo = docDB.getTipo(isbn);
-//						titulo = textFieldTitulo.getText();
-//						autor = textFieldAutor.getText();
-//						replicas = Integer.parseInt(textFieldReplicas.getText());
-//						biblioteca = txtBenicarlo.getText().toString();
-//						
-//						Documento doc = new Documento(isbn, tipo, titulo, autor, replicas, biblioteca);
-//					
-//						if (tipo.equals("Llibre")) {
-//							VentanaModificarLibro.documento = doc;
-//							VentanaModificarLibro frame = new VentanaModificarLibro();
-//							frame.setVisible(true);
-//						} else if (tipo.equals("Pel·lícula")) {
-//							VentanaModificarPelicula.documento = doc;
-//							VentanaModificarPelicula frame = new VentanaModificarPelicula();
-//							frame.setVisible(true);
-//						} else if (tipo.equals("Música")) {
-//							VentanaModificarMusica.documento = doc;
-//							VentanaModificarMusica frame = new VentanaModificarMusica();
-//							frame.setVisible(true);
-//						} else if (tipo.equals("Documental")) {
-//							VentanaModificarDocumental.documento = doc;
-//							VentanaModificarDocumental frame = new VentanaModificarDocumental();
-//							frame.setVisible(true);
-//						}// if					
-//						dispose();
-//					}// if else
-//				}// if else
-				
-				if (textFieldTitulo.getText().isEmpty() | textFieldAutor.getText().isEmpty() | textFieldReplicas.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
+				if (txtTitulo.getText().isEmpty() | txtAutor.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					tipo = docDB.getTipo(isbn);
-					titulo = textFieldTitulo.getText();
-					autor = textFieldAutor.getText();
-					replicas = Integer.parseInt(textFieldReplicas.getText());
+					titulo = txtTitulo.getText();
+					autor = txtAutor.getText();
+					replicas = Integer.parseInt(txtReplicas.getText());
 					biblioteca = txtBenicarlo.getText().toString();
+					
+					if (txtReplicas.getText().isEmpty()) {
+						replicas = 1;
+					}
 					
 					Documento doc = new Documento(isbn, tipo, titulo, autor, replicas, biblioteca);
 				

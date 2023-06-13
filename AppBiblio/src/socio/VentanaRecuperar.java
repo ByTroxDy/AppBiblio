@@ -73,8 +73,8 @@ public class VentanaRecuperar extends JFrame {
 				if (email == null) {
 					JOptionPane.showMessageDialog(mainPanel, "L'usuari no existeix.", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					// Generar una contraseña aleatoria de 6 caracteres
-					String password = generatePassword(6);
+					// Generar una contraseña aleatoria de 8 caracteres
+					String password = generatePassword(8);
 					String subject = "Restabliment de contrasenya - Accés a l'acompte";
 					String body = "Estimat usuari,"
 							+ "\n\nHem rebut una sol·licitud per restablir la teva contrasenya. "

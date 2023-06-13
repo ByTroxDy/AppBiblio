@@ -393,7 +393,7 @@ public class DocumentoMaxDB {
 	
 	// UPDATE
 	public boolean checkDocumento(int isbn) {
-		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";		
+		String checkQuery = "SELECT count(*) FROM documentos WHERE isbn = ?";
 		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
 			
 			checkStatement.setInt(1, isbn);
@@ -402,6 +402,24 @@ public class DocumentoMaxDB {
 			int varisbn = checkResult.getInt(1);
 			
 			if (varisbn > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//try catch
+		return false;
+	}//checkDocumento
+	
+	public boolean comprobarFechaBaja(int isbn) {
+		String checkQuery = "SELECT fecha_baja FROM documentos WHERE isbn = ?";
+		try (PreparedStatement checkStatement = conn.prepareStatement(checkQuery)) {
+			
+			checkStatement.setInt(1, isbn);
+			ResultSet checkResult = checkStatement.executeQuery();
+			checkResult.next();
+			String varBaja = checkResult.getString(1);
+			
+			if (varBaja != null) {
 				String updateQuery = "UPDATE documentos SET fecha_alta = ?, fecha_baja = NULL WHERE isbn = ?";
 				try (PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
 					
@@ -412,16 +430,13 @@ public class DocumentoMaxDB {
 					return true;
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return true;
 				}
-			} else {
-				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}//try catch
+		}
 		return false;
-	}//checkDocumento
+	}
 	
 	public boolean bajaDocumento(int isbn) {
 		String query = ("UPDATE documentos SET fecha_baja = ? WHERE isbn = ?");

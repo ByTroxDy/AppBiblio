@@ -12,12 +12,14 @@ import java.awt.event.ActionListener;
 @SuppressWarnings("serial")
 public class MenuGestor extends JFrame {
 	private JPanel contentPane;
-	private JLabel lblGestores, lblNewLabel, lblSelecciona;
+	private JLabel lblGestores, lblImagen, lblSelecciona;
 	private JButton btnCerrarSesion, btnAceptar;
-	private JComboBox<Object> comboBox;
+	private JComboBox<Object> cmbFunciones;
+	
+	private String seleccion;
 	
 	public MenuGestor() {
-		setTitle("Gestor");
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuGestor.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -43,13 +45,13 @@ public class MenuGestor extends JFrame {
 		lblGestores.setFont(new Font("Dialog", Font.BOLD, 40));
 		lblGestores.setBounds(143, 11, 319, 43);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(452, 0, 89, 70);
-		lblNewLabel.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen = new JLabel("");
+		lblImagen.setBounds(452, 0, 89, 70);
+		lblImagen.setIcon(new ImageIcon(MenuGestor.class.getResource("/img/icono64.png")));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 
 		panelPrincipal.add(lblGestores);
-		panelPrincipal.add(lblNewLabel);
+		panelPrincipal.add(lblImagen);
 		contentPane.add(panelPrincipal);
 		
 		//Panel de contenido
@@ -69,11 +71,11 @@ public class MenuGestor extends JFrame {
 		
 		//Selección de la función a realizar
 		String[] funcion = {"Alta Document", "Consultar Document", "Suport"};
-		comboBox = new JComboBox<>(funcion);
-		comboBox.setForeground(new Color(238, 238, 236));
-		comboBox.setBackground(new Color(0, 128, 192));
-		comboBox.setToolTipText("");
-		comboBox.setBounds(128, 118, 333, 26);
+		cmbFunciones = new JComboBox<>(funcion);
+		cmbFunciones.setForeground(new Color(238, 238, 236));
+		cmbFunciones.setBackground(new Color(0, 128, 192));
+		cmbFunciones.setToolTipText("");
+		cmbFunciones.setBounds(128, 118, 333, 26);
 		
 		//Boton para avanzar
 		btnCerrarSesion = new JButton("Tancar Sesió");
@@ -94,7 +96,7 @@ public class MenuGestor extends JFrame {
 		btnAceptar.setBackground(new Color(0, 128, 192));
 		
 		panelSecundario.add(lblSelecciona);
-		panelSecundario.add(comboBox);
+		panelSecundario.add(cmbFunciones);
 		panelSecundario.add(btnCerrarSesion);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
@@ -113,7 +115,7 @@ public class MenuGestor extends JFrame {
 			//función para cambiar de ventana haciendo click en el boton
 			public void actionPerformed(ActionEvent e) {    
 				//extracción de la funcion seleccionada
-				String seleccion = comboBox.getSelectedItem().toString();
+				seleccion = cmbFunciones.getSelectedItem().toString();
 				if (seleccion == "Alta Document") {
 					VentanaActivarDoc frame = new VentanaActivarDoc();
 					frame.setVisible(true);

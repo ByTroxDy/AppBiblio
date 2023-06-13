@@ -14,8 +14,8 @@ public class Inicio extends JFrame {
 	private JButton btnLogin, btnSignIn, btnConsulta;
 
     public Inicio() {
+    	setTitle("Biblioteca App - Miguel | Ayoub | Paolo");
     	setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/img/icono32.png")));
-        setTitle("App Biblioteca - Miguel | Ayoub | Paolo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
         setResizable(false);
@@ -25,7 +25,7 @@ public class Inicio extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         getContentPane().add(panel, BorderLayout.CENTER);
 
-        JLabel titulo = new JLabel("App Biblioteca");
+        JLabel titulo = new JLabel("Biblioteca App");
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         

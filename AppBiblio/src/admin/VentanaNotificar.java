@@ -25,6 +25,7 @@ public class VentanaNotificar extends JFrame {
 	
 	public VentanaNotificar() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaNotificar.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
@@ -63,6 +64,8 @@ public class VentanaNotificar extends JFrame {
 		txtCuerpo = new JTextArea();
 		txtCuerpo.setBounds(97, 144, 316, 101);
 		txtCuerpo.setColumns(10);
+		txtCuerpo.setLineWrap(true); // Activar el ajuste automático de línea
+		txtCuerpo.setWrapStyleWord(true); // Ajustar el texto a palabras completas
 		
 		btnNotificar = new JButton();
 		btnNotificar.setAction(actionNotificar);
@@ -81,7 +84,7 @@ public class VentanaNotificar extends JFrame {
 		panel.add(txtCuerpo);
 		panel.add(btnNotificar);
 		panel.add(btnEixir);
-
+		
 		setContentPane(panel);
 		
 	}//administradorNoti
@@ -107,7 +110,11 @@ public class VentanaNotificar extends JFrame {
 			asunto = txtAsunto.getText();
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
 			mail = usuDB.obtenerMail(usuario);
-			sendEmail(mail, asunto, cuerpo);
+			if (mail == null) {
+				JOptionPane.showMessageDialog(panel, "E'usuari no te un correu electronic.", "Notificar", JOptionPane.ERROR_MESSAGE);
+			} else {
+				sendEmail(mail, asunto, cuerpo);
+			}
 			txtUsuario.setText("");
 			txtAsunto.setText("");
 			txtCuerpo.setText("");

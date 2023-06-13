@@ -13,14 +13,14 @@ import java.awt.event.ActionListener;
 public class VentanaActivarDoc extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblIsbn;
-	private JTextField textFieldIsbn;
+	private JTextField txtIsbn;
 	private JButton btnVolver, btnAceptar;
 	
 	private int isbn;
 	public static String grupo;
 	
 	public VentanaActivarDoc() {
-		setTitle("Activar Document");
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaActivarDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 300);
@@ -70,12 +70,12 @@ public class VentanaActivarDoc extends JFrame {
 		lblIsbn.setBounds(57, 61, 70, 17);
 
 		// isbn
-		textFieldIsbn = new JTextField();
-		textFieldIsbn.setForeground(new Color(255, 255, 255));
-		textFieldIsbn.setBackground(new Color(0, 128, 192));
-		textFieldIsbn.setFont(new Font("Dialog", Font.BOLD, 12));
-		textFieldIsbn.setColumns(10);
-		textFieldIsbn.setBounds(137, 59, 140, 21);
+		txtIsbn = new JTextField();
+		txtIsbn.setForeground(new Color(255, 255, 255));
+		txtIsbn.setBackground(new Color(0, 128, 192));
+		txtIsbn.setFont(new Font("Dialog", Font.BOLD, 12));
+		txtIsbn.setColumns(10);
+		txtIsbn.setBounds(137, 59, 140, 21);
 		
 		btnVolver = new JButton("Tornar");
 		btnVolver.setForeground(new Color(255, 255, 255));
@@ -94,7 +94,7 @@ public class VentanaActivarDoc extends JFrame {
 		btnAceptar.setBounds(238, 161, 140, 23);
 		
 		panelSecundario.add(lblIsbn);
-		panelSecundario.add(textFieldIsbn);
+		panelSecundario.add(txtIsbn);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
@@ -117,18 +117,23 @@ public class VentanaActivarDoc extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldIsbn.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
+				if (txtIsbn.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix l'ISBN.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
-					isbn = Integer.parseInt(textFieldIsbn.getText());
+					isbn = Integer.parseInt(txtIsbn.getText());
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
-					if (docDB.checkDocumento(isbn)) {
-						JOptionPane.showMessageDialog(panelSecundario, "S'ha actualizat correctament.", "Activar", JOptionPane.INFORMATION_MESSAGE);
-					} else {
+					
+					if (!docDB.checkDocumento(isbn)) {
 						VentanaAltaDoc.isbn = isbn;
 						VentanaAltaDoc ventana = new VentanaAltaDoc();
 						ventana.setVisible(true);
 						dispose();
+					} else {
+						if (docDB.comprobarFechaBaja(isbn)) {
+							JOptionPane.showMessageDialog(panelSecundario, "S'ha actualizat correctament.", "Activar", JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							JOptionPane.showMessageDialog(panelSecundario, "El document ja ha estat donat d'alta.", "Document", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				}//if else
 			}//actionPerformed

@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 public class VentanaAltaDoc extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblTitulo, lblAutor, lblTipo, lblReplicas, lblBiblioteca;
-	private JTextField textFieldTitulo, textFieldAutor, textField, txtBenicarlo;
+	private JTextField txtTitulo, txtAutor, txtReplicas, txtBenicarlo;
 	private JButton btnVolver, btnAceptar;
-	private JComboBox<Object> tipoBox;
+	private JComboBox<Object> cmbTipo;
 
 	private int replicas;
 	private String titulo, autor, tipo, biblioteca;
@@ -23,7 +23,7 @@ public class VentanaAltaDoc extends JFrame {
 	public static String grupo;
 
 	public VentanaAltaDoc() {
-		setTitle("Alta Document");
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaAltaDoc.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -81,12 +81,12 @@ public class VentanaAltaDoc extends JFrame {
 		lblTitulo.setBounds(36, 134, 60, 17);
 
 		// TITULO
-		textFieldTitulo = new JTextField();
-		textFieldTitulo.setForeground(new Color(255, 255, 255));
-		textFieldTitulo.setBackground(new Color(0, 128, 192));
-		textFieldTitulo.setFont(new Font("Dialog", Font.BOLD, 12));
-		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(106, 132, 173, 21);
+		txtTitulo = new JTextField();
+		txtTitulo.setForeground(new Color(255, 255, 255));
+		txtTitulo.setBackground(new Color(0, 128, 192));
+		txtTitulo.setFont(new Font("Dialog", Font.BOLD, 12));
+		txtTitulo.setColumns(10);
+		txtTitulo.setBounds(106, 132, 173, 21);
 
 		lblAutor = new JLabel("Autor");
 		lblAutor.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -94,25 +94,24 @@ public class VentanaAltaDoc extends JFrame {
 		lblAutor.setBounds(148, 82, 60, 17);
 
 		// AUTOR
-		textFieldAutor = new JTextField();
-		textFieldAutor.setForeground(new Color(255, 255, 255));
-		textFieldAutor.setBackground(new Color(0, 128, 192));
-		textFieldAutor.setFont(new Font("Dialog", Font.BOLD, 12));
-		textFieldAutor.setColumns(10);
-		textFieldAutor.setBounds(216, 80, 192, 21);
+		txtAutor = new JTextField();
+		txtAutor.setForeground(new Color(255, 255, 255));
+		txtAutor.setBackground(new Color(0, 128, 192));
+		txtAutor.setFont(new Font("Dialog", Font.BOLD, 12));
+		txtAutor.setColumns(10);
+		txtAutor.setBounds(216, 80, 192, 21);
 
 		lblTipo = new JLabel("Tipus");
 		lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTipo.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblTipo.setBounds(294, 134, 60, 17);
 
-		tipoBox = new JComboBox<Object>();
-		tipoBox.setFont(new Font("Dialog", Font.BOLD, 12));
-		tipoBox.setForeground(new Color(255, 255, 255));
-		tipoBox.setBackground(new Color(0, 128, 192));
-		tipoBox.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pel·lícula", "Documental", "Música" }));
-		tipoBox.setBounds(364, 127, 192, 26);
+		cmbTipo = new JComboBox<Object>();
+		cmbTipo.setFont(new Font("Dialog", Font.BOLD, 12));
+		cmbTipo.setForeground(new Color(255, 255, 255));
+		cmbTipo.setBackground(new Color(0, 128, 192));
+		cmbTipo.setModel(new DefaultComboBoxModel<Object>(new String[] { "Llibre", "Pel·lícula", "Documental", "Música" }));
+		cmbTipo.setBounds(364, 127, 192, 26);
 
 		lblReplicas = new JLabel("Repliques");
 		lblReplicas.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -120,12 +119,12 @@ public class VentanaAltaDoc extends JFrame {
 		lblReplicas.setBounds(22, 183, 71, 17);
 
 		// replicas
-		textField = new JTextField();
-		textField.setForeground(new Color(255, 255, 255));
-		textField.setBackground(new Color(0, 128, 192));
-		textField.setFont(new Font("Dialog", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(106, 181, 173, 21);
+		txtReplicas = new JTextField();
+		txtReplicas.setForeground(new Color(255, 255, 255));
+		txtReplicas.setBackground(new Color(0, 128, 192));
+		txtReplicas.setFont(new Font("Dialog", Font.BOLD, 12));
+		txtReplicas.setColumns(10);
+		txtReplicas.setBounds(106, 181, 173, 21);
 
 		lblBiblioteca = new JLabel("Biblio");
 		lblBiblioteca.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -160,13 +159,13 @@ public class VentanaAltaDoc extends JFrame {
 
 		panelSecundario.add(lblTituloDatos);
 		panelSecundario.add(lblTitulo);
-		panelSecundario.add(textFieldTitulo);
+		panelSecundario.add(txtTitulo);
 		panelSecundario.add(lblAutor);
-		panelSecundario.add(textFieldAutor);
+		panelSecundario.add(txtAutor);
 		panelSecundario.add(lblTipo);
-		panelSecundario.add(tipoBox);
+		panelSecundario.add(cmbTipo);
 		panelSecundario.add(lblReplicas);
-		panelSecundario.add(textField);
+		panelSecundario.add(txtReplicas);
 		panelSecundario.add(lblBiblioteca);
 		panelSecundario.add(txtBenicarlo);
 		panelSecundario.add(btnVolver);
@@ -191,15 +190,18 @@ public class VentanaAltaDoc extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			// función para crear objeto Documento y llamada a función inserar
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldTitulo.getText().isEmpty() | textFieldAutor.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error",
-							JOptionPane.ERROR_MESSAGE);
+				if (txtTitulo.getText().isEmpty() | txtAutor.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
-					titulo = textFieldTitulo.getText();
-					autor = textFieldAutor.getText();
-					tipo = tipoBox.getSelectedItem().toString();
-					replicas = Integer.parseInt(textField.getText());
+					titulo = txtTitulo.getText();
+					autor = txtAutor.getText();
+					tipo = (String) cmbTipo.getSelectedItem();
+					replicas = Integer.parseInt(txtReplicas.getText());
 					biblioteca = txtBenicarlo.getText().toString();
+					
+					if (txtReplicas.getText().isEmpty()) {
+						replicas = 1;
+					}
 
 					Documento doc = new Documento(isbn, tipo, titulo, autor, replicas, biblioteca);
 

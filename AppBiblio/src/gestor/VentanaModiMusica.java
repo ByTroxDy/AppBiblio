@@ -13,13 +13,15 @@ import java.util.Date;
 
 import com.toedter.calendar.JDateChooser;
 
+import admin.MenuAdmin;
+
 @SuppressWarnings("serial")
 public class VentanaModiMusica extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblLugar, lblFecha, lblDuracion, lblFormat;
-	private JTextField textFieldLloc, textFieldDuracio;
+	private JTextField txtLugar, txtDuracion;
 	private JButton btnVolver, btnAceptar;
-	private JComboBox<Object> formatBox;
+	private JComboBox<Object> cmbFormato;
 	private JDateChooser dateChooser;
 
 	private String lugar, formato;
@@ -27,8 +29,10 @@ public class VentanaModiMusica extends JFrame {
 	private int duracion;
 	
 	static Documento documento;
+	public static String grupo;
 	
 	public VentanaModiMusica() {
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiMusica.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -80,12 +84,12 @@ public class VentanaModiMusica extends JFrame {
 		lblLugar.setBounds(83, 102, 79, 17);
 
 		//Lugar
-		textFieldLloc = new JTextField();
-		textFieldLloc.setBackground(new Color(0, 128, 192));
-		textFieldLloc.setForeground(new Color(238, 238, 236));
-		textFieldLloc.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldLloc.setBounds(165, 102, 119, 20);
-		textFieldLloc.setColumns(10);
+		txtLugar = new JTextField();
+		txtLugar.setBackground(new Color(0, 128, 192));
+		txtLugar.setForeground(new Color(238, 238, 236));
+		txtLugar.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtLugar.setBounds(165, 102, 119, 20);
+		txtLugar.setColumns(10);
 		
 		lblFecha = new JLabel("Data");
 		lblFecha.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -101,24 +105,24 @@ public class VentanaModiMusica extends JFrame {
 		lblDuracion.setBounds(83, 150, 79, 17);
 		
 		//Duracion
-		textFieldDuracio = new JTextField();
-		textFieldDuracio.setBackground(new Color(0, 128, 192));
-		textFieldDuracio.setForeground(new Color(238, 238, 236));
-		textFieldDuracio.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldDuracio.setColumns(10);
-		textFieldDuracio.setBounds(165, 147, 119, 20);
+		txtDuracion = new JTextField();
+		txtDuracion.setBackground(new Color(0, 128, 192));
+		txtDuracion.setForeground(new Color(238, 238, 236));
+		txtDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtDuracion.setColumns(10);
+		txtDuracion.setBounds(165, 147, 119, 20);
 		
 		lblFormat = new JLabel("Format");
 		lblFormat.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblFormat.setBounds(310, 100, 79, 17);
 		
 		//Formato
-		formatBox = new JComboBox<Object>();
-		formatBox.setBackground(new Color(0, 128, 192));
-		formatBox.setForeground(new Color(238, 238, 236));
-		formatBox.setFont(new Font("Dialog", Font.BOLD, 14));
-		formatBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físic"}));
-		formatBox.setBounds(389, 100, 119, 22);
+		cmbFormato = new JComboBox<Object>();
+		cmbFormato.setBackground(new Color(0, 128, 192));
+		cmbFormato.setForeground(new Color(238, 238, 236));
+		cmbFormato.setFont(new Font("Dialog", Font.BOLD, 14));
+		cmbFormato.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físic"}));
+		cmbFormato.setBounds(389, 100, 119, 22);
 		
 		//Volver
 		btnVolver = new JButton("Tornar");
@@ -140,13 +144,13 @@ public class VentanaModiMusica extends JFrame {
 		
 		panelSecundario.add(lblTituloDatos);
 		panelSecundario.add(lblLugar);
-		panelSecundario.add(textFieldLloc);
+		panelSecundario.add(txtLugar);
 		panelSecundario.add(lblFecha);
         panelSecundario.add(dateChooser);
 		panelSecundario.add(lblDuracion);
-		panelSecundario.add(textFieldDuracio);
+		panelSecundario.add(txtDuracion);
 		panelSecundario.add(lblFormat);
-		panelSecundario.add(formatBox);
+		panelSecundario.add(cmbFormato);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
@@ -163,13 +167,13 @@ public class VentanaModiMusica extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldLloc.getText().isEmpty() | textFieldDuracio.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
+				if (txtLugar.getText().isEmpty() | txtDuracion.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
-					lugar = textFieldLloc.getText().toString();
+					lugar = txtLugar.getText();
 					fecha = dateChooser.getDate();
-					duracion = Integer.parseInt(textFieldDuracio.getText());
-					formato = formatBox.getSelectedItem().toString();
+					duracion = Integer.parseInt(txtDuracion.getText());
+					formato = (String) cmbFormato.getSelectedItem();
 
 					Musica musica = new Musica(documento.getISBN(), lugar, fecha, duracion, formato);
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
@@ -177,15 +181,19 @@ public class VentanaModiMusica extends JFrame {
 					try {
 						if (docDB.updateDocMus(documento, musica)) {
 							JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Música", JOptionPane.INFORMATION_MESSAGE);
-							MenuGestor menu = new MenuGestor();
-							menu.setVisible(true);
-							dispose();
+							if (grupo.equals("gestor")) {
+								MenuGestor menu = new MenuGestor();
+								menu.setVisible(true);
+							} else if (grupo.equals("admin")) {
+								MenuAdmin menu = new MenuAdmin();
+								menu.setVisible(true);
+							}
 						} else {
 							JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 						}//if else
-						textFieldLloc.setText("");
+						txtLugar.setText("");
 						dateChooser.setDate(null);
-						textFieldDuracio.setText("");
+						txtDuracion.setText("");
 			        } catch (NullPointerException ex) {
 			        	JOptionPane.showMessageDialog(panelSecundario, "La data no té sentit.", "Data incorrecta", JOptionPane.ERROR_MESSAGE);
 			        	dateChooser.setDate(null);

@@ -6,8 +6,13 @@ import gestor.MenuGestor;
 import gestor.VentanaActivarDoc;
 import gestor.VentanaAltaDoc;
 import gestor.VentanaModiDoc;
+import gestor.VentanaModiDocumental;
+import gestor.VentanaModiLibro;
+import gestor.VentanaModiMusica;
+import gestor.VentanaModiPelicula;
 import gestor.VentanaRespaldo;
 import admin.MenuAdmin;
+import admin.VentanaBajaUsuario;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -103,6 +108,8 @@ public class VentanaInicioSesion extends JFrame {
 					}
 
 					dispose();
+				} else {
+					JOptionPane.showMessageDialog(mainPanel, "L'usuari o la contrasenya són incorrectes.", "Iniciar sessió", JOptionPane.WARNING_MESSAGE);
 				}
 
 				// Limpiar los campos de texto después de intentar iniciar sesión
@@ -139,10 +146,15 @@ public class VentanaInicioSesion extends JFrame {
 		VentanaCambiarNombreUsuario.usuarioActual = usuario;
 		VentanaCambiarPassword.usuario = usuario;
 		VentanaCambiarEmail.usuario = usuario;
+		VentanaBajaUsuario.usuarioActual = usuario;
 		VentanaConsultarDocumento.grupo = grupo;
 		VentanaActivarDoc.grupo = grupo;
 		VentanaAltaDoc.grupo = grupo;
 		VentanaModiDoc.grupo = grupo;
 		VentanaRespaldo.grupo = grupo;
+		VentanaModiDocumental.grupo = grupo;
+		VentanaModiLibro.grupo = grupo;
+		VentanaModiMusica.grupo = grupo;
+		VentanaModiPelicula.grupo = grupo;
 	}
 }

@@ -12,15 +12,16 @@ public class VentanaModiContra extends JFrame {
 
 	private JPanel panel;
 	private JTextField txtUsuario;
-	private JPasswordField txtContra, txtNewContra;
+	private JPasswordField txtNewContra;
 	private JButton btnEixir, btnModificar;
 	private final Action actionEixir = new Eixir();
 	private final Action actionModificar = new Modificar();
 	
-	private String usuario, nou, antic;
+	private String usuario, nou;
 
 	public VentanaModiContra() {
 		setResizable(false);
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiContra.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -38,24 +39,17 @@ public class VentanaModiContra extends JFrame {
 		
 		JLabel lblUsuario = new JLabel("Usuari");
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsuario.setBounds(47, 86, 130, 18);
+		lblUsuario.setBounds(45, 95, 130, 18);
 		
 		txtUsuario = new JTextField(10);
-		txtUsuario.setBounds(187, 82, 130, 26);
-		
-		JLabel lblContra = new JLabel("Contrasenya");
-		lblContra.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblContra.setBounds(47, 114, 130, 18);
-
-		txtContra = new JPasswordField();
-		txtContra.setBounds(187, 110, 130, 26);
+		txtUsuario.setBounds(185, 91, 130, 26);
 		
 		JLabel lblNewContra = new JLabel("Nova contrasenya");
 		lblNewContra.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewContra.setBounds(47, 145, 130, 18);
+		lblNewContra.setBounds(45, 128, 130, 18);
 
 		txtNewContra = new JPasswordField();
-		txtNewContra.setBounds(187, 141, 130, 27);
+		txtNewContra.setBounds(185, 124, 130, 27);
 		
 		btnModificar = new JButton();
 		btnModificar.setAction(actionModificar);
@@ -68,8 +62,6 @@ public class VentanaModiContra extends JFrame {
 		panel.add(lblTitulo);
 		panel.add(lblUsuario);
 		panel.add(txtUsuario);
-		panel.add(lblContra);
-		panel.add(txtContra);
 		panel.add(lblNewContra);
 		panel.add(txtNewContra);
 		panel.add(btnModificar);
@@ -95,23 +87,19 @@ public class VentanaModiContra extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			usuario = txtUsuario.getText();
-			antic = new String(txtContra.getPassword());
 			nou = new String(txtNewContra.getPassword());
 			UsuarioMaxDB usuDB = new UsuarioMaxDB();
-			if (usuDB.nombreUsuarioEnUso(usuario) && usuDB.iniciarSesion(usuario, antic)) {
+			if (usuDB.nombreUsuarioEnUso(usuario)) {
 				usuDB.cambiarContrasena(usuario, nou);
             	JOptionPane.showMessageDialog(panel, "S'ha canviat la contrasenya de l'usuari correctament.", "Modificació", JOptionPane.INFORMATION_MESSAGE);
-            	MenuAdmin admin1 = new MenuAdmin();
-				admin1.setVisible(true);
+            	MenuAdmin admin = new MenuAdmin();
+				admin.setVisible(true);
             	dispose();
-			} else if (usuDB.nombreUsuarioEnUso(usuario) && usuDB.iniciarSesion(usuario, antic) == false) {
-            	JOptionPane.showMessageDialog(panel, "Contrasenya incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
             	JOptionPane.showMessageDialog(panel, "Usuari no trobat.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			txtUsuario.setText("");
-			txtContra.setText("");
 			txtNewContra.setText("");
 		}
 	}//Modificar

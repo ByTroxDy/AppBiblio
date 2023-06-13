@@ -6,6 +6,9 @@ import app.Pelicula;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import admin.MenuAdmin;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,16 +16,18 @@ import java.awt.event.ActionListener;
 @SuppressWarnings("serial")
 public class VentanaModiPelicula extends JFrame {
 	private JPanel contentPane;
-	private JTextField textFieldDirector, textFieldActores, textFieldPremios, textFieldDureacion;
 	private JLabel lblAlta, lblImagen, lblTituloDatos, lblDirector, lblActores, lblPremios, lblDuracion, lblFormato;
+	private JTextField txtDirector, txtActores, txtPremios, txtDuracion;
 	private JButton btnVolver, btnAceptar;
-	private JComboBox<Object> formatoBox;
+	private JComboBox<Object> cmbFormato;
 	
 	private int duracion;
 	private String director, actoresPrincipales, premios, formato;
 	static Documento documento;
+	public static String grupo;
 
 	public VentanaModiPelicula() {
+		setTitle("Biblioteca App");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaModiPelicula.class.getResource("/img/icono32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -73,60 +78,60 @@ public class VentanaModiPelicula extends JFrame {
 		lblDirector.setBounds(65, 82, 79, 17);
 
 		//Director
-		textFieldDirector = new JTextField();
-		textFieldDirector.setBackground(new Color(0, 128, 192));
-		textFieldDirector.setForeground(new Color(238, 238, 236));
-		textFieldDirector.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldDirector.setBounds(141, 82, 129, 20);
-		textFieldDirector.setColumns(10);
+		txtDirector = new JTextField();
+		txtDirector.setBackground(new Color(0, 128, 192));
+		txtDirector.setForeground(new Color(238, 238, 236));
+		txtDirector.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtDirector.setBounds(141, 82, 129, 20);
+		txtDirector.setColumns(10);
 
 		lblActores = new JLabel("Actors");
 		lblActores.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblActores.setBounds(311, 82, 79, 17);
 		
 		//Actores
-		textFieldActores = new JTextField();
-		textFieldActores.setBackground(new Color(0, 128, 192));
-		textFieldActores.setForeground(new Color(238, 238, 236));
-		textFieldActores.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldActores.setColumns(10);
-		textFieldActores.setBounds(387, 82, 129, 20);
+		txtActores = new JTextField();
+		txtActores.setBackground(new Color(0, 128, 192));
+		txtActores.setForeground(new Color(238, 238, 236));
+		txtActores.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtActores.setColumns(10);
+		txtActores.setBounds(387, 82, 129, 20);
 
 		lblPremios = new JLabel("Premis");
 		lblPremios.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblPremios.setBounds(65, 131, 79, 17);
 		
 		//Premios
-		textFieldPremios = new JTextField();
-		textFieldPremios.setBackground(new Color(0, 128, 192));
-		textFieldPremios.setForeground(new Color(238, 238, 236));
-		textFieldPremios.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldPremios.setColumns(10);
-		textFieldPremios.setBounds(141, 131, 129, 20);
+		txtPremios = new JTextField();
+		txtPremios.setBackground(new Color(0, 128, 192));
+		txtPremios.setForeground(new Color(238, 238, 236));
+		txtPremios.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtPremios.setColumns(10);
+		txtPremios.setBounds(141, 131, 129, 20);
 
 		lblDuracion = new JLabel("Duració");
 		lblDuracion.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDuracion.setBounds(311, 128, 79, 17);
 		
 		//Duracion
-		textFieldDureacion = new JTextField();
-		textFieldDureacion.setBackground(new Color(0, 128, 192));
-		textFieldDureacion.setForeground(new Color(238, 238, 236));
-		textFieldDureacion.setFont(new Font("Dialog", Font.BOLD, 14));
-		textFieldDureacion.setColumns(10);
-		textFieldDureacion.setBounds(387, 128, 129, 20);
+		txtDuracion = new JTextField();
+		txtDuracion.setBackground(new Color(0, 128, 192));
+		txtDuracion.setForeground(new Color(238, 238, 236));
+		txtDuracion.setFont(new Font("Dialog", Font.BOLD, 14));
+		txtDuracion.setColumns(10);
+		txtDuracion.setBounds(387, 128, 129, 20);
 
 		lblFormato = new JLabel("Format");
 		lblFormato.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblFormato.setBounds(182, 185, 79, 17);
 		
 		//Formato
-		formatoBox = new JComboBox<Object>();
-		formatoBox.setBackground(new Color(0, 128, 192));
-		formatoBox.setForeground(new Color(238, 238, 236));
-		formatoBox.setFont(new Font("Dialog", Font.BOLD, 14));
-		formatoBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físic"}));
-		formatoBox.setBounds(255, 183, 129, 22);
+		cmbFormato = new JComboBox<Object>();
+		cmbFormato.setBackground(new Color(0, 128, 192));
+		cmbFormato.setForeground(new Color(238, 238, 236));
+		cmbFormato.setFont(new Font("Dialog", Font.BOLD, 14));
+		cmbFormato.setModel(new DefaultComboBoxModel<Object>(new String[] {"Digital", "Físic"}));
+		cmbFormato.setBounds(255, 183, 129, 22);
 		
 		//Volver
 		btnVolver = new JButton("Tornar");
@@ -148,15 +153,15 @@ public class VentanaModiPelicula extends JFrame {
 		
 		panelSecundario.add(lblTituloDatos);
 		panelSecundario.add(lblDirector);
-		panelSecundario.add(textFieldDirector);
+		panelSecundario.add(txtDirector);
 		panelSecundario.add(lblActores);
-		panelSecundario.add(textFieldActores);
+		panelSecundario.add(txtActores);
 		panelSecundario.add(lblPremios);
-		panelSecundario.add(textFieldPremios);
+		panelSecundario.add(txtPremios);
 		panelSecundario.add(lblDuracion);
-		panelSecundario.add(textFieldDureacion);
+		panelSecundario.add(txtDuracion);
 		panelSecundario.add(lblFormato);
-		panelSecundario.add(formatoBox);
+		panelSecundario.add(cmbFormato);
 		panelSecundario.add(btnVolver);
 		panelSecundario.add(btnAceptar);
 		contentPane.add(panelSecundario);
@@ -173,24 +178,27 @@ public class VentanaModiPelicula extends JFrame {
 		
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textFieldDirector.getText().isEmpty() | textFieldActores.getText().isEmpty() | textFieldPremios.getText().isEmpty()
-						| textFieldPremios.getText().isEmpty() | textFieldDureacion.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Error", JOptionPane.ERROR_MESSAGE);
+				if (txtDirector.getText().isEmpty() | txtActores.getText().isEmpty() | txtPremios.getText().isEmpty() | txtDuracion.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(panelSecundario, "Si us plau, introdueix tots els camps.", "Alerta", JOptionPane.WARNING_MESSAGE);
 				} else {
-					director = textFieldDirector.getText().toString();
-					actoresPrincipales = textFieldActores.getText().toString();
-					premios = textFieldPremios.getText().toString();
-					duracion = Integer.parseInt(textFieldDureacion.getText());
-					formato = formatoBox.getSelectedItem().toString();
+					director = txtDirector.getText();
+					actoresPrincipales = txtActores.getText();
+					premios = txtPremios.getText();
+					duracion = Integer.parseInt(txtDuracion.getText());
+					formato = (String) cmbFormato.getSelectedItem();
 					
 					Pelicula pelicula = new Pelicula(documento.getISBN(), director, actoresPrincipales, premios, duracion, formato);
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					
 					if (docDB.updateDocPel(documento, pelicula)) {
 						JOptionPane.showMessageDialog(panelSecundario, "Actualització exitosa.", "Pel·lícula", JOptionPane.INFORMATION_MESSAGE);
-						MenuGestor menu = new MenuGestor();
-						menu.setVisible(true);
-						dispose();
+						if (grupo.equals("gestor")) {
+							MenuGestor menu = new MenuGestor();
+							menu.setVisible(true);
+						} else if (grupo.equals("admin")) {
+							MenuAdmin menu = new MenuAdmin();
+							menu.setVisible(true);
+						}
 					} else {
 						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}// if else
