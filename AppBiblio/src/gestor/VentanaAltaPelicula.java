@@ -6,6 +6,9 @@ import app.Pelicula;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import admin.MenuAdmin;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +24,7 @@ public class VentanaAltaPelicula extends JFrame {
 	private String director, actoresPrincipales, premios, formato;
 	private int duracion;
 	static Documento documento;
+	public static String grupo;
 	
 	public VentanaAltaPelicula() {
 		setTitle("Biblioteca App");
@@ -189,9 +193,13 @@ public class VentanaAltaPelicula extends JFrame {
 					DocumentoMaxDB docDB = new DocumentoMaxDB();
 					if (docDB.insertDocPel(documento, pelicula)) {
 						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Pel·lícula", JOptionPane.INFORMATION_MESSAGE);
-						MenuGestor menu = new MenuGestor();
-						menu.setVisible(true);
-						dispose();
+						if (grupo.equals("gestor")) {
+							MenuGestor menu = new MenuGestor();
+							menu.setVisible(true);
+						} else if (grupo.equals("admin")) {
+							MenuAdmin menu = new MenuAdmin();
+							menu.setVisible(true);
+						}
 					} else {
 						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}//if else

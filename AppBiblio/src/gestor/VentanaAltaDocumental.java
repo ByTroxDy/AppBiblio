@@ -6,6 +6,9 @@ import app.Documento;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import admin.MenuAdmin;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +24,7 @@ public class VentanaAltaDocumental extends JFrame {
 	private String productora, premios, documentalesRealcionados, formato;
 	private int duracion;
 	static Documento documento;
+	public static String grupo;
 
 	public VentanaAltaDocumental() {
 		setTitle("Biblioteca App");
@@ -191,9 +195,13 @@ public class VentanaAltaDocumental extends JFrame {
 					
 					if (docDB.insertDocDocl(documento, documental)) {
 						JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Documental", JOptionPane.INFORMATION_MESSAGE);
-						MenuGestor menu = new MenuGestor();
-						menu.setVisible(true);
-						dispose();
+						if (grupo.equals("gestor")) {
+							MenuGestor menu = new MenuGestor();
+							menu.setVisible(true);
+						} else if (grupo.equals("admin")) {
+							MenuAdmin menu = new MenuAdmin();
+							menu.setVisible(true);
+						}
 					} else {
 						JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 					}//if else

@@ -13,6 +13,8 @@ import java.util.Date;
 
 import com.toedter.calendar.JDateChooser;
 
+import admin.MenuAdmin;
+
 @SuppressWarnings("serial")
 public class VentanaAltaMusica extends JFrame {
 	private JPanel contentPane;
@@ -26,6 +28,7 @@ public class VentanaAltaMusica extends JFrame {
 	private Date fecha;
 	private int duracion;
 	static Documento documento;
+	public static String grupo;
 
 	public VentanaAltaMusica() {
 		setTitle("Biblioteca App");
@@ -177,9 +180,13 @@ public class VentanaAltaMusica extends JFrame {
 					try {
 						if (docDB.insertDocMus(documento, musica)) {
 							JOptionPane.showMessageDialog(panelSecundario, "Registre exitós.", "Música", JOptionPane.INFORMATION_MESSAGE);
-							MenuGestor menu = new MenuGestor();
-							menu.setVisible(true);
-							dispose();
+							if (grupo.equals("gestor")) {
+								MenuGestor menu = new MenuGestor();
+								menu.setVisible(true);
+							} else if (grupo.equals("admin")) {
+								MenuAdmin menu = new MenuAdmin();
+								menu.setVisible(true);
+							}
 						} else {
 							JOptionPane.showMessageDialog(panelSecundario, "Hi ha hagut un error en introduir les dades a la base de dades.", "Error", JOptionPane.ERROR_MESSAGE);
 						}//if else

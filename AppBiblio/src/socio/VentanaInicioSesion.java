@@ -5,6 +5,10 @@ import a.Inicio;
 import gestor.MenuGestor;
 import gestor.VentanaActivarDoc;
 import gestor.VentanaAltaDoc;
+import gestor.VentanaAltaDocumental;
+import gestor.VentanaAltaLibro;
+import gestor.VentanaAltaMusica;
+import gestor.VentanaAltaPelicula;
 import gestor.VentanaModiDoc;
 import gestor.VentanaModiDocumental;
 import gestor.VentanaModiLibro;
@@ -156,5 +160,9 @@ public class VentanaInicioSesion extends JFrame {
 		VentanaModiLibro.grupo = grupo;
 		VentanaModiMusica.grupo = grupo;
 		VentanaModiPelicula.grupo = grupo;
+		VentanaAltaDocumental.grupo = grupo;
+		VentanaAltaLibro.grupo = grupo;
+		VentanaAltaMusica.grupo = grupo;
+		VentanaAltaPelicula.grupo = grupo;
 	}
 }
