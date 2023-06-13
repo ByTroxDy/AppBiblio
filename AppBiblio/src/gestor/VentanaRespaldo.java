@@ -169,7 +169,7 @@ public class VentanaRespaldo extends JFrame {
 		int leido;
 		
 		try {
-			process = Runtime.getRuntime().exec("mysqldump -h 192.168.50.112 -u phpmyadmin -pphpmyadmin app_biblioteca");
+			process = Runtime.getRuntime().exec("mysqldump -h 10.2.18.222 -u phpmyadmin -pphpmyadmin app_biblioteca");
 			is = process.getInputStream();
 			fos = new FileOutputStream(backupName + ".sql");
 			leido = is.read(buffer);
@@ -196,7 +196,7 @@ public class VentanaRespaldo extends JFrame {
 		int leido;
 		
 		try {
-			process = Runtime.getRuntime().exec("mysql -h 192.168.50.112 -u phpmyadmin -pphpmyadmin test");
+			process = Runtime.getRuntime().exec("mysql -h 10.2.18.222 -u phpmyadmin -pphpmyadmin app_biblioteca");
 			os = process.getOutputStream();
 			fis = new FileInputStream(backupName);
 			leido = fis.read(buffer);
